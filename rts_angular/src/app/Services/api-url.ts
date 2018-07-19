@@ -13,5 +13,8 @@ export class ApiUrl {
     static AddUser = 'rtsUser/user/addUser';
     static GetAllRequiementsForUser = 'rtsRequirement/requirement/getAllAllocationRequirementForUser';
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
+    static UpdateSubmission = 'rtsSubmission/submission/updateSubmission';
     static FileUpload = 'rtsSubmission/submission/fileUpload';
+    static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';
+    static AddClient = 'rtsClient/client/addClient';
 }

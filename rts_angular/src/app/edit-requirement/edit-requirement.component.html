@@ -5,7 +5,8 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="createdDate" class="col-sm-2 col-form-label">Created Date:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="createdDate" formControlName="createdDate" value="{{requirementCreatedDate}}">
+        <input type="text" class="form-control" name="createdDate" formControlName="createdDate" value="{{requirementCreatedDate}}"
+          readonly>
       </div>
     </div>
 
@@ -19,7 +20,11 @@
     <div class="form-group row" *ngIf="selectedRequirement.client">
       <label for="clientName" class="col-sm-2 col-form-label">Client Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="clientName" formControlName="clientName" value="{{selectedRequirement.client.name}}">
+        <select name="clientName" class="form-control" formControlName="clientName" ngModel="{{selectedRequirement.client.clientId}}"
+          required>
+          <option value="">Select</option>
+          <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+        </select>
       </div>
     </div>
 

@@ -2,7 +2,6 @@
 
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "~ngx-toastr/toastr.css";
- 
 .navigation-wrapper {
   width: 250px;
   order: 1;
@@ -53,6 +52,11 @@
 
 .container {
   padding: 1em;
+}
+
+.message {
+  margin-top: 1em;
+  font-size: 20px;
 }
 
 .form-control {
