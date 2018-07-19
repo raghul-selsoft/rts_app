@@ -2,7 +2,7 @@
   padding-left: 4em;
   padding-top: 1em;
   padding-bottom: .5em;
-  color: rgb(102, 86, 86)
+  color: rgb(92, 80, 80)
 }
 
 .nav-taps {
@@ -17,7 +17,4 @@
 .nav-item-logout {
   text-align: right;
 }
-/* .nav-link.focus {
-  background-color: #751212;
-  color: rgb(151, 19, 134);
-} */
+

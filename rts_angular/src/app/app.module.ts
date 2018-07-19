@@ -34,6 +34,10 @@ import { SubmissionService } from './Services/submission.service';
 import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
 import { RecruiterAddNewSubmissionsComponent } from './recruiter-add-new-submissions/recruiter-add-new-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
+import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.component';
+import { ClientService } from './Services/client.service';
+import { ManageClientComponent } from './manage-client/manage-client.component';
+import { AddClientComponent } from './add-client/add-client.component';
 
 
 @NgModule({
@@ -51,8 +55,11 @@ import { SubmissionByRequirementComponent } from './submission-by-requirement/su
     AddUserComponent,
     RecruiterSubmissionsComponent,
     RecruiterAddNewSubmissionsComponent,
-    SubmissionByRequirementComponent
-  ],
+    SubmissionByRequirementComponent,
+    EditSubmissionsComponent,
+    ManageClientComponent,
+    AddClientComponent,
+     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -79,6 +86,7 @@ import { SubmissionByRequirementComponent } from './submission-by-requirement/su
     HideComponentService,
     RequirementsService,
     UserService,
+    ClientService,
     SubmissionService,
     ToastrService,
     DatePipe],

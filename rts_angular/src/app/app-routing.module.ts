@@ -14,6 +14,9 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
 import { RecruiterAddNewSubmissionsComponent } from './recruiter-add-new-submissions/recruiter-add-new-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
+import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.component';
+import { ManageClientComponent } from './manage-client/manage-client.component';
+import { AddClientComponent } from './add-client/add-client.component';
 
 
 
@@ -31,7 +34,11 @@ const appRoutes: Routes = [
   { path: 'add-user', component: AddUserComponent },
   { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },
   { path: 'recruiter-add-new-submissions', component: RecruiterAddNewSubmissionsComponent },
-  { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent }
+  { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
+  { path: 'edit-submissions/:id', component: EditSubmissionsComponent },
+  { path: 'manage-client', component: ManageClientComponent },
+  { path: 'add-client', component: AddClientComponent },
+
 ];
 
 

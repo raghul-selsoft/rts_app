@@ -19,7 +19,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let submission of sub.submissions">
+          <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
             <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
             <td>{{submission.candidateName}}</td>
             <td>{{submission.technology}}</td>
@@ -32,7 +32,7 @@
     </div>
   </div>
   <ng-template #noSummissions>
-    <p class="header">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
   </ng-template>
 
 </div>

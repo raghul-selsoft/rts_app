@@ -5,6 +5,7 @@ import { RequirementsService } from '../Services/requirements.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../Services/user.service';
+import { ClientService } from '../Services/client.service';
 
 @Component({
   selector: 'app-add-new-requirement',
@@ -20,6 +21,9 @@ export class AddNewRequirementComponent implements OnInit {
   requirementType: any;
   userDetails: any;
   newRequirement: any;
+  requirementByUser: any;
+  rtsCompanyId: any;
+  clients: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -27,10 +31,13 @@ export class AddNewRequirementComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private clientService: ClientService
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
+    this.requirementByUser = [];
     this.requirementType = [
       { 'name': 'C2C', 'value': 'c2c' },
       { 'name': 'FTE', 'value': 'fte' },
@@ -50,13 +57,27 @@ export class AddNewRequirementComponent implements OnInit {
       requirementType: ['', Validators.required],
       positionsCount: [''],
       immigrationRequirement: [''],
-      clientContactName: [''],
-      clientContactEmail: ['', Validators.required],
       allocation: [''],
       team: [''],
       comments: [''],
     });
     this.getAllUsers();
+    this.getAllClients();
+  }
+
+  getAllClients() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.clientService.allClients(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clients = data.clients;
+          }
+        });
+
   }
 
   getAllUsers() {
@@ -77,9 +98,16 @@ export class AddNewRequirementComponent implements OnInit {
 
   getCheckedValue(event) {
     console.log(event);
+    if (event !== undefined) {
+      if (this.requirementByUser.indexOf(event) === -1) {
+        this.requirementByUser.push(event);
+      }
+    }
+    console.log(this.requirementByUser);
   }
 
   addNewRequirement(form: FormGroup) {
+    console.log(form.value.requirementType);
 
     if (form.value.allocation === '') {
       const requirement = {
@@ -92,7 +120,7 @@ export class AddNewRequirementComponent implements OnInit {
         positionCount: form.value.positionsCount,
         status: form.value.status,
         enteredBy: this.rtsUserId,
-        clientId: '5b46e70de64b5403100e25fd'
+        clientId: form.value.clientName
       };
       this.newRequirement = requirement;
     } else {
@@ -106,7 +134,7 @@ export class AddNewRequirementComponent implements OnInit {
         positionCount: form.value.positionsCount,
         status: form.value.status,
         enteredBy: this.rtsUserId,
-        clientId: '5b46e70de64b5403100e25fd',
+        clientId: form.value.clientName,
         allocationUserId: form.value.allocation
       };
       this.newRequirement = requirement;

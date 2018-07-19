@@ -1,0 +1,31 @@
+<div class="utility-container">
+  <button class="btn btn-default" [routerLink]="['/add-client']">Add New Client</button>
+  <div class="search-container">
+    <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
+  </div>
+  <table class="table table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>Client Name</th>
+        <th>Contact Person Name</th>
+        <th>Contact Person Email</th>
+        <th>Contact Person Number</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="clientsLength > 0 ; else noClients">
+      <tr *ngFor="let client of clients | filter:searchString">
+        <td>{{client.name}}</td>
+        <td>{{client.contactPersonName}}</td>
+        <td>{{client.contactPersonEmail}}</td>
+        <td>{{client.contactPersonNumber}}</td>
+      </tr>
+    </tbody>
+    <ng-template #noClients>
+      <tbody>
+        <tr>
+          <td>No Client yet, Please click Add Client to add a new client.</td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

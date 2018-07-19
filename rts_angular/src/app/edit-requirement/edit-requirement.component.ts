@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
+import { ClientService } from '../Services/client.service';
 
 @Component({
   selector: 'app-edit-requirement',
@@ -23,6 +24,7 @@ export class EditRequirementComponent implements OnInit {
   requirementCreatedDate: any;
   userDetails: any;
   rtsCompanyId: any;
+  clients: any;
 
   public myForm: FormGroup;
 
@@ -30,6 +32,7 @@ export class EditRequirementComponent implements OnInit {
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
+    private clientService: ClientService,
     private formBuilder: FormBuilder
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -65,6 +68,7 @@ export class EditRequirementComponent implements OnInit {
     });
     this.getAllRequirements();
     this.getAllUsers();
+    this.getAllClients();
   }
 
   getAllRequirements() {
@@ -95,9 +99,23 @@ export class EditRequirementComponent implements OnInit {
     this.userService.allUsers(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.userDetails = data.users;
+          }
+        });
+
+  }
+
+  getAllClients() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.clientService.allClients(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clients = data.clients;
           }
         });
 

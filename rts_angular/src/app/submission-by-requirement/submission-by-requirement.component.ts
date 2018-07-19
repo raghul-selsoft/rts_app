@@ -45,13 +45,11 @@ export class SubmissionByRequirementComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             console.log(this.selectedRequirement);
             this.submissionsLength = this.selectedRequirement.submissions.length;
-            console.log(this.submissionsLength);
           }
         });
   }

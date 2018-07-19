@@ -27,6 +27,21 @@ export class SubmissionService {
             });
     }
 
+    editSubmission(editSubmission) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.UpdateSubmission, editSubmission,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            });
+    }
+
     uploadFile(upload) {
         const formData = new FormData();
         const headers = new Headers();
