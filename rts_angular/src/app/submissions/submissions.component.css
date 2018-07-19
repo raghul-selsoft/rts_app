@@ -15,3 +15,8 @@
 .title {
   margin-top: 1em;
 }
+
+.allocation-name {
+  font-size: 15px;
+  text-align: right;
+}
