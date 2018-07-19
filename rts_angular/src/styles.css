@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "~ngx-toastr/toastr.css";
+ 
+.navigation-wrapper {
+  width: 250px;
+  order: 1;
+  margin-bottom: -9999px;
+  padding-bottom: 9999px;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  font-weight: 400px;
+  color: rgb(43, 43, 51);
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: .5em;
+}
+
+.header-wrapper {
+  background-color: rgb(231, 209, 209);
+  height: 120px;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+}
+
+.btn-default {
+  background-color: #4d4d4d;
+  color: #e1e1e1;
+}
+
+.body {
+  background-color: #F1F1F1 !important;
+  margin: 0px;
+  padding: 0px;
+  min-height: 100%;
+  height: 100%;
+}
+
+.container {
+  padding: 1em;
+}
+
+.form-control {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c7c7c7;
+  padding: .4em;
+  font-size: 1em;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+}
+
+.form-container {
+  margin: 5em 0 5em 0;
+  background: white;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  position: relative;
+  padding: 1em;
+}
+
+.form-btn-container {
+  text-align: center;
+  padding-top: 2em;
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 450;
+  font-size: 1.2em;
+}
+
+.utility-container {
+  margin: 2em 2em 2em 2em;
+  background: white;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  position: relative;
+  padding: 1em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}

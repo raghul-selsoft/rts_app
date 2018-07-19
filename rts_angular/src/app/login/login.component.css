@@ -1,0 +1,24 @@
+.login-container {
+  margin-top: 8em;
+  margin-left: 22em;
+  margin-right: 22em;
+  margin-bottom: 8em;
+  background: white;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  position: relative;
+  padding: 1em;
+}
+
+.register {
+    padding-top: 1em;
+    padding-left: 12em;
+    padding-right: 10em;
+}
+::ng-deep snack-bar-container.snackbar {
+  background: rgb(236, 97, 97);
+}
+::ng-deep .snackbar .mat-simple-snackbar {
+  color: white;
+}
