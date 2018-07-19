@@ -7,6 +7,9 @@
   <div *ngIf="submissionsLength > 0 ; else noSummissions">
     <div *ngFor="let sub of submissionDetails">
       <p class="title">{{sub.positionName}} ({{sub.client.name}})</p>
+      <div *ngIf="sub.allocationUser !== undefined">
+        <p><b>Allocated to: {{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</b></p>
+      </div>
       <table class="table table-hover">
         <thead class="table-header">
           <tr>
