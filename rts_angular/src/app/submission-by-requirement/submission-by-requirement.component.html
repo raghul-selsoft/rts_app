@@ -1,0 +1,36 @@
+<div class="utility-container">
+  <button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>
+  <!-- <div class="search-container">
+    <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
+  </div> -->
+
+  <div *ngIf="submissionsLength > 0 ; else noSummissions">
+    <p class="title">{{selectedRequirement.positionName}} ({{selectedRequirement.client.name}})</p>
+    <table class="table table-hover">
+      <thead class="table-header">
+        <tr>
+          <th>Submission Date:</th>
+          <th>Candidate Name</th>
+          <th>Technology</th>
+          <th>Availability</th>
+          <th>Rate</th>
+          <th>Work Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of selectedRequirement.submissions">
+          <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.technology}}</td>
+          <td>{{submission.availability}}</td>
+          <td>{{submission.rate}}</td>
+          <td>{{submission.workLocation}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noSummissions>
+    <p class="header">No Submissions yet, Please click Add Submission to add a new submission.</p>
+  </ng-template>
+
+</div>

@@ -1,0 +1,23 @@
+.heading {
+  padding-left: 4em;
+  padding-top: 1em;
+  padding-bottom: .5em;
+  color: rgb(102, 86, 86)
+}
+
+.nav-taps {
+  background-color: #3a3535;
+  color: #fff;
+}
+
+.nav-link {
+  color: rgb(229, 238, 247);
+}
+
+.nav-item-logout {
+  text-align: right;
+}
+/* .nav-link.focus {
+  background-color: #751212;
+  color: rgb(151, 19, 134);
+} */
