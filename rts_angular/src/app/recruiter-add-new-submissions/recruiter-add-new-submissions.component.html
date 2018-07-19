@@ -1,0 +1,88 @@
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="addNewSubmission(myForm)">
+    <legend class="header">Add New Submission</legend>
+
+    <div class="form-group row">
+      <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
+      <div class="col-sm-4">
+        <select name="requirements" class="form-control" formControlName="requirements" required>
+          <option value="">Select</option>
+          <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.positionName}} {{require.client.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="location" class="col-sm-2 col-form-label">Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="location" formControlName="location" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="rate" class="col-sm-2 col-form-label">Rate:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="rate" formControlName="rate" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="availability" formControlName="availability" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="technology" formControlName="technology" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="accountName" formControlName="accountName" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="workLocation" class="col-sm-2 col-form-label">Work Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="workLocation" formControlName="workLocation" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <label class="fileContainer">
+          <button class="btn btn-secondary">
+            Attach Files</button>
+          <input type="file" (change)="fileChangeEvent($event)" multiple/>
+        </label>
+      </div>
+      <div class="pb-2" *ngFor="let file of getFiles">
+        <a class="panel">{{file.name}}
+        </a>
+        <a class="btn" (click)="removeFile(file)">
+          <i class="material-icons">
+            clear
+          </i>
+        </a>
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <button class="btn btn-default btn-space" type="submit">Add Submission</button>
+      <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,214 @@
+<div class="register-container">
+  <form [formGroup]="myForm" (ngSubmit)="register(myForm)">
+
+    <p class="title">Company</p>
+    <div class="form-group">
+      <label for="companyName">Name:
+        <span *ngIf="myForm.controls['companyName'].errors && (myForm.controls['companyName'].dirty || myForm.controls['companyName'].touched)">
+        </span>
+      </label>
+      <div>
+        <input type="text" id="companyName" name="companyName" class="form-control" maxlength="80" formControlName="companyName"
+          ngModel required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="companyAddress1">Address 1:
+          <span *ngIf="myForm.controls['companyAddress1'].errors && (myForm.controls['companyAddress1'].dirty || myForm.controls['companyAddress1'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="companyAddress1" name="companyAddress1" class="form-control" maxlength="80" formControlName="companyAddress1"
+            ngModel required>
+        </div>
+      </div>
+
+      <div class="form-group col-6">
+        <label for="companyAddress2">Address 2:
+          <span *ngIf="myForm.controls['companyAddress2'].errors && (myForm.controls['companyAddress2'].dirty || myForm.controls['companyAddress2'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="companyAddress2" name="companyAddress2" class="form-control" maxlength="80" formControlName="companyAddress2"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="city">City:
+          <span *ngIf="myForm.controls['city'].errors && (myForm.controls['city'].dirty || myForm.controls['city'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="city" name="city" class="form-control" maxlength="80" formControlName="city" ngModel required>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label for="state">State:
+          <span *ngIf="myForm.controls['state'].errors && (myForm.controls['state'].dirty || myForm.controls['state'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="state" name="state" class="form-control" maxlength="80" formControlName="state" ngModel required>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label for="companyZipcode">ZipCode:
+          <span *ngIf="myForm.controls['companyZipcode'].errors && (myForm.controls['companyZipcode'].dirty || myForm.controls['companyZipcode'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="companyZipcode" name="companyZipcode" class="form-control" maxlength="80" formControlName="companyZipcode"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="companyPhoneNumber">PhoneNumber:
+        <span *ngIf="myForm.controls['companyPhoneNumber'].errors && (myForm.controls['companyPhoneNumber'].dirty || myForm.controls['companyPhoneNumber'].touched)">
+        </span>
+      </label>
+      <div>
+        <input type="text" id="companyPhoneNumber" name="companyPhoneNumber" class="form-control" maxlength="80" formControlName="companyPhoneNumber"
+          ngModel required>
+      </div>
+    </div>
+
+    <p class="title">Admin User</p>
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="userFirstName">FirstName:
+          <span *ngIf="myForm.controls['userFirstName'].errors && (myForm.controls['userFirstName'].dirty || myForm.controls['userFirstName'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userFirstName" name="userFirstName" class="form-control" maxlength="80" formControlName="userFirstName"
+            ngModel required>
+        </div>
+      </div>
+
+      <div class="form-group col-6">
+        <label for="userLastName">LastName:
+          <span *ngIf="myForm.controls['userLastName'].errors && (myForm.controls['userLastName'].dirty || myForm.controls['userLastName'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userLastName" name="userLastName" class="form-control" maxlength="80" formControlName="userLastName"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="userEmail">Email
+          <span *ngIf="myForm.controls['userEmail'].errors && (myForm.controls['userEmail'].dirty || myForm.controls['userEmail'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userEmail" name="userEmail" class="form-control" maxlength="80" formControlName="userEmail" ngModel
+            required>
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <label for="userPhoneNumber">PhoneNumber:
+          <span *ngIf="myForm.controls['userPhoneNumber'].errors && (myForm.controls['userPhoneNumber'].dirty || myForm.controls['userPhoneNumber'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userPhoneNumber" name="userPhoneNumber" class="form-control" maxlength="80" formControlName="userPhoneNumber"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="password">Password:
+          <span *ngIf="myForm.controls['password'].errors && (myForm.controls['password'].dirty || myForm.controls['password'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="password" id="password" name="password" class="form-control" maxlength="80" formControlName="password"
+            ngModel required>
+        </div>
+      </div>
+
+      <div class="form-group col-6">
+        <label for="confirmPassword">Confirm Password:
+          <span *ngIf="myForm.controls['confirmPassword'].errors && (myForm.controls['confirmPassword'].dirty || myForm.controls['confirmPassword'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" maxlength="80" formControlName="confirmPassword"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="userAddress1">Address 1:
+          <span *ngIf="myForm.controls['userAddress1'].errors && (myForm.controls['userAddress1'].dirty || myForm.controls['userAddress1'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userAddress1" name="userAddress1" class="form-control" maxlength="80" formControlName="userAddress1"
+            ngModel required>
+        </div>
+      </div>
+
+      <div class="form-group col-6">
+        <label for="userAddress2">Address 2:
+          <span *ngIf="myForm.controls['userAddress2'].errors && (myForm.controls['userAddress2'].dirty || myForm.controls['userAddress2'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userAddress2" name="userAddress2" class="form-control" maxlength="80" formControlName="userAddress2"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="userCity">City:
+          <span *ngIf="myForm.controls['userCity'].errors && (myForm.controls['userCity'].dirty || myForm.controls['userCity'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userCity" name="userCity" class="form-control" maxlength="80" formControlName="userCity" ngModel required>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label for="userState">State:
+          <span *ngIf="myForm.controls['userState'].errors && (myForm.controls['userState'].dirty || myForm.controls['userState'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userState" name="userState" class="form-control" maxlength="80" formControlName="userState" ngModel
+            required>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label for="userZipcode">ZipCode:
+          <span *ngIf="myForm.controls['userZipcode'].errors && (myForm.controls['userZipcode'].dirty || myForm.controls['userZipcode'].touched)">
+          </span>
+        </label>
+        <div>
+          <input type="text" id="userZipcode" name="userZipcode" class="form-control" maxlength="80" formControlName="userZipcode"
+            ngModel required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <a [routerLink]="['/login']" class="btn">Cancel</a>
+      <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Register</button>
+    </div>
+  </form>
+</div>

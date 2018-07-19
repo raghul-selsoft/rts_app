@@ -1,0 +1,19 @@
+.register-container {
+  margin-top: 6em;
+  margin-left: 16em;
+  margin-right: 16em;
+  margin-bottom: 8em;
+  background: white;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  position: relative;
+  padding: 1em;
+}
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948;
+  }
+  
+  .ng-invalid:not(form) {
+    border-left: 5px solid #c84e02;
+  }

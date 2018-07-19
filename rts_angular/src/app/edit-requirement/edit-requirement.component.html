@@ -1,0 +1,120 @@
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="updateRequirement(myForm)">
+    <legend class="header">Edit Requirement</legend>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="createdDate" class="col-sm-2 col-form-label">Created Date:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="createdDate" formControlName="createdDate" value="{{requirementCreatedDate}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="positionName" class="col-sm-2 col-form-label">Position Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="positionName" formControlName="positionName" value="{{selectedRequirement.positionName}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement.client">
+      <label for="clientName" class="col-sm-2 col-form-label">Client Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="clientName" formControlName="clientName" value="{{selectedRequirement.client.name}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="status" class="col-sm-2 col-form-label">Status:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="status" formControlName="status" value="{{selectedRequirement.status}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="accountName" formControlName="accountName" value="{{selectedRequirement.accountName}}">
+      </div>
+      <!-- <label for="Bank" class="col-sm-2 col-form-label">Bank:</label> -->
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="bankName" formControlName="bankName" placeholder="Bank">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="priority" formControlName="priority" value="{{selectedRequirement.priority}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="location" class="col-sm-2 col-form-label">Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="location" formControlName="location" value="{{selectedRequirement.location}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="requirementType" class="col-sm-2 col-form-label">Requirement Type:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="requirementType" formControlName="requirementType">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="positionsCount" class="col-sm-2 col-form-label">No.of Positions:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="positionsCount" formControlName="positionsCount" value="{{selectedRequirement.positionCount}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="immigrationRequirement" formControlName="immigrationRequirement">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement.client">
+      <label for="clientContactName" class="col-sm-2 col-form-label">Client Contact:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="clientContactName" formControlName="clientContactName" value="{{selectedRequirement.client.name}}">
+      </div>
+      <!-- <label for="clientContactEmail" class="col-sm-2 col-form-label">Client Contact Email:</label> -->
+      <div class="col-sm-4">
+        <input type="email" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" value="{{selectedRequirement.client.email}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
+      <div class="col-sm-4">
+        <select name="allocation" class="form-control" formControlName="allocation" required ngModel="{{selectedRequirement.allocationUserId}}">
+          <option value="">select</option>
+          <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="team" class="col-sm-2 col-form-label">Team:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="team" formControlName="team">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedRequirement">
+      <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
+      <div class="col-sm-4">
+        <textarea name="comments" class="form-control" formControlName="comments" ngModel required>Type Your Comments</textarea>
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <button class="btn btn-default btn-space" type="submit">Update Requirement</button>
+      <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-default" type="submit">Submissions</button>
+    </div>
+
+  </form>
+</div>

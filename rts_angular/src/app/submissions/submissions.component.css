@@ -1,0 +1,17 @@
+.search-container {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.search-container .text-input {
+  width: 300px;
+}
+
+.table-header {
+  background-color: whitesmoke;
+  color: rgb(51, 48, 48);
+}
+
+.title {
+  margin-top: 1em;
+}
