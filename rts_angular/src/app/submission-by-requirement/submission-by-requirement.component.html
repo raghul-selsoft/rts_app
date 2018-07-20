@@ -5,7 +5,9 @@
   </div> -->
 
   <div *ngIf="submissionsLength > 0 ; else noSummissions">
-    <p class="title">{{selectedRequirement.positionName}} ({{selectedRequirement.client.name}})</p>
+    <p class="title">{{selectedRequirement.positionName}} ({{selectedRequirement.client.name}})
+      <i class="allocation-name" *ngIf="selectedRequirement.allocationUser"> Allocated to:{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}</i>
+    </p>
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
