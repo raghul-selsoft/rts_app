@@ -5,10 +5,15 @@
     <div class="form-group row">
       <label for="positionName" class="col-sm-2 col-form-label">Position Name:</label>
       <div class="col-sm-4">
-        <select name="positionName" class="form-control" formControlName="positionName" required>
+        <select name="positionName" class="form-control" formControlName="positionName" (click)="changePositionName($event.target.value);"
+          required>
           <option value="">Select</option>
           <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.name}}</option>
+          <option value="other">Other</option>
         </select>
+      </div>
+      <div class="col-sm-4" *ngIf="isOtherPositionName">
+        <input type="text" class="form-control" name="positionName" formControlName="positionName" placeholder=" Enter the Position Name">
       </div>
     </div>
 
@@ -33,7 +38,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="bankName" formControlName="bankName" placeholder=" Enter the Bank Name">
+        <input type="text" class="form-control" name="accountName" formControlName="accountName" placeholder=" Enter the Bank Name">
       </div>
     </div>
 

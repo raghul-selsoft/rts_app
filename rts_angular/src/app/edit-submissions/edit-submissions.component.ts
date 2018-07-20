@@ -24,6 +24,8 @@ export class EditSubmissionsComponent implements OnInit {
   getFiles: any;
   files: any;
   deletedMediaFiles: any;
+  status: any;
+  isRejected: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -38,6 +40,13 @@ export class EditSubmissionsComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
     this.deletedMediaFiles = [];
+    this.status = [
+      { 'name': 'Open', 'value': 'open' },
+      { 'name': 'In-Progress', 'value': 'inprogress' },
+      { 'name': 'Closed', 'value': 'closed' },
+      { 'name': 'Approved', 'value': 'approved' },
+      { 'name': 'Rejected', 'value': 'rejected' }
+    ];
   }
 
   ngOnInit() {
@@ -51,7 +60,10 @@ export class EditSubmissionsComponent implements OnInit {
       candidateName: [''],
       accountName: [''],
       location: [''],
-      rate: ['', Validators.required],
+      clientRate: [''],
+      sellingRate: [''],
+      status: [''],
+      ResonForRejection: [''],
       availability: [''],
       technology: [''],
       workLocation: ['']
@@ -99,6 +111,14 @@ export class EditSubmissionsComponent implements OnInit {
     this.deletedMediaFiles.push(media.mediaId);
     const clear = this.selectedSubmission.mediaFiles.indexOf(media);
     this.selectedSubmission.mediaFiles.splice(clear, 1);
+  }
+
+  changeStatus(event) {
+    if (event === 'rejected') {
+      this.isRejected = true;
+    } else {
+      this.isRejected = false;
+    }
   }
 
 

@@ -31,6 +31,7 @@ export class AddNewRequirementComponent implements OnInit {
   private positions: any;
   private accounts: any;
   private isOtherAccountName: boolean;
+  private isOtherPositionName: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -126,9 +127,19 @@ export class AddNewRequirementComponent implements OnInit {
     console.log(this.immigrationByUser);
   }
 
+  changePositionName(event) {
+    if (event === 'other') {
+      this.isOtherPositionName = true;
+      this.myForm.controls.positionName.setValue('');
+    } else {
+      this.isOtherPositionName = false;
+    }
+  }
+
   changeAccountName(event) {
     if (event === 'other') {
       this.isOtherAccountName = true;
+      this.myForm.controls.accountName.setValue('');
     } else {
       this.isOtherAccountName = false;
     }
@@ -136,24 +147,13 @@ export class AddNewRequirementComponent implements OnInit {
 
   addNewRequirement(form: FormGroup) {
 
-    // if (form.value.allocation === '') {
-    //   const requirement = {
-    //     positionName: form.value.positionName,
-    //     accountName: form.value.accountName,
-    //     priority: form.value.priority,
-    //     location: form.value.location,
-    //     requirementType: [
-    //     ],
-    //     positionCount: form.value.positionsCount,
-    //     status: form.value.status,
-    //     enteredBy: this.rtsUserId,
-    //     clientId: form.value.clientName
-    //   };
-    //   this.newRequirement = requirement;
-    // } else {
     const requirement = {
-      positionName: form.value.positionName,
-      accountName: form.value.accountName,
+      position: {
+        positionName: form.value.positionName
+      },
+      account: {
+        accountName: form.value.accountName
+      },
       priority: form.value.priority,
       location: form.value.location,
       requirementType: [this.requirementByUser],
@@ -168,27 +168,26 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: form.value.jobDescription,
     };
     this.newRequirement = requirement;
-    // }
     console.log(this.newRequirement);
 
-    // this.requirementService.addRequirements(this.newRequirement)
-    //   .subscribe(
-    //     data => {
-    //       console.log(data);
-    //       if (data.success) {
-    //         this.toastr.success('New requirement successfully added', '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //         this.router.navigate(['requirements']);
+    this.requirementService.addRequirements(this.newRequirement)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.toastr.success('New requirement successfully added', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['requirements']);
 
-    //       } else {
-    //         this.toastr.error(data.message, '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //       }
-    //     });
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
   }
 
 }
