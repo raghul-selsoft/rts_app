@@ -12,13 +12,15 @@
 }
 
 .register {
-    padding-top: 1em;
-    padding-left: 12em;
-    padding-right: 10em;
+  padding-top: 1em;
+  padding-left: 12em;
+  padding-right: 10em;
 }
+
 ::ng-deep snack-bar-container.snackbar {
   background: rgb(236, 97, 97);
 }
+
 ::ng-deep .snackbar .mat-simple-snackbar {
   color: white;
 }

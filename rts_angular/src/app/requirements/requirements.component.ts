@@ -46,7 +46,6 @@ export class RequirementsComponent implements OnInit {
     const userId = {
       companyId: this.rtsCompanyId
     };
-    console.log(this.rtsUserId);
 
     this.requirementService.requirementsDetails(userId)
       .subscribe(
@@ -74,7 +73,6 @@ export class RequirementsComponent implements OnInit {
     const userId = {
       userId: this.rtsUserId
     };
-    console.log(this.rtsUserId);
 
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(

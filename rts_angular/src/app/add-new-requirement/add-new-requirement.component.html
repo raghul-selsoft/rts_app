@@ -5,24 +5,34 @@
     <div class="form-group row">
       <label for="positionName" class="col-sm-2 col-form-label">Position Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="clientName" formControlName="positionName" required>
+        <select name="positionName" class="form-control" formControlName="positionName" required>
+          <option value="">Select</option>
+          <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.name}}</option>
+        </select>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="status" class="col-sm-2 col-form-label">Status:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="status" formControlName="status" required>
+        <select name="status" class="form-control" formControlName="status" required>
+          <option value="">Select</option>
+          <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
+        </select>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="accountName" formControlName="accountName" required>
+        <select name="accountName" class="form-control" formControlName="accountName" (click)="changeAccountName($event.target.value);"
+          required>
+          <option value="">Select</option>
+          <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.name}}</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      <!-- <label for="Bank" class="col-sm-2 col-form-label">Bank:</label> -->
-      <div class="col-sm-4">
+      <div class="col-sm-4" *ngIf="isOtherAccountName">
         <input type="text" class="form-control" name="bankName" formControlName="bankName" placeholder=" Enter the Bank Name">
       </div>
     </div>
@@ -49,9 +59,9 @@
 
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Requirement Type:</label>
-      <div *ngFor="let data of requirementType" (click)="getCheckedValue($event.target.value);">
+      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (click)="getCheckedRequirementType(type)">
         <div class="col-md-6 ">
-          <input type="checkbox" formControlName="requirementType" [value]="data.value">{{data.name}}
+          <input type='checkbox' formControlName="requirementType" [value]="type">{{type}}
         </div>
       </div>
     </div>
@@ -65,8 +75,10 @@
 
     <div class="form-group row">
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="immigrationRequiremen" formControlName="immigrationRequirement">
+      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (click)="getCheckedImmigrationValue(data)">
+        <div class="col-sm-4 ">
+          <input type="checkbox" formControlName="immigrationRequirement" [value]="data">{{data}}
+        </div>
       </div>
     </div>
 
@@ -77,6 +89,28 @@
           <option value="">Select</option>
           <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
         </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="clientRate" formControlName="clientRate">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
+      <div class="col-sm-4 ">
+        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel
+          required></textarea>
       </div>
     </div>
 
@@ -93,14 +127,17 @@
     <div class="form-group row">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="team" formControlName="team">
+        <select name="team" class="form-control" formControlName="team" required>
+          <option value="">Select</option>
+          <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+        </select>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
       <div class="col-sm-4">
-        <textarea name="comments" class="form-control" formControlName="comments" ngModel required>Type Your Comments</textarea>
+        <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel required></textarea>
       </div>
     </div>
 
