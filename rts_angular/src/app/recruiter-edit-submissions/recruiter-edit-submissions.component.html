@@ -1,0 +1,106 @@
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
+    <legend class="header">Edit Submission</legend>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
+      <div class="col-sm-4">
+        <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
+          required>
+          <option value="">Select</option>
+          <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.positionName}} {{require.client.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" ngModel="{{selectedSubmission.candidateName}}"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="location" class="col-sm-2 col-form-label">Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedSubmission.location}}"
+          required>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="rate" class="col-sm-2 col-form-label">Rate:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="rate" formControlName="rate" ngModel="{{selectedSubmission.rate}}" required>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="availability" formControlName="availability" ngModel="{{selectedSubmission.availability}}"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="technology" formControlName="technology" ngModel="{{selectedSubmission.technology}}"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="accountName" formControlName="accountName" ngModel="{{selectedSubmission.accountName}}"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectedSubmission">
+      <label for="workLocation" class="col-sm-2 col-form-label">Work Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedSubmission.workLocation}}"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <label class="fileContainer">
+          <button class="btn btn-secondary">
+            Attach Files</button>
+          <input type="file" (change)="fileChangeEvent($event)" multiple/>
+        </label>
+      </div>
+      <div class="pb-2" *ngFor="let file of getFiles">
+        <a class="panel">{{file.name}}
+        </a>
+        <a class="btn" (click)="removeFile(file)">
+          <i class="material-icons">
+            clear
+          </i>
+        </a>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="selectedSubmission">
+      <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
+        <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+        </a>
+        <a class="btn" (click)="removeUploadedFile(media)">
+          <i class="material-icons">
+            clear
+          </i>
+        </a>
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <button class="btn btn-default btn-space" type="submit">Update Submission</button>
+      <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
+    </div>
+
+  </form>
+</div>

@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
+          <tr *ngFor="let submission of sub.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
             <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
             <td>{{submission.candidateName}}</td>
             <td>{{submission.technology}}</td>

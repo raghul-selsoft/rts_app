@@ -38,6 +38,7 @@ import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.co
 import { ClientService } from './Services/client.service';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
+import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { AddClientComponent } from './add-client/add-client.component';
     EditSubmissionsComponent,
     ManageClientComponent,
     AddClientComponent,
+    RecruiterEditSubmissionsComponent,
      ],
   imports: [
     BrowserModule,

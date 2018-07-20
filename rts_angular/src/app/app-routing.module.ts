@@ -17,6 +17,7 @@ import { SubmissionByRequirementComponent } from './submission-by-requirement/su
 import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.component';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
+import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
 
 
 
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   { path: 'edit-submissions/:id', component: EditSubmissionsComponent },
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
+  { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
 
 ];
 
