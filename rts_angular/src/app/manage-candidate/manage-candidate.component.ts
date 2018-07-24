@@ -28,7 +28,7 @@ export class ManageCandidateComponent implements OnInit {
     this.getAllCandidates();
   }
 
-  getAllCandidates(){
+  getAllCandidates() {
     const companyId = {
       companyId: this.rtsCompanyId
     };
@@ -45,3 +45,4 @@ export class ManageCandidateComponent implements OnInit {
   }
 
 }
+

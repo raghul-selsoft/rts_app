@@ -67,7 +67,7 @@ export class SubmissionService {
         formData.append('submissionId', upload.submissionId);
         formData.append('enteredBy', upload.enteredBy);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.FileUpload, formData, { headers: headers })
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.SubmissionFileUpload, formData, { headers: headers })
             .map(res => {
                 const responseToken = res.headers.get('refresh-token');
                 localStorage.setItem('id_token', responseToken);

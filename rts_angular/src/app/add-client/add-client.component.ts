@@ -35,7 +35,7 @@ export class AddClientComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
-      // phoneNumber: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       clientContactName: ['', Validators.required],
       clientContactEmail: ['', Validators.required],
       clientContactNumber: ['', Validators.required]
@@ -47,7 +47,7 @@ export class AddClientComponent implements OnInit {
     const client = {
       name: form.value.name,
       email: form.value.email,
-      // phoneNumber: form.value.phoneNumber,
+      phoneNumber: form.value.phoneNumber,
       contactPersonName: form.value.clientContactName,
       contactPersonEmail: form.value.clientContactEmail,
       contactPersonNumber: form.value.clientContactNumber,

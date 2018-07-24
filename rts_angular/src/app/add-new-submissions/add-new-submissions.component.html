@@ -36,6 +36,20 @@
     </div>
 
     <div class="form-group row">
+      <label for="clientContactname" class="col-sm-2 col-form-label">Client Contact name:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="clientContactEmail" class="col-sm-2 col-form-label">Client Contact Email:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail">
+      </div>
+    </div>
+
+    <div class="form-group row">
       <label for="status" class="col-sm-2 col-form-label">Status:</label>
       <div class="col-sm-4 ">
         <select name="status" class="form-control" formControlName="status" required>
@@ -45,10 +59,11 @@
       </div>
     </div>
 
-    <div class="form-group row"  *ngIf="selectRequiement">
+    <div class="form-group row" *ngIf="selectRequiement">
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="accountName" formControlName="accountName" value="{{selectRequiement.account.accountName}}" readonly>
+        <input type="text" class="form-control" name="accountName" formControlName="accountName" value="{{selectRequiement.account.accountName}}"
+          readonly>
       </div>
     </div>
 
@@ -164,17 +179,22 @@
           <input type="radio" value="No">No
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
+          <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+          </a>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="!isCandidate">
-      <a [routerLink]="[ '/submissions']" class="btn btn-default">Add Candidate</a>
+      <button [routerLink]="[ '/add-candidate']" class="btn btn-default">Add Candidate</button>
     </div>
-
-
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Add Submission</button>
-      <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
+      <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 
   </form>

@@ -56,6 +56,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirements: ['', Validators.required],
       candidateEmail: [''],
       candidatePhone: [''],
+      clientContactname: [''],
+      clientContactEmail: [''],
       candidateName: [''],
       accountName: [''],
       // location: [''],
@@ -72,24 +74,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       c2c: [''],
     });
     this.getAllRequirements();
-    // this.getCommonDetails();
   }
-
-
-  // getCommonDetails() {
-  //   const companyId = {
-  //     companyId: this.rtsCompanyId
-  //   };
-
-  //   this.requirementService.commonDetails(companyId)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data);
-  //         if (data.success) {
-  //           this.technologies = data.technologies;
-  //         }
-  //       });
-  // }
 
   getAllRequirements() {
     const userId = {
@@ -101,7 +86,6 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            console.log(this.requirementsDetails);
           }
         });
   }
@@ -135,14 +119,12 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
-            this.selectedCandidate = data.client;
-            console.log(this.selectedCandidate);
+            this.selectedCandidate = data.candidate;
             this.isCandidate = true;
           } else {
             this.isCandidate = false;
           }
         });
-    console.log(this.selectedCandidate);
   }
 
 
@@ -152,12 +134,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirementId: form.value.requirements,
       location: form.value.location,
       accountName: form.value.accountName,
-      rate: form.value.rate,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      clientContactname: form.value.clientContactname,
+      clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
       candidateId: this.selectedCandidate.candidateId
     };
-
 
     console.log(submission);
 
