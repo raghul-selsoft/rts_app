@@ -39,6 +39,7 @@ import { ClientService } from './Services/client.service';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
 import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
+import { ManageCandidateComponent } from './manage-candidate/manage-candidate.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/
     ManageClientComponent,
     AddClientComponent,
     RecruiterEditSubmissionsComponent,
+    ManageCandidateComponent,
      ],
   imports: [
     BrowserModule,
