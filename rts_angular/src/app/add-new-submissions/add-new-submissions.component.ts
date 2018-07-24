@@ -15,12 +15,13 @@ import { SubmissionService } from '../Services/submission.service';
 export class AddNewSubmissionsComponent implements OnInit {
 
   public myForm: FormGroup;
-  rtsUser: any;
-  rtsUserId: any;
-  requirementsDetails: any;
-  files: any;
-  getFiles: any;
-  rtsCompanyId: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirementsDetails: any;
+  private files: any;
+  private getFiles: any;
+  private rtsCompanyId: any;
+  private status: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -34,6 +35,11 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.status = [
+      { 'name': 'Open', 'value': 'open' },
+      { 'name': 'In-Progress', 'value': 'inprogress' },
+      { 'name': 'Closed', 'value': 'closed' }
+    ];
   }
 
   ngOnInit() {
@@ -42,7 +48,9 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidateName: [''],
       accountName: [''],
       location: [''],
-      rate: ['', Validators.required],
+      clientRate: [''],
+      sellingRate: [''],
+      status: [''],
       availability: [''],
       technology: [''],
       workLocation: ['']

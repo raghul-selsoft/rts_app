@@ -6,10 +6,9 @@
 
   <div *ngIf="submissionsLength > 0 ; else noSummissions">
     <div *ngFor="let sub of submissionDetails">
-      <p class="title">{{sub.positionName}} ({{sub.client.name}})</p>
-      <div *ngIf="sub.allocationUser !== undefined">
-        <p><b>Allocated to: {{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</b></p>
-      </div>
+      <p class="title">{{sub.positionName}} ({{sub.client.name}})
+        <i class="allocation-name" *ngIf="sub.allocationUser"> Allocated to:{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</i>
+      </p>
       <table class="table table-hover">
         <thead class="table-header">
           <tr>
@@ -17,8 +16,8 @@
             <th>Candidate Name</th>
             <th>Technology</th>
             <th>Availability</th>
-            <th>Rate</th>
             <th>Work Location</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -27,8 +26,8 @@
             <td>{{submission.candidateName}}</td>
             <td>{{submission.technology}}</td>
             <td>{{submission.availability}}</td>
-            <td>{{submission.rate}}</td>
             <td>{{submission.workLocation}}</td>
+            <td>{{submission.Status}}</td>
           </tr>
         </tbody>
       </table>

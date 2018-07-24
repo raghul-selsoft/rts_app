@@ -3,6 +3,8 @@ import { ApiUrl } from 'src/app/Services/api-url';
 import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { LoginService } from '../login/login-service';
 
 
 
@@ -10,7 +12,8 @@ import 'rxjs/add/operator/map';
 export class SubmissionService {
 
     constructor(private http: Http,
-        private router: Router) { }
+        private router: Router,
+        private loginService: LoginService) { }
 
     addSubmission(submission) {
         const token = localStorage.getItem('id_token');
@@ -24,6 +27,11 @@ export class SubmissionService {
                 const responseToken = res.headers.get('refresh-token');
                 localStorage.setItem('id_token', responseToken);
                 return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
             });
     }
 
@@ -39,6 +47,11 @@ export class SubmissionService {
                 const responseToken = res.headers.get('refresh-token');
                 localStorage.setItem('id_token', responseToken);
                 return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
             });
     }
 
@@ -59,6 +72,11 @@ export class SubmissionService {
                 const responseToken = res.headers.get('refresh-token');
                 localStorage.setItem('id_token', responseToken);
                 return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
             });
     }
 }
