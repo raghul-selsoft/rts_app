@@ -17,7 +17,7 @@
       </thead>
       <tbody *ngIf="requirementsLength> 0 ; else noRequirements">
         <tr *ngFor="let require of requirements | filter:searchString" [routerLink]="['/edit-requirement',require.requirementId]">
-          <td>{{require.positionName}}</td>
+          <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>

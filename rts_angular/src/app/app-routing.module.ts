@@ -18,6 +18,7 @@ import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.co
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
 import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
+import { ManageCandidateComponent } from './manage-candidate/manage-candidate.component';
 
 
 
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
   { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
-
+  { path: 'manage-candidate', component: ManageCandidateComponent }
 ];
 
 
