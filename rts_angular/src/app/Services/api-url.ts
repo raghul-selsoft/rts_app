@@ -19,4 +19,5 @@ export class ApiUrl {
     static AddClient = 'rtsClient/client/addClient';
     static GetCommonDetails = 'rtsCommon/common/getAllCommonDetails';
     static GetCandidateDetails = 'rtsCandidate/candidate/findCandidateByEmail';
+    static GettAllCandidates = 'rtsCandidate/candidate/getAllCompanyCandidate'
 }

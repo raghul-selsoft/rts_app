@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
+import { CandidateService } from '../Services/candidate.service';
 
 @Component({
   selector: 'app-manage-candidate',
@@ -16,9 +17,31 @@ export class ManageCandidateComponent implements OnInit {
   private candidates: any;
   private candidateLength: any;
 
-  constructor() { }
+  constructor(private loggedUser: LoggedUserService,
+    private candidateService: CandidateService) {
+    this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
+    this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
+  }
 
   ngOnInit() {
+    this.getAllCandidates();
+  }
+
+  getAllCandidates(){
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.candidateService.allCandidate(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.candidates = data.candidates;
+            this.candidateLength = this.candidates.length;
+          }
+        });
+
   }
 
 }
