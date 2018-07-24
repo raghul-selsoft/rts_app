@@ -1,0 +1,32 @@
+<div class="utility-container">
+  <button class="btn btn-default" [routerLink]="['/add-candidate']">Add New Candidate</button>
+  <div class="search-container">
+    <input type="text" class="form-control mr-sm-2" placeholder="Search by Email" name="searchString " [(ngModel)]="searchString">
+  </div>
+  <table class="table table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Location</th>
+        <th>Availability</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="candidateLength > 0 ; else noCandidate">
+      <tr *ngFor="let candidate of candidates | filter:searchString">
+        <td>{{candidate.name}}</td>
+        <td>{{candidate.email}}</td>
+        <td>{{candidate.location}}</td>
+        <td>{{candidate.availability}}</td>
+      </tr>
+    </tbody>
+    <ng-template #noCandidate>
+      <tbody>
+        <tr>
+          <td>No Candidate yet, Please click Add Candidate to add a new candidate.</td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>
