@@ -12,12 +12,6 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" required>
-      </div>
-    </div>
 
     <div class="form-group row">
       <label for="location" class="col-sm-2 col-form-label">Location:</label>
@@ -47,20 +41,6 @@
           <option value="">Select</option>
           <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
         </select>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="availability" formControlName="availability" required>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="technology" formControlName="technology" required>
       </div>
     </div>
 
@@ -96,6 +76,85 @@
         </a>
       </div>
     </div>
+
+    <legend class="sub-heading">Candidate Deatils:</legend>
+
+    <div class="form-group row">
+      <label for="candidateEmail" class="col-sm-2 col-form-label">Candidate Email:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateEmail" formControlName="candidateEmail" required>
+      </div>
+      <button type="button" class="btn" (click)="getCandidateDetails()">Search</button>
+    </div>
+
+    <div class="form-group row">
+      <label for="candidateImmigirationStatus" class="col-sm-2 col-form-label">Candidate Immigiration Status:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateImmigirationStatus" formControlName="candidateImmigirationStatus"
+          required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="candidatePhone" class="col-sm-2 col-form-label">Candidate Phone:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidatePhone" formControlName="candidatePhone" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="candidateLocation" class="col-sm-2 col-form-label">Candidate Location:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="candidateLocation" formControlName="candidateLocation" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="availability" formControlName="availability" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
+      <div class="col-sm-4">
+        <select name="technologies" class="form-control" formControlName="technology" required>
+          <option value="">Select</option>
+          <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="skype" class="col-sm-2 col-form-label">Skype:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="skype" formControlName="skype" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="linkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
+      <div class="col-sm-4 ">
+        <input type="radio" value="Yes">Yes
+        <input type="radio" value="No">No
+      </div>
+    </div>
+
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Add Submission</button>

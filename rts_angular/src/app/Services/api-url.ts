@@ -17,4 +17,6 @@ export class ApiUrl {
     static FileUpload = 'rtsSubmission/submission/fileUpload';
     static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';
     static AddClient = 'rtsClient/client/addClient';
+    static GetCommonDetails = 'rtsCommon/common/getAllCommonDetails';
+    static GetCandidateDetails = 'rtsCandidate/candidate/findCandidateByEmail';
 }

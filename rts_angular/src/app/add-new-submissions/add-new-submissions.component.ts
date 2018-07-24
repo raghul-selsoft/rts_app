@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { SubmissionService } from '../Services/submission.service';
+import { CandidateService } from '../Services/candidate.service';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -22,10 +23,13 @@ export class AddNewSubmissionsComponent implements OnInit {
   private getFiles: any;
   private rtsCompanyId: any;
   private status: any;
+  private selectedCandidate: any;
+  private technologies: any;
 
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
+    private candidateService: CandidateService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
@@ -45,6 +49,8 @@ export class AddNewSubmissionsComponent implements OnInit {
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       requirements: ['', Validators.required],
+      candidateEmail: [''],
+      candidatePhone: [''],
       candidateName: [''],
       accountName: [''],
       location: [''],
@@ -53,9 +59,31 @@ export class AddNewSubmissionsComponent implements OnInit {
       status: [''],
       availability: [''],
       technology: [''],
-      workLocation: ['']
+      workLocation: [''],
+      candidateImmigirationStatus: [''],
+      candidateLocation: [''],
+      skype: [''],
+      linkedIn: [''],
+      c2c: [''],
     });
     this.getAllRequirements();
+    this.getCommonDetails();
+  }
+
+
+  getCommonDetails() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.commonDetails(companyId)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.technologies = data.technologies;
+          }
+        });
   }
 
   getAllRequirements() {
@@ -84,20 +112,37 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+  getCandidateDetails() {
+    const candidate = {
+      email: this.myForm.controls.candidateEmail.value,
+      companyId: this.rtsCompanyId
+    };
+    console.log(candidate);
+
+    this.candidateService.getCandidate(candidate)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.selectedCandidate = data.client;
+          }
+        });
+
+  }
+
 
   addNewSubmission(form: FormGroup) {
 
     const submission = {
       requirementId: form.value.requirements,
-      candidateName: form.value.candidateName,
       location: form.value.location,
       accountName: form.value.accountName,
       rate: form.value.rate,
-      availability: form.value.availability,
-      technology: form.value.technology,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
+      candidateId: this.selectedCandidate.candidate.candidateId
     };
+
 
     console.log(submission);
 

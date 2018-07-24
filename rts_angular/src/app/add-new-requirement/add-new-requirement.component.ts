@@ -32,6 +32,7 @@ export class AddNewRequirementComponent implements OnInit {
   private accounts: any;
   private isOtherAccountName: boolean;
   private isOtherPositionName: boolean;
+  private technologies: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -68,6 +69,7 @@ export class AddNewRequirementComponent implements OnInit {
       requirementType: ['', Validators.required],
       positionsCount: [''],
       immigrationRequirement: [''],
+      technologies: [''],
       allocation: [''],
       clientRate: [''],
       sellingRate: [''],
@@ -76,23 +78,28 @@ export class AddNewRequirementComponent implements OnInit {
       comments: [''],
     });
     this.getAllUsers();
-    this.getAllClients();
+    this.getCommonDetails();
   }
 
-  getAllClients() {
+  getCommonDetails() {
     const companyId = {
       companyId: this.rtsCompanyId
     };
 
-    this.clientService.allClients(companyId)
+    this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.success) {
             this.clients = data.clients;
+            this.technologies = data.technologies;
+            this.accounts = data.accounts;
+            this.positions = data.positions;
+            this.teams = data.teams;
           }
         });
-
   }
+
 
   getAllUsers() {
     const userId = {
@@ -156,8 +163,8 @@ export class AddNewRequirementComponent implements OnInit {
       },
       priority: form.value.priority,
       location: form.value.location,
-      requirementType: [this.requirementByUser],
-      immigrationRequirement: [this.immigrationByUser],
+      requirementType: this.requirementByUser,
+      immigrationRequirement: this.immigrationByUser,
       positionCount: form.value.positionsCount,
       status: form.value.status,
       enteredBy: this.rtsUserId,
@@ -166,6 +173,9 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
+      technologies: [{
+        technologyId: form.value.technologies
+      }],
     };
     this.newRequirement = requirement;
     console.log(this.newRequirement);

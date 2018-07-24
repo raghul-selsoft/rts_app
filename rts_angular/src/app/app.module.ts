@@ -40,6 +40,7 @@ import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
 import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
 import { ManageCandidateComponent } from './manage-candidate/manage-candidate.component';
+import { CandidateService } from './Services/candidate.service';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { ManageCandidateComponent } from './manage-candidate/manage-candidate.co
     RequirementsService,
     UserService,
     ClientService,
+    CandidateService,
     SubmissionService,
     ToastrService,
     DatePipe],
