@@ -31,8 +31,7 @@
           </span>
         </label>
         <div>
-          <input type="text" id="companyAddress2" name="companyAddress2" class="form-control" maxlength="80" formControlName="companyAddress2"
-            ngModel required>
+          <input type="text" id="companyAddress2" name="companyAddress2" class="form-control" maxlength="80" formControlName="companyAddress2">
         </div>
       </div>
     </div>
@@ -133,8 +132,8 @@
           </span>
         </label>
         <div>
-          <input type="password" id="password" name="password" class="form-control" maxlength="80" formControlName="password"
-            ngModel required>
+          <input type="password" id="password" name="password" class="form-control" maxlength="80" formControlName="password" ngModel
+            required>
         </div>
       </div>
 
@@ -150,7 +149,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="form-group col-6">
         <label for="userAddress1">Address 1:
           <span *ngIf="myForm.controls['userAddress1'].errors && (myForm.controls['userAddress1'].dirty || myForm.controls['userAddress1'].touched)">
@@ -172,9 +171,9 @@
             ngModel required>
         </div>
       </div>
-    </div>
+    </div> 
 
-    <div class="row">
+     <div class="row">
       <div class="form-group col-4">
         <label for="userCity">City:
           <span *ngIf="myForm.controls['userCity'].errors && (myForm.controls['userCity'].dirty || myForm.controls['userCity'].touched)">
@@ -203,8 +202,8 @@
           <input type="text" id="userZipcode" name="userZipcode" class="form-control" maxlength="80" formControlName="userZipcode"
             ngModel required>
         </div>
-      </div>
-    </div>
+      </div> 
+    </div>-->
 
     <div class="form-btn-container">
       <a [routerLink]="['/login']" class="btn">Cancel</a>

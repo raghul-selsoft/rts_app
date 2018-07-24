@@ -7,3 +7,8 @@
   color: rgb(51, 48, 48);
 }
 
+.allocation-name {
+  font-size: 17px;
+  text-transform: capitalize;
+  color: rgb(70, 104, 117);
+}

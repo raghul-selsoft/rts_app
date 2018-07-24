@@ -28,18 +28,10 @@
           required>
       </div>
     </div>
-
     <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}">
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+      <label for="rate" class="col-sm-2 col-form-label">Rate:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="rate" formControlName="rate" ngModel="{{selectedSubmission.rate}}" required>
       </div>
     </div>
 
@@ -72,23 +64,6 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedSubmission.workLocation}}"
           required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="status" class="col-sm-2 col-form-label">Status:</label>
-      <div class="col-sm-4 ">
-        <select name="status" class="form-control" formControlName="status" (click)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}" required>
-          <option value="">Select</option>
-          <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission && isRejected">
-      <label for="ResonForRejection" class="col-sm-2 col-form-label">Reson For Rejection:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="ResonForRejection" formControlName="ResonForRejection" ngModel="{{selectedSubmission.ResonForRejection}}">
       </div>
     </div>
 

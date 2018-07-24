@@ -33,7 +33,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     this.myForm = this.formBuilder.group({
       companyName: ['', Validators.required],
       companyAddress1: ['', Validators.required],
-      companyAddress2: ['', Validators.required],
+      companyAddress2: [''],
       city: ['', Validators.required],
       state: ['', Validators.required],
       companyZipcode: ['', [Validators.required, Validators.pattern('^\\d{5}(?:[-\\s]\\d{4})?$')]],
@@ -42,12 +42,12 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       userLastName: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      userAddress1: ['', Validators.required],
-      userAddress2: ['', Validators.required],
+      // userAddress1: ['', Validators.required],
+      // userAddress2: ['', Validators.required],
       userEmail: ['', Validators.required],
-      userCity: ['', Validators.required],
-      userState: ['', Validators.required],
-      userZipcode: ['', [Validators.required, Validators.pattern('^\\d{5}(?:[-\\s]\\d{4})?$')]],
+      // userCity: ['', Validators.required],
+      // userState: ['', Validators.required],
+      // userZipcode: ['', [Validators.required, Validators.pattern('^\\d{5}(?:[-\\s]\\d{4})?$')]],
       userPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
@@ -71,12 +71,12 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       firstName: form.value.userFirstName,
       lastName: form.value.userLastName,
       password: form.value.password,
-      address1: form.value.userAddress1,
-      address2: form.value.userAddress2,
+      // address1: form.value.userAddress1,
+      // address2: form.value.userAddress2,
       email: form.value.userEmail,
-      city: form.value.userCity,
-      state: form.value.userState,
-      zipCode: form.value.userZipcode,
+      // city: form.value.userCity,
+      // state: form.value.userState,
+      // zipCode: form.value.userZipcode,
       phoneNumber: form.value.userPhoneNumber
     };
 

@@ -25,10 +25,28 @@
         <input type="text" class="form-control" name="location" formControlName="location" required>
       </div>
     </div>
+
     <div class="form-group row">
-      <label for="rate" class="col-sm-2 col-form-label">Rate:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="rate" formControlName="rate" required>
+      <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="clientRate" formControlName="clientRate">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="status" class="col-sm-2 col-form-label">Status:</label>
+      <div class="col-sm-4 ">
+        <select name="status" class="form-control" formControlName="status" required>
+          <option value="">Select</option>
+          <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+        </select>
       </div>
     </div>
 

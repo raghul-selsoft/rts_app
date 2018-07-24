@@ -16,14 +16,22 @@ import { ClientService } from '../Services/client.service';
 export class AddNewRequirementComponent implements OnInit {
 
   public myForm: FormGroup;
-  rtsUser: any;
-  rtsUserId: any;
-  requirementType: any;
-  userDetails: any;
-  newRequirement: any;
-  requirementByUser: any;
-  rtsCompanyId: any;
-  clients: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirementType: any;
+  private userDetails: any;
+  private newRequirement: any;
+  private requirementByUser: any;
+  private immigrationByUser: any;
+  private rtsCompanyId: any;
+  private clients: any;
+  private immigration: any;
+  private teams: any;
+  private requirementStatus: any;
+  private positions: any;
+  private accounts: any;
+  private isOtherAccountName: boolean;
+  private isOtherPositionName: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -38,10 +46,13 @@ export class AddNewRequirementComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
-    this.requirementType = [
-      { 'name': 'C2C', 'value': 'c2c' },
-      { 'name': 'FTE', 'value': 'fte' },
-      { 'name': 'TBD', 'value': 'tbd' }
+    this.immigrationByUser = [];
+    this.requirementType = ['C2C', 'FTE', 'TBD'];
+    this.immigration = ['GC', 'CITIZEN', 'H1B'];
+    this.requirementStatus = [
+      { 'name': 'Open', 'value': 'open' },
+      { 'name': 'In-Progress', 'value': 'inprogress' },
+      { 'name': 'Closed', 'value': 'closed' }
     ];
   }
 
@@ -58,6 +69,9 @@ export class AddNewRequirementComponent implements OnInit {
       positionsCount: [''],
       immigrationRequirement: [''],
       allocation: [''],
+      clientRate: [''],
+      sellingRate: [''],
+      jobDescription: [''],
       team: [''],
       comments: [''],
     });
@@ -85,7 +99,6 @@ export class AddNewRequirementComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(userId);
     this.userService.allUsers(userId)
       .subscribe(
         data => {
@@ -96,49 +109,65 @@ export class AddNewRequirementComponent implements OnInit {
 
   }
 
-  getCheckedValue(event) {
-    console.log(event);
-    if (event !== undefined) {
-      if (this.requirementByUser.indexOf(event) === -1) {
-        this.requirementByUser.push(event);
-      }
+  getCheckedRequirementType(type) {
+    if (this.requirementByUser.indexOf(type) === -1) {
+      this.requirementByUser.push(type);
+    } else {
+      this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
     console.log(this.requirementByUser);
   }
 
-  addNewRequirement(form: FormGroup) {
-    console.log(form.value.requirementType);
-
-    if (form.value.allocation === '') {
-      const requirement = {
-        positionName: form.value.positionName,
-        accountName: form.value.accountName,
-        priority: form.value.priority,
-        location: form.value.location,
-        requirementType: [
-        ],
-        positionCount: form.value.positionsCount,
-        status: form.value.status,
-        enteredBy: this.rtsUserId,
-        clientId: form.value.clientName
-      };
-      this.newRequirement = requirement;
+  getCheckedImmigrationValue(data) {
+    if (this.immigrationByUser.indexOf(data) === -1) {
+      this.immigrationByUser.push(data);
     } else {
-      const requirement = {
-        positionName: form.value.positionName,
-        accountName: form.value.accountName,
-        priority: form.value.priority,
-        location: form.value.location,
-        requirementType: [
-        ],
-        positionCount: form.value.positionsCount,
-        status: form.value.status,
-        enteredBy: this.rtsUserId,
-        clientId: form.value.clientName,
-        allocationUserId: form.value.allocation
-      };
-      this.newRequirement = requirement;
+      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
     }
+    console.log(this.immigrationByUser);
+  }
+
+  changePositionName(event) {
+    if (event === 'other') {
+      this.isOtherPositionName = true;
+      this.myForm.controls.positionName.setValue('');
+    } else {
+      this.isOtherPositionName = false;
+    }
+  }
+
+  changeAccountName(event) {
+    if (event === 'other') {
+      this.isOtherAccountName = true;
+      this.myForm.controls.accountName.setValue('');
+    } else {
+      this.isOtherAccountName = false;
+    }
+  }
+
+  addNewRequirement(form: FormGroup) {
+
+    const requirement = {
+      position: {
+        positionName: form.value.positionName
+      },
+      account: {
+        accountName: form.value.accountName
+      },
+      priority: form.value.priority,
+      location: form.value.location,
+      requirementType: [this.requirementByUser],
+      immigrationRequirement: [this.immigrationByUser],
+      positionCount: form.value.positionsCount,
+      status: form.value.status,
+      enteredBy: this.rtsUserId,
+      clientId: form.value.clientName,
+      allocationUserId: form.value.allocation,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      jobDescription: form.value.jobDescription,
+    };
+    this.newRequirement = requirement;
     console.log(this.newRequirement);
 
     this.requirementService.addRequirements(this.newRequirement)
