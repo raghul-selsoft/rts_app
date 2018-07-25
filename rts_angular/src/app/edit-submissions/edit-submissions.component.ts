@@ -172,6 +172,31 @@ export class EditSubmissionsComponent implements OnInit {
     }
   }
 
+  submissionToClient() {
+
+    const submit = {
+      submissionId: this.submissionId,
+      submittedBy: this.rtsUserId
+    };
+
+    this.submissionService.submitToClient(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('Submission Successfully send to Client ', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['submissions']);
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+  }
+
 
   updateSubmission(form: FormGroup) {
 

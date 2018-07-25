@@ -250,7 +250,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button *ngIf="sendToClient" class="btn btn-default btn-space">Send To Client</button>
+      <button type="button" *ngIf="sendToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
       <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
     </div>
 
