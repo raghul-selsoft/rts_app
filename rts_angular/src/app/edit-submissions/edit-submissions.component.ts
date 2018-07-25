@@ -28,6 +28,7 @@ export class EditSubmissionsComponent implements OnInit {
   status: any;
   isRejected: boolean;
   selectedRequirement: any;
+  sendToClient: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -44,10 +45,10 @@ export class EditSubmissionsComponent implements OnInit {
     this.getFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' },
-      { 'name': 'Approved', 'value': 'approved' },
-      { 'name': 'Rejected', 'value': 'rejected' }
+      { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+      { 'name': 'Closed', 'value': 'CLOSED' },
+      { 'name': 'Approved', 'value': 'APPROVED' },
+      { 'name': 'Rejected', 'value': 'REJECTED' }
     ];
   }
 
@@ -67,14 +68,19 @@ export class EditSubmissionsComponent implements OnInit {
       clientRate: [''],
       sellingRate: [''],
       status: [''],
-      ResonForRejection: [''],
+      reasonForRejection: [''],
       availability: [''],
       candidateEmail: [''],
       candidatePhone: [''],
       candidateLocation: [''],
       candidateImmigirationStatus: [''],
       technology: [''],
-      workLocation: ['']
+      workLocation: [''],
+      skype: [''],
+      linkedIn: [''],
+      interviewStatus: [''],
+      level1Date: [''],
+      level2Date: ['']
     });
     this.getAllRequirements();
   }
@@ -88,7 +94,6 @@ export class EditSubmissionsComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const sub of this.requirementsDetails) {
@@ -99,7 +104,14 @@ export class EditSubmissionsComponent implements OnInit {
             }
             console.log(this.selectedSubmission);
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
-            console.log(this.selectedRequirement);
+            if (this.selectedSubmission.status === 'REJECTED') {
+              this.isRejected = true;
+            }
+            if (this.selectedSubmission.approvedByAdmin === true) {
+              this.sendToClient = true;
+            } else {
+              this.sendToClient = false;
+            }
           }
         });
   }
@@ -119,9 +131,7 @@ export class EditSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.selectedSubmission = data;
-            // this.selectedSubmission.cadidateId = data.candidate.candidateId;
-            console.log(this.selectedSubmission);
+            this.selectedSubmission.candidate = data.candidate;
           }
         });
   }
@@ -132,7 +142,6 @@ export class EditSubmissionsComponent implements OnInit {
     for (const file of this.files) {
       this.getFiles.push(file);
     }
-    console.log(this.getFiles);
   }
 
   removeFile(file) {
@@ -147,7 +156,7 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
   changeStatus(event) {
-    if (event === 'rejected') {
+    if (event === 'REJECTED') {
       this.isRejected = true;
     } else {
       this.isRejected = false;
@@ -167,9 +176,12 @@ export class EditSubmissionsComponent implements OnInit {
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
+      status: form.value.status,
+      reasonForRejection: form.value.reasonForRejection,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: this.selectedSubmission.candidate.candidateId,
+      approvalUserId: this.rtsUserId
     };
     const editSubmission = {
       submission: submission,

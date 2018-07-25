@@ -2,144 +2,146 @@
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
     <legend class="header">Edit Submission</legend>
 
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
-      <div class="col-sm-4">
-        <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
-          (click)="getRequirement($event.target.value);" required>
-          <option value="">Select</option>
-          <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
-        </select>
+
+    <div class="row pt-3">
+      <div class="col-6">
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="requirements" class="col-sm-4 col-form-label">Requirements:</label>
+          <div class="col-sm-7">
+            <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
+              (click)="getRequirement($event.target.value);" required>
+              <option value="">Select</option>
+              <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientRate" class="col-sm-4 col-form-label">Client Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+          </div>
+        </div>
+
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientContactname" class="col-sm-4 col-form-label">Client Contact name:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{selectedRequirement.client.contactPersonName}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientContactEmail" class="col-sm-4 col-form-label">Client Contact Email:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{selectedRequirement.client.contactPersonEmail}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedRequirement">
+          <label for="accountName" class="col-sm-4 col-form-label">Account Name:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedRequirement">
+          <label for="workLocation" class="col-sm-4 col-form-label">Work Location:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedRequirement.location}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="status" class="col-sm-4 col-form-label">Status:</label>
+          <div class="col-sm-7">
+            <select name="status" class="form-control" formControlName="status" (click)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
+              required>
+              <option value="">Select</option>
+              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="isRejected">
+          <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label class="fileContainer">
+              <button class="btn btn-secondary">
+                Attach Files</button>
+              <input type="file" (change)="fileChangeEvent($event)" multiple/>
+            </label>
+          </div>
+          <div class="pb-2" *ngFor="let file of getFiles">
+            <a class="panel">{{file.name}}
+            </a>
+            <a class="btn" (click)="removeFile(file)">
+              <i class="material-icons">
+                clear
+              </i>
+            </a>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="selectedSubmission">
+          <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
+            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+            </a>
+            <a class="btn" (click)="removeUploadedFile(media)">
+              <i class="material-icons">
+                clear
+              </i>
+            </a>
+          </div>
+        </div>
       </div>
+      <div class="col-6">
+        <legend class="sub-heading">Interview Details:</legend>
+
+        <div class="form-group row">
+          <label for="interviewStatus" class="col-sm-4 col-form-label">Interview Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="interviewStatus" formControlName="interviewStatus">
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="level1Date" class="col-sm-4 col-form-label">Level1 Date:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="level1Date" formControlName="level1Date">
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="level2Date" formControlName="level2Date">
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" ngModel="{{selectedSubmission.candidateName}}"
-          required>
-      </div>
-    </div> -->
 
-    <!-- <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="location" class="col-sm-2 col-form-label">Location:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedSubmission.location}}"
-          required>
-      </div>
-    </div> -->
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}">
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
-      </div>
-    </div>
-
-    <!-- <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="availability" formControlName="availability" ngModel="{{selectedSubmission.availability}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="technology" formControlName="technology" ngModel="{{selectedSubmission.technology}}"
-          required>
-      </div>
-    </div> -->
-
-    <div class="form-group row">
-      <label for="clientContactname" class="col-sm-2 col-form-label">Client Contact name:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{selectedRequirement.client.contactPersonName}}"
-          readonly>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="clientContactEmail" class="col-sm-2 col-form-label">Client Contact Email:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{selectedRequirement.client.contactPersonEmail}}"
-          readonly>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}"
-          readonly>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="workLocation" class="col-sm-2 col-form-label">Work Location:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedRequirement.location}}"
-          readonly>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="status" class="col-sm-2 col-form-label">Status:</label>
-      <div class="col-sm-4 ">
-        <select name="status" class="form-control" formControlName="status" (click)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
-          required>
-          <option value="">Select</option>
-          <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission && isRejected">
-      <label for="ResonForRejection" class="col-sm-2 col-form-label">Reson For Rejection:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="ResonForRejection" formControlName="ResonForRejection" ngModel="{{selectedSubmission.ResonForRejection}}">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div>
-        <label class="fileContainer">
-          <button class="btn btn-secondary">
-            Attach Files</button>
-          <input type="file" (change)="fileChangeEvent($event)" multiple/>
-        </label>
-      </div>
-      <div class="pb-2" *ngFor="let file of getFiles">
-        <a class="panel">{{file.name}}
-        </a>
-        <a class="btn" (click)="removeFile(file)">
-          <i class="material-icons">
-            clear
-          </i>
-        </a>
-      </div>
-    </div>
-    <div class="form-group" *ngIf="selectedSubmission">
-      <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-        <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-        </a>
-        <a class="btn" (click)="removeUploadedFile(media)">
-          <i class="material-icons">
-            clear
-          </i>
-        </a>
-      </div>
-    </div>
-
-    <legend class="sub-heading">Candidate Deatils:</legend>
+    <legend class="sub-heading">Candidate Details:</legend>
 
     <div class="form-group row" *ngIf="selectedSubmission">
       <label for="candidateEmail" class="col-sm-2 col-form-label">Candidate Email:</label>
@@ -222,7 +224,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="selectedSubmission">
       <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
         <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
         </a>
@@ -231,6 +233,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
+      <button *ngIf="sendToClient" class="btn btn-default btn-space">Send To Client</button>
       <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
     </div>
 
