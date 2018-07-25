@@ -59,12 +59,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    console.log(user);
-
     this.loginService.authenticateUser(user)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.loginService.storeUserData(data.token, data.user);
             this.toastr.success('You are now logged in', '', {

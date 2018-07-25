@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { SubmissionService } from '../Services/submission.service';
 import { CandidateService } from '../Services/candidate.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -25,6 +26,8 @@ export class AddNewSubmissionsComponent implements OnInit {
   private status: any;
   private selectedCandidate: any;
   private technologies: any;
+  private isCandidate: boolean;
+  private selectRequiement: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -39,6 +42,8 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.selectedCandidate = {};
+    // this.selectRequiement = {};
     this.status = [
       { 'name': 'Open', 'value': 'open' },
       { 'name': 'In-Progress', 'value': 'inprogress' },
@@ -51,9 +56,11 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirements: ['', Validators.required],
       candidateEmail: [''],
       candidatePhone: [''],
+      clientContactname: [''],
+      clientContactEmail: [''],
       candidateName: [''],
       accountName: [''],
-      location: [''],
+      // location: [''],
       clientRate: [''],
       sellingRate: [''],
       status: [''],
@@ -67,23 +74,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       c2c: [''],
     });
     this.getAllRequirements();
-    this.getCommonDetails();
-  }
-
-
-  getCommonDetails() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
-
-    this.requirementService.commonDetails(companyId)
-      .subscribe(
-        data => {
-          console.log(data);
-          if (data.success) {
-            this.technologies = data.technologies;
-          }
-        });
   }
 
   getAllRequirements() {
@@ -98,6 +88,11 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.requirementsDetails = data.requirements;
           }
         });
+  }
+
+  getRequirement(event) {
+    this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    console.log(this.selectRequiement);
   }
 
   fileChangeEvent(event: any) {
@@ -124,10 +119,12 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
-            this.selectedCandidate = data.client;
+            this.selectedCandidate = data.candidate;
+            this.isCandidate = true;
+          } else {
+            this.isCandidate = false;
           }
         });
-
   }
 
 
@@ -137,12 +134,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirementId: form.value.requirements,
       location: form.value.location,
       accountName: form.value.accountName,
-      rate: form.value.rate,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      clientContactname: form.value.clientContactname,
+      clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
-      candidateId: this.selectedCandidate.candidate.candidateId
+      candidateId: this.selectedCandidate.candidateId
     };
-
 
     console.log(submission);
 

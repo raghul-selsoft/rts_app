@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
+import { CandidateService } from '../Services/candidate.service';
 
 @Component({
   selector: 'app-edit-submissions',
@@ -26,10 +27,12 @@ export class EditSubmissionsComponent implements OnInit {
   deletedMediaFiles: any;
   status: any;
   isRejected: boolean;
+  selectedRequirement: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
+    private candidateService: CandidateService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
@@ -41,7 +44,6 @@ export class EditSubmissionsComponent implements OnInit {
     this.getFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
-      { 'name': 'Open', 'value': 'open' },
       { 'name': 'In-Progress', 'value': 'inprogress' },
       { 'name': 'Closed', 'value': 'closed' },
       { 'name': 'Approved', 'value': 'approved' },
@@ -58,6 +60,8 @@ export class EditSubmissionsComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       requirements: ['', Validators.required],
       candidateName: [''],
+      clientContactname: [''],
+      clientContactEmail: [''],
       accountName: [''],
       location: [''],
       clientRate: [''],
@@ -65,6 +69,10 @@ export class EditSubmissionsComponent implements OnInit {
       status: [''],
       ResonForRejection: [''],
       availability: [''],
+      candidateEmail: [''],
+      candidatePhone: [''],
+      candidateLocation: [''],
+      candidateImmigirationStatus: [''],
       technology: [''],
       workLocation: ['']
     });
@@ -90,9 +98,34 @@ export class EditSubmissionsComponent implements OnInit {
               }
             }
             console.log(this.selectedSubmission);
+            this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            console.log(this.selectedRequirement);
           }
         });
   }
+
+  getRequirement(event) {
+    this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    console.log(this.selectedRequirement);
+  }
+
+  getCandidateDetails() {
+    const candidate = {
+      email: this.myForm.controls.candidateEmail.value,
+      companyId: this.rtsCompanyId
+    };
+
+    this.candidateService.getCandidate(candidate)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.selectedSubmission = data;
+            // this.selectedSubmission.cadidateId = data.candidate.candidateId;
+            console.log(this.selectedSubmission);
+          }
+        });
+  }
+
 
   fileChangeEvent(event: any) {
     this.files = event.target.files;
@@ -129,12 +162,14 @@ export class EditSubmissionsComponent implements OnInit {
       candidateName: form.value.candidateName,
       location: form.value.location,
       accountName: form.value.accountName,
-      rate: form.value.rate,
-      availability: form.value.availability,
-      technology: form.value.technology,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      clientContactname: form.value.clientContactname,
+      clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
-      submissionId: this.submissionId
+      submissionId: this.submissionId,
+      candidateId: this.selectedSubmission.candidate.candidateId,
     };
     const editSubmission = {
       submission: submission,

@@ -14,10 +14,12 @@ export class ApiUrl {
     static GetAllRequiementsForUser = 'rtsRequirement/requirement/getAllAllocationRequirementForUser';
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
     static UpdateSubmission = 'rtsSubmission/submission/updateSubmission';
-    static FileUpload = 'rtsSubmission/submission/fileUpload';
+    static SubmissionFileUpload = 'rtsSubmission/submission/fileUpload';
     static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';
     static AddClient = 'rtsClient/client/addClient';
     static GetCommonDetails = 'rtsCommon/common/getAllCommonDetails';
     static GetCandidateDetails = 'rtsCandidate/candidate/findCandidateByEmail';
-    static GettAllCandidates = 'rtsCandidate/candidate/getAllCompanyCandidate'
+    static GettAllCandidates = 'rtsCandidate/candidate/getAllCompanyCandidate';
+    static AddNewCandidate = 'rtsCandidate/candidate/addNewCandidate';
+    static CandidateFileUpload = 'rtsCandidate/candidate/fileUpload';
 }
