@@ -38,21 +38,17 @@ export class RecruiterSubmissionsComponent implements OnInit {
     const userId = {
       userId: this.rtsUserId
     };
-    console.log(this.rtsUserId);
 
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsForUser = data.requirements;
             for (const require of this.requirementsForUser) {
               if (require.submissions.length > 0) {
-                console.log(require);
                 this.submissionDetails.push(require);
               }
             }
-            console.log(this.submissionDetails);
             this.submissionsLength = this.submissionDetails.length;
           }
         });

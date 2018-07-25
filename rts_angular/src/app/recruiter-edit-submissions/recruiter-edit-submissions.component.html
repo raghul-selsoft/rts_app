@@ -2,103 +2,254 @@
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
     <legend class="header">Edit Submission</legend>
 
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
-      <div class="col-sm-4">
-        <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
-          required>
-          <option value="">Select</option>
-          <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.positionName}} {{require.client.name}}</option>
-        </select>
+
+    <div class="row pt-3">
+      <div class="col-6">
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="requirements" class="col-sm-4 col-form-label">Requirements:</label>
+          <div class="col-sm-7">
+            <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
+              (click)="getRequirement($event.target.value);" required>
+              <option value="">Select</option>
+              <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientRate" class="col-sm-4 col-form-label">Client Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+          </div>
+        </div>
+
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientContactname" class="col-sm-4 col-form-label">Client Contact name:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{selectedRequirement.client.contactPersonName}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="clientContactEmail" class="col-sm-4 col-form-label">Client Contact Email:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{selectedRequirement.client.contactPersonEmail}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedRequirement">
+          <label for="accountName" class="col-sm-4 col-form-label">Account Name:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedRequirement">
+          <label for="workLocation" class="col-sm-4 col-form-label">Work Location:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedRequirement.location}}"
+              readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="status" class="col-sm-4 col-form-label">Status:</label>
+          <div class="col-sm-7">
+            <!-- <select name="status" class="form-control" formControlName="status" ngModel="{{selectedSubmission.status}}" readonly>
+              <option value="">Select</option>
+              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+            </select> -->
+            <input type="text" class="form-control" name="status" formControlName="status" value="{{selectedSubmission.status}}" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission && selectedSubmission.status === 'REJECTED'">
+          <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}"
+              readonly>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <div>
+            <label class="fileContainer">
+              <button class="btn btn-secondary">
+                Attach Files</button>
+              <input type="file" (change)="fileChangeEvent($event)" multiple/>
+            </label>
+          </div>
+          <div class="pb-2" *ngFor="let file of getFiles">
+            <a class="panel">{{file.name}}
+            </a>
+            <a class="btn" (click)="removeFile(file)">
+              <i class="material-icons">
+                clear
+              </i>
+            </a>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="selectedSubmission">
+          <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
+            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+            </a>
+            <a class="btn" (click)="removeUploadedFile(media)">
+              <i class="material-icons">
+                clear
+              </i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <legend class="sub-heading">Interview Details:</legend>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="interviewStatus" class="col-sm-4 col-form-label">Interview Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewStatus}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="level1Date" class="col-sm-4 col-form-label">Level1 Date:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="level1Date" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="level2Date" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="currentStatus" class="col-sm-4 col-form-label">Current Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="currentStatus" formControlName="currentStatus" ngModel="{{selectedSubmission.currentStatus}}">
+          </div>
+        </div>
+
       </div>
     </div>
 
+
+    <legend class="sub-heading">Candidate Details:</legend>
+
     <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+      <label for="candidateEmail" class="col-sm-2 col-form-label">Candidate Email:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="candidateName" formControlName="candidateName" ngModel="{{selectedSubmission.candidateName}}"
+        <input type="text" class="form-control" name="candidateEmail" formControlName="candidateEmail" ngModel="{{selectedSubmission.candidate.email}}"
           required>
+      </div>
+      <button type="button" class="btn" (click)="getCandidateDetails()">Search</button>
+    </div>
+
+    <div *ngIf="!addCandidate">
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="candidateImmigirationStatus" class="col-sm-2 col-form-label">Candidate Immigiration Status:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="candidateImmigirationStatus" formControlName="candidateImmigirationStatus"
+            value="{{selectedSubmission.candidate.immigirationStatus}}" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="candidateName" formControlName="candidateName" value="{{selectedSubmission.candidate.name}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="candidatePhone" class="col-sm-2 col-form-label">Candidate Phone:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="candidatePhone" formControlName="candidatePhone" value="{{selectedSubmission.candidate.phoneNumber}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="candidateLocation" class="col-sm-2 col-form-label">Candidate Location:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="candidateLocation" formControlName="candidateLocation" value="{{selectedSubmission.candidate.location}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="availability" formControlName="availability" value="{{selectedSubmission.candidate.availability}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
+        <div class="col-sm-4">
+          <select name="technology" class="form-control" formControlName="technology" ngModel="{{selectedSubmission.candidate.technology[0].technologyId}}"
+            readonly>
+            <option *ngFor="let tech of selectedSubmission.candidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="skype" class="col-sm-2 col-form-label">Skype:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="skype" formControlName="skype" value="{{selectedSubmission.candidate.skype}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="linkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" value="{{selectedSubmission.candidate.linkedIn}}"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
+        <div class="col-sm-4 ">
+          <input type="radio" value="Yes">Yes
+          <input type="radio" value="No">No
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="selectedSubmission">
+        <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
+          <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="location" class="col-sm-2 col-form-label">Location:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedSubmission.location}}"
-          required>
-      </div>
-    </div>
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="rate" class="col-sm-2 col-form-label">Rate:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="rate" formControlName="rate" ngModel="{{selectedSubmission.rate}}" required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="availability" formControlName="availability" ngModel="{{selectedSubmission.availability}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="technology" formControlName="technology" ngModel="{{selectedSubmission.technology}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="accountName" formControlName="accountName" ngModel="{{selectedSubmission.accountName}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedSubmission">
-      <label for="workLocation" class="col-sm-2 col-form-label">Work Location:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="workLocation" formControlName="workLocation" ngModel="{{selectedSubmission.workLocation}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div>
-        <label class="fileContainer">
-          <button class="btn btn-secondary">
-            Attach Files</button>
-          <input type="file" (change)="fileChangeEvent($event)" multiple/>
-        </label>
-      </div>
-      <div class="pb-2" *ngFor="let file of getFiles">
-        <a class="panel">{{file.name}}
-        </a>
-        <a class="btn" (click)="removeFile(file)">
-          <i class="material-icons">
-            clear
-          </i>
-        </a>
-      </div>
-    </div>
-    <div class="form-group" *ngIf="selectedSubmission">
-      <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-        <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-        </a>
-        <a class="btn" (click)="removeUploadedFile(media)">
-          <i class="material-icons">
-            clear
-          </i>
-        </a>
-      </div>
+    <div *ngIf="addCandidate">
+      <button [routerLink]="[ '/add-candidate']" class="btn btn-default">Add Candidate</button>
     </div>
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
+      <button *ngIf="sendToClient" class="btn btn-default btn-space">Send To Client</button>
       <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
     </div>
 

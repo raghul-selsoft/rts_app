@@ -45,9 +45,9 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.selectedCandidate = {};
     // this.selectRequiement = {};
     this.status = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'OPEN' },
+      { 'name': 'In-Progress', 'value': 'IN_PROGRESS' },
+      { 'name': 'Closed', 'value': 'CLOSED' }
     ];
   }
 
@@ -60,7 +60,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientContactEmail: [''],
       candidateName: [''],
       accountName: [''],
-      // location: [''],
       clientRate: [''],
       sellingRate: [''],
       status: [''],

@@ -29,6 +29,7 @@ export class EditSubmissionsComponent implements OnInit {
   isRejected: boolean;
   selectedRequirement: any;
   sendToClient: boolean;
+  addCandidate: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -133,6 +134,13 @@ export class EditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
+            this.addCandidate = false;
+          } else {
+            this.addCandidate = true;
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
   }
@@ -181,8 +189,8 @@ export class EditSubmissionsComponent implements OnInit {
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
-      level1Date: form.value.level1Date,
-      level2Date: form.value.level2Date,
+      dateOfLevel1: form.value.level1Date,
+      dateOfLevel2: form.value.level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: this.selectedSubmission.candidate.candidateId,
