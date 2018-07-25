@@ -77,10 +77,12 @@
         <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status !== 'REJECTED'"  type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 
+        
         <div class="form-group">
           <div>
             <label class="fileContainer">
