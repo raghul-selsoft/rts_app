@@ -77,12 +77,13 @@
         <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}">
-            <input *ngIf="selectedSubmission.status !== 'REJECTED'"  type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
+            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
+              value="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 
-        
+
         <div class="form-group">
           <div>
             <label class="fileContainer">
@@ -123,7 +124,6 @@
           </div>
         </div>
 
-
         <div class="form-group row">
           <label for="level1Date" class="col-sm-4 col-form-label">Level1 Date:</label>
           <div class="col-sm-7">
@@ -131,15 +131,21 @@
           </div>
         </div>
 
-
         <div class="form-group row">
           <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="level2Date" formControlName="level2Date">
           </div>
         </div>
-      </div>
 
+        <div class="form-group row">
+          <label for="currentStatus" class="col-sm-4 col-form-label">Current Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="currentStatus" formControlName="currentStatus">
+          </div>
+        </div>
+
+      </div>
     </div>
 
 
@@ -207,14 +213,14 @@
     <div class="form-group row" *ngIf="selectedSubmission">
       <label for="skype" class="col-sm-2 col-form-label">Skype:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="skype" formControlName="skype" readonly>
+        <input type="text" class="form-control" name="skype" formControlName="skype" value="{{selectedSubmission.candidate.skype}}" readonly>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedSubmission">
       <label for="linkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" readonly>
+        <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" value="{{selectedSubmission.candidate.linkedIn}}" readonly>
       </div>
     </div>
 

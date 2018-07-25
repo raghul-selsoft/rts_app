@@ -37,8 +37,11 @@ export class RequirementsComponent implements OnInit {
 
   ngOnInit() {
     this.hideComponent.displayComponent = true;
-    this.getAllRequirements();
-    this.getAllRequirementsForUser();
+    if (this.userRole === 'ADMIN') {
+      this.getAllRequirements();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
+    }
   }
 
   getAllRequirements() {

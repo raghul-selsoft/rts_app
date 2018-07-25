@@ -79,6 +79,7 @@ export class EditSubmissionsComponent implements OnInit {
       skype: [''],
       linkedIn: [''],
       interviewStatus: [''],
+      currentStatus: [''],
       level1Date: [''],
       level2Date: ['']
     });
@@ -178,6 +179,10 @@ export class EditSubmissionsComponent implements OnInit {
       workLocation: form.value.workLocation,
       status: form.value.status,
       reasonForRejection: form.value.reasonForRejection,
+      interviewStatus: form.value.interviewStatus,
+      currentStatus: form.value.currentStatus,
+      level1Date: form.value.level1Date,
+      level2Date: form.value.level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: this.selectedSubmission.candidate.candidateId,
