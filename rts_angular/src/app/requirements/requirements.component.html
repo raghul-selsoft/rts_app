@@ -51,15 +51,20 @@
           <th>Positions</th>
           <th>Alloction</th>
           <th>Client</th>
+          <th>Age</th>
         </tr>
       </thead>
       <tbody *ngIf="requirementsLengthForUser > 0 ; else noRequirements">
         <tr *ngFor="let require of requirementsForUser | filter:searchString">
-          <td>{{require.positionName}}</td>
+          <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
-          <td>{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <ng-template #noAlloction>
+            <td>Nil</td>
+          </ng-template>
           <td>{{require.client.name}}</td>
+          <td>{{require.age}}</td>
         </tr>
       </tbody>
       <ng-template #noRequirements>

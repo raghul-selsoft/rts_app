@@ -12,22 +12,22 @@
       <table class="table table-hover">
         <thead class="table-header">
           <tr>
-            <th>Submission Date:</th>
+            <th>Created Date:</th>
             <th>Candidate Name</th>
             <th>Technology</th>
             <th>Availability</th>
-            <th>Rate</th>
             <th>Work Location</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let submission of sub.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
             <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
-            <td>{{submission.candidateName}}</td>
-            <td>{{submission.technology}}</td>
-            <td>{{submission.availability}}</td>
-            <td>{{submission.rate}}</td>
-            <td>{{submission.workLocation}}</td>
+            <td>{{submission.candidate.name}}</td>
+            <td>{{submission.candidate.technology[0].technologyName}}</td>
+            <td>{{submission.candidate.availability}}</td>
+            <td>{{sub.location}}</td>
+            <td>{{sub.status}}</td>
           </tr>
         </tbody>
       </table>
