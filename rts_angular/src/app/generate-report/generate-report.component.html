@@ -6,7 +6,6 @@
           <th>Candidate Name</th>
           <th>Technology</th>
           <th>Client Name</th>
-          <th>Availability</th>
           <th>Submission Date</th>
           <th>Interview Status</th>
           <th>L1</th>
@@ -16,24 +15,23 @@
           <th>Current Status</th>
         </tr>
       </thead>
-      <tbody *ngFor="let sub of submissionDetails">
-        <tr *ngFor="let submission of sub.submissions">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+      <tbody>
+        <tr *ngFor="let submission of approvedsubmissions">
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.candidate.technology[0].technologyName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.clientSubmissionOn | date: 'MMM d, y'}}</td>
+          <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.dateOfL1}}</td>
+          <td>{{submission.dateOfL2}}</td>
+          <td>{{submission.clientContactName}}</td>
+          <td>{{submission.age}}</td>
+          <td>{{submission.currentStatus}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <button class="btn btn-default">Get Report</button>
+  <button class="btn btn-default" (click)="generateReport();">Get Report</button>
 
 </div>
