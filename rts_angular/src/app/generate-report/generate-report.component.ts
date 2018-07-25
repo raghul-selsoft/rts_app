@@ -2,25 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import { HideComponentService } from '../Services/hide-component.service';
-import * as moment from 'moment';
-import * as _ from 'underscore';
 
 @Component({
-  selector: 'app-submissions',
-  templateUrl: './submissions.component.html',
-  styleUrls: ['./submissions.component.css'],
-  providers: [LoggedUserService]
+  selector: 'app-generate-report',
+  templateUrl: './generate-report.component.html',
+  styleUrls: ['./generate-report.component.css']
 })
-export class SubmissionsComponent implements OnInit {
+export class GenerateReportComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
   private submissions: any;
-  private submissionsLength: any;
   private requirements: any;
   private submissionDetails: any;
   private rtsCompanyId: any;
-
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -54,9 +49,9 @@ export class SubmissionsComponent implements OnInit {
               }
             }
             console.log(this.submissionDetails);
-            this.submissionsLength = this.submissionDetails.length;
           }
         });
   }
 
 }
+

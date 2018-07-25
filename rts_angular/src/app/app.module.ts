@@ -42,6 +42,7 @@ import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/
 import { ManageCandidateComponent } from './manage-candidate/manage-candidate.component';
 import { CandidateService } from './Services/candidate.service';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
+import { GenerateReportComponent } from './generate-report/generate-report.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
     RecruiterEditSubmissionsComponent,
     ManageCandidateComponent,
     AddCandidateComponent,
+    GenerateReportComponent,
      ],
   imports: [
     BrowserModule,
