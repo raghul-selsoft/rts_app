@@ -46,7 +46,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     // this.selectRequiement = {};
     this.status = [
       { 'name': 'Open', 'value': 'OPEN' },
-      { 'name': 'In-Progress', 'value': 'IN_PROGRESS' },
+      { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
       { 'name': 'Closed', 'value': 'CLOSED' }
     ];
   }
