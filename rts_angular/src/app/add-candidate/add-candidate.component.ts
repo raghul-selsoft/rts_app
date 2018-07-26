@@ -86,7 +86,7 @@ export class AddCandidateComponent implements OnInit {
       location: form.value.location,
       availability: form.value.availability,
       immigirationStatus: form.value.immigirationStatus,
-      technologies: [{
+      technology: [{
         technologyId: form.value.technologies
       }],
       companyId: this.rtsCompanyId,

@@ -122,6 +122,10 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.isCandidate = true;
           } else {
             this.isCandidate = false;
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
   }
