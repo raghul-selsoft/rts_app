@@ -5,8 +5,8 @@
     <div class="form-group row">
       <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
       <div class="col-sm-4">
-        <select name="requirements" class="form-control" formControlName="requirements" (change)="getRequirement($event.target.value);" ngModel="{{requirementId}}"
-          required>
+        <select name="requirements" class="form-control" formControlName="requirements" (change)="getRequirement($event.target.value);"
+          ngModel="{{requirementId}}" required>
           <option value="">Select</option>
           <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
         </select>
@@ -147,7 +147,7 @@
         <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
         <div class="col-sm-4">
           <select name="technology" class="form-control" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
-            readonly>
+            disabled>
             <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           </select>
         </div>
@@ -176,7 +176,7 @@
         </div>
       </div>
 
-      <div class="form-group row" *ngIf="selectedCandidate.mediaFiles.length > 0" >
+      <div class="form-group row" *ngIf="selectedCandidate.mediaFiles.length > 0">
         <label class="col-sm-2 col-form-label">Attachements:</label>
         <div class="col-sm-4">
           <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">

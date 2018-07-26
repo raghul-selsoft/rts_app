@@ -200,7 +200,7 @@
         <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
         <div class="col-sm-4">
           <select name="technology" class="form-control" formControlName="technology" ngModel="{{selectedSubmission.candidate.technology[0].technologyId}}"
-            readonly>
+            disabled>
             <option *ngFor="let tech of selectedSubmission.candidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           </select>
         </div>
