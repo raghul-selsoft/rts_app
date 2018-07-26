@@ -13,13 +13,14 @@ import * as _ from 'underscore';
 })
 export class SubmissionsComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  submissions: any;
-  submissionsLength: any;
-  requirements: any;
-  submissionDetails: any;
-  rtsCompanyId: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private submissions: any;
+  private submissionsLength: any;
+  private requirements: any;
+  private submissionDetails: any;
+  private rtsCompanyId: any;
+
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -35,7 +36,6 @@ export class SubmissionsComponent implements OnInit {
   ngOnInit() {
     this.getAllSubmissions();
   }
-
 
   getAllSubmissions() {
 

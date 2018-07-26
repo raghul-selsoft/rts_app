@@ -60,6 +60,8 @@ export class AddNewRequirementComponent implements OnInit {
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       positionName: ['', Validators.required],
+      otherPositionName: [''],
+      otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
@@ -89,7 +91,6 @@ export class AddNewRequirementComponent implements OnInit {
     this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.clients = data.clients;
             this.technologies = data.technologies;
@@ -137,8 +138,8 @@ export class AddNewRequirementComponent implements OnInit {
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-      this.myForm.controls.positionName.setValue('');
     } else {
+      this.myForm.controls.otherPositionName.setValue('');
       this.isOtherPositionName = false;
     }
   }
@@ -146,7 +147,7 @@ export class AddNewRequirementComponent implements OnInit {
   changeAccountName(event) {
     if (event === 'other') {
       this.isOtherAccountName = true;
-      this.myForm.controls.accountName.setValue('');
+      this.myForm.controls.otherAccountName.setValue('');
     } else {
       this.isOtherAccountName = false;
     }
@@ -154,13 +155,7 @@ export class AddNewRequirementComponent implements OnInit {
 
   addNewRequirement(form: FormGroup) {
 
-    const requirement = {
-      position: {
-        positionName: form.value.positionName
-      },
-      account: {
-        accountName: form.value.accountName
-      },
+    const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
       requirementType: this.requirementByUser,
@@ -173,10 +168,27 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technologies: [{
+      technology: [{
         technologyId: form.value.technologies
       }],
     };
+
+    if (form.value.positionName === 'other') {
+      requirement.position = {
+        positionName: form.value.otherPositionName
+      };
+    } else {
+      requirement.positionId = form.value.positionName;
+    }
+
+    if (form.value.accountName === 'other') {
+      requirement.account = {
+        accountName: form.value.otherAccountName
+      };
+    } else {
+      requirement.accountId = form.value.accountName;
+    }
+
     this.newRequirement = requirement;
     console.log(this.newRequirement);
 

@@ -20,4 +20,8 @@
   font-size: 17px;
   text-transform: capitalize;
   color: rgb(70, 104, 117);
- }
+}
+
+.btn {
+  margin-left: .5em;
+}

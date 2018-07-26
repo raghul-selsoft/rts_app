@@ -1,5 +1,6 @@
 <div class="utility-container">
   <button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>
+  <button class="btn" [routerLink]="['/generate-report']">Generate Report</button>
   <!-- <div class="search-container">
     <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
   </div> -->
@@ -24,7 +25,7 @@
           <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
             <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
             <td>{{submission.candidate.name}}</td>
-            <td>{{submission.candidate.technologies[0].technologyName}}</td>
+            <td>{{submission.candidate.technology[0].technologyName}}</td>
             <td>{{submission.candidate.availability}}</td>
             <td>{{sub.location}}</td>
             <td>{{sub.status}}</td>
