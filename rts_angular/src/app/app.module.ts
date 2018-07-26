@@ -43,6 +43,7 @@ import { ManageCandidateComponent } from './manage-candidate/manage-candidate.co
 import { CandidateService } from './Services/candidate.service';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
     ManageCandidateComponent,
     AddCandidateComponent,
     GenerateReportComponent,
+    RequirementDetailComponent,
      ],
   imports: [
     BrowserModule,

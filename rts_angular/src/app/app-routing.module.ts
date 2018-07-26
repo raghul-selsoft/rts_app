@@ -21,6 +21,7 @@ import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/
 import { ManageCandidateComponent } from './manage-candidate/manage-candidate.component';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
 
 
 
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
   { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
   { path: 'manage-candidate', component: ManageCandidateComponent },
   { path: 'add-candidate', component: AddCandidateComponent },
-  { path: 'generate-report', component: GenerateReportComponent }
+  { path: 'generate-report', component: GenerateReportComponent },
+  { path: 'requirement-detail/:id', component: RequirementDetailComponent }
 ];
 
 
