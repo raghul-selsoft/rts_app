@@ -81,9 +81,7 @@ export class RequirementDetailComponent implements OnInit {
       bankName: ['', Validators.required],
       priority: [''],
       location: [''],
-      requirementType: ['', Validators.required],
       positionsCount: [''],
-      immigrationRequirement: [''],
       technologies: [''],
       allocation: [''],
       clientRate: [''],
@@ -91,6 +89,12 @@ export class RequirementDetailComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      C2C: [''],
+      TBD: [''],
+      FTE: [''],
+      GC: [''],
+      CITIZEN: [''],
+      H1B: ['']
     });
     this.getAllRequirements();
     this.getAllUsers();
@@ -134,6 +138,24 @@ export class RequirementDetailComponent implements OnInit {
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
             console.log(this.selectedRequirement);
+            for (const value of this.requirementByUser) {
+              if (value === 'C2C') {
+                this.myForm.controls.C2C.setValue('C2C');
+              } else if (value === 'FTE') {
+                this.myForm.controls.FTE.setValue('FTE');
+              } else if (value === 'TBD') {
+                this.myForm.controls.TBD.setValue('TBD');
+              }
+            }
+            for (const value of this.immigrationByUser) {
+              if (value === 'GC') {
+                this.myForm.controls.GC.setValue('GC');
+              } else if (value === 'CITIZEN') {
+                this.myForm.controls.CITIZEN.setValue('CITIZEN');
+              } else if (value === 'H1B') {
+                this.myForm.controls.H1B.setValue('H1B');
+              }
+            }
           }
         });
   }
