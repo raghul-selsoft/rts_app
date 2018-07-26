@@ -38,7 +38,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name">
+        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Account Name">
       </div>
     </div>
 
@@ -64,7 +64,7 @@
 
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Requirement Type:</label>
-      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (click)="getCheckedRequirementType(type)">
+      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
         <div class="col-md-6">
           <input type='checkbox' formControlName="requirementType" [value]="type">
           <span class="label">{{type}}</span>
@@ -81,7 +81,7 @@
 
     <div class="form-group row">
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
-      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (click)="getCheckedImmigrationValue(data)">
+      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
         <div class="col-sm-4 ">
           <input type="checkbox" formControlName="immigrationRequirement" [value]="data">
           <span class="label">{{data}}</span>

@@ -29,6 +29,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private deletedMediaFiles: any;
   private selectedRequirement: any;
   private addCandidate: boolean;
+  private technology: any;
+  isNewCandidate: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -75,9 +77,32 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       interviewStatus: [''],
       currentStatus: [''],
       level1Date: [''],
-      level2Date: ['']
+      level2Date: [''],
+      editCandidateImmigirationStatus: [''],
+      editCandidateName: [''],
+      editCandidatePhone: [''],
+      editCandidateLocation: [''],
+      editAvailability: [''],
+      editTechnology: [''],
+      editSkype: [''],
+      editLinkedIn: ['']
     });
     this.getAllRequirementsForUser();
+    this.getAllCommonData();
+  }
+
+  getAllCommonData() {
+    const company = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.commonDetails(company)
+      .subscribe(data => {
+        if (data.success) {
+          this.technology = data.technologies;
+        }
+      });
+
   }
 
   getAllRequirementsForUser() {
@@ -121,8 +146,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
             this.addCandidate = false;
+            this.isNewCandidate = false;
           } else {
             this.addCandidate = true;
+            this.isNewCandidate = true;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -151,6 +178,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   updateSubmission(form: FormGroup) {
 
+    if (this.isNewCandidate) {
+      this.createNewCandidate(form);
+    } else {
+      this.updateCandidateWithSubmission(form, this.selectedSubmission.candidate.candidateId);
+    }
+  }
+
+  updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
     const submission = {
       requirementId: form.value.requirements,
@@ -170,7 +205,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       dateOfLevel2: form.value.level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
-      candidateId: this.selectedSubmission.candidate.candidateId,
+      candidateId: candidateId,
       approvalUserId: this.selectedSubmission.approvalUserId
     };
     const editSubmission = {
@@ -219,6 +254,37 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             });
           }
         });
+  }
+
+  createNewCandidate(form: FormGroup) {
+
+    const candidate = {
+      companyId: this.rtsCompanyId,
+      name: form.value.editCandidateName,
+      email: form.value.candidateEmail,
+      location: form.value.editCandidateLocation,
+      availability: form.value.editAvailability,
+      phoneNumber: form.value.editCandidatePhone,
+      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      technology: [{
+        technologyId: form.value.editTechnology
+      }],
+      skype: form.value.editSkype,
+      linkedIn: form.value.editLinkedIn
+    };
+
+    this.candidateService.addCandidate(candidate)
+      .subscribe(data => {
+        if (data.success) {
+          this.updateCandidateWithSubmission(form, data.candidate.candidateId);
+        } else {
+          this.toastr.error(data.message, '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+        }
+      });
+
   }
 
 }

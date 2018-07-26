@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { ApiUrl } from '../Services/api-url';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginService {
     authToken: any;
     user: any;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http,
+        private router: Router) { }
 
     authenticateUser(user) {
         const headers = new Headers();
@@ -30,5 +32,6 @@ export class LoginService {
         this.user = null;
         localStorage.removeItem('id_token');
         localStorage.removeItem('rts_user');
-      }
+        this.router.navigate(['login']);
+    }
 }

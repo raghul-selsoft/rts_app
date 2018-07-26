@@ -1,12 +1,12 @@
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateRequirement(myForm)">
-    <legend class="header">Edit Requirement</legend>
+    <legend class="header">Requirement Details</legend>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="createdDate" class="col-sm-2 col-form-label">Created Date:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" name="createdDate" formControlName="createdDate" ngModel="{{requirementCreatedDate}}"
-          readonly>
+          disabled>
       </div>
     </div>
 
@@ -14,21 +14,22 @@
       <label for="positionName" class="col-sm-2 col-form-label">Position Name:</label>
       <div class="col-sm-4">
         <select name="positionName" class="form-control" formControlName="positionName" (change)="changePositionName($event.target.value);"
-          ngModel="{{selectedRequirement.position.positionId}}" required>
+          ngModel="{{selectedRequirement.position.positionId}}" disabled>
           <option value="">Select</option>
           <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
           <option value="other">Other</option>
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherPositionName">
-        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name" readonly>
+        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name"
+          readonly>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="status" class="col-sm-2 col-form-label">Status:</label>
       <div class="col-sm-4">
-        <select name="status" class="form-control" formControlName="status" ngModel="{{selectedRequirement.status}}" required>
+        <select name="status" class="form-control" formControlName="status" ngModel="{{selectedRequirement.status}}" disabled>
           <option value="">Select</option>
           <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
         </select>
@@ -39,7 +40,7 @@
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
         <select name="accountName" class="form-control" formControlName="accountName" (change)="changeAccountName($event.target.value);"
-          ngModel="{{selectedRequirement.account.accountId}}" required>
+          ngModel="{{selectedRequirement.account.accountId}}" disabled>
           <option value="">Select</option>
           <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
           <option value="other">Other</option>
@@ -53,7 +54,8 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="priority" class="col-2 col-form-label">Priority:</label>
       <div class="col-4">
-        <select name="priority" class="form-control" formControlName="priority" required ngModel="{{selectedRequirement.priority}}">
+        <select name="priority" class="form-control" formControlName="priority" disabled ngModel="{{selectedRequirement.priority}}"
+          readonly>
           <option value="">Select</option>
           <option value="HIGH">High</option>
           <option value="MEDIUM">Medium</option>
@@ -67,15 +69,15 @@
       <label for="location" class="col-sm-2 col-form-label">Location:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedRequirement.location}}"
-          required readonly>
+          disabled>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement.requirementType">
       <label class="col-sm-2 col-form-label">Requirement Type:</label>
-      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (click)="getCheckedRequirementType(type)">
+      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
         <div class="col-md-6">
-          <input type='checkbox' formControlName="requirementType" [value]="type">
+          <input type='checkbox' formControlName="{{type}}" [value]="type" disabled>
           <span class="label">{{type}}</span>
         </div>
       </div>
@@ -85,15 +87,15 @@
       <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
       <div class="col-sm-4">
         <input type="number " class="form-control" name="positionsCount" maxlength="3" formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}"
-          required readonly>
+          disabled>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
-      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (click)="getCheckedImmigrationValue(data)">
+      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
         <div class="col-sm-4 ">
-          <input type="checkbox" formControlName="immigrationRequirement" [value]="data">
+          <input type="checkbox" formControlName="{{data}}" [value]="data" disabled>
           <span class="label">{{data}}</span>
         </div>
       </div>
@@ -103,7 +105,7 @@
       <label for="clientName" class="col-sm-2 col-form-label">Client:</label>
       <div class="col-sm-4">
         <select name="clientName" class="form-control" formControlName="clientName" ngModel="{{selectedRequirement.client.clientId}}"
-          required>
+          disabled>
           <option value="">Select</option>
           <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
         </select>
@@ -113,14 +115,16 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}" readonly>
+        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
+          disabled>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}" readonly>
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}"
+          disabled>
       </div>
     </div>
 
@@ -128,7 +132,7 @@
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
         <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"
-          required readonly></textarea>
+          disabled></textarea>
       </div>
     </div>
 
@@ -136,7 +140,7 @@
       <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
       <div class="col-sm-4">
         <select name="technologies" class="form-control" formControlName="technologies" ngModel="{{selectedRequirement.technology[0].technologyId}}"
-          required>
+          disabled>
           <option value="">Select</option>
           <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
         </select>
@@ -147,7 +151,7 @@
       <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
       <div class="col-sm-4 ">
         <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}"
-          required>
+          disabled>
           <option value="">Select</option>
           <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
         </select>
@@ -157,7 +161,7 @@
     <div class="form-group row" *ngIf="selectedRequirement.allocationUser">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.allocationUser.teamId}}" required>
+        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.allocationUser.teamId}}" disabled>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>
@@ -168,7 +172,7 @@
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
       <div class="col-sm-4">
         <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"
-          required></textarea>
+          disabled></textarea>
       </div>
     </div>
 
