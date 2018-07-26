@@ -9,7 +9,7 @@
           <label for="requirements" class="col-sm-4 col-form-label">Requirements:</label>
           <div class="col-sm-7">
             <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
-              (click)="getRequirement($event.target.value);" required>
+              (change)="getRequirement($event.target.value);" required>
               <option value="">Select</option>
               <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
             </select>
@@ -66,7 +66,7 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="status" class="col-sm-4 col-form-label">Status:</label>
           <div class="col-sm-7">
-            <select name="status" class="form-control" formControlName="status" (click)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
+            <select name="status" class="form-control" formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
@@ -249,8 +249,7 @@
       <div class="form-group row">
         <label for="editCandidateImmigirationStatus" class="col-sm-2 col-form-label">Candidate Immigiration Status:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="editCandidateImmigirationStatus" formControlName="editCandidateImmigirationStatus"
-            value="{{selectedSubmission.candidate.immigirationStatus}}">
+          <input type="text" class="form-control" name="editCandidateImmigirationStatus" formControlName="editCandidateImmigirationStatus">
         </div>
       </div>
 
@@ -308,8 +307,8 @@
       <div class="form-group row">
         <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
         <div class="col-sm-4 ">
-            <input type="radio" value="Yes">Yes
-            <input type="radio" value="No">No
+          <input type="radio" value="Yes">Yes
+          <input type="radio" value="No">No
         </div>
       </div>
     </div>

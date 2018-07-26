@@ -46,6 +46,8 @@ export class AddCandidateComponent implements OnInit {
       availability: ['', Validators.required],
       immigirationStatus: ['', Validators.required],
       technologies: [''],
+      skype: [''],
+      linkedIn: ['']
     });
     this.getCommonDetails();
   }
@@ -88,6 +90,8 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }],
       companyId: this.rtsCompanyId,
+      skype: form.value.skype,
+      linkedIn: form.value.linkedIn
     };
     console.log(newCandidate);
 

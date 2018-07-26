@@ -5,7 +5,7 @@
     <div class="form-group row">
       <label for="positionName" class="col-sm-2 col-form-label">Position Name:</label>
       <div class="col-sm-4">
-        <select name="positionName" class="form-control" formControlName="positionName" (click)="changePositionName($event.target.value);"
+        <select name="positionName" class="form-control" formControlName="positionName" (change)="changePositionName($event.target.value);"
           required>
           <option value="">Select</option>
           <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
@@ -30,7 +30,7 @@
     <div class="form-group row">
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
-        <select name="accountName" class="form-control" formControlName="accountName" (click)="changeAccountName($event.target.value);"
+        <select name="accountName" class="form-control" formControlName="accountName" (change)="changeAccountName($event.target.value);"
           required>
           <option value="">Select</option>
           <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
@@ -65,15 +65,16 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Requirement Type:</label>
       <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (click)="getCheckedRequirementType(type)">
-        <div class="col-md-6 ">
-          <input type='checkbox' formControlName="requirementType" [value]="type">{{type}}
+        <div class="col-md-6">
+          <input type='checkbox' formControlName="requirementType" [value]="type">
+          <span class="label">{{type}}</span>
         </div>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
-      <div class="col-sm-4 ">
+      <div class="col-sm-4">
         <input type="number " class="form-control" name="positionsCount" maxlength="3" formControlName="positionsCount" required>
       </div>
     </div>
@@ -82,7 +83,8 @@
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
       <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (click)="getCheckedImmigrationValue(data)">
         <div class="col-sm-4 ">
-          <input type="checkbox" formControlName="immigrationRequirement" [value]="data">{{data}}
+          <input type="checkbox" formControlName="immigrationRequirement" [value]="data">
+          <span class="label">{{data}}</span>
         </div>
       </div>
     </div>
@@ -118,7 +120,7 @@
           required></textarea>
       </div>
     </div>
- 
+
     <div class="form-group row">
       <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
       <div class="col-sm-4">
@@ -128,7 +130,7 @@
         </select>
       </div>
     </div>
-    
+
     <div class="form-group row">
       <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
       <div class="col-sm-4 ">

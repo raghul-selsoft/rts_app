@@ -195,7 +195,6 @@ export class AddNewRequirementComponent implements OnInit {
     this.requirementService.addRequirements(this.newRequirement)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New requirement successfully added', '', {
               positionClass: 'toast-top-center',

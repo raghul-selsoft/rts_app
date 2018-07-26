@@ -9,7 +9,7 @@
           <label for="requirements" class="col-sm-4 col-form-label">Requirements:</label>
           <div class="col-sm-7">
             <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
-              (click)="getRequirement($event.target.value);" required>
+              (change)="getRequirement($event.target.value);" required>
               <option value="">Select</option>
               <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
             </select>
@@ -66,10 +66,6 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="status" class="col-sm-4 col-form-label">Status:</label>
           <div class="col-sm-7">
-            <!-- <select name="status" class="form-control" formControlName="status" ngModel="{{selectedSubmission.status}}" readonly>
-              <option value="">Select</option>
-              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-            </select> -->
             <input type="text" class="form-control" name="status" formControlName="status" value="{{selectedSubmission.status}}" readonly>
           </div>
         </div>
@@ -81,7 +77,6 @@
               readonly>
           </div>
         </div>
-
 
         <div class="form-group">
           <div>
