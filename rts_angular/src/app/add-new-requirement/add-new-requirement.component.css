@@ -3,9 +3,9 @@
 }
 
 input[type=checkbox] {
-  position: relative;
+  position: absolute;
+  left: 25px;
   cursor: pointer;
-  padding: 1em;
 }
 
 input[type=checkbox]:before {
@@ -35,3 +35,8 @@ input[type=checkbox]:checked:after {
   top: 2px;
   left: 6px;
 }
+
+.label {
+  padding-left: 2em;
+}
+
