@@ -155,6 +155,22 @@ export class AddNewRequirementComponent implements OnInit {
 
   addNewRequirement(form: FormGroup) {
 
+    if (form.value.clientRate === '' || form.value.clientRate === null) {
+      this.toastr.error('Client Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
+      this.toastr.error('Selling Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
