@@ -5,7 +5,7 @@
     <div class="form-group row">
       <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
       <div class="col-sm-4">
-        <select name="requirements" class="form-control" formControlName="requirements" (click)="getRequirement($event.target.value);"
+        <select name="requirements" class="form-control" formControlName="requirements" (change)="getRequirement($event.target.value);"
           required>
           <option value="">Select</option>
           <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>

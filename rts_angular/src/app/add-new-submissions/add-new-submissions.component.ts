@@ -197,7 +197,6 @@ export class AddNewSubmissionsComponent implements OnInit {
 
     const submission = {
       requirementId: form.value.requirements,
-      location: form.value.location,
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,

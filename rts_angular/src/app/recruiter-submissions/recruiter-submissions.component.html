@@ -1,12 +1,12 @@
 <div class="utility-container">
-  <button class="btn btn-default" [routerLink]="['/recruiter-add-new-submissions']">Add New Submission</button>
+  <button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>
   <!-- <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
     </div> -->
 
   <div *ngIf="submissionsLength > 0 ; else noSummissions">
     <div *ngFor="let sub of submissionDetails">
-      <p class="title">{{sub.positionName}} ({{sub.client.name}})
+      <p class="title">{{sub.position.positionName}} ({{sub.client.name}})
         <i class="allocation-name" *ngIf="sub.allocationUser"> Allocated to:{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</i>
       </p>
       <table class="table table-hover">
