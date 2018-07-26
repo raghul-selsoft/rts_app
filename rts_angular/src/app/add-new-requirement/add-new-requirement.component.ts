@@ -168,9 +168,10 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
+      teamId: form.value.team,
       technology: [{
         technologyId: form.value.technologies
-      }],
+      }]
     };
 
     if (form.value.positionName === 'other') {
