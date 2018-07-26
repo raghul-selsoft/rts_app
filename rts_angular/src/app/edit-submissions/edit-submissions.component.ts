@@ -16,20 +16,24 @@ import { CandidateService } from '../Services/candidate.service';
 })
 export class EditSubmissionsComponent implements OnInit {
   public myForm: FormGroup;
-  rtsUser: any;
-  rtsUserId: any;
-  rtsCompanyId: any;
-  submissionId: any;
-  selectedSubmission: any;
-  requirementsDetails: any;
-  getFiles: any;
-  files: any;
-  deletedMediaFiles: any;
-  status: any;
-  isRejected: boolean;
-  selectedRequirement: any;
-  sendToClient: boolean;
-  addCandidate: boolean;
+
+  private rtsUser: any;
+  private rtsUserId: any;
+  private rtsCompanyId: any;
+  private submissionId: any;
+  private selectedSubmission: any;
+  private requirementsDetails: any;
+  private getFiles: any;
+  private files: any;
+  private deletedMediaFiles: any;
+  private status: any;
+  private isRejected: boolean;
+  private selectedRequirement: any;
+  private sendToClient: boolean;
+  private addCandidate: boolean;
+  private isSubmitToClient: boolean;
+  private isNewCandidate: boolean;
+  private technology: any[];
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -82,9 +86,30 @@ export class EditSubmissionsComponent implements OnInit {
       interviewStatus: [''],
       currentStatus: [''],
       level1Date: [''],
-      level2Date: ['']
+      level2Date: [''],
+      editCandidateImmigirationStatus: [''],
+      editCandidateName: [''],
+      editCandidatePhone: [''], editCandidateLocation: [''], editAvailability: [''], editTechnology: [''],
+      editSkype: [''], editLinkedIn: ['']
     });
     this.getAllRequirements();
+    this.getAllCommonData();
+    this.isNewCandidate = false;
+  }
+
+  getAllCommonData() {
+    const company = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.commonDetails(company)
+      .subscribe(data => {
+        if (data.success) {
+          this.technology = data.technologies;
+          console.log(this.technology);
+        }
+      })
+
   }
 
   getAllRequirements() {
@@ -104,7 +129,7 @@ export class EditSubmissionsComponent implements OnInit {
                 this.selectedSubmission = submission;
               }
             }
-            console.log(this.selectedSubmission);
+
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
@@ -114,13 +139,17 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.sendToClient = false;
             }
+            if (this.selectedSubmission.clientSubmissionOn === 0) {
+              this.isSubmitToClient = true;
+            } else {
+              this.isSubmitToClient = false;
+            }
           }
         });
   }
 
   getRequirement(event) {
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    console.log(this.selectedRequirement);
   }
 
   getCandidateDetails() {
@@ -135,8 +164,10 @@ export class EditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
             this.addCandidate = false;
+            this.isNewCandidate = false;
           } else {
             this.addCandidate = true;
+            this.isNewCandidate = true;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -199,10 +230,16 @@ export class EditSubmissionsComponent implements OnInit {
 
 
   updateSubmission(form: FormGroup) {
+    if (this.isNewCandidate) {
+      this.createNewCandidate(form);
+    } else {
+      this.updateCandidateWithSubmission(form, this.selectedSubmission.candidate.candidateId);
+    }
+  }
 
+  updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
     const submission = {
       requirementId: form.value.requirements,
-      candidateName: form.value.candidateName,
       location: form.value.location,
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
@@ -218,7 +255,7 @@ export class EditSubmissionsComponent implements OnInit {
       dateOfLevel2: form.value.level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
-      candidateId: this.selectedSubmission.candidate.candidateId,
+      candidateId: candidateId,
       approvalUserId: this.rtsUserId
     };
     const editSubmission = {
@@ -267,6 +304,37 @@ export class EditSubmissionsComponent implements OnInit {
             });
           }
         });
+  }
+
+  createNewCandidate(form: FormGroup) {
+
+    const candidate = {
+      companyId: this.rtsCompanyId,
+      name: form.value.editCandidateName,
+      email: form.value.candidateEmail,
+      location: form.value.editCandidateLocation,
+      availability: form.value.editAvailability,
+      phoneNumber: form.value.editCandidatePhone,
+      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      technology: [{
+        technologyId: form.value.editTechnology
+      }],
+      skype: form.value.editSkype,
+      linkedIn: form.value.editLinkedIn
+    }
+
+    this.candidateService.addCandidate(candidate)
+      .subscribe(data => {
+        if (data.success) {
+          this.updateCandidateWithSubmission(form, data.candidate.candidateId);
+        } else {
+          this.toastr.error(data.message, '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+        }
+      })
+
   }
 
 }

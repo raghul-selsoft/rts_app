@@ -245,12 +245,80 @@
     </div>
 
     <div *ngIf="addCandidate">
-      <button [routerLink]="[ '/add-candidate']" class="btn btn-default">Add Candidate</button>
+
+      <div class="form-group row">
+        <label for="editCandidateImmigirationStatus" class="col-sm-2 col-form-label">Candidate Immigiration Status:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editCandidateImmigirationStatus" formControlName="editCandidateImmigirationStatus"
+            value="{{selectedSubmission.candidate.immigirationStatus}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editCandidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editCandidateName" formControlName="editCandidateName">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editCandidatePhone" class="col-sm-2 col-form-label">Candidate Phone:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editCandidatePhone" formControlName="editCandidatePhone">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editCandidateLocation" class="col-sm-2 col-form-label">Candidate Location:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editCandidateLocation" formControlName="editCandidateLocation">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editAvailability" class="col-sm-2 col-form-label">Availability:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editAvailability" formControlName="editAvailability">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editTechnology" class="col-sm-2 col-form-label">Technology:</label>
+        <div class="col-sm-4">
+          <select name="editTechnology" class="form-control" formControlName="editTechnology">
+            <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editSkype" class="col-sm-2 col-form-label">Skype:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editSkype" formControlName="editSkype" value="{{selectedSubmission.candidate.skype}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="editLinkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn" value="{{selectedSubmission.candidate.linkedIn}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
+        <div class="col-sm-4 ">
+            <input type="radio" value="Yes">Yes
+            <input type="radio" value="No">No
+        </div>
+      </div>
     </div>
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button type="button" *ngIf="sendToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
+      <div *ngIf="isSubmitToClient">
+        <button type="button" *ngIf="sendToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
+      </div>
       <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
     </div>
 
