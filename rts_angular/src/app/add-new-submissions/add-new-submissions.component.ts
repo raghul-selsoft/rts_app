@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { SubmissionService } from '../Services/submission.service';
 import { CandidateService } from '../Services/candidate.service';
@@ -28,6 +28,9 @@ export class AddNewSubmissionsComponent implements OnInit {
   private technologies: any;
   private isCandidate: boolean;
   private selectRequiement: any;
+  private isNewCandidate: boolean;
+  private technology: any;
+  private requirementId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -36,6 +39,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -52,6 +56,12 @@ export class AddNewSubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.activatedRoute.params
+      .subscribe((params: Params) => {
+        this.requirementId = params['id'];
+      });
+
     this.myForm = this.formBuilder.group({
       requirements: ['', Validators.required],
       candidateEmail: [''],
@@ -71,8 +81,31 @@ export class AddNewSubmissionsComponent implements OnInit {
       skype: [''],
       linkedIn: [''],
       c2c: [''],
+      editCandidateImmigirationStatus: [''],
+      editCandidateName: [''],
+      editCandidatePhone: [''],
+      editCandidateLocation: [''],
+      editAvailability: [''],
+      editTechnology: [''],
+      editSkype: [''],
+      editLinkedIn: ['']
     });
     this.getAllRequirements();
+    this.getAllCommonData();
+  }
+
+  getAllCommonData() {
+    const company = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.commonDetails(company)
+      .subscribe(data => {
+        if (data.success) {
+          this.technology = data.technologies;
+        }
+      });
+
   }
 
   getAllRequirements() {
@@ -85,6 +118,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
   }
@@ -120,8 +154,10 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.selectedCandidate = data.candidate;
             this.isCandidate = true;
+            this.isNewCandidate = false;
           } else {
             this.isCandidate = false;
+            this.isNewCandidate = true;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -133,6 +169,32 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   addNewSubmission(form: FormGroup) {
 
+    if (form.value.clientRate === '' || form.value.clientRate === null) {
+      this.toastr.error('Client Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
+      this.toastr.error('Selling Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (this.isNewCandidate) {
+      this.createNewCandidate(form);
+    } else {
+      this.SubmissionWithCandidate(form, this.selectedCandidate.candidateId);
+    }
+
+  }
+
+  SubmissionWithCandidate(form: FormGroup, candidateId: any) {
+
     const submission = {
       requirementId: form.value.requirements,
       location: form.value.location,
@@ -143,7 +205,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
-      candidateId: this.selectedCandidate.candidateId
+      candidateId: candidateId
     };
 
     console.log(submission);
@@ -187,6 +249,37 @@ export class AddNewSubmissionsComponent implements OnInit {
             });
           }
         });
+  }
+
+  createNewCandidate(form: FormGroup) {
+
+    const candidate = {
+      companyId: this.rtsCompanyId,
+      name: form.value.editCandidateName,
+      email: form.value.candidateEmail,
+      location: form.value.editCandidateLocation,
+      availability: form.value.editAvailability,
+      phoneNumber: form.value.editCandidatePhone,
+      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      technology: [{
+        technologyId: form.value.editTechnology
+      }],
+      skype: form.value.editSkype,
+      linkedIn: form.value.editLinkedIn
+    };
+
+    this.candidateService.addCandidate(candidate)
+      .subscribe(data => {
+        if (data.success) {
+          this.SubmissionWithCandidate(form, data.candidate.candidateId);
+        } else {
+          this.toastr.error(data.message, '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+        }
+      });
+
   }
 
 }
