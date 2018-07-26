@@ -34,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'add-new-requirement', component: AddNewRequirementComponent },
   { path: 'edit-requirement/:id', component: EditRequirementComponent },
   { path: 'add-new-submission', component: AddNewSubmissionsComponent },
+  { path: 'add-new-submission/:id', component: AddNewSubmissionsComponent },
   { path: 'manage-users', component: ManageUsersComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },

@@ -235,10 +235,13 @@
         </div>
       </div>
 
-      <div class="form-group" *ngIf="selectedSubmission">
-        <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
-          <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-          </a>
+      <div class="form-group row" *ngIf="selectedSubmission">
+        <label class="col-sm-2 col-form-label">Attachements:</label>
+        <div class="col-sm-4">
+          <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
+            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+            </a>
+          </div>
         </div>
       </div>
 
@@ -285,6 +288,7 @@
         <label for="editTechnology" class="col-sm-2 col-form-label">Technology:</label>
         <div class="col-sm-4">
           <select name="editTechnology" class="form-control" formControlName="editTechnology">
+            <option value="">Select</option>
             <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           </select>
         </div>
@@ -293,14 +297,14 @@
       <div class="form-group row">
         <label for="editSkype" class="col-sm-2 col-form-label">Skype:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="editSkype" formControlName="editSkype" value="{{selectedSubmission.candidate.skype}}">
+          <input type="text" class="form-control" name="editSkype" formControlName="editSkype">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="editLinkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn" value="{{selectedSubmission.candidate.linkedIn}}">
+          <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn">
         </div>
       </div>
 
@@ -315,9 +319,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <div *ngIf="isSubmitToClient">
-        <button type="button" *ngIf="sendToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
-      </div>
+      <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
       <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
     </div>
 

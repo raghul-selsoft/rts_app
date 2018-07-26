@@ -89,8 +89,12 @@ export class EditSubmissionsComponent implements OnInit {
       level2Date: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
-      editCandidatePhone: [''], editCandidateLocation: [''], editAvailability: [''], editTechnology: [''],
-      editSkype: [''], editLinkedIn: ['']
+      editCandidatePhone: [''],
+      editCandidateLocation: [''],
+      editAvailability: [''],
+      editTechnology: [''],
+      editSkype: [''],
+      editLinkedIn: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -106,9 +110,8 @@ export class EditSubmissionsComponent implements OnInit {
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
-          console.log(this.technology);
         }
-      })
+      });
 
   }
 
@@ -321,7 +324,7 @@ export class EditSubmissionsComponent implements OnInit {
       }],
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
-    }
+    };
 
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
@@ -333,7 +336,7 @@ export class EditSubmissionsComponent implements OnInit {
             timeOut: 3000,
           });
         }
-      })
+      });
 
   }
 
