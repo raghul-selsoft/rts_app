@@ -168,7 +168,6 @@ export class EditRequirementComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(userId);
     this.userService.allUsers(userId)
       .subscribe(
         data => {

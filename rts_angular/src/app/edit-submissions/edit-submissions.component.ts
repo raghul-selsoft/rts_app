@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-submissions',
@@ -132,7 +133,7 @@ export class EditSubmissionsComponent implements OnInit {
                 this.selectedSubmission = submission;
               }
             }
-
+            console.log(this.selectedSubmission);
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
@@ -241,6 +242,10 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
+
+    const level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+    const level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+
     const submission = {
       requirementId: form.value.requirements,
       location: form.value.location,
@@ -254,8 +259,8 @@ export class EditSubmissionsComponent implements OnInit {
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
-      dateOfLevel1: form.value.level1Date,
-      dateOfLevel2: form.value.level2Date,
+      dateOfLevel1: level1Date,
+      dateOfLevel2: level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
