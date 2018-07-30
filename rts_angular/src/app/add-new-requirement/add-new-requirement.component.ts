@@ -33,6 +33,7 @@ export class AddNewRequirementComponent implements OnInit {
   private isOtherAccountName: boolean;
   private isOtherPositionName: boolean;
   private technologies: any;
+  private isOtherTechnology: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -78,6 +79,7 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      otherTechnology: ['']
     });
     this.getAllUsers();
     this.getCommonDetails();
@@ -153,6 +155,15 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.isOtherTechnology = false;
+    }
+  }
+
   addNewRequirement(form: FormGroup) {
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
@@ -185,9 +196,6 @@ export class AddNewRequirementComponent implements OnInit {
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
       teamId: form.value.team,
-      technology: [{
-        technologyId: form.value.technologies
-      }]
     };
 
     if (form.value.positionName === 'other') {
@@ -204,6 +212,16 @@ export class AddNewRequirementComponent implements OnInit {
       };
     } else {
       requirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
     }
 
     this.newRequirement = requirement;
