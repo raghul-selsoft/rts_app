@@ -41,7 +41,6 @@ export class GenerateReportComponent implements OnInit {
 
     const userId = {
       userId: this.rtsUserId,
-      companyId: this.rtsCompanyId
     };
 
     this.submissonService.approvedSubmissionDetails(userId)
