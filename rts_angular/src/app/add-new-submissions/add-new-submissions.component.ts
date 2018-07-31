@@ -32,6 +32,8 @@ export class AddNewSubmissionsComponent implements OnInit {
   private technology: any;
   private requirementId: any;
   private isOtherTechnology: boolean;
+  private candidateFiles: any;
+  private candidateGetFiles: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -47,6 +49,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.candidateGetFiles = [];
     this.selectedCandidate = {};
     // this.selectRequiement = {};
     this.status = [
@@ -140,6 +143,18 @@ export class AddNewSubmissionsComponent implements OnInit {
   removeFile(file) {
     const clear = this.getFiles.indexOf(file);
     this.getFiles.splice(clear, 1);
+  }
+
+  candidateFileEvent(event: any) {
+    this.candidateFiles = event.target.files;
+    for (const file of this.candidateFiles) {
+      this.candidateGetFiles.push(file);
+    }
+  }
+
+  candidateRemoveFile(file) {
+    const clear = this.candidateGetFiles.indexOf(file);
+    this.candidateGetFiles.splice(clear, 1);
   }
 
   getCandidateDetails() {
@@ -281,13 +296,41 @@ export class AddNewSubmissionsComponent implements OnInit {
       }];
     } else {
       candidate.technology = [{
-        technologyId: form.value.technologies
+        technologyId: form.value.editTechnology
       }];
     }
 
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
         if (data.success) {
+
+          if (this.candidateFiles.length > 0) {
+            const upload = {
+              file: this.candidateFiles,
+              candidateId: data.candidate.candidateId,
+              enteredBy: this.rtsUserId
+            };
+            console.log(upload);
+            this.candidateService.uploadFile(upload).subscribe(
+              file => {
+                if (file.success) {
+                  this.toastr.success(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                } else {
+                  this.toastr.error(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                }
+              });
+          }
+          this.toastr.success('New Candidate Successfully added', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+
           this.SubmissionWithCandidate(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {
