@@ -35,6 +35,8 @@ export class EditSubmissionsComponent implements OnInit {
   private isSubmitToClient: boolean;
   private isNewCandidate: boolean;
   private technology: any[];
+  private level1Date: string;
+  private level2Date: string;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -243,8 +245,16 @@ export class EditSubmissionsComponent implements OnInit {
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
-    const level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
-    const level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+      this.level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+    } else {
+      this.level1Date = '';
+    }
+    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+      this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+    } else {
+      this.level2Date = '';
+    }
 
     const submission = {
       requirementId: form.value.requirements,
@@ -259,8 +269,8 @@ export class EditSubmissionsComponent implements OnInit {
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
-      dateOfLevel1: level1Date,
-      dateOfLevel2: level2Date,
+      dateOfLevel1: this.level1Date,
+      dateOfLevel2: this.level2Date,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
