@@ -32,3 +32,8 @@
 .material-icons {
   color: red;
 }
+
+.mat-radio-button {
+  padding-right: 16px;
+}
+

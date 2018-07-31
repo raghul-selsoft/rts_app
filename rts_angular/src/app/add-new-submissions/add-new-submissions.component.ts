@@ -34,6 +34,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private isOtherTechnology: boolean;
   private candidateFiles: any;
   private candidateGetFiles: any;
+  private isEmployerDetails: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -93,7 +94,11 @@ export class AddNewSubmissionsComponent implements OnInit {
       editTechnology: [''],
       editSkype: [''],
       editLinkedIn: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -189,6 +194,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.myForm.controls.otherTechnology.setValue('');
     } else {
       this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
     }
   }
 
