@@ -86,21 +86,13 @@ export class EditUserComponent implements OnInit {
 
   updateUser(form: FormGroup) {
 
-    if (form.value.userPassword !== form.value.confirmPassword) {
-      this.toastr.error('Password and confirmPassword does not match', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-
     const editUser = {
       firstName: form.value.firstName,
       lastName: form.value.lastName,
       email: form.value.email,
       role: form.value.role,
-      password: form.value.userPassword,
-      enteredBy: this.rtsUserId
+      enteredBy: this.rtsUserId,
+      userId: this.userId
     };
     console.log(editUser);
     this.userService.editUser(editUser)
@@ -108,6 +100,17 @@ export class EditUserComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
+            this.toastr.success('Updated successfully', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-users']);
+
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
 

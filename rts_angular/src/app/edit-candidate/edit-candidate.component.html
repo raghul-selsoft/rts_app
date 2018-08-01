@@ -93,7 +93,7 @@
         <div class="form-group row" *ngIf="selectedCandidate">
           <label class="col-sm-4 col-form-label">Attachements:</label>
           <div class="col-sm-7">
-            <div class="pb-3" *ngFor="let media of selectedCandidate.mediaFiles">
+            <div class="pb-2" *ngFor="let media of selectedCandidate.mediaFiles">
               <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
               </a>
               <a class="btn" (click)="removeUploadedFile(media)">

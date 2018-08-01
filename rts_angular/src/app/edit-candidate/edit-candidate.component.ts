@@ -146,7 +146,8 @@ export class EditCandidateComponent implements OnInit {
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
-      enteredBy: this.rtsUserId
+      enteredBy: this.rtsUserId,
+      candidateId: this.candidateId
     };
 
     if (form.value.technologies === 'other') {
@@ -165,6 +166,41 @@ export class EditCandidateComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
+
+            if (this.getFiles.length > 0) {
+              const upload = {
+                file: this.getFiles,
+                candidateId: this.candidateId,
+                enteredBy: this.rtsUserId
+              };
+              console.log(upload);
+              this.candidateService.uploadFile(upload).subscribe(
+                file => {
+                  if (file.success) {
+                    this.toastr.success(file.message, '', {
+                      positionClass: 'toast-top-center',
+                      timeOut: 3000,
+                    });
+                  } else {
+                    this.toastr.error(file.message, '', {
+                      positionClass: 'toast-top-center',
+                      timeOut: 3000,
+                    });
+                  }
+                });
+            }
+
+            this.toastr.success('Updated Successfully', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-candidate']);
+
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
   }

@@ -95,7 +95,8 @@ export class EditClientComponent implements OnInit {
       contactPersonName: form.value.clientContactName,
       contactPersonEmail: form.value.clientContactEmail,
       contactPersonNumber: form.value.clientContactNumber,
-      enteredBy: this.rtsUserId
+      enteredBy: this.rtsUserId,
+      clientId: this.clientId
     };
 
     console.log(editClient);
@@ -104,6 +105,17 @@ export class EditClientComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
+            this.toastr.success('Updated successfully', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-client']);
+
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
   }
