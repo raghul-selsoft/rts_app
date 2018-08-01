@@ -52,7 +52,6 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.getFiles = [];
     this.candidateGetFiles = [];
     this.selectedCandidate = {};
-    // this.selectRequiement = {};
     this.status = [
       { 'name': 'Open', 'value': 'OPEN' },
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
@@ -167,12 +166,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       email: this.myForm.controls.candidateEmail.value,
       companyId: this.rtsCompanyId
     };
-    console.log(candidate);
 
     this.candidateService.getCandidate(candidate)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.selectedCandidate = data.candidate;
             this.isCandidate = true;
@@ -246,8 +243,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       candidateId: candidateId
     };
-
-    console.log(submission);
 
     this.submissionService.addSubmission(submission)
       .subscribe(
@@ -324,7 +319,6 @@ export class AddNewSubmissionsComponent implements OnInit {
               candidateId: data.candidate.candidateId,
               enteredBy: this.rtsUserId
             };
-            console.log(upload);
             this.candidateService.uploadFile(upload).subscribe(
               file => {
                 if (file.success) {

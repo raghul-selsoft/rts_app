@@ -26,7 +26,6 @@ export class AddUserComponent implements OnInit {
     private router: Router
   ) {
     this.userType = [
-      // { 'name': 'Manager', 'value': 'MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
       { 'name': 'User', 'value': 'USER' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
@@ -64,11 +63,10 @@ export class AddUserComponent implements OnInit {
       password: form.value.userPassword,
       enteredBy: this.rtsUserId
     };
-    console.log(user);
+
     this.userService.addUser(user)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New User successfully added', '', {
               positionClass: 'toast-top-center',

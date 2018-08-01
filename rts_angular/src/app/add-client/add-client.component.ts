@@ -54,11 +54,9 @@ export class AddClientComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(client);
     this.clientService.addClient(client)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New Client successfully added', '', {
               positionClass: 'toast-top-center',

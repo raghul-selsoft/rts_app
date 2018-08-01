@@ -49,7 +49,6 @@ export class SubmissionByRequirementComponent implements OnInit {
           if (data.success) {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
-            console.log(this.selectedRequirement);
             this.submissionsLength = this.selectedRequirement.submissions.length;
           }
         });

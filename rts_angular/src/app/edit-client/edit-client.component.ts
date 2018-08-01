@@ -74,7 +74,6 @@ export class EditClientComponent implements OnInit {
             for (const user of this.clients) {
               this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
             }
-            console.log(this.selectedClient);
             this.name = this.selectedClient.name;
             this.email = this.selectedClient.email;
             this.phoneNumber = this.selectedClient.phoneNumber;
@@ -99,7 +98,6 @@ export class EditClientComponent implements OnInit {
       clientId: this.clientId
     };
 
-    console.log(editClient);
     this.clientService.editClient(editClient)
       .subscribe(
         data => {

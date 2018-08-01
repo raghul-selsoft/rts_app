@@ -100,7 +100,6 @@ export class EditCandidateComponent implements OnInit {
             for (const user of this.candidates) {
               this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
             }
-            console.log(this.selectedCandidate);
           }
         });
 
@@ -134,9 +133,17 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
+    }
+  }
+
   updateCandidate(form: FormGroup) {
 
-    const editCandidate: any = {
+    const candidate: any = {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
@@ -151,17 +158,21 @@ export class EditCandidateComponent implements OnInit {
     };
 
     if (form.value.technologies === 'other') {
-      editCandidate.technology = [{
+      candidate.technology = [{
         technologyName: form.value.otherTechnology
       }];
     } else {
-      editCandidate.technology = [{
+      candidate.technology = [{
         technologyId: form.value.technologies
       }];
     }
-    console.log(editCandidate);
 
-    this.candidateService.editCandidate(editCandidate)
+    const updateCandidate = {
+      candidate: candidate,
+      deletedMediaFiles: this.deletedMediaFiles
+    };
+
+    this.candidateService.editCandidate(updateCandidate)
       .subscribe(
         data => {
           console.log(data);
@@ -173,7 +184,6 @@ export class EditCandidateComponent implements OnInit {
                 candidateId: this.candidateId,
                 enteredBy: this.rtsUserId
               };
-              console.log(upload);
               this.candidateService.uploadFile(upload).subscribe(
                 file => {
                   if (file.success) {

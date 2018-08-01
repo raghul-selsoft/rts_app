@@ -72,13 +72,13 @@ export class CandidateService {
             });
     }
 
-    editCandidate(editCandidate) {
+    editCandidate(updateCandidate) {
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', token);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.UpdateCandidate, editCandidate,
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.UpdateCandidate, updateCandidate,
             { headers: headers })
             .map(res => {
                 const responseToken = res.headers.get('refresh-token');

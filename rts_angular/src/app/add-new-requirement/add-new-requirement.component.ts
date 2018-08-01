@@ -125,7 +125,6 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
-    console.log(this.requirementByUser);
   }
 
   getCheckedImmigrationValue(data) {
@@ -134,7 +133,6 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
@@ -228,7 +226,6 @@ export class AddNewRequirementComponent implements OnInit {
     }
 
     this.newRequirement = requirement;
-    console.log(this.newRequirement);
 
     this.requirementService.addRequirements(this.newRequirement)
       .subscribe(

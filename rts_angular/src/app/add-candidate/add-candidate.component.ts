@@ -127,7 +127,6 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
-    console.log(newCandidate);
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(
@@ -140,7 +139,6 @@ export class AddCandidateComponent implements OnInit {
                 candidateId: data.candidate.candidateId,
                 enteredBy: this.rtsUserId
               };
-              console.log(upload);
               this.candidateService.uploadFile(upload).subscribe(
                 file => {
                   if (file.success) {

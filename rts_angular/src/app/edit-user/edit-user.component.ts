@@ -36,7 +36,6 @@ export class EditUserComponent implements OnInit {
     private router: Router
   ) {
     this.userType = [
-      // { 'name': 'Manager', 'value': 'MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
       { 'name': 'User', 'value': 'USER' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
@@ -74,7 +73,6 @@ export class EditUserComponent implements OnInit {
             for (const user of this.userDetails) {
               this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
             }
-            console.log(this.selectedUser);
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
@@ -94,11 +92,10 @@ export class EditUserComponent implements OnInit {
       enteredBy: this.rtsUserId,
       userId: this.userId
     };
-    console.log(editUser);
+
     this.userService.editUser(editUser)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('Updated successfully', '', {
               positionClass: 'toast-top-center',

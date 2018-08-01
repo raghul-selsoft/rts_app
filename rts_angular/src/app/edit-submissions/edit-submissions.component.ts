@@ -135,7 +135,6 @@ export class EditSubmissionsComponent implements OnInit {
                 this.selectedSubmission = submission;
               }
             }
-            console.log(this.selectedSubmission);
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
@@ -280,8 +279,6 @@ export class EditSubmissionsComponent implements OnInit {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
-
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
