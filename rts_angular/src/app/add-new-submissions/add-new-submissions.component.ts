@@ -68,7 +68,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      requirements: ['', Validators.required],
+      requirements: [''],
       candidateEmail: [''],
       candidatePhone: [''],
       clientContactname: [''],
@@ -193,6 +193,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.isOtherTechnology = true;
       this.myForm.controls.otherTechnology.setValue('');
     } else {
+      this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
     }
   }

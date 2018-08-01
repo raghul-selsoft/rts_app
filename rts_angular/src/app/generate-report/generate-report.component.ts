@@ -72,7 +72,18 @@ export class GenerateReportComponent implements OnInit {
 
   generateReport() {
 
-  }
+    const userId = {
+      userId: this.rtsUserId,
+    };
 
+    this.submissonService.getReport(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            window.location.href = 'http://rameshrasaiyan.com:8080/' + data.downloadUrl;
+          }
+        });
+
+  }
 }
 

@@ -52,24 +52,24 @@ export class AddNewRequirementComponent implements OnInit {
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'Inprogress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      positionName: ['', Validators.required],
+      positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
-      bankName: ['', Validators.required],
+      bankName: [''],
       priority: [''],
       location: [''],
-      requirementType: ['', Validators.required],
+      requirementType: [''],
       positionsCount: [''],
       immigrationRequirement: [''],
       technologies: [''],
@@ -140,8 +140,9 @@ export class AddNewRequirementComponent implements OnInit {
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-    } else {
       this.myForm.controls.otherPositionName.setValue('');
+    } else {
+      this.myForm.controls.otherPositionName.setValue(event);
       this.isOtherPositionName = false;
     }
   }
@@ -151,6 +152,7 @@ export class AddNewRequirementComponent implements OnInit {
       this.isOtherAccountName = true;
       this.myForm.controls.otherAccountName.setValue('');
     } else {
+      this.myForm.controls.otherAccountName.setValue(event);
       this.isOtherAccountName = false;
     }
   }
@@ -160,6 +162,7 @@ export class AddNewRequirementComponent implements OnInit {
       this.isOtherTechnology = true;
       this.myForm.controls.otherTechnology.setValue('');
     } else {
+      this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
     }
   }

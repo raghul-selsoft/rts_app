@@ -25,4 +25,8 @@ export class ApiUrl {
     static SubmissionToClient = 'rtsSubmission/submission/submissionToClient';
     static GenerateReport = 'rtsSubmission/submission/excelReport';
     static UpdateRequirement = 'rtsRequirement/requirement/updateRequirement';
+    static ReportDownload = 'rtsSubmission/submission/excelDownload';
+    static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
+    static UpdateClient = 'rtsClient/client/updateClient';
+    static UpdateUser = 'rtsUser/user/updateUser';
 }

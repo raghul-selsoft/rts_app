@@ -23,6 +23,8 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
 
 
 
@@ -50,7 +52,9 @@ const appRoutes: Routes = [
   { path: 'add-candidate', component: AddCandidateComponent },
   { path: 'generate-report', component: GenerateReportComponent },
   { path: 'requirement-detail/:id', component: RequirementDetailComponent },
-  { path: 'edit-user/:id', component: EditUserComponent }
+  { path: 'edit-user/:id', component: EditUserComponent },
+  { path: 'edit-client/:id', component: EditClientComponent },
+  { path: 'edit-candidate/:id', component: EditCandidateComponent }
 ];
 
 

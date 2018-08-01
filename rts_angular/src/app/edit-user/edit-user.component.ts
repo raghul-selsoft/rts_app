@@ -53,10 +53,10 @@ export class EditUserComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
+      firstName: [''],
+      lastName: [''],
+      email: [''],
+      role: [''],
     });
     this.getAllUser();
   }
@@ -85,7 +85,30 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser(form: FormGroup) {
-    console.log(form.value);
-  }
 
-}
+    if (form.value.userPassword !== form.value.confirmPassword) {
+      this.toastr.error('Password and confirmPassword does not match', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    const editUser = {
+      firstName: form.value.firstName,
+      lastName: form.value.lastName,
+      email: form.value.email,
+      role: form.value.role,
+      password: form.value.userPassword,
+      enteredBy: this.rtsUserId
+    };
+    console.log(editUser);
+    this.userService.editUser(editUser)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+          }
+        });
+
+  }
