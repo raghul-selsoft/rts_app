@@ -24,6 +24,7 @@ export class AddCandidateComponent implements OnInit {
   private files: any;
   private getFiles: any;
   private isOtherTechnology: boolean;
+  private isEmployerDetails: boolean;
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -49,7 +50,11 @@ export class AddCandidateComponent implements OnInit {
       technologies: [''],
       skype: [''],
       linkedIn: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: ['']
     });
     this.getCommonDetails();
   }
@@ -87,6 +92,14 @@ export class AddCandidateComponent implements OnInit {
       this.myForm.controls.otherTechnology.setValue('');
     } else {
       this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
     }
   }
 

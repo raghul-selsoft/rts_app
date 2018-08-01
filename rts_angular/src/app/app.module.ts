@@ -19,6 +19,7 @@ import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
 import { NativeDateModule } from '@angular/material';
 import { AddNewRequirementComponent } from './add-new-requirement/add-new-requirement.component';
@@ -72,7 +73,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     GenerateReportComponent,
     RequirementDetailComponent,
     EditUserComponent,
-     ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -90,7 +91,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatFormFieldModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ],
   providers: [
     RegisterService,
