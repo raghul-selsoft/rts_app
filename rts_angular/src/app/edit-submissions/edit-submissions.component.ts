@@ -67,7 +67,7 @@ export class EditSubmissionsComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      requirements: ['', Validators.required],
+      requirements: [''],
       candidateName: [''],
       clientContactname: [''],
       clientContactEmail: [''],
@@ -78,7 +78,7 @@ export class EditSubmissionsComponent implements OnInit {
       status: [''],
       reasonForRejection: [''],
       availability: [''],
-      candidateEmail: [''],
+      candidateEmail: ['', Validators.email],
       candidatePhone: [''],
       candidateLocation: [''],
       candidateImmigirationStatus: [''],
