@@ -53,7 +53,6 @@ export class RequirementsComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
             this.requirementsLength = this.requirements.length;
@@ -87,7 +86,6 @@ export class RequirementsComponent implements OnInit {
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsForUser = data.requirements;
             this.requirementsLengthForUser = this.requirementsForUser.length;
