@@ -55,6 +55,6 @@
     </table>
   </div>
 
-  <button class="btn btn-default" disabled="approvedsubmissionsLength > 0" (click)="generateReport();">Get Report</button>
+  <button class="btn btn-default" *ngIf="approvedsubmissionsLength > 0" (click)="generateReport();">Get Report</button>
 
 </div>
