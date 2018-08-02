@@ -279,7 +279,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
             if (this.userRole === 'ADMIN') {
               this.router.navigate(['submissions']);
-            } else {
+            } else if (this.userRole === 'RECRUITER') {
               this.router.navigate(['recruiter-submissions']);
             }
 
