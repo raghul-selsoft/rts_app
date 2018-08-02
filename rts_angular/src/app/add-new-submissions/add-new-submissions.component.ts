@@ -35,6 +35,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private candidateFiles: any;
   private candidateGetFiles: any;
   private isEmployerDetails: boolean;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -49,6 +50,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
     this.getFiles = [];
     this.candidateGetFiles = [];
     this.selectedCandidate = {};
@@ -274,7 +276,12 @@ export class AddNewSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['submissions']);
+
+            if (this.userRole === 'ADMIN') {
+              this.router.navigate(['submissions']);
+            } else {
+              this.router.navigate(['recruiter-submissions']);
+            }
 
           } else {
             this.toastr.error(data.message, '', {
