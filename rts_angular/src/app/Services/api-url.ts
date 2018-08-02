@@ -8,6 +8,7 @@ export class ApiUrl {
     static AddCompanyUser = 'rtsUser/user/addCompanyUser';
     static UserLogin = 'rtsUser/user/userLogin';
     static GetAllRequirementsByCompany = 'rtsRequirement/requirement/getAllRequirementByCompany';
+    static GetAllRequirementsByTeam = 'rtsRequirement/requirement/getAllRequirementByTeam';
     static AddNewRequirement = 'rtsRequirement/requirement/insertRequirement';
     static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForAdmin';
     static AddUser = 'rtsUser/user/addUser';

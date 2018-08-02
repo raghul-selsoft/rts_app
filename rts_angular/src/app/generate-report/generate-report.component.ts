@@ -20,6 +20,7 @@ export class GenerateReportComponent implements OnInit {
   private approvedsubmissions: any;
   private rtsCompanyId: any;
   private currentDate: Date;
+  private approvedsubmissionsLength: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -48,6 +49,7 @@ export class GenerateReportComponent implements OnInit {
         data => {
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
+            this.approvedsubmissionsLength = this.approvedsubmissions.length;
             for (const submission of this.approvedsubmissions) {
               const diff = Math.floor(this.currentDate.getTime() - submission.clientSubmissionOn);
               const day = 1000 * 60 * 60 * 24;

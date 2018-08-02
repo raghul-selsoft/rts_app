@@ -306,6 +306,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       linkedIn: form.value.editLinkedIn
     };
 
+    if (this.isEmployerDetails) {
+      candidate.c2C = true;
+      candidate.employeeName = form.value.employerName;
+      candidate.employeeContactName = form.value.employerContactName;
+      candidate.employeeContactPhone = form.value.employerPhone;
+      candidate.employeeContactEmail = form.value.employerEmail;
+    }
+
     if (form.value.technologies === 'other') {
       candidate.technology = [{
         technologyName: form.value.otherTechnology
@@ -320,9 +328,9 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(data => {
         if (data.success) {
 
-          if (this.candidateFiles.length > 0) {
+          if (this.candidateGetFiles.length > 0) {
             const upload = {
-              file: this.candidateFiles,
+              file: this.candidateGetFiles,
               candidateId: data.candidate.candidateId,
               enteredBy: this.rtsUserId
             };

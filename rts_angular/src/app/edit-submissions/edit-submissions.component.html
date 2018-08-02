@@ -89,9 +89,9 @@
         <div class="form-group">
           <div>
             <label class="fileContainer">
-              <button class="btn btn-secondary">
+              <button class="btn btn-secondary" disabled>
                 Attach For Submisson</button>
-              <input type="file" (change)="fileChangeEvent($event)" multiple/>
+              <input type="file" (change)="fileChangeEvent($event)" multiple disabled/>
             </label>
           </div>
           <div class="pb-2" *ngFor="let file of getFiles">
@@ -237,7 +237,7 @@
         </div>
       </div>
 
-      <div class="form-group row" *ngIf="selectedSubmission">
+      <!-- <div class="form-group row" *ngIf="selectedSubmission">
         <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
         <div class="col-sm-4 ">
           <mat-radio-group disabled>
@@ -245,7 +245,7 @@
             <mat-radio-button value="No" checked>No</mat-radio-button>
           </mat-radio-group>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group row" *ngIf="selectedSubmission">
         <label class="col-sm-2 col-form-label">Attachements:</label>
@@ -320,7 +320,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <!-- <div class="form-group row">
         <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
         <div class="col-sm-4 ">
           <mat-radio-group>
@@ -328,7 +328,7 @@
             <mat-radio-button value="No" checked>No</mat-radio-button>
           </mat-radio-group>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="form-btn-container">

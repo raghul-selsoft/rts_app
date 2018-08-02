@@ -67,7 +67,8 @@ export class EditCandidateComponent implements OnInit {
       employerName: [''],
       employerContactName: [''],
       employerPhone: [''],
-      employerEmail: ['']
+      employerEmail: [''],
+      c2c: ['']
     });
     this.getCommonDetails();
     this.getAllCandidates();
@@ -99,6 +100,10 @@ export class EditCandidateComponent implements OnInit {
             this.candidates = data.candidates;
             for (const user of this.candidates) {
               this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
+              if (this.selectedCandidate.c2C) {
+                this.myForm.controls.c2c.setValue('Yes');
+                this.isEmployerDetails = true;
+              }
             }
           }
         });

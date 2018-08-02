@@ -83,7 +83,7 @@
         <div class="form-group row">
           <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
           <div class="col-sm-7">
-            <mat-radio-group (change)="getC2c($event)">
+            <mat-radio-group (change)="getC2c($event)" formControlName="c2c" >
               <mat-radio-button value="Yes">Yes</mat-radio-button>
               <mat-radio-button value="No" checked>No</mat-radio-button>
             </mat-radio-group>
@@ -132,28 +132,28 @@
         <div class="form-group row">
           <label for="employerName" class="col-sm-4 col-form-label">Employer Name:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="employerName" formControlName="employerName">
+            <input type="text" class="form-control" name="employerName" formControlName="employerName" ngModel="{{selectedCandidate.employeeName}}">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="employerContactName" class="col-sm-4 col-form-label">Employer Contact Name:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="employerContactName" formControlName="employerContactName">
+            <input type="text" class="form-control" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedCandidate.employeeContactName}}">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="employerPhone" class="col-sm-4 col-form-label">Employer Phone:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="employerPhone" formControlName="employerPhone">
+            <input type="text" class="form-control" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedCandidate.employeeContactPhone}}">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="employerEmail" class="col-sm-4 col-form-label">Employer Email:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="employerEmail" formControlName="employerEmail">
+            <input type="text" class="form-control" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedCandidate.employeeContactEmail}}">
           </div>
         </div>
 

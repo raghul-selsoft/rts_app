@@ -60,9 +60,9 @@ export class EditRequirementComponent implements OnInit {
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
@@ -157,7 +157,7 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.H1B.setValue('H1B');
               }
             }
-
+            console.log(this.selectedRequirement);
           }
         });
   }

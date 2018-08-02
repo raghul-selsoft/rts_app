@@ -77,7 +77,7 @@ export class AddTeamComponent implements OnInit {
     this.teamMembers = [];
     for (const user of this.users) {
       if (user.userId !== event) {
-        this.otherUsers.push({ user: user, firstName: user.firstName });
+        this.otherUsers.push({ user: user, firstName: user.firstName + ' ' + user.lastName });
       }
     }
     this.deSelectAll();

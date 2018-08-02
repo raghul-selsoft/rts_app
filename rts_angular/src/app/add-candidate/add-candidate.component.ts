@@ -118,6 +118,14 @@ export class AddCandidateComponent implements OnInit {
       linkedIn: form.value.linkedIn
     };
 
+    if (this.isEmployerDetails) {
+      newCandidate.c2C = true;
+      newCandidate.employeeName = form.value.employerName;
+      newCandidate.employeeContactName = form.value.employerContactName;
+      newCandidate.employeeContactPhone = form.value.employerPhone;
+      newCandidate.employeeContactEmail = form.value.employerEmail;
+    }
+
     if (form.value.technologies === 'other') {
       newCandidate.technology = [{
         technologyName: form.value.otherTechnology
