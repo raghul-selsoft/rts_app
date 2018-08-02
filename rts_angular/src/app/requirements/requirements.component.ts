@@ -93,7 +93,7 @@ export class RequirementsComponent implements OnInit {
           if (data.success) {
             this.requirementsForUser = data.requirements;
             this.requirementsLengthForUser = this.requirementsForUser.length;
-            for (const require of this.requirements) {
+            for (const require of this.requirementsForUser) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
@@ -127,7 +127,7 @@ export class RequirementsComponent implements OnInit {
           if (data.success) {
             this.requirementsForTeam = data.requirements;
             this.requirementsLengthForTeam = this.requirements.length;
-            for (const require of this.requirements) {
+            for (const require of this.requirementsForTeam) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
