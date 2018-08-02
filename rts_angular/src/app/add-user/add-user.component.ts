@@ -27,7 +27,6 @@ export class AddUserComponent implements OnInit {
   ) {
     this.userType = [
       { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'User', 'value': 'USER' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
     ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);

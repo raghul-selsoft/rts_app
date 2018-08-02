@@ -29,4 +29,5 @@ export class ApiUrl {
     static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
     static UpdateClient = 'rtsClient/client/updateClient';
     static UpdateUser = 'rtsUser/user/updateUser';
+    static CreateTeam = 'rtsCommon/common/createTeam';
 }

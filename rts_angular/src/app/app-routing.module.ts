@@ -25,6 +25,8 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
 
 
 
@@ -54,7 +56,9 @@ const appRoutes: Routes = [
   { path: 'requirement-detail/:id', component: RequirementDetailComponent },
   { path: 'edit-user/:id', component: EditUserComponent },
   { path: 'edit-client/:id', component: EditClientComponent },
-  { path: 'edit-candidate/:id', component: EditCandidateComponent }
+  { path: 'edit-candidate/:id', component: EditCandidateComponent },
+  { path: 'manage-team', component: ManageTeamComponent },
+  { path: 'add-team', component: AddTeamComponent }
 ];
 
 

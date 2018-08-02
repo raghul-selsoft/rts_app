@@ -48,6 +48,8 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { AddTeamComponent } from './add-team/add-team.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import { EditCandidateComponent } from './edit-candidate/edit-candidate.componen
     EditUserComponent,
     EditClientComponent,
     EditCandidateComponent,
+    ManageTeamComponent,
+    AddTeamComponent,
   ],
   imports: [
     BrowserModule,
