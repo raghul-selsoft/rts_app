@@ -50,6 +50,7 @@ import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
 import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { AddTeamComponent } from './add-team/add-team.component';
+import { TeamService } from './Services/team.service';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { AddTeamComponent } from './add-team/add-team.component';
     ClientService,
     CandidateService,
     SubmissionService,
+    TeamService,
     ToastrService,
     DatePipe],
 

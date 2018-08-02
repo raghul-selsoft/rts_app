@@ -4,6 +4,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { UserService } from '../Services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { TeamService } from '../Services/team.service';
 
 @Component({
   selector: 'app-add-team',
@@ -25,6 +26,7 @@ export class AddTeamComponent implements OnInit {
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private teamService: TeamService,
     private toastr: ToastrService,
     private router: Router
   ) {
@@ -71,9 +73,27 @@ export class AddTeamComponent implements OnInit {
     const team = {
       teamName: form.value.teamName,
       leadUserId: form.value.teamLeadUser,
-      otherUsers: this.teamMembers
+      otherUsers: [form.value.teamMembers]
     };
     console.log(team);
+    this.teamService.addTeam(team)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.toastr.success('New Team successfully added', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-team']);
+
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
   }
 
 }
