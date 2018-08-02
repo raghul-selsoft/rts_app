@@ -51,6 +51,7 @@ import { EditCandidateComponent } from './edit-candidate/edit-candidate.componen
 import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { TeamService } from './Services/team.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { TeamService } from './Services/team.service';
     MatFormFieldModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatRadioModule
   ],

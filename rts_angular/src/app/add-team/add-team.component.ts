@@ -22,6 +22,8 @@ export class AddTeamComponent implements OnInit {
   private users: any;
   private teamMembers: any;
   private otherUsers: any;
+  private dropdownSettings: any;
+  isCheck: boolean;
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
@@ -34,6 +36,7 @@ export class AddTeamComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.teamMembers = [];
     this.otherUsers = [];
+    this.dropdownSettings = {};
   }
 
   ngOnInit() {
@@ -42,6 +45,16 @@ export class AddTeamComponent implements OnInit {
       teamLeadUser: [''],
       teamMembers: [''],
     });
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'user',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this.getAllUser();
   }
 
@@ -59,13 +72,30 @@ export class AddTeamComponent implements OnInit {
         });
   }
 
-  getTeamMembers(event) {
+  selectTeamLead(event) {
     this.otherUsers = [];
+    this.teamMembers = [];
     for (const user of this.users) {
       if (user.userId !== event) {
-        this.otherUsers.push(user);
+        this.otherUsers.push({ user: user, firstName: user.firstName });
       }
     }
+    this.deSelectAll();
+  }
+
+  onItemSelect(item: any) {
+    if (item !== undefined && item !== '') {
+      this.teamMembers.push(item.user.userId);
+    }
+  }
+
+  onItemDeSelect(items: any) {
+    const clear = this.teamMembers.indexOf(items);
+    this.teamMembers.splice(clear, 1);
+  }
+
+  deSelectAll() {
+    this.myForm.controls.teamMembers.setValue('');
   }
 
   addNewTeam(form: FormGroup) {
@@ -73,9 +103,10 @@ export class AddTeamComponent implements OnInit {
     const team = {
       teamName: form.value.teamName,
       leadUserId: form.value.teamLeadUser,
-      otherUsers: [form.value.teamMembers]
+      otherUsers: this.teamMembers
     };
     console.log(team);
+
     this.teamService.addTeam(team)
       .subscribe(
         data => {
