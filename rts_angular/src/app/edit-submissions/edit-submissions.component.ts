@@ -37,6 +37,9 @@ export class EditSubmissionsComponent implements OnInit {
   private technology: any[];
   private level1Date: string;
   private level2Date: string;
+  private isEmployerDetails: boolean;
+  isC2c: boolean;
+  private isOtherTechnology: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -96,8 +99,14 @@ export class EditSubmissionsComponent implements OnInit {
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      otherTechnology: [''],
       editSkype: [''],
-      editLinkedIn: ['']
+      editLinkedIn: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: [''],
+      c2c: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -149,6 +158,13 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.isSubmitToClient = false;
             }
+            console.log(this.selectedSubmission);
+            if (this.selectedSubmission.candidate.c2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+            }
           }
         });
   }
@@ -168,11 +184,20 @@ export class EditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
+            console.log(this.selectedSubmission);
+            if (this.selectedSubmission.candidate.isC2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
             this.addCandidate = true;
             this.isNewCandidate = true;
+            this.myForm.controls.c2c.setValue('No');
+            this.isC2c = false;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -207,6 +232,25 @@ export class EditSubmissionsComponent implements OnInit {
       this.isRejected = false;
     }
   }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
+    }
+  }
+
 
   submissionToClient() {
 
@@ -323,7 +367,7 @@ export class EditSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
-    const candidate = {
+    const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
       email: form.value.candidateEmail,
@@ -331,12 +375,27 @@ export class EditSubmissionsComponent implements OnInit {
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: form.value.editCandidateImmigirationStatus,
-      technology: [{
-        technologyId: form.value.editTechnology
-      }],
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };
+
+    if (form.value.editTechnology === 'other') {
+      candidate.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      candidate.technology = [{
+        technologyId: form.value.editTechnology
+      }];
+    }
+
+    if (this.isEmployerDetails) {
+      candidate.c2C = true;
+      candidate.employeeName = form.value.employerName;
+      candidate.employeeContactName = form.value.employerContactName;
+      candidate.employeeContactPhone = form.value.employerPhone;
+      candidate.employeeContactEmail = form.value.employerEmail;
+    }
 
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
