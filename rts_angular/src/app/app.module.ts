@@ -46,6 +46,12 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { TeamService } from './Services/team.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -73,6 +79,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     GenerateReportComponent,
     RequirementDetailComponent,
     EditUserComponent,
+    EditClientComponent,
+    EditCandidateComponent,
+    ManageTeamComponent,
+    AddTeamComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +101,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatFormFieldModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatRadioModule
   ],
@@ -104,6 +115,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     ClientService,
     CandidateService,
     SubmissionService,
+    TeamService,
     ToastrService,
     DatePipe],
 

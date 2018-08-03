@@ -41,12 +41,12 @@ export class AddCandidateComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      location: ['', Validators.required],
-      availability: ['', Validators.required],
-      immigirationStatus: ['', Validators.required],
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+      location: [''],
+      availability: [''],
+      immigirationStatus: [''],
       technologies: [''],
       skype: [''],
       linkedIn: [''],
@@ -91,6 +91,7 @@ export class AddCandidateComponent implements OnInit {
       this.isOtherTechnology = true;
       this.myForm.controls.otherTechnology.setValue('');
     } else {
+      this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
     }
   }
@@ -117,6 +118,14 @@ export class AddCandidateComponent implements OnInit {
       linkedIn: form.value.linkedIn
     };
 
+    if (this.isEmployerDetails) {
+      newCandidate.c2C = true;
+      newCandidate.employeeName = form.value.employerName;
+      newCandidate.employeeContactName = form.value.employerContactName;
+      newCandidate.employeeContactPhone = form.value.employerPhone;
+      newCandidate.employeeContactEmail = form.value.employerEmail;
+    }
+
     if (form.value.technologies === 'other') {
       newCandidate.technology = [{
         technologyName: form.value.otherTechnology
@@ -126,7 +135,6 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
-    console.log(newCandidate);
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(
@@ -139,7 +147,6 @@ export class AddCandidateComponent implements OnInit {
                 candidateId: data.candidate.candidateId,
                 enteredBy: this.rtsUserId
               };
-              console.log(upload);
               this.candidateService.uploadFile(upload).subscribe(
                 file => {
                   if (file.success) {
