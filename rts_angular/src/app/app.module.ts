@@ -52,6 +52,7 @@ import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { TeamService } from './Services/team.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     EditCandidateComponent,
     ManageTeamComponent,
     AddTeamComponent,
+    EditRequirementForLeadUserComponent,
   ],
   imports: [
     BrowserModule,

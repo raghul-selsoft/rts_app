@@ -27,6 +27,7 @@ import { EditCandidateComponent } from './edit-candidate/edit-candidate.componen
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
 
 
 
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
   { path: 'edit-client/:id', component: EditClientComponent },
   { path: 'edit-candidate/:id', component: EditCandidateComponent },
   { path: 'manage-team', component: ManageTeamComponent },
-  { path: 'add-team', component: AddTeamComponent }
+  { path: 'add-team', component: AddTeamComponent },
+  { path: 'edit-requirementForLeadUser/:id', component: EditRequirementForLeadUserComponent },
 ];
 
 

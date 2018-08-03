@@ -1,60 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { LoggedUserService } from '../Services/logged-user.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as _ from 'underscore';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
-import * as _ from 'underscore';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-add-new-requirement',
-  templateUrl: './add-new-requirement.component.html',
-  styleUrls: ['./add-new-requirement.component.css'],
+  selector: 'app-edit-requirement-for-lead-user',
+  templateUrl: './edit-requirement-for-lead-user.component.html',
+  styleUrls: ['./edit-requirement-for-lead-user.component.css'],
   providers: [LoggedUserService]
 })
-export class AddNewRequirementComponent implements OnInit {
+export class EditRequirementForLeadUserComponent implements OnInit {
 
-  public myForm: FormGroup;
   private rtsUser: any;
   private rtsUserId: any;
-  private requirementType: any;
+  private requirementId: any;
+  private requirements: any;
+  private selectedRequirement: any;
+  private requirementCreatedDate: any;
   private userDetails: any;
-  private newRequirement: any;
-  private requirementByUser: any;
-  private immigrationByUser: any;
   private rtsCompanyId: any;
   private clients: any;
+
+  public myForm: FormGroup;
+  private requirementType: any;
   private immigration: any;
+  private requirementByUser: any;
+  private immigrationByUser: any;
+  private isOtherPositionName: boolean;
+  private isOtherAccountName: boolean;
+  private technologies: any;
+  private accounts: any;
+  private positions: any;
   private teams: any;
   private requirementStatus: any;
-  private positions: any;
-  private accounts: any;
-  private isOtherAccountName: boolean;
-  private isOtherPositionName: boolean;
-  private technologies: any;
+  private editRequirement: any;
   private isOtherTechnology: boolean;
-  private selectedTeamUsers: any;
   private selectedTeam: any;
+  private selectedTeamUsers: any;
   private userRole: any;
+  editTeam: boolean;
 
-  constructor(
-    private loggedUser: LoggedUserService,
+  constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private userService: UserService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private formBuilder: FormBuilder
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    console.log(this.rtsUser);
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
@@ -65,7 +74,14 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.activatedRoute.params
+      .subscribe((params: Params) => {
+        this.requirementId = params['id'];
+      });
+
     this.myForm = this.formBuilder.group({
+      createdDate: [''],
       positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
@@ -75,9 +91,7 @@ export class AddNewRequirementComponent implements OnInit {
       bankName: [''],
       priority: [''],
       location: [''],
-      requirementType: [''],
-      positionsCount: ['', Validators.pattern('^[0-9]*$')],
-      immigrationRequirement: [''],
+      positionsCount: [''],
       technologies: [''],
       allocation: [''],
       clientRate: [''],
@@ -85,9 +99,16 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      C2C: [''],
+      TBD: [''],
+      FTE: [''],
+      GC: [''],
+      CITIZEN: [''],
+      H1B: [''],
       otherTechnology: ['']
     });
-    this.getAllUsers();
+    this.getAllRequirements();
+    this.getAllClients();
     this.getCommonDetails();
   }
 
@@ -109,21 +130,68 @@ export class AddNewRequirementComponent implements OnInit {
         });
   }
 
-
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
+  getAllClients() {
+    const companyId = {
+      companyId: this.rtsCompanyId
     };
 
-    this.userService.allUsers(userId)
+    this.clientService.allClients(companyId)
       .subscribe(
         data => {
           if (data.success) {
-            this.userDetails = data.users;
+            this.clients = data.clients;
           }
         });
-
   }
+
+  getAllRequirements() {
+
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.requirementsDetails(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requirements = data.requirements;
+            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
+            this.requirementByUser = this.selectedRequirement.requirementType;
+            this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            for (const user of this.selectedTeam.otherUsers) {
+              this.selectedTeamUsers.push(user);
+            }
+            if (this.selectedRequirement.enteredBy === this.rtsUserId) {
+              this.editTeam = true;
+            } else {
+              this.editTeam = false;
+            }
+            for (const value of this.requirementByUser) {
+              if (value === 'C2C') {
+                this.myForm.controls.C2C.setValue('C2C');
+              } else if (value === 'FTE') {
+                this.myForm.controls.FTE.setValue('FTE');
+              } else if (value === 'TBD') {
+                this.myForm.controls.TBD.setValue('TBD');
+              }
+            }
+            for (const value of this.immigrationByUser) {
+              if (value === 'GC') {
+                this.myForm.controls.GC.setValue('GC');
+              } else if (value === 'CITIZEN') {
+                this.myForm.controls.CITIZEN.setValue('CITIZEN');
+              } else if (value === 'H1B') {
+                this.myForm.controls.H1B.setValue('H1B');
+              }
+            }
+            console.log(this.selectedRequirement);
+          }
+        });
+  }
+
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -173,6 +241,7 @@ export class AddNewRequirementComponent implements OnInit {
 
   selectTeam(event) {
     if (event !== '') {
+      this.selectedTeamUsers = [];
       this.selectedTeam = _.findWhere(this.teams, { teamId: event });
       this.selectedTeamUsers.push(this.selectedTeam.leadUser);
       for (const user of this.selectedTeam.otherUsers) {
@@ -181,23 +250,7 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
-  addNewRequirement(form: FormGroup) {
-
-    if (form.value.clientRate === '' || form.value.clientRate === null) {
-      this.toastr.error('Client Rate should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-
-    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
-      this.toastr.error('Selling Rate should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+  updateRequirement(form: FormGroup) {
 
     const requirement: any = {
       priority: form.value.priority,
@@ -212,6 +265,7 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
+      requirementId: this.requirementId,
       teamId: form.value.team,
     };
 
@@ -241,14 +295,13 @@ export class AddNewRequirementComponent implements OnInit {
       }];
     }
 
-    this.newRequirement = requirement;
-    console.log(this.newRequirement);
+    this.editRequirement = requirement;
 
-    this.requirementService.addRequirements(this.newRequirement)
+    this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(
         data => {
           if (data.success) {
-            this.toastr.success('New requirement successfully added', '', {
+            this.toastr.success('Requirement Update successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
