@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-add-new-requirement',
@@ -34,6 +35,8 @@ export class AddNewRequirementComponent implements OnInit {
   private isOtherPositionName: boolean;
   private technologies: any;
   private isOtherTechnology: boolean;
+  private selectedTeamUsers: any;
+  private selectedTeam: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -70,7 +73,7 @@ export class AddNewRequirementComponent implements OnInit {
       priority: [''],
       location: [''],
       requirementType: [''],
-      positionsCount: [''],
+      positionsCount: ['', Validators.pattern('^[0-9]*$')],
       immigrationRequirement: [''],
       technologies: [''],
       allocation: [''],
@@ -165,6 +168,13 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  selectTeam(event) {
+    for (const team of this.teams) {
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+    }
+    this.selectedTeamUsers = this.selectedTeam.otherUsers;
+  }
+
   addNewRequirement(form: FormGroup) {
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
@@ -188,7 +198,7 @@ export class AddNewRequirementComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,

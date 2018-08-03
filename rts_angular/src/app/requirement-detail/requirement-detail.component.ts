@@ -58,9 +58,9 @@ export class RequirementDetailComponent implements OnInit {
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'IN-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 

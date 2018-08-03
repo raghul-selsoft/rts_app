@@ -38,7 +38,7 @@ export class EditSubmissionsComponent implements OnInit {
   private level1Date: string;
   private level2Date: string;
   private isEmployerDetails: boolean;
-  isC2c: boolean;
+  private isC2c: boolean;
   private isOtherTechnology: boolean;
 
   constructor(private loggedUser: LoggedUserService,

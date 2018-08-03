@@ -14,7 +14,7 @@
       <div class="col-sm-4">
         <select name="role" class="form-control" formControlName="teamLeadUser" (change)="selectTeamLead($event.target.value)" required>
           <option value="">Select</option>
-          <option *ngFor="let user of users" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+          <option *ngFor="let lead of leadUsers" value="{{lead.userId}}">{{lead.firstName}} {{lead.lastName}}</option>
         </select>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="form-group row">
       <label for="teamMembers" class="col-sm-2 col-form-label">Select Users:</label>
       <div class="col-sm-4">
-        <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="otherUsers" formControlName="teamMembers" [settings]="dropdownSettings"
+        <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="recruiters" formControlName="teamMembers" [settings]="dropdownSettings"
           (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown>
       </div>

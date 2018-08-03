@@ -126,7 +126,7 @@ export class RequirementsComponent implements OnInit {
           console.log(data);
           if (data.success) {
             this.requirementsForTeam = data.requirements;
-            this.requirementsLengthForTeam = this.requirements.length;
+            this.requirementsLengthForTeam = this.requirementsForTeam.length;
             for (const require of this.requirementsForTeam) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;

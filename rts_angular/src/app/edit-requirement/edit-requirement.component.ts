@@ -244,7 +244,7 @@ export class EditRequirementComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
