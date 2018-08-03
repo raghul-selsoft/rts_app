@@ -158,7 +158,6 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.isSubmitToClient = false;
             }
-            console.log(this.selectedSubmission);
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
@@ -184,7 +183,6 @@ export class EditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            console.log(this.selectedSubmission);
             if (this.selectedSubmission.candidate.isC2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
