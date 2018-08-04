@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggedUserService } from '../Services/logged-user.service';
-import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 import { RequirementsService } from '../Services/requirements.service';
-import { ActivatedRoute, Router, Params } from '../../../node_modules/@angular/router';
-import { ToastrService } from '../../../node_modules/ngx-toastr';
+import { LoggedUserService } from '../Services/logged-user.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as _ from 'underscore';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
-import * as moment from 'moment';
-import * as _ from 'underscore';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-requirement-detail',
-  templateUrl: './requirement-detail.component.html',
-  styleUrls: ['./requirement-detail.component.css'],
+  selector: 'app-edit-requirement-for-lead-user',
+  templateUrl: './edit-requirement-for-lead-user.component.html',
+  styleUrls: ['./edit-requirement-for-lead-user.component.css'],
   providers: [LoggedUserService]
 })
-export class RequirementDetailComponent implements OnInit {
+export class EditRequirementForLeadUserComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
@@ -40,6 +40,11 @@ export class RequirementDetailComponent implements OnInit {
   private teams: any;
   private requirementStatus: any;
   private editRequirement: any;
+  private isOtherTechnology: boolean;
+  private selectedTeam: any;
+  private selectedTeamUsers: any;
+  private userRole: any;
+  editTeam: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -48,37 +53,42 @@ export class RequirementDetailComponent implements OnInit {
     private toastr: ToastrService,
     private userService: UserService,
     private clientService: ClientService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder
+  ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    console.log(this.rtsUser);
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
-      { 'name': 'In-Progress', 'value': 'IN-Progress' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
       { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
   ngOnInit() {
+
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
       });
 
     this.myForm = this.formBuilder.group({
-      createdDate: ['', [Validators.required, Validators.minLength(3)]],
-      positionName: ['', Validators.required],
+      createdDate: [''],
+      positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
-      bankName: ['', Validators.required],
+      bankName: [''],
       priority: [''],
       location: [''],
       positionsCount: [''],
@@ -94,18 +104,17 @@ export class RequirementDetailComponent implements OnInit {
       FTE: [''],
       GC: [''],
       CITIZEN: [''],
-      H1B: ['']
+      H1B: [''],
+      otherTechnology: ['']
     });
     this.getAllRequirements();
-    this.getAllUsers();
     this.getAllClients();
     this.getCommonDetails();
-
   }
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -117,6 +126,20 @@ export class RequirementDetailComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+          }
+        });
+  }
+
+  getAllClients() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.clientService.allClients(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clients = data.clients;
           }
         });
   }
@@ -136,6 +159,16 @@ export class RequirementDetailComponent implements OnInit {
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            for (const user of this.selectedTeam.otherUsers) {
+              this.selectedTeamUsers.push(user);
+            }
+            if (this.selectedRequirement.enteredBy === this.rtsUserId) {
+              this.editTeam = true;
+            } else {
+              this.editTeam = false;
+            }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -154,39 +187,11 @@ export class RequirementDetailComponent implements OnInit {
                 this.myForm.controls.H1B.setValue('H1B');
               }
             }
+            console.log(this.selectedRequirement);
           }
         });
   }
 
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
-    };
-
-    console.log(userId);
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.userDetails = data.users;
-          }
-        });
-
-  }
-
-  getAllClients() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
-
-    this.clientService.allClients(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.clients = data.clients;
-          }
-        });
-  }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -207,8 +212,9 @@ export class RequirementDetailComponent implements OnInit {
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-    } else {
       this.myForm.controls.otherPositionName.setValue('');
+    } else {
+      this.myForm.controls.otherPositionName.setValue(event);
       this.isOtherPositionName = false;
     }
   }
@@ -218,7 +224,29 @@ export class RequirementDetailComponent implements OnInit {
       this.isOtherAccountName = true;
       this.myForm.controls.otherAccountName.setValue('');
     } else {
+      this.myForm.controls.otherAccountName.setValue(event);
       this.isOtherAccountName = false;
+    }
+  }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  selectTeam(event) {
+    if (event !== '') {
+      this.selectedTeamUsers = [];
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.otherUsers) {
+        this.selectedTeamUsers.push(user);
+      }
     }
   }
 
@@ -229,7 +257,7 @@ export class RequirementDetailComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
@@ -237,10 +265,8 @@ export class RequirementDetailComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
-      requirementId: this.requirementId
+      requirementId: this.requirementId,
+      teamId: form.value.team,
     };
 
     if (form.value.positionName === 'other') {
@@ -257,6 +283,16 @@ export class RequirementDetailComponent implements OnInit {
       };
     } else {
       requirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
     }
 
     this.editRequirement = requirement;

@@ -41,6 +41,10 @@ export class EditRequirementComponent implements OnInit {
   private requirementStatus: any;
   private editRequirement: any;
   private isOtherTechnology: boolean;
+  private selectedTeam: any;
+  private selectedTeamUsers: any;
+  private userRole: any;
+  editTeam: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -53,9 +57,12 @@ export class EditRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    console.log(this.rtsUser);
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
@@ -108,7 +115,7 @@ export class EditRequirementComponent implements OnInit {
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -120,6 +127,20 @@ export class EditRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+          }
+        });
+  }
+
+  getAllUsers() {
+    const userId = {
+      enteredBy: this.rtsUserId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.userDetails = data.users;
           }
         });
   }
@@ -139,6 +160,11 @@ export class EditRequirementComponent implements OnInit {
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            for (const user of this.selectedTeam.otherUsers) {
+              this.selectedTeamUsers.push(user);
+            }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -160,21 +186,6 @@ export class EditRequirementComponent implements OnInit {
             console.log(this.selectedRequirement);
           }
         });
-  }
-
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
-    };
-
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.userDetails = data.users;
-          }
-        });
-
   }
 
   getAllClients() {
@@ -237,6 +248,17 @@ export class EditRequirementComponent implements OnInit {
     }
   }
 
+  selectTeam(event) {
+    if (event !== '') {
+      this.selectedTeamUsers = [];
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.otherUsers) {
+        this.selectedTeamUsers.push(user);
+      }
+    }
+  }
+
   updateRequirement(form: FormGroup) {
 
     const requirement: any = {
@@ -244,7 +266,7 @@ export class EditRequirementComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
@@ -252,7 +274,8 @@ export class EditRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      requirementId: this.requirementId
+      requirementId: this.requirementId,
+      teamId: form.value.team,
     };
 
     if (form.value.positionName === 'other') {

@@ -7,6 +7,7 @@ import { RequirementsService } from '../Services/requirements.service';
 import { SubmissionService } from '../Services/submission.service';
 import { CandidateService } from '../Services/candidate.service';
 import * as _ from 'underscore';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -36,6 +37,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private candidateGetFiles: any;
   private isEmployerDetails: boolean;
   private userRole: any;
+  private isC2c: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -101,7 +103,11 @@ export class AddNewSubmissionsComponent implements OnInit {
       employerPhone: [''],
       employerEmail: ['']
     });
-    this.getAllRequirements();
+    if (this.userRole === 'ADMIN') {
+      this.getAllRequirements();
+    } else if (this.userRole === 'TL') {
+      this.getAllRequirementsForTeam();
+    }
     this.getAllCommonData();
   }
 
@@ -119,6 +125,21 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   }
 
+  getAllRequirementsForTeam() {
+
+    const teamId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.requirementsDetailsByTeam(teamId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requirementsDetails = data.requirements;
+          }
+        });
+  }
+
   getAllRequirements() {
     const userId = {
       companyId: this.rtsCompanyId
@@ -129,7 +150,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            // this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
   }
@@ -174,6 +195,13 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
+            if (this.selectedCandidate.isC2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+              this.isC2c = false;
+            }
             this.isCandidate = true;
             this.isNewCandidate = false;
           } else {
@@ -281,6 +309,8 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.router.navigate(['submissions']);
             } else if (this.userRole === 'RECRUITER') {
               this.router.navigate(['recruiter-submissions']);
+            } else if (this.userRole === 'TL') {
+              this.router.navigate(['submissions']);
             }
 
           } else {

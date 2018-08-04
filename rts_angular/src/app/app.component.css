@@ -23,8 +23,10 @@
 }
 
 .profile-name {
-  display: inline-block;
+  padding-top: 1em;
   margin-left: 1em;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .profile-wrapper {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app-manage-team',
@@ -16,6 +17,7 @@ export class ManageTeamComponent implements OnInit {
   private rtsCompanyId: any;
   private teams: any;
   private teamLength: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -24,6 +26,7 @@ export class ManageTeamComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
   }
 
@@ -31,9 +34,25 @@ export class ManageTeamComponent implements OnInit {
     this.getCommonDetails();
   }
 
+  // getCommonDetails() {
+  //   const companyId = {
+  //     companyId: this.rtsCompanyId
+  //   };
+
+  //   this.requirementService.commonDetails(companyId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.teams = data.teams;
+  //           this.teamLength = this.teams.length;
+  //           console.log(this.teams);
+  //         }
+  //       });
+  // }
+
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -46,5 +65,4 @@ export class ManageTeamComponent implements OnInit {
           }
         });
   }
-
 }

@@ -21,9 +21,11 @@ export class AddTeamComponent implements OnInit {
   public myForm: FormGroup;
   private users: any;
   private teamMembers: any;
-  private otherUsers: any;
   private dropdownSettings: any;
-  isCheck: boolean;
+  private isCheck: boolean;
+  private leadUsers: any;
+  private recruiters: any;
+
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
@@ -35,7 +37,8 @@ export class AddTeamComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.teamMembers = [];
-    this.otherUsers = [];
+    this.leadUsers = [];
+    this.recruiters = [];
     this.dropdownSettings = {};
   }
 
@@ -68,16 +71,21 @@ export class AddTeamComponent implements OnInit {
         data => {
           if (data.success) {
             this.users = data.users;
+            for (const user of this.users) {
+              if (user.role === 'TL') {
+                this.leadUsers.push(user);
+              }
+            }
           }
         });
   }
 
   selectTeamLead(event) {
-    this.otherUsers = [];
+    this.recruiters = [];
     this.teamMembers = [];
     for (const user of this.users) {
-      if (user.userId !== event) {
-        this.otherUsers.push({ user: user, firstName: user.firstName + ' ' + user.lastName });
+      if (user.role === 'RECRUITER') {
+        this.recruiters.push({ user: user, firstName: user.firstName + ' ' + user.lastName });
       }
     }
     this.deSelectAll();

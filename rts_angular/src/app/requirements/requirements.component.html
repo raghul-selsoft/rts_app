@@ -55,7 +55,7 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLengthForTeam > 0 ; else noRequirements">
-        <tr *ngFor="let require of requirementsForTeam | filter:searchString" [routerLink]="['/edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of requirementsForTeam | filter:searchString" [routerLink]="['/edit-requirementForLeadUser',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
