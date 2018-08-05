@@ -40,6 +40,8 @@ export class EditSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
+  candidateGetFiles: any;
+  candidateFiles: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -54,6 +56,7 @@ export class EditSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
@@ -217,6 +220,18 @@ export class EditSubmissionsComponent implements OnInit {
   removeFile(file) {
     const clear = this.getFiles.indexOf(file);
     this.getFiles.splice(clear, 1);
+  }
+
+  candidateFileEvent(event: any) {
+    this.candidateFiles = event.target.files;
+    for (const file of this.candidateFiles) {
+      this.candidateGetFiles.push(file);
+    }
+  }
+
+  candidateRemoveFile(file) {
+    const clear = this.candidateGetFiles.indexOf(file);
+    this.candidateGetFiles.splice(clear, 1);
   }
 
   removeUploadedFile(media) {
@@ -400,6 +415,33 @@ export class EditSubmissionsComponent implements OnInit {
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
         if (data.success) {
+
+          if (this.candidateGetFiles.length > 0) {
+            const upload = {
+              file: this.candidateGetFiles,
+              candidateId: data.candidate.candidateId,
+              enteredBy: this.rtsUserId
+            };
+            this.candidateService.uploadFile(upload).subscribe(
+              file => {
+                if (file.success) {
+                  this.toastr.success(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                } else {
+                  this.toastr.error(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                }
+              });
+          }
+          this.toastr.success('New Candidate Successfully added', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+
           this.updateCandidateWithSubmission(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {
