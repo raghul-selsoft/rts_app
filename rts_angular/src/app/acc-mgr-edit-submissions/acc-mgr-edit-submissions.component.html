@@ -71,6 +71,7 @@
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED" >Submitted</option>
             </select>
           </div>
         </div>
@@ -418,7 +419,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
+      <button type="button" *ngIf="sendToClient && !isSubmitted " class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
       <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 

@@ -64,7 +64,7 @@ export class EditSubmissionsComponent implements OnInit {
       { 'name': 'Approved', 'value': 'APPROVED' },
       { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
       { 'name': 'Rejected', 'value': 'REJECTED' },
-      { 'name': 'Closed', 'value': 'CLOSED' },
+      { 'name': 'Closed', 'value': 'CLOSED' }
     ];
   }
 
@@ -169,6 +169,7 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            console.log(this.selectedSubmission);
           }
         });
   }

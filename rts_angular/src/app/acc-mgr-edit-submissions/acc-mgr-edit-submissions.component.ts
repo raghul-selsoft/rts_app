@@ -41,6 +41,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
+  private isSubmitted: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -156,10 +157,15 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.sendToClient = false;
             }
-            if (this.selectedSubmission.clientSubmissionOn === 0) {
-              this.isSubmitToClient = true;
+            // if (this.selectedSubmission.clientSubmissionOn === 0) {
+            //   this.isSubmitToClient = true;
+            // } else {
+            //   this.isSubmitToClient = false;
+            // }
+            if (this.selectedSubmission.status === 'SUBMITTED') {
+              this.isSubmitted = true;
             } else {
-              this.isSubmitToClient = false;
+              this.isSubmitted = false;
             }
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');

@@ -71,6 +71,7 @@
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED" >SUBMITTED</option>
             </select>
           </div>
         </div>
