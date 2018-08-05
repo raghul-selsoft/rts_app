@@ -25,6 +25,7 @@ export class AddTeamComponent implements OnInit {
   private isCheck: boolean;
   private leadUsers: any;
   private recruiters: any;
+  private accountManager: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -39,12 +40,14 @@ export class AddTeamComponent implements OnInit {
     this.teamMembers = [];
     this.leadUsers = [];
     this.recruiters = [];
+    this.accountManager = [];
     this.dropdownSettings = {};
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       teamName: [''],
+      accountManager: [''],
       teamLeadUser: [''],
       teamMembers: [''],
     });
@@ -71,9 +74,13 @@ export class AddTeamComponent implements OnInit {
         data => {
           if (data.success) {
             this.users = data.users;
+            console.log(this.users);
             for (const user of this.users) {
               if (user.role === 'TL') {
                 this.leadUsers.push(user);
+              }
+              if (user.role === 'ACC_MGR') {
+                this.accountManager.push(user);
               }
             }
           }

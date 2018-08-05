@@ -38,7 +38,7 @@ export class SubmissionsComponent implements OnInit {
   ngOnInit() {
     if (this.userRole === 'ADMIN') {
       this.getAllSubmissions();
-    } else if (this.userRole === 'TL') {
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllSubmissionsForTeam();
     }
   }

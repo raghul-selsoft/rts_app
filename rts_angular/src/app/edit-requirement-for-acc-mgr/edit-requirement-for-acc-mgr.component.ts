@@ -10,13 +10,12 @@ import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit-requirement-for-lead-user',
-  templateUrl: './edit-requirement-for-lead-user.component.html',
-  styleUrls: ['./edit-requirement-for-lead-user.component.css'],
+  selector: 'app-edit-requirement-for-acc-mgr',
+  templateUrl: './edit-requirement-for-acc-mgr.component.html',
+  styleUrls: ['./edit-requirement-for-acc-mgr.component.css'],
   providers: [LoggedUserService]
 })
-export class EditRequirementForLeadUserComponent implements OnInit {
-
+export class EditRequirementForAccMgrComponent implements OnInit {
   private rtsUser: any;
   private rtsUserId: any;
   private requirementId: any;
@@ -44,7 +43,6 @@ export class EditRequirementForLeadUserComponent implements OnInit {
   private selectedTeam: any;
   private selectedTeamUsers: any;
   private userRole: any;
-  editTeam: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -57,7 +55,6 @@ export class EditRequirementForLeadUserComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
-    console.log(this.rtsUser);
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
@@ -107,7 +104,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
       H1B: [''],
       otherTechnology: ['']
     });
-    this.getAllClients();
+    // this.getAllClients();
     this.getCommonDetails();
   }
 
@@ -130,19 +127,19 @@ export class EditRequirementForLeadUserComponent implements OnInit {
         });
   }
 
-  getAllClients() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
+  // getAllClients() {
+  //   const companyId = {
+  //     companyId: this.rtsCompanyId
+  //   };
 
-    this.clientService.allClients(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.clients = data.clients;
-          }
-        });
-  }
+  //   this.clientService.allClients(companyId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.clients = data.clients;
+  //         }
+  //       });
+  // }
 
   getAllRequirements() {
 
@@ -164,12 +161,6 @@ export class EditRequirementForLeadUserComponent implements OnInit {
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
             }
-            if (this.selectedRequirement.enteredBy === this.rtsUserId) {
-              this.editTeam = true;
-            } else {
-              this.editTeam = false;
-            }
-            console.log(this.editTeam);
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');

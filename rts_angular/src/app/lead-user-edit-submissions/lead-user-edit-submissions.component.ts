@@ -10,12 +10,13 @@ import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-edit-submissions',
-  templateUrl: './edit-submissions.component.html',
-  styleUrls: ['./edit-submissions.component.css'],
+  selector: 'app-lead-user-edit-submissions',
+  templateUrl: './lead-user-edit-submissions.component.html',
+  styleUrls: ['./lead-user-edit-submissions.component.css'],
   providers: [LoggedUserService]
 })
-export class EditSubmissionsComponent implements OnInit {
+export class LeadUserEditSubmissionsComponent implements OnInit {
+
   public myForm: FormGroup;
 
   private rtsUser: any;
@@ -132,10 +133,10 @@ export class EditSubmissionsComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -412,4 +413,5 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
 }
+
 
