@@ -40,7 +40,7 @@ export class RequirementsComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
-    } else if (this.userRole === 'TL') {
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
     } else if (this.userRole === 'RECRUITER') {
       this.getAllRequirementsForUser();

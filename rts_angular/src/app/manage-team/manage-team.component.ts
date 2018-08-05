@@ -34,22 +34,6 @@ export class ManageTeamComponent implements OnInit {
     this.getCommonDetails();
   }
 
-  // getCommonDetails() {
-  //   const companyId = {
-  //     companyId: this.rtsCompanyId
-  //   };
-
-  //   this.requirementService.commonDetails(companyId)
-  //     .subscribe(
-  //       data => {
-  //         if (data.success) {
-  //           this.teams = data.teams;
-  //           this.teamLength = this.teams.length;
-  //           console.log(this.teams);
-  //         }
-  //       });
-  // }
-
   getCommonDetails() {
     const companyId = {
       userId: this.rtsUserId

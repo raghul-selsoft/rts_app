@@ -28,6 +28,9 @@ import { EditClientComponent } from './edit-client/edit-client.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
+import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
+import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
+import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 
 
 
@@ -48,6 +51,8 @@ const appRoutes: Routes = [
   { path: 'recruiter-add-new-submissions', component: RecruiterAddNewSubmissionsComponent },
   { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
   { path: 'edit-submissions/:id', component: EditSubmissionsComponent },
+  { path: 'acc_mgr-edit-submissions/:id', component: AccMgrEditSubmissionsComponent },
+  { path: 'leadUser-edit-submissions/:id', component: LeadUserEditSubmissionsComponent },
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
   { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
@@ -60,7 +65,8 @@ const appRoutes: Routes = [
   { path: 'edit-candidate/:id', component: EditCandidateComponent },
   { path: 'manage-team', component: ManageTeamComponent },
   { path: 'add-team', component: AddTeamComponent },
-  { path: 'edit-requirementForLeadUser/:id', component: EditRequirementForLeadUserComponent },
+  { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
+  { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
 ];
 
 

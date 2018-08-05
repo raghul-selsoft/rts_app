@@ -107,9 +107,8 @@ export class EditRequirementComponent implements OnInit {
       H1B: [''],
       otherTechnology: ['']
     });
-    this.getAllRequirements();
     this.getAllUsers();
-    this.getAllClients();
+    // this.getAllClients();
     this.getCommonDetails();
   }
 
@@ -127,6 +126,7 @@ export class EditRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.getAllRequirements();
           }
         });
   }
@@ -188,19 +188,19 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  getAllClients() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
+  // getAllClients() {
+  //   const companyId = {
+  //     companyId: this.rtsCompanyId
+  //   };
 
-    this.clientService.allClients(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.clients = data.clients;
-          }
-        });
-  }
+  //   this.clientService.allClients(companyId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.clients = data.clients;
+  //         }
+  //       });
+  // }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
