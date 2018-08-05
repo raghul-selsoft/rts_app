@@ -92,6 +92,7 @@ export class RequirementsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsForUser = data.requirements;
+            console.log(this.requirementsForUser);
             this.requirementsLengthForUser = this.requirementsForUser.length;
             for (const require of this.requirementsForUser) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);

@@ -150,7 +150,7 @@
     <div class="form-group row" *ngIf="selectedRequirement.allocationUser">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.allocationUser.teamId}}" disabled>
+        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" disabled>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>
@@ -163,7 +163,7 @@
         <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}"
           disabled>
           <option value="">Select</option>
-          <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
         </select>
       </div>
     </div>

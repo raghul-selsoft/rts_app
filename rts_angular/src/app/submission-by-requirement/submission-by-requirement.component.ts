@@ -40,6 +40,8 @@ export class SubmissionByRequirementComponent implements OnInit {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
   }
 
@@ -67,6 +69,23 @@ export class SubmissionByRequirementComponent implements OnInit {
     };
 
     this.requirementService.requirementsDetailsByTeam(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requirements = data.requirements;
+            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            this.submissionsLength = this.selectedRequirement.submissions.length;
+          }
+        });
+  }
+
+  getAllRequirementsForUser() {
+
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
           if (data.success) {
