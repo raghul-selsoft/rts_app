@@ -118,7 +118,8 @@ export class AddTeamComponent implements OnInit {
     const team = {
       teamName: form.value.teamName,
       leadUserId: form.value.teamLeadUser,
-      otherUsers: this.teamMembers
+      otherUsers: this.teamMembers,
+      accountManagerId: form.value.accountManager
     };
     console.log(team);
 

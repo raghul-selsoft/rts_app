@@ -8,7 +8,9 @@
     <div *ngIf="teamLength > 0 ; else noTeams">
       <div *ngFor="let team of teams">
         <p class="title">{{team.name}}
-          <i class="allocation-name"> (LeadUser: {{team.leadUser.firstName}} {{team.leadUser.lastName}})</i>
+          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
+            {{team.leadUser.lastName}})
+          </i>
         </p>
         <table class="table table-hover">
           <thead class="table-header">
@@ -54,7 +56,9 @@
     <div *ngIf="teamLength > 0 ; else noTeams">
       <div *ngFor="let team of teams">
         <p class="title">{{team.name}}
-          <i class="allocation-name"> (LeadUser: {{team.leadUser.firstName}} {{team.leadUser.lastName}})</i>
+          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
+            {{team.leadUser.lastName}})
+          </i>
         </p>
         <table class="table table-hover">
           <thead class="table-header">
@@ -100,7 +104,9 @@
     <div *ngIf="teamLength > 0 ; else noTeams">
       <div *ngFor="let team of teams">
         <p class="title">{{team.name}}
-          <i class="allocation-name"> (LeadUser: {{team.leadUser.firstName}} {{team.leadUser.lastName}})</i>
+          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
+            {{team.leadUser.lastName}})
+          </i>
         </p>
         <table class="table table-hover">
           <thead class="table-header">
