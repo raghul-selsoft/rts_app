@@ -118,7 +118,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
 
   getAllCommonData() {
     const company = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(company)

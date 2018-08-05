@@ -33,6 +33,7 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
   candidateGetFiles: any;
   candidateFiles: any;
   isOtherTechnology: boolean;
+  technology: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -88,6 +89,7 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
       employerEmail: ['']
     });
     this.getAllRequirementsForUser();
+    this.getAllCommonData();
   }
 
   getAllRequirementsForUser() {
@@ -104,6 +106,21 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
             console.log(this.requirementsDetails);
           }
         });
+  }
+
+  getAllCommonData() {
+    const company = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.commonDetails(company)
+      .subscribe(data => {
+        if (data.success) {
+          this.technology = data.technologies;
+          console.log(this.technology);
+        }
+      });
+
   }
 
   getRequirement(event) {

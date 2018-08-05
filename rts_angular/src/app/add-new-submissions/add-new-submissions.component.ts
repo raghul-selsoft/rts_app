@@ -107,19 +107,22 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
     this.getAllCommonData();
   }
 
   getAllCommonData() {
     const company = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(company)
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
+          console.log(this.technology);
         }
       });
 
@@ -136,6 +139,23 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+          }
+        });
+  }
+
+  getAllRequirementsForUser() {
+
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.requirementsDetailsForUser(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requirementsDetails = data.requirements;
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
   }
@@ -150,7 +170,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            // this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
   }

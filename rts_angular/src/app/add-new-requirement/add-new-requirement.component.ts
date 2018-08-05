@@ -92,11 +92,11 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCommonDetails() {
-    const companyId = {
+    const userId = {
       userId: this.rtsUserId
     };
 
-    this.requirementService.commonDetails(companyId)
+    this.requirementService.commonDetails(userId)
       .subscribe(
         data => {
           if (data.success) {

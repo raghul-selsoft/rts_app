@@ -106,11 +106,11 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   getAllCommonData() {
-    const company = {
-      companyId: this.rtsCompanyId
+    const userId = {
+      userId: this.rtsUserId
     };
 
-    this.requirementService.commonDetails(company)
+    this.requirementService.commonDetails(userId)
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
