@@ -65,7 +65,7 @@ export class EditRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B'];
+    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -105,6 +105,10 @@ export class EditRequirementComponent implements OnInit {
       GC: [''],
       CITIZEN: [''],
       H1B: [''],
+      W21099: [''],
+      OPTCPT: [''],
+      EAD: [''],
+      H4AD: [''],
       otherTechnology: ['']
     });
     this.getAllUsers();
@@ -181,10 +185,18 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.CITIZEN.setValue('CITIZEN');
               } else if (value === 'H1B') {
                 this.myForm.controls.H1B.setValue('H1B');
+              } else if (value === 'W2/1099') {
+                this.myForm.controls.W21099.setValue('W2/1099');
+              } else if (value === 'OPT/CPT') {
+                this.myForm.controls.OPTCPT.setValue('OPT/CPT');
+              } else if (value === 'EAD') {
+                this.myForm.controls.EAD.setValue('EAD');
+              } else if (value === 'H4AD') {
+                this.myForm.controls.H4AD.setValue('H4AD');
               }
             }
-            console.log(this.selectedRequirement);
           }
+          console.log(this.selectedRequirement);
         });
   }
 
