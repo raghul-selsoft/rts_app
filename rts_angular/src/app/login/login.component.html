@@ -1,23 +1,27 @@
-<div class="login-container">
-  <h1 class="title">Login</h1>
-  <form [formGroup]="myForm" (ngSubmit)="login(myForm)">
-    <div class="form-group">
-      <label for="userEmail">Email address</label>
-      <input type="email" class="form-control" formControlName="userEmail" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label for="userPassword">Password</label>
-      <input type="password" class="form-control" formControlName="userPassword" placeholder="Password">
-    </div>
-    <div class="form-btn-container">
-      <a class="btn">Cancel</a>
-      <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Login</button>
-    </div>
-  </form>
-  <div class="row">
-    <p class="register">
-      <a [routerLink]="['/register']" class="btn">Register</a>|
-      <a class="btn">Forgot Password?</a>
-    </p>
+<div class="container">
+  <div class="row justify-content-center">
+      <div class="col col-4 login-container">
+        <h1 class="title">Login</h1>
+        <form [formGroup]="myForm" (ngSubmit)="login(myForm)">
+            <div class="form-group">
+              <label for="userEmail">Email address</label>
+              <input type="email" class="form-control" formControlName="userEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="userPassword">Password</label>
+              <input type="password" class="form-control" formControlName="userPassword" placeholder="Password">
+            </div>
+            <div class="form-btn-container">
+              <a class="btn">Cancel</a>
+              <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Login</button>
+            </div>
+          </form>
+          <div>
+            <p>
+              <a [routerLink]="['/register']" class="btn">Register</a>|
+              <a class="btn">Forgot Password?</a>
+            </p>
+          </div>
+      </div>
   </div>
 </div>
