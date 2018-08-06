@@ -19,6 +19,7 @@ import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
 import { NativeDateModule } from '@angular/material';
 import { AddNewRequirementComponent } from './add-new-requirement/add-new-requirement.component';
@@ -44,6 +45,17 @@ import { CandidateService } from './Services/candidate.service';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { TeamService } from './Services/team.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
+import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
+import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
+import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 
 
 @NgModule({
@@ -70,7 +82,16 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
     AddCandidateComponent,
     GenerateReportComponent,
     RequirementDetailComponent,
-     ],
+    EditUserComponent,
+    EditClientComponent,
+    EditCandidateComponent,
+    ManageTeamComponent,
+    AddTeamComponent,
+    EditRequirementForLeadUserComponent,
+    EditRequirementForAccMgrComponent,
+    AccMgrEditSubmissionsComponent,
+    LeadUserEditSubmissionsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -88,7 +109,9 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
     MatFormFieldModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
-    MatIconModule
+    NgMultiSelectDropDownModule.forRoot(),
+    MatIconModule,
+    MatRadioModule
   ],
   providers: [
     RegisterService,
@@ -100,6 +123,7 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
     ClientService,
     CandidateService,
     SubmissionService,
+    TeamService,
     ToastrService,
     DatePipe],
 

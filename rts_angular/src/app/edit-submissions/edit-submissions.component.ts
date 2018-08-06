@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-submissions',
@@ -34,6 +35,14 @@ export class EditSubmissionsComponent implements OnInit {
   private isSubmitToClient: boolean;
   private isNewCandidate: boolean;
   private technology: any[];
+  private level1Date: string;
+  private level2Date: string;
+  private isEmployerDetails: boolean;
+  private isC2c: boolean;
+  private isOtherTechnology: boolean;
+  candidateGetFiles: any;
+  candidateFiles: any;
+  immigirationStatus: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -48,12 +57,15 @@ export class EditSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-      { 'name': 'Closed', 'value': 'CLOSED' },
+      { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
       { 'name': 'Approved', 'value': 'APPROVED' },
-      { 'name': 'Rejected', 'value': 'REJECTED' }
+      { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+      { 'name': 'Rejected', 'value': 'REJECTED' },
+      { 'name': 'Closed', 'value': 'CLOSED' }
     ];
   }
 
@@ -64,7 +76,7 @@ export class EditSubmissionsComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      requirements: ['', Validators.required],
+      requirements: [''],
       candidateName: [''],
       clientContactname: [''],
       clientContactEmail: [''],
@@ -72,10 +84,11 @@ export class EditSubmissionsComponent implements OnInit {
       location: [''],
       clientRate: [''],
       sellingRate: [''],
+      buyingRate: [''],
       status: [''],
       reasonForRejection: [''],
       availability: [''],
-      candidateEmail: [''],
+      candidateEmail: ['', Validators.email],
       candidatePhone: [''],
       candidateLocation: [''],
       candidateImmigirationStatus: [''],
@@ -87,14 +100,22 @@ export class EditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      statusForLevel1: [''],
+      statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      otherTechnology: [''],
       editSkype: [''],
-      editLinkedIn: ['']
+      editLinkedIn: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: [''],
+      c2c: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -103,7 +124,7 @@ export class EditSubmissionsComponent implements OnInit {
 
   getAllCommonData() {
     const company = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(company)
@@ -132,7 +153,6 @@ export class EditSubmissionsComponent implements OnInit {
                 this.selectedSubmission = submission;
               }
             }
-
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
@@ -146,6 +166,29 @@ export class EditSubmissionsComponent implements OnInit {
               this.isSubmitToClient = true;
             } else {
               this.isSubmitToClient = false;
+            }
+            if (this.selectedSubmission.candidate.c2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+            }
+            console.log(this.selectedSubmission);
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
             }
           }
         });
@@ -166,11 +209,19 @@ export class EditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
+            if (this.selectedSubmission.candidate.isC2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
             this.addCandidate = true;
             this.isNewCandidate = true;
+            this.myForm.controls.c2c.setValue('No');
+            this.isC2c = false;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -192,6 +243,18 @@ export class EditSubmissionsComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+  candidateFileEvent(event: any) {
+    this.candidateFiles = event.target.files;
+    for (const file of this.candidateFiles) {
+      this.candidateGetFiles.push(file);
+    }
+  }
+
+  candidateRemoveFile(file) {
+    const clear = this.candidateGetFiles.indexOf(file);
+    this.candidateGetFiles.splice(clear, 1);
+  }
+
   removeUploadedFile(media) {
     this.deletedMediaFiles.push(media.mediaId);
     const clear = this.selectedSubmission.mediaFiles.indexOf(media);
@@ -205,6 +268,31 @@ export class EditSubmissionsComponent implements OnInit {
       this.isRejected = false;
     }
   }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
+    }
+  }
+
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
 
   submissionToClient() {
 
@@ -241,12 +329,25 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
+
+    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+      this.level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+    } else {
+      this.level1Date = '';
+    }
+    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+      this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+    } else {
+      this.level2Date = '';
+    }
+
     const submission = {
       requirementId: form.value.requirements,
       location: form.value.location,
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
+      buyingRate: form.value.buyingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
@@ -254,8 +355,10 @@ export class EditSubmissionsComponent implements OnInit {
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
-      dateOfLevel1: form.value.level1Date,
-      dateOfLevel2: form.value.level2Date,
+      dateOfLevel1: this.level1Date,
+      dateOfLevel2: this.level2Date,
+      statusForLevel1: form.value.statusForLevel1,
+      statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
@@ -265,8 +368,6 @@ export class EditSubmissionsComponent implements OnInit {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
-
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -311,24 +412,66 @@ export class EditSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
-    const candidate = {
+    const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
       email: form.value.candidateEmail,
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: form.value.editCandidateImmigirationStatus,
-      technology: [{
-        technologyId: form.value.editTechnology
-      }],
+      immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };
 
+    if (form.value.editTechnology === 'other') {
+      candidate.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      candidate.technology = [{
+        technologyId: form.value.editTechnology
+      }];
+    }
+
+    if (this.isEmployerDetails) {
+      candidate.c2C = true;
+      candidate.employeeName = form.value.employerName;
+      candidate.employeeContactName = form.value.employerContactName;
+      candidate.employeeContactPhone = form.value.employerPhone;
+      candidate.employeeContactEmail = form.value.employerEmail;
+    }
+
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
         if (data.success) {
+
+          if (this.candidateGetFiles.length > 0) {
+            const upload = {
+              file: this.candidateGetFiles,
+              candidateId: data.candidate.candidateId,
+              enteredBy: this.rtsUserId
+            };
+            this.candidateService.uploadFile(upload).subscribe(
+              file => {
+                if (file.success) {
+                  this.toastr.success(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                } else {
+                  this.toastr.error(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                }
+              });
+          }
+          this.toastr.success('New Candidate Successfully added', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+
           this.updateCandidateWithSubmission(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {

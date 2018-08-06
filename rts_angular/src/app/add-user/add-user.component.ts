@@ -13,11 +13,13 @@ import { Router } from '@angular/router';
 })
 export class AddUserComponent implements OnInit {
 
-  userType: any;
-  rtsUser: any;
-  rtsUserId: any;
+  private userType: any;
+  private rtsUser: any;
+  private rtsUserId: any;
 
   public myForm: FormGroup;
+  private rtsCompanyId: any;
+  private userRole: any;
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
@@ -25,25 +27,34 @@ export class AddUserComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
-    this.userType = [
-      // { 'name': 'Manager', 'value': 'MGR' },
-      { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'User', 'value': 'USER' },
-      { 'name': 'Recruiter', 'value': 'RECRUITER' },
-    ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
+    this.rtsCompanyId = this.rtsUser.companyId;
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
-      userPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      firstName: [''],
+      lastName: [''],
+      email: ['', Validators.email],
+      role: [''],
+      userPassword: [''],
+      confirmPassword: ['']
     });
+
+    if (this.userRole === 'ACC_MGR') {
+      this.userType = [
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    } else if (this.userRole === 'ADMIN') {
+      this.userType = [
+        { 'name': 'Account Manager', 'value': 'ACC_MGR' },
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    }
   }
 
   addNewUser(form: FormGroup) {
@@ -64,11 +75,10 @@ export class AddUserComponent implements OnInit {
       password: form.value.userPassword,
       enteredBy: this.rtsUserId
     };
-    console.log(user);
+
     this.userService.addUser(user)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New User successfully added', '', {
               positionClass: 'toast-top-center',

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-add-new-requirement',
@@ -33,6 +34,10 @@ export class AddNewRequirementComponent implements OnInit {
   private isOtherAccountName: boolean;
   private isOtherPositionName: boolean;
   private technologies: any;
+  private isOtherTechnology: boolean;
+  private selectedTeamUsers: any;
+  private selectedTeam: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -45,31 +50,33 @@ export class AddNewRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.requirementType = ['C2C', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B'];
+    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      positionName: ['', Validators.required],
+      positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
-      bankName: ['', Validators.required],
+      bankName: [''],
       priority: [''],
       location: [''],
-      requirementType: ['', Validators.required],
-      positionsCount: [''],
+      requirementType: [''],
+      positionsCount: ['', Validators.pattern('^[0-9]*$')],
       immigrationRequirement: [''],
       technologies: [''],
       allocation: [''],
@@ -78,17 +85,18 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      otherTechnology: ['']
     });
     this.getAllUsers();
     this.getCommonDetails();
   }
 
   getCommonDetails() {
-    const companyId = {
-      companyId: this.rtsCompanyId
+    const userId = {
+      userId: this.rtsUserId
     };
 
-    this.requirementService.commonDetails(companyId)
+    this.requirementService.commonDetails(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -123,7 +131,6 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
-    console.log(this.requirementByUser);
   }
 
   getCheckedImmigrationValue(data) {
@@ -132,14 +139,14 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-    } else {
       this.myForm.controls.otherPositionName.setValue('');
+    } else {
+      this.myForm.controls.otherPositionName.setValue(event);
       this.isOtherPositionName = false;
     }
   }
@@ -149,18 +156,55 @@ export class AddNewRequirementComponent implements OnInit {
       this.isOtherAccountName = true;
       this.myForm.controls.otherAccountName.setValue('');
     } else {
+      this.myForm.controls.otherAccountName.setValue(event);
       this.isOtherAccountName = false;
     }
   }
 
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  selectTeam(event) {
+    if (event !== '') {
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.otherUsers) {
+        this.selectedTeamUsers.push(user);
+      }
+    }
+  }
+
   addNewRequirement(form: FormGroup) {
+
+    if (form.value.clientRate === '' || form.value.clientRate === null) {
+      this.toastr.error('Client Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
+      this.toastr.error('Selling Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
 
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
@@ -168,9 +212,7 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
+      teamId: form.value.team,
     };
 
     if (form.value.positionName === 'other') {
@@ -187,6 +229,16 @@ export class AddNewRequirementComponent implements OnInit {
       };
     } else {
       requirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
     }
 
     this.newRequirement = requirement;

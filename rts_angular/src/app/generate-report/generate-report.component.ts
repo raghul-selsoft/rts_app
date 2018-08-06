@@ -20,6 +20,7 @@ export class GenerateReportComponent implements OnInit {
   private approvedsubmissions: any;
   private rtsCompanyId: any;
   private currentDate: Date;
+  private approvedsubmissionsLength: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -41,22 +42,31 @@ export class GenerateReportComponent implements OnInit {
 
     const userId = {
       userId: this.rtsUserId,
-      companyId: this.rtsCompanyId
     };
 
     this.submissonService.approvedSubmissionDetails(userId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
-            console.log(this.approvedsubmissions);
+            this.approvedsubmissionsLength = this.approvedsubmissions.length;
             for (const submission of this.approvedsubmissions) {
               const diff = Math.floor(this.currentDate.getTime() - submission.clientSubmissionOn);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
+              const weeks = Math.floor(days / 7);
               const months = Math.floor(days / 31);
               const years = Math.floor(months / 12);
-              submission.age = days + ' days ago';
+              if (days < 7) {
+                submission.age = days + ' days ago';
+              } else if (weeks < 4) {
+                submission.age = weeks + ' weeks ago';
+              } else if (months < 12) {
+                submission.age = months + ' months ago';
+              } else {
+                submission.age = years + ' years ago';
+              }
             }
           }
         });
@@ -64,7 +74,18 @@ export class GenerateReportComponent implements OnInit {
 
   generateReport() {
 
-  }
+    const userId = {
+      userId: this.rtsUserId,
+    };
 
+    this.submissonService.getReport(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            window.location.href = 'http://rameshrasaiyan.com:8080/' + data.downloadUrl;
+          }
+        });
+
+  }
 }
 

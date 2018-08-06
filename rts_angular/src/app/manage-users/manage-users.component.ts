@@ -11,10 +11,11 @@ import { UserService } from '../Services/user.service';
 })
 export class ManageUsersComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  userDetails: any;
-  userLength: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private userDetails: any;
+  private userLength: any;
+  private rtsCompanyId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -23,6 +24,7 @@ export class ManageUsersComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
   }
 
   ngOnInit() {
@@ -31,16 +33,15 @@ export class ManageUsersComponent implements OnInit {
 
   getAllUser() {
     const userId = {
-      enteredBy: this.rtsUserId
+      companyId: this.rtsCompanyId
     };
 
-    console.log(userId);
     this.userService.allUsers(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.userDetails = data.users;
+            console.log(this.userDetails);
             this.userLength = this.userDetails.length;
           }
         });

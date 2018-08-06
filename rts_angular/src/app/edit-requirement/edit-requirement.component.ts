@@ -17,29 +17,34 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditRequirementComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  requirementId: any;
-  requirements: any;
-  selectedRequirement: any;
-  requirementCreatedDate: any;
-  userDetails: any;
-  rtsCompanyId: any;
-  clients: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirementId: any;
+  private requirements: any;
+  private selectedRequirement: any;
+  private requirementCreatedDate: any;
+  private userDetails: any;
+  private rtsCompanyId: any;
+  private clients: any;
 
   public myForm: FormGroup;
-  requirementType: any;
-  immigration: any;
-  requirementByUser: any;
-  immigrationByUser: any;
-  isOtherPositionName: boolean;
-  isOtherAccountName: boolean;
-  technologies: any;
-  accounts: any;
-  positions: any;
-  teams: any;
-  requirementStatus: any;
-  editRequirement: any;
+  private requirementType: any;
+  private immigration: any;
+  private requirementByUser: any;
+  private immigrationByUser: any;
+  private isOtherPositionName: boolean;
+  private isOtherAccountName: boolean;
+  private technologies: any;
+  private accounts: any;
+  private positions: any;
+  private teams: any;
+  private requirementStatus: any;
+  private editRequirement: any;
+  private isOtherTechnology: boolean;
+  private selectedTeam: any;
+  private selectedTeamUsers: any;
+  private userRole: any;
+  editTeam: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -52,16 +57,26 @@ export class EditRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B'];
+    this.immigration = [
+      { 'id': 'GC', 'value': 'GC' },
+      { 'id': 'CITIZEN', 'value': 'CITIZEN' },
+      { 'id': 'H1B', 'value': 'H1B' },
+      { 'id': 'W2_1099', 'value': 'W2/1099' },
+      { 'id': 'OPT_CPT', 'value': 'OPT/CPT' },
+      { 'id': 'EAD', 'value': 'EAD' },
+      { 'id': 'H4AD', 'value': 'H4AD' },
+    ];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
@@ -73,14 +88,14 @@ export class EditRequirementComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      createdDate: ['', [Validators.required, Validators.minLength(3)]],
-      positionName: ['', Validators.required],
+      createdDate: [''],
+      positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
-      bankName: ['', Validators.required],
+      bankName: [''],
       priority: [''],
       location: [''],
       positionsCount: [''],
@@ -96,17 +111,20 @@ export class EditRequirementComponent implements OnInit {
       FTE: [''],
       GC: [''],
       CITIZEN: [''],
-      H1B: ['']
+      H1B: [''],
+      W2_1099: [''],
+      OPT_CPT: [''],
+      EAD: [''],
+      H4AD: [''],
+      otherTechnology: ['']
     });
-    this.getAllRequirements();
     this.getAllUsers();
-    this.getAllClients();
     this.getCommonDetails();
   }
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -118,6 +136,21 @@ export class EditRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.getAllRequirements();
+          }
+        });
+  }
+
+  getAllUsers() {
+    const userId = {
+      enteredBy: this.rtsUserId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.userDetails = data.users;
           }
         });
   }
@@ -137,7 +170,11 @@ export class EditRequirementComponent implements OnInit {
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
-            console.log(this.selectedRequirement);
+            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            for (const user of this.selectedTeam.otherUsers) {
+              this.selectedTeamUsers.push(user);
+            }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -154,42 +191,21 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.CITIZEN.setValue('CITIZEN');
               } else if (value === 'H1B') {
                 this.myForm.controls.H1B.setValue('H1B');
+              } else if (value === 'W2/1099') {
+                this.myForm.controls.W2_1099.setValue('W2/1099');
+              } else if (value === 'OPT/CPT') {
+                this.myForm.controls.OPT_CPT.setValue('OPT/CPT');
+              } else if (value === 'EAD') {
+                this.myForm.controls.EAD.setValue('EAD');
+              } else if (value === 'H4AD') {
+                this.myForm.controls.H4AD.setValue('H4AD');
               }
             }
-
           }
+          console.log(this.selectedRequirement);
         });
   }
 
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
-    };
-
-    console.log(userId);
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.userDetails = data.users;
-          }
-        });
-
-  }
-
-  getAllClients() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
-
-    this.clientService.allClients(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.clients = data.clients;
-          }
-        });
-  }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -197,14 +213,13 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
-    console.log(this.requirementByUser);
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.immigrationByUser.indexOf(data) === -1) {
-      this.immigrationByUser.push(data);
+    if (this.immigrationByUser.indexOf(data.value) === -1) {
+      this.immigrationByUser.push(data.value);
     } else {
-      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
+      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
     }
     console.log(this.immigrationByUser);
   }
@@ -212,8 +227,9 @@ export class EditRequirementComponent implements OnInit {
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-    } else {
       this.myForm.controls.otherPositionName.setValue('');
+    } else {
+      this.myForm.controls.otherPositionName.setValue(event);
       this.isOtherPositionName = false;
     }
   }
@@ -223,7 +239,29 @@ export class EditRequirementComponent implements OnInit {
       this.isOtherAccountName = true;
       this.myForm.controls.otherAccountName.setValue('');
     } else {
+      this.myForm.controls.otherAccountName.setValue(event);
       this.isOtherAccountName = false;
+    }
+  }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  selectTeam(event) {
+    if (event !== '') {
+      this.selectedTeamUsers = [];
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.otherUsers) {
+        this.selectedTeamUsers.push(user);
+      }
     }
   }
 
@@ -234,7 +272,7 @@ export class EditRequirementComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
@@ -242,10 +280,8 @@ export class EditRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
-      requirementId: this.requirementId
+      requirementId: this.requirementId,
+      teamId: form.value.team,
     };
 
     if (form.value.positionName === 'other') {
@@ -264,8 +300,17 @@ export class EditRequirementComponent implements OnInit {
       requirement.accountId = form.value.accountName;
     }
 
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
+
     this.editRequirement = requirement;
-    console.log(this.editRequirement);
 
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(

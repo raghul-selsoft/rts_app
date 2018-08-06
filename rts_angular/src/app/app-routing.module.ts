@@ -22,6 +22,15 @@ import { ManageCandidateComponent } from './manage-candidate/manage-candidate.co
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
+import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
+import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
+import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 
 
 
@@ -39,16 +48,26 @@ const appRoutes: Routes = [
   { path: 'manage-users', component: ManageUsersComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },
-  { path: 'recruiter-add-new-submissions', component: RecruiterAddNewSubmissionsComponent },
+  // { path: 'recruiter-add-new-submissions', component: RecruiterAddNewSubmissionsComponent },
+  // { path: 'recruiter-add-new-submissions/:id', component: RecruiterAddNewSubmissionsComponent },
   { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
   { path: 'edit-submissions/:id', component: EditSubmissionsComponent },
+  { path: 'acc_mgr-edit-submissions/:id', component: AccMgrEditSubmissionsComponent },
+  { path: 'leadUser-edit-submissions/:id', component: LeadUserEditSubmissionsComponent },
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
   { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
   { path: 'manage-candidate', component: ManageCandidateComponent },
   { path: 'add-candidate', component: AddCandidateComponent },
   { path: 'generate-report', component: GenerateReportComponent },
-  { path: 'requirement-detail/:id', component: RequirementDetailComponent }
+  { path: 'requirement-detail/:id', component: RequirementDetailComponent },
+  { path: 'edit-user/:id', component: EditUserComponent },
+  { path: 'edit-client/:id', component: EditClientComponent },
+  { path: 'edit-candidate/:id', component: EditCandidateComponent },
+  { path: 'manage-team', component: ManageTeamComponent },
+  { path: 'add-team', component: AddTeamComponent },
+  { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
+  { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
 ];
 
 

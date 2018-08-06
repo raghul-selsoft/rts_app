@@ -11,17 +11,18 @@ import { HideComponentService } from '../Services/hide-component.service';
   providers: [LoggedUserService]
 })
 export class RequirementsComponent implements OnInit {
-  rtsUser: any;
-  rtsUserId: any;
-  requirements: any;
-  createdOn: any;
-  requirementsLength: any;
-  userRole: any;
-  requirementsForUser: any;
-  requirementsLengthForUser: any;
-  rtsCompanyId: any;
-
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirements: any;
+  private createdOn: any;
+  private requirementsLength: any;
+  private userRole: any;
+  private requirementsForUser: any;
+  private requirementsLengthForUser: any;
+  private rtsCompanyId: any;
   private currentDate: Date;
+  private requirementsForTeam: any;
+  private requirementsLengthForTeam: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -39,9 +40,12 @@ export class RequirementsComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+      this.getAllRequirementsForTeam();
     } else if (this.userRole === 'RECRUITER') {
       this.getAllRequirementsForUser();
     }
+    console.log(this.rtsUser);
   }
 
   getAllRequirements() {
@@ -53,18 +57,25 @@ export class RequirementsComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
+            console.log(this.requirements);
             this.requirementsLength = this.requirements.length;
             for (const require of this.requirements) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
+              const weeks = Math.floor(days / 7);
               const months = Math.floor(days / 31);
               const years = Math.floor(months / 12);
-              if (days > 7) {
+              if (days < 7) {
                 require.age = days + ' days ago';
+              } else if (weeks < 4) {
+                require.age = weeks + ' weeks ago';
+              } else if (months < 12) {
+                require.age = months + ' months ago';
+              } else {
+                require.age = years + ' years ago';
               }
             }
           }
@@ -80,10 +91,61 @@ export class RequirementsComponent implements OnInit {
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsForUser = data.requirements;
+            console.log(this.requirementsForUser);
             this.requirementsLengthForUser = this.requirementsForUser.length;
+            for (const require of this.requirementsForUser) {
+              const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
+              const day = 1000 * 60 * 60 * 24;
+              const days = Math.floor(diff / day);
+              const weeks = Math.floor(days / 7);
+              const months = Math.floor(days / 31);
+              const years = Math.floor(months / 12);
+              if (days < 7) {
+                require.age = days + ' days ago';
+              } else if (weeks < 4) {
+                require.age = weeks + ' weeks ago';
+              } else if (months < 12) {
+                require.age = months + ' months ago';
+              } else {
+                require.age = years + ' years ago';
+              }
+            }
+          }
+        });
+  }
+
+  getAllRequirementsForTeam() {
+
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.requirementsDetailsByTeam(userId)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.requirementsForTeam = data.requirements;
+            this.requirementsLengthForTeam = this.requirementsForTeam.length;
+            for (const require of this.requirementsForTeam) {
+              const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
+              const day = 1000 * 60 * 60 * 24;
+              const days = Math.floor(diff / day);
+              const weeks = Math.floor(days / 7);
+              const months = Math.floor(days / 31);
+              const years = Math.floor(months / 12);
+              if (days < 7) {
+                require.age = days + ' days ago';
+              } else if (weeks < 4) {
+                require.age = weeks + ' weeks ago';
+              } else if (months < 12) {
+                require.age = months + ' months ago';
+              } else {
+                require.age = years + ' years ago';
+              }
+            }
           }
         });
   }

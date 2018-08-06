@@ -14,15 +14,18 @@ import { CandidateService } from '../Services/candidate.service';
 })
 export class AddCandidateComponent implements OnInit {
 
-  userType: any;
-  rtsUser: any;
-  rtsUserId: any;
-  rtsCompanyId: any;
+  private userType: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private rtsCompanyId: any;
 
   public myForm: FormGroup;
   private technologies: any;
   private files: any;
   private getFiles: any;
+  private isOtherTechnology: boolean;
+  private isEmployerDetails: boolean;
+  immigirationStatus: any;
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -39,22 +42,29 @@ export class AddCandidateComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      location: ['', Validators.required],
-      availability: ['', Validators.required],
-      immigirationStatus: ['', Validators.required],
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+      location: [''],
+      availability: [''],
+      immigirationStatus: [''],
       technologies: [''],
       skype: [''],
-      linkedIn: ['']
+      linkedIn: [''],
+      otherTechnology: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: ['']
     });
     this.getCommonDetails();
+    this.myForm.controls.immigirationStatus.setValue('GC');
+    this.immigirationStatus = 'GC';
   }
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -78,22 +88,62 @@ export class AddCandidateComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
+    }
+  }
+
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
   addNewCandidate(form: FormGroup) {
-    const newCandidate = {
+
+    const newCandidate: any = {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
-      immigirationStatus: form.value.immigirationStatus,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
+      immigirationStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn
     };
-    console.log(newCandidate);
+
+    if (this.isEmployerDetails) {
+      newCandidate.c2C = true;
+      newCandidate.employeeName = form.value.employerName;
+      newCandidate.employeeContactName = form.value.employerContactName;
+      newCandidate.employeeContactPhone = form.value.employerPhone;
+      newCandidate.employeeContactEmail = form.value.employerEmail;
+    }
+
+    if (form.value.technologies === 'other') {
+      newCandidate.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      newCandidate.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(
@@ -106,7 +156,6 @@ export class AddCandidateComponent implements OnInit {
                 candidateId: data.candidate.candidateId,
                 enteredBy: this.rtsUserId
               };
-              console.log(upload);
               this.candidateService.uploadFile(upload).subscribe(
                 file => {
                   if (file.success) {
