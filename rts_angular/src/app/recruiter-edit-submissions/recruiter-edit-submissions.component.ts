@@ -69,7 +69,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       clientContactEmail: [''],
       accountName: [''],
       location: [''],
-      clientRate: [''],
+      buyingRate: [''],
       sellingRate: [''],
       status: [''],
       reasonForRejection: [''],
@@ -251,7 +251,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     const submission = {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
-      clientRate: form.value.clientRate,
+      buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,

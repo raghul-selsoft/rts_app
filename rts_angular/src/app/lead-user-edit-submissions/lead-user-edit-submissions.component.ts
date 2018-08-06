@@ -79,6 +79,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       location: [''],
       clientRate: [''],
       sellingRate: [''],
+      buyingRate: [''],
       status: [''],
       reasonForRejection: [''],
       availability: [''],
@@ -148,6 +149,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
               }
             }
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            console.log(this.selectedRequirement);
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
             }
@@ -173,6 +175,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
 
   getRequirement(event) {
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    console.log(this.selectedRequirement);
   }
 
   getCandidateDetails() {
@@ -306,6 +309,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
+      buyingRate: form.value.buyingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
@@ -326,6 +330,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
+    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(

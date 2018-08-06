@@ -79,6 +79,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidateName: [''],
       accountName: [''],
       clientRate: [''],
+      buyingRate: [''],
       sellingRate: [''],
       status: [''],
       availability: [''],
@@ -256,16 +257,8 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   addNewSubmission(form: FormGroup) {
 
-    if (form.value.clientRate === '' || form.value.clientRate === null) {
-      this.toastr.error('Client Rate should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-
-    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
-      this.toastr.error('Selling Rate should not be empty', '', {
+    if (form.value.buyingRate === '' || form.value.buyingRate === null) {
+      this.toastr.error('Buying Rate should not be empty', '', {
         positionClass: 'toast-top-center',
         timeOut: 3000,
       });
@@ -286,6 +279,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
+      buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
