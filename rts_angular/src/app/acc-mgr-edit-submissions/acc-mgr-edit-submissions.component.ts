@@ -59,9 +59,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     this.deletedMediaFiles = [];
     this.status = [
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-      { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
       { 'name': 'Approved', 'value': 'APPROVED' },
-      { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
       { 'name': 'Rejected', 'value': 'REJECTED' },
       { 'name': 'Closed', 'value': 'CLOSED' },
     ];
@@ -97,6 +95,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      statusForLevel1: [''],
+      statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -321,6 +321,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,
+      statusForLevel1: form.value.statusForLevel1,
+      statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,

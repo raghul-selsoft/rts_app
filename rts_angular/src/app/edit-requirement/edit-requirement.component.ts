@@ -65,7 +65,15 @@ export class EditRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
+    this.immigration = [
+      { 'id': 'GC', 'value': 'GC' },
+      { 'id': 'CITIZEN', 'value': 'CITIZEN' },
+      { 'id': 'H1B', 'value': 'H1B' },
+      { 'id': 'W2_1099', 'value': 'W2/1099' },
+      { 'id': 'OPT_CPT', 'value': 'OPT/CPT' },
+      { 'id': 'EAD', 'value': 'EAD' },
+      { 'id': 'H4AD', 'value': 'H4AD' },
+    ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -105,14 +113,13 @@ export class EditRequirementComponent implements OnInit {
       GC: [''],
       CITIZEN: [''],
       H1B: [''],
-      W21099: [''],
-      OPTCPT: [''],
+      W2_1099: [''],
+      OPT_CPT: [''],
       EAD: [''],
       H4AD: [''],
       otherTechnology: ['']
     });
     this.getAllUsers();
-    // this.getAllClients();
     this.getCommonDetails();
   }
 
@@ -186,9 +193,9 @@ export class EditRequirementComponent implements OnInit {
               } else if (value === 'H1B') {
                 this.myForm.controls.H1B.setValue('H1B');
               } else if (value === 'W2/1099') {
-                this.myForm.controls.W21099.setValue('W2/1099');
+                this.myForm.controls.W2_1099.setValue('W2/1099');
               } else if (value === 'OPT/CPT') {
-                this.myForm.controls.OPTCPT.setValue('OPT/CPT');
+                this.myForm.controls.OPT_CPT.setValue('OPT/CPT');
               } else if (value === 'EAD') {
                 this.myForm.controls.EAD.setValue('EAD');
               } else if (value === 'H4AD') {
@@ -200,19 +207,6 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  // getAllClients() {
-  //   const companyId = {
-  //     companyId: this.rtsCompanyId
-  //   };
-
-  //   this.clientService.allClients(companyId)
-  //     .subscribe(
-  //       data => {
-  //         if (data.success) {
-  //           this.clients = data.clients;
-  //         }
-  //       });
-  // }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -223,11 +217,12 @@ export class EditRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.immigrationByUser.indexOf(data) === -1) {
-      this.immigrationByUser.push(data);
+    if (this.immigrationByUser.indexOf(data.value) === -1) {
+      this.immigrationByUser.push(data.value);
     } else {
-      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
+      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
     }
+    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
