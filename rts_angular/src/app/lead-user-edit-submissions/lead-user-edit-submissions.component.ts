@@ -41,6 +41,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
+  immigirationStatus: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -169,6 +170,23 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            }
+
           }
         });
   }
@@ -252,6 +270,12 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       this.isEmployerDetails = true;
     } else {
       this.isEmployerDetails = false;
+    }
+  }
+
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
     }
   }
 
@@ -382,7 +406,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };

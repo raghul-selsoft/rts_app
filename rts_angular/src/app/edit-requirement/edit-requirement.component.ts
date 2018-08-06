@@ -57,7 +57,6 @@ export class EditRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
-    console.log(this.rtsUser);
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
