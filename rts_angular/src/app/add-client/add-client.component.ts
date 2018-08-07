@@ -44,9 +44,9 @@ export class AddClientComponent implements OnInit {
 
   initUnits() {
     return this.formBuilder.group({
-      clientRecruiterName: [''],
-      clientRecruiterEmail: [''],
-      clientRecruiterNumber: [''],
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
     });
   }
 
@@ -66,29 +66,28 @@ export class AddClientComponent implements OnInit {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
-      contactPersonName: form.value.clientContactName,
-      contactPersonEmail: form.value.clientContactEmail,
-      contactPersonNumber: form.value.clientContactNumber,
-      enteredBy: this.rtsUserId
+      enteredBy: this.rtsUserId,
+      recruiters: form.value.units
     };
+    console.log(client);
 
-    this.clientService.addClient(client)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.toastr.success('New Client successfully added', '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-            this.router.navigate(['manage-client']);
+    // this.clientService.addClient(client)
+    //   .subscribe(
+    //     data => {
+    //       if (data.success) {
+    //         this.toastr.success('New Client successfully added', '', {
+    //           positionClass: 'toast-top-center',
+    //           timeOut: 3000,
+    //         });
+    //         this.router.navigate(['manage-client']);
 
-          } else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
+    //       } else {
+    //         this.toastr.error(data.message, '', {
+    //           positionClass: 'toast-top-center',
+    //           timeOut: 3000,
+    //         });
+    //       }
+    //     });
 
   }
 

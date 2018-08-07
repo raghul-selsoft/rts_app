@@ -42,3 +42,8 @@
 .mat-icon {
   line-height: 34px;
 }
+
+.unit-container.ng-invalid,
+.units>.form-row.ng-invalid {
+  border-left: 0 !important;
+}

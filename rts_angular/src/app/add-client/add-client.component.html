@@ -30,18 +30,18 @@
         <div class="units" *ngFor="let field of myForm.controls.units.controls; let i = index">
           <div class="form-row" [formGroupName]='i'>
             <div class="form-group col-4">
-              <label for="clientRecruiterName">Recruiter Name:</label>
-              <input type="text" class="form-control" name="clientRecruiterName" formControlName="clientRecruiterName">
+              <label for="name">Recruiter Name:</label>
+              <input type="text" class="form-control" name="name" formControlName="name" required>
             </div>
 
             <div class="form-group col-4">
-              <label for="clientRecruiterEmail">Recruiter Email:</label>
-              <input type="email" class="form-control" name="clientRecruiterEmail" formControlName="clientRecruiterEmail">
+              <label for="email">Recruiter Email:</label>
+              <input type="email" class="form-control" name="email" formControlName="email" required>
             </div>
 
             <div class="form-group col-3">
-              <label for="clientRecruiterNumber">Recruiter Number:</label>
-              <input type="email" class="form-control" name="clientRecruiterNumber" formControlName="clientRecruiterNumber">
+              <label for="phoneNumber">Recruiter Number:</label>
+              <input type="email" class="form-control" name="phoneNumber" formControlName="phoneNumber" required> 
             </div>
 
             <div class="form-group col-1 unit-btn-container">
