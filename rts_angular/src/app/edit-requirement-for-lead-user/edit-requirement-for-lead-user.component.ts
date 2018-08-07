@@ -50,6 +50,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
   private dropdownSettings: any;
   isRecruiters: boolean;
   selectedClient: any;
+  selectedrecruitersArray: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -69,6 +70,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
     this.selectedRequirement = {};
+    this.selectedrecruitersArray = [];
     this.selectedRecruites = [];
     this.recruitersArray = [];
     this.dropdownSettings = {};
@@ -195,6 +197,10 @@ export class EditRequirementForLeadUserComponent implements OnInit {
             this.isRecruiters = true;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
               this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+            }
+            for (const value of this.selectedRequirement.clientRecuriters) {
+              this.selectedRecruites.push({ email: value.email });
+              this.selectedrecruitersArray.push({ user: value, firstName: value.name });
             }
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);

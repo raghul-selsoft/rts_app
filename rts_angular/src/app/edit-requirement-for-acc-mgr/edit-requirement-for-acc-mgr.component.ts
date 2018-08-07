@@ -48,6 +48,7 @@ export class EditRequirementForAccMgrComponent implements OnInit {
   selectedRecruites: any;
   isRecruiters: boolean;
   selectedClient: any;
+  selectedrecruitersArray: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -66,6 +67,7 @@ export class EditRequirementForAccMgrComponent implements OnInit {
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedrecruitersArray = [];
     this.selectedRequirement = {};
     this.selectedRecruites = [];
     this.recruitersArray = [];
@@ -179,6 +181,10 @@ export class EditRequirementForAccMgrComponent implements OnInit {
             this.isRecruiters = true;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
               this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+            }
+            for (const value of this.selectedRequirement.clientRecuriters) {
+              this.selectedRecruites.push({ email: value.email });
+              this.selectedrecruitersArray.push({ user: value, firstName: value.name });
             }
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
