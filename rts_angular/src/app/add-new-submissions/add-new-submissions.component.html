@@ -49,7 +49,7 @@
     <div class="form-group row" *ngIf="selectRequiement">
       <label for="clientContactname" class="col-sm-2 col-form-label">Client Contact name:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" value="{{selectRequiement.clientRecuriters.contactPersonName}}"
+        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" value="{{clientRecruiterName}}"
           readonly>
       </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-group row" *ngIf="selectRequiement">
       <label for="clientContactEmail" class="col-sm-2 col-form-label">Client Contact Email:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" value="{{selectRequiement.client.contactPersonEmail}}"
+        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" value="{{clientRecruiterEmail}}"
           readonly>
       </div>
     </div>
