@@ -134,3 +134,13 @@ td {
   font-size: .800em;
   color: #4c7af1;
 }
+
+.sub-nav-wrapper {
+  padding: .8em;
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+}
+
+.sub-nav-link {
+  font-size: .800em;
+  text-transform: uppercase;
+}

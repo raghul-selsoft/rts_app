@@ -1,3 +1,6 @@
+<div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR' || userRole ==='TL'">
+  <a class="sub-nav-link" [routerLink]="['/add-new-requirement']">Add New Requirement</a>
+</div>
 <div class="utility-container">
   <div *ngIf="userRole ==='ADMIN'">
     <button class="btn btn-default" [routerLink]="['/add-new-requirement']">Add New Requirement</button>
@@ -17,7 +20,7 @@
           <th>Age</th>
         </tr>
       </thead>
-      <tbody *ngIf="requirementsLength> 0 ; else noRequirements">
+      <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
         <tr *ngFor="let require of requirements | filter:searchString" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
