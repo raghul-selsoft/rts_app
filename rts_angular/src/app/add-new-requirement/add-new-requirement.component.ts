@@ -38,6 +38,11 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedTeamUsers: any;
   private selectedTeam: any;
   private userRole: any;
+  private isRecruiters: boolean;
+  private dropdownSettings: any;
+  private recruitersArray: any;
+  private selectedRecruites: any;
+  selectedClient: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -52,9 +57,13 @@ export class AddNewRequirementComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.isRecruiters = false;
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedRecruites = [];
+    this.recruitersArray = [];
+    this.dropdownSettings = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
     this.requirementStatus = [
@@ -85,8 +94,19 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      recruitersName: ['']
     });
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'user',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this.getAllUsers();
     this.getCommonDetails();
   }
@@ -181,6 +201,35 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  getClientRecruiters(event) {
+    this.recruitersArray = [];
+    this.selectedRecruites = [];
+    if (event !== undefined) {
+      this.isRecruiters = true;
+      this.selectedClient = _.findWhere(this.clients, { clientId: event });
+      for (const recruiter of this.selectedClient.clientRecuriters) {
+        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+      }
+    }
+    this.deSelectAll();
+  }
+
+  onItemSelect(item: any) {
+    if (item !== undefined && item !== '') {
+      console.log(item);
+      this.selectedRecruites.push({ email: item.user.email });
+    }
+  }
+
+  onItemDeSelect(items: any) {
+    const clear = this.selectedRecruites.indexOf(items);
+    this.selectedRecruites.splice(clear, 1);
+  }
+
+  deSelectAll() {
+    this.myForm.controls.recruitersName.setValue('');
+  }
+
   addNewRequirement(form: FormGroup) {
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
@@ -213,6 +262,10 @@ export class AddNewRequirementComponent implements OnInit {
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
       teamId: form.value.team,
+      client: {
+        clientId: form.value.clientName,
+        clientRecuriters: this.selectedRecruites
+      }
     };
 
     if (form.value.positionName === 'other') {

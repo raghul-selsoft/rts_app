@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -54,11 +54,29 @@ export class EditClientComponent implements OnInit {
       name: [''],
       email: ['', Validators.email],
       phoneNumber: [''],
-      clientContactName: [''],
-      clientContactEmail: [''],
-      clientContactNumber: ['']
+      units: this.formBuilder.array([
+        this.initUnits()
+      ])
     });
     this.getAllClients();
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   getAllClients() {
@@ -77,9 +95,6 @@ export class EditClientComponent implements OnInit {
             this.name = this.selectedClient.name;
             this.email = this.selectedClient.email;
             this.phoneNumber = this.selectedClient.phoneNumber;
-            this.contactPersonName = this.selectedClient.contactPersonName;
-            this.contactPersonEmail = this.selectedClient.contactPersonEmail;
-            this.contactPersonNumber = this.selectedClient.contactPersonNumber;
           }
         });
 

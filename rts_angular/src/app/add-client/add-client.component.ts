@@ -67,27 +67,27 @@ export class AddClientComponent implements OnInit {
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
-      recruiters: form.value.units
+      clientRecuriters: form.value.units
     };
     console.log(client);
 
-    // this.clientService.addClient(client)
-    //   .subscribe(
-    //     data => {
-    //       if (data.success) {
-    //         this.toastr.success('New Client successfully added', '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //         this.router.navigate(['manage-client']);
+    this.clientService.addClient(client)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('New Client successfully added', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-client']);
 
-    //       } else {
-    //         this.toastr.error(data.message, '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //       }
-    //     });
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
 
   }
 
