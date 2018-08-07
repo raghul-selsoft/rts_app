@@ -39,11 +39,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let submission of approvedsubmissions">
-          <td>{{submission.candidate.name}}</td>
-          <td></td>
+        <tr *ngFor="let submission of approvedsubmissions ">
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.positionName}}</td>
           <td>{{submission.clientName}}</td>
-          <td>{{submission.clientSubmissionOn | date: 'MMM d, y'}}</td>
+          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
           <td>{{submission.interviewStatus}}</td>
           <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
           <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>

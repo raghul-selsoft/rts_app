@@ -254,6 +254,18 @@ export class AddNewSubmissionsComponent implements OnInit {
         });
   }
 
+  // saveFormData(form: FormGroup) {
+
+
+  //   this.submissionService.saveSubmission(saveSubmission)
+  //     .subscribe(
+  //       data => {
+  //         console.log(data);
+  //         if (data.success) {
+  //         }
+  //       });
+  // }
+
   addTechnology(event) {
     if (event === 'other') {
       this.isOtherTechnology = true;

@@ -145,6 +145,97 @@ export class AddNewRequirementComponent implements OnInit {
 
   }
 
+  saveFormData(form: FormGroup) {
+
+    if (form.value.positionName === '' || form.value.positionName === null) {
+      this.toastr.error('Position Name should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.clientName === '' || form.value.clientName === null) {
+      this.toastr.error('Client Name should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.team === '' || form.value.team === null) {
+      this.toastr.error('Team should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+    if (form.value.technologies === '' || form.value.technologies === null) {
+      this.toastr.error('Technologies should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+
+    const saveRequirement: any = {
+      priority: form.value.priority,
+      location: form.value.location,
+      requirementType: this.requirementByUser,
+      immigrationRequirement: this.immigrationByUser,
+      positionCount: form.value.positionsCount,
+      status: form.value.status,
+      enteredBy: this.rtsUserId,
+      clientId: form.value.clientName,
+      allocationUserId: form.value.allocation,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      jobDescription: form.value.jobDescription,
+      teamId: form.value.team,
+      client: {
+        clientId: form.value.clientName,
+        clientRecuriters: this.selectedRecruites
+      }
+    };
+
+    if (form.value.positionName === 'other') {
+      saveRequirement.position = {
+        positionName: form.value.otherPositionName
+      };
+    } else {
+      saveRequirement.positionId = form.value.positionName;
+    }
+
+    if (form.value.accountName === 'other') {
+      saveRequirement.account = {
+        accountName: form.value.otherAccountName
+      };
+    } else {
+      saveRequirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      saveRequirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      saveRequirement.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
+    console.log(saveRequirement);
+
+    this.requirementService.saveRequirement(saveRequirement)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+          }
+        });
+    return false;
+  }
+
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
       this.requirementByUser.push(type);

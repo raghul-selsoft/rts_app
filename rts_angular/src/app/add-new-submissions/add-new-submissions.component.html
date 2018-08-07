@@ -49,7 +49,7 @@
     <div class="form-group row" *ngIf="selectRequiement">
       <label for="clientContactname" class="col-sm-2 col-form-label">Client Contact name:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" value="{{selectRequiement.client.contactPersonName}}"
+        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" value="{{selectRequiement.clientRecuriters.contactPersonName}}"
           readonly>
       </div>
     </div>
@@ -350,7 +350,7 @@
           <div class="form-group row">
             <label for="employerContactName" class="col-sm-4 col-form-label">Employer Contact Name:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="employerContactName"ngModel formControlName="employerContactName">
+              <input type="text" class="form-control" name="employerContactName" ngModel formControlName="employerContactName">
             </div>
           </div>
 
@@ -392,10 +392,10 @@
 
     </div>
 
-
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Submission</button>
-      <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
+      <button [routerLink]="[ '/submissions']" class="btn btn-default btn-space">Cancel</button>
+      <!-- <button type="button" class="btn btn-default" (click)="saveFormData(myForm)">Save</button> -->
     </div>
 
   </form>
