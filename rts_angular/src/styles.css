@@ -35,8 +35,8 @@ body {
 }
 
 .header-wrapper {
-  background-color: rgb(170, 152, 152);
-  height: 120px;
+  background-color: #50b2eb;
+  height: 80px;
   -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
   -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
   box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
@@ -87,7 +87,6 @@ body {
 
 .form-btn-container {
   text-align: center;
-  padding-top: 2em;
 }
 
 .title {
@@ -118,4 +117,20 @@ td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
+}
+
+.mat-full-length {
+  width: 100%;
+}
+
+.forgot-password-container {
+  background: #f9faff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.forgot-password-container > a {
+  font-size: .800em;
+  color: #4c7af1;
 }
