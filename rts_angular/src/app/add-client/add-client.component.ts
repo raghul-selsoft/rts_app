@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
@@ -36,10 +36,28 @@ export class AddClientComponent implements OnInit {
       name: [''],
       email: ['', Validators.email],
       phoneNumber: [''],
-      clientContactName: [''],
-      clientContactEmail: [''],
-      clientContactNumber: ['']
+      units: this.formBuilder.array([
+        this.initUnits()
+      ])
     });
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      clientRecruiterName: [''],
+      clientRecruiterEmail: [''],
+      clientRecruiterNumber: [''],
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   addNewClient(form: FormGroup) {
