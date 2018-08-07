@@ -231,6 +231,7 @@ export class AddNewRequirementComponent implements OnInit {
         data => {
           console.log(data);
           if (data.success) {
+            this.router.navigate(['requirements']);
           }
         });
     return false;
