@@ -105,22 +105,24 @@ export class EditCandidateComponent implements OnInit {
                 this.myForm.controls.c2c.setValue('Yes');
                 this.isEmployerDetails = true;
               }
-              const immigiration = this.selectedCandidate.immigirationStatus;
-              if (immigiration === 'GC') {
-                this.myForm.controls.immigirationStatus.setValue('GC');
-              } else if (immigiration === 'CITIZEN') {
-                this.myForm.controls.immigirationStatus.setValue('CITIZEN');
-              } else if (immigiration === 'H1B') {
-                this.myForm.controls.immigirationStatus.setValue('H1B');
-              } else if (immigiration === 'W2/1099') {
-                this.myForm.controls.immigirationStatus.setValue('W2/1099');
-              } else if (immigiration === 'OPT/CPT') {
-                this.myForm.controls.immigirationStatus.setValue('OPT/CPT');
-              } else if (immigiration === 'EAD') {
-                this.myForm.controls.immigirationStatus.setValue('EAD');
-              } else if (immigiration === 'H4AD') {
-                this.myForm.controls.immigirationStatus.setValue('H4AD');
-              }
+            }
+            console.log(this.selectedCandidate);
+            this.immigirationStatus = this.selectedCandidate.immigirationStatus;
+            const immigiration = this.selectedCandidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.immigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.immigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.immigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.immigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.immigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.immigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.immigirationStatus.setValue('H4AD');
             }
           }
         });
