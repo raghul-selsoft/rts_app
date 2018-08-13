@@ -154,6 +154,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
@@ -175,6 +183,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
@@ -195,6 +211,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
