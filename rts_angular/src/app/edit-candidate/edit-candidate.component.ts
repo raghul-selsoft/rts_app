@@ -184,8 +184,19 @@ export class EditCandidateComponent implements OnInit {
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
       enteredBy: this.rtsUserId,
-      candidateId: this.candidateId
+      candidateId: this.candidateId,
     };
+
+    if (this.isEmployerDetails) {
+      candidate.c2C = true;
+      candidate.employeeName = form.value.employerName;
+      candidate.employeeContactName = form.value.employerContactName;
+      candidate.employeeContactPhone = form.value.employerPhone;
+      candidate.employeeContactEmail = form.value.employerEmail;
+    } else {
+      candidate.c2C = false;
+    }
+
 
     if (form.value.technologies === 'other') {
       candidate.technology = [{

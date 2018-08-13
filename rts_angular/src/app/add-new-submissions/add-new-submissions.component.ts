@@ -130,7 +130,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
-          console.log(this.technology);
         }
       });
 
