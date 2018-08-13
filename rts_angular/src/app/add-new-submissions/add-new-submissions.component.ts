@@ -43,6 +43,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private clientRecruiterEmail: any;
   private recruiterName: any;
   private recruiterEmail: any;
+  private allRequirements: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -60,6 +61,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.recruiterName = [];
     this.recruiterEmail = [];
+    this.allRequirements = [];
     this.getFiles = [];
     this.candidateGetFiles = [];
     this.selectedCandidate = {};
@@ -146,6 +148,12 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
+            console.log(this.requirementsDetails);
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'In-Complete') {
+                this.allRequirements.push(require);
+              }
+            }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
@@ -162,6 +170,11 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'In-Complete') {
+                this.allRequirements.push(require);
+              }
+            }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
@@ -177,6 +190,11 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'In-Complete') {
+                this.allRequirements.push(require);
+              }
+            }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
           }
         });
