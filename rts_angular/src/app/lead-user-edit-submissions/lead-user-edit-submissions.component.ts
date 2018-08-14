@@ -8,6 +8,7 @@ import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-lead-user-edit-submissions',
@@ -47,6 +48,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
   private allRequirements: any;
+  private baseUrl: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -78,6 +80,8 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       requirements: [''],
@@ -304,6 +308,9 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
     }
   }
 
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
+  }
 
   submissionToClient() {
 
