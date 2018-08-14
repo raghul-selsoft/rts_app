@@ -312,7 +312,6 @@ export class EditRequirementComponent implements OnInit {
 
   onItemSelect(item: any) {
     if (item !== undefined && item !== '') {
-      console.log(item);
       this.selectedRecruites.push({ email: item.user.email });
     }
   }
