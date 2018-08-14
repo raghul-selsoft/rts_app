@@ -324,3 +324,32 @@ td {
 .form-wrapper {
   margin-top: 1em;
 }
+
+.read-only-text-input {
+  background: none !important;
+  border: none;
+}
+
+.read-only-text-select {
+  -webkit-appearance: none;
+  background: none !important;
+  border: none;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.push-left {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 1px !important;
+}
+
+.shade-col {
+  background: #e6e6e6;
+}
+
+.shade-col-alt {
+  background: #f1f1f1;
+}
