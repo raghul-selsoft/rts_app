@@ -304,3 +304,23 @@ td {
   -webkit-border-radius: 5px;
   color: #FFFFFF;
 }
+
+.non-editable-content-top {
+  background: #e8e8e8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: .5em;
+  font-size: .900em;
+}
+
+.non-editable-label {
+  font-weight: 600;
+  display: inline-block;
+  padding-right: .5em;
+}
+
+.form-wrapper {
+  margin-top: 1em;
+}
