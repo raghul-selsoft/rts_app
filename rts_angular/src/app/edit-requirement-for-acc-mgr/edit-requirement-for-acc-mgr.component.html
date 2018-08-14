@@ -110,8 +110,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isRecruiters">
-        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray"
-          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [(ngModel)]="selectedrecruitersArray"
+          [settings]="dropdownSettings">
         </ng-multiselect-dropdown>
       </div>
     </div>

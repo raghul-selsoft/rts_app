@@ -27,6 +27,7 @@ export class AddTeamComponent implements OnInit {
   private recruiters: any;
   private accountManager: any;
   private rtsCompanyId: any;
+  private recruitersArray: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -40,6 +41,7 @@ export class AddTeamComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.teamMembers = [];
+    this.recruitersArray = [];
     this.leadUsers = [];
     this.recruiters = [];
     this.accountManager = [];
@@ -74,10 +76,8 @@ export class AddTeamComponent implements OnInit {
     this.userService.allUsers(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.users = data.users;
-            console.log(this.users);
             for (const user of this.users) {
               if (user.role === 'TL') {
                 this.leadUsers.push(user);
@@ -86,8 +86,6 @@ export class AddTeamComponent implements OnInit {
                 this.accountManager.push(user);
               }
             }
-            console.log(this.accountManager);
-            console.log(this.leadUsers);
           }
         });
   }
@@ -97,21 +95,10 @@ export class AddTeamComponent implements OnInit {
     this.teamMembers = [];
     for (const user of this.users) {
       if (user.role === 'RECRUITER') {
-        this.recruiters.push({ user: user, firstName: user.firstName + ' ' + user.lastName });
+        this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
     this.deSelectAll();
-  }
-
-  onItemSelect(item: any) {
-    if (item !== undefined && item !== '') {
-      this.teamMembers.push(item.user.userId);
-    }
-  }
-
-  onItemDeSelect(items: any) {
-    const clear = this.teamMembers.indexOf(items);
-    this.teamMembers.splice(clear, 1);
   }
 
   deSelectAll() {
@@ -120,18 +107,21 @@ export class AddTeamComponent implements OnInit {
 
   addNewTeam(form: FormGroup) {
 
+    this.teamMembers = [];
+    for (const recruiter of this.recruitersArray) {
+      this.teamMembers.push(recruiter.user);
+    }
+
     const team = {
       teamName: form.value.teamName,
       leadUserId: form.value.teamLeadUser,
       otherUsers: this.teamMembers,
       accountManagerId: form.value.accountManager
     };
-    console.log(team);
 
     this.teamService.addTeam(team)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New Team successfully added', '', {
               positionClass: 'toast-top-center',

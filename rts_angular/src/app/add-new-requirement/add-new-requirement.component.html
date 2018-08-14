@@ -88,8 +88,6 @@
         <div class="checkbox-wrapper">
           <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
             <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="requirementType" [value]="type">{{type}}</mat-checkbox>
-            <!--<input class="checkbox" type='checkbox' >-->
-            <!--<span class="label"></span>-->
           </span>
         </div>
       </div>
@@ -102,19 +100,9 @@
         <div class="checkbox-wrapper">
           <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
             <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="immigrationRequirement" [value]="data">{{data}}</mat-checkbox>
-            <!--<input class="checkbox" type='checkbox' >-->
-            <!--<span class="label"></span>-->
           </span>
         </div>
       </div>
-
-      <!--<label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>-->
-      <!--<div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">-->
-      <!--<div class="col-sm-4 ">-->
-      <!--<input type="checkbox" formControlName="immigrationRequirement" [value]="data">-->
-      <!--<span class="label">{{data}}</span>-->
-      <!--</div>-->
-      <!--</div>-->
     </div>
 
     <div class="row">
@@ -176,7 +164,7 @@
     <div class="row">
       <div class="col-sm-4">
         <label for="jobDescription" class="form-label">Job Description:</label>
-        <textarea rows="3" name="jobDescription" class="form-textarea" formControlName="jobDescription" placeholder="Description.."
+        <textarea rows="5" name="jobDescription" class="form-textarea" formControlName="jobDescription" placeholder="Description.."
           ngModel></textarea>
       </div>
     </div>

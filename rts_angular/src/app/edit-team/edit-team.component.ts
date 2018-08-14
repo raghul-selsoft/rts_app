@@ -97,16 +97,14 @@ export class EditTeamComponent implements OnInit {
           if (data.success) {
             this.teams = data.teams;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.teamId });
-            console.log(this.selectedTeam);
             this.teamName = this.selectedTeam.name;
             this.accountManagerName = this.selectedTeam.accountManager.userId;
             this.teamLeadName = this.selectedTeam.leadUser.userId;
             this.selectTeamLead();
+            this.recruitersArray = [];
             for (const recruiter of this.selectedTeam.otherUsers) {
-              this.teamMembers.push(recruiter.userId);
-              this.recruitersArray.push({ user: recruiter, firstName: recruiter.firstName + ' ' + recruiter.lastName });
+              this.recruitersArray.push({ user: recruiter.userId, firstName: recruiter.firstName + ' ' + recruiter.lastName });
             }
-            console.log(this.recruitersArray);
           }
         });
   }
@@ -138,22 +136,10 @@ export class EditTeamComponent implements OnInit {
     this.teamMembers = [];
     for (const user of this.users) {
       if (user.role === 'RECRUITER') {
-        this.recruiters.push({ user: user, firstName: user.firstName + ' ' + user.lastName });
+        this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
-    console.log(this.recruiters);
     this.deSelectAll();
-  }
-
-  onItemSelect(item: any) {
-    if (item !== undefined && item !== '') {
-      this.teamMembers.push(item.user.userId);
-    }
-  }
-
-  onItemDeSelect(items: any) {
-    const clear = this.teamMembers.indexOf(items);
-    this.teamMembers.splice(clear, 1);
   }
 
   deSelectAll() {
@@ -162,6 +148,11 @@ export class EditTeamComponent implements OnInit {
 
   updateTeam(form: FormGroup) {
 
+    this.teamMembers = [];
+    for (const recruiter of this.recruitersArray) {
+      this.teamMembers.push(recruiter.user);
+    }
+
     const team = {
       teamName: form.value.teamName,
       leadUserId: form.value.teamLeadUser,
@@ -169,12 +160,10 @@ export class EditTeamComponent implements OnInit {
       accountManagerId: form.value.accountManager,
       teamId: this.teamId
     };
-    console.log(team);
 
     this.teamService.editTeam(team)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('Team Updateted successfully', '', {
               positionClass: 'toast-top-center',
