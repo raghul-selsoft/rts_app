@@ -74,10 +74,9 @@
 
       <div class="form-group row" *ngIf="selectedRequirement.requirementType">
         <label class="col-sm-2 col-form-label">Requirement Type:</label>
-        <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
+        <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
           <div class="col-md-6">
-            <input type='checkbox' formControlName="{{type}}" [value]="type">
-            <span class="label">{{type}}</span>
+            <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="{{type}}" [value]="type">{{type}}</mat-checkbox>
           </div>
         </div>
       </div>
@@ -92,10 +91,9 @@
 
       <div class="form-group row" *ngIf="selectedRequirement">
         <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
-        <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
+        <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
           <div class="col-sm-4 ">
-            <input type="checkbox" formControlName="{{data.id}}" [value]="data.value">
-            <span class="label">{{data.value}}</span>
+            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}" [value]="data.value">{{data.value}}</mat-checkbox>
           </div>
         </div>
       </div>
