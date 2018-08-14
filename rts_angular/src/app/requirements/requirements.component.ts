@@ -60,9 +60,7 @@ export class RequirementsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            console.log(data);
             this.requirements = data.requirements;
-            this.requirements.reverse();
             this.requirementsLength = this.requirements.length;
             for (const require of this.requirements) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
@@ -96,7 +94,6 @@ export class RequirementsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsForUser = data.requirements;
-            this.requirementsForUser.reverse();
             this.requirementsLengthForUser = this.requirementsForUser.length;
             for (const require of this.requirementsForUser) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
@@ -131,7 +128,6 @@ export class RequirementsComponent implements OnInit {
           console.log(data);
           if (data.success) {
             this.requirementsForTeam = data.requirements;
-            this.requirementsForTeam.reverse();
             this.requirementsLengthForTeam = this.requirementsForTeam.length;
             for (const require of this.requirementsForTeam) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
