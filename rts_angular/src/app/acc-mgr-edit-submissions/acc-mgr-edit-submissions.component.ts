@@ -273,7 +273,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
             this.addCandidate = true;
-            this.isRelocate = false;
+            this.isRelocate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');
             this.isC2c = false;

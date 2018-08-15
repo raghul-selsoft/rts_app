@@ -62,7 +62,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
-    this.isRelocate = false;
+    this.isRelocate = true;
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.allRequirements = [];

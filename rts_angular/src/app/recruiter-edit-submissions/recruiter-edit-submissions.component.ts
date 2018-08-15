@@ -224,7 +224,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           } else {
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
-            this.isRelocate = false;
+            this.isRelocate = true;
             this.addCandidate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');

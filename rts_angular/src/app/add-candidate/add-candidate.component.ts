@@ -40,7 +40,7 @@ export class AddCandidateComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
-    this.isRelocate = false;
+    this.isRelocate = true;
   }
 
   ngOnInit() {
