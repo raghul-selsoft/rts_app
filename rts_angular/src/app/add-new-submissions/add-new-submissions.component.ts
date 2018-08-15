@@ -46,6 +46,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private recruiterEmail: any;
   private allRequirements: any;
   private baseUrl: any;
+  private isRelocate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -61,6 +62,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
+    this.isRelocate = false;
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.allRequirements = [];
@@ -102,6 +104,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidateLocation: [''],
       skype: [''],
       linkedIn: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
       c2c: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
@@ -112,6 +118,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       editSkype: [''],
       editLinkedIn: [''],
       otherTechnology: [''],
+      editRelocate: [''],
+      editInterview: [''],
+      editExperience: [''],
+      editResonForChange: [''],
       employerName: [''],
       employerContactName: [''],
       employerPhone: [''],
@@ -281,6 +291,13 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
               this.isC2c = false;
             }
+            if (this.selectedCandidate.isWillToRelocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+              this.isRelocate = false;
+            }
             this.isCandidate = true;
             this.isNewCandidate = false;
             console.log(this.selectedCandidate);
@@ -344,6 +361,14 @@ export class AddNewSubmissionsComponent implements OnInit {
   getImmigiration(event) {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
+    }
+  }
+
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
     }
   }
 
@@ -445,7 +470,11 @@ export class AddNewSubmissionsComponent implements OnInit {
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
-      linkedIn: form.value.editLinkedIn
+      linkedIn: form.value.editLinkedIn,
+      isWillToRelocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience
     };
 
     if (this.isEmployerDetails) {

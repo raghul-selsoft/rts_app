@@ -33,6 +33,7 @@ export class EditCandidateComponent implements OnInit {
   private deletedMediaFiles: any[];
   private immigirationStatus: any;
   private baseUrl: any;
+  private isRelocate: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -74,7 +75,11 @@ export class EditCandidateComponent implements OnInit {
       employerContactName: [''],
       employerPhone: [''],
       employerEmail: [''],
-      c2c: ['']
+      c2c: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
     });
     this.getCommonDetails();
     this.getAllCandidates();
@@ -104,12 +109,17 @@ export class EditCandidateComponent implements OnInit {
         data => {
           if (data.success) {
             this.candidates = data.candidates;
-            for (const user of this.candidates) {
-              this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
-              if (this.selectedCandidate.c2C) {
-                this.myForm.controls.c2c.setValue('Yes');
-                this.isEmployerDetails = true;
-              }
+            this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
+            if (this.selectedCandidate.c2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isEmployerDetails = true;
+            }
+            if (this.selectedCandidate.isWillToRelocate) {
+              this.myForm.controls.relocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.relocate.setValue('false');
+              this.isRelocate = false;
             }
             this.immigirationStatus = this.selectedCandidate.immigirationStatus;
             const immigiration = this.selectedCandidate.immigirationStatus;
@@ -169,6 +179,14 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
+    }
+  }
+
   getImmigiration(event) {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
@@ -191,6 +209,10 @@ export class EditCandidateComponent implements OnInit {
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
+      isWillToRelocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };
