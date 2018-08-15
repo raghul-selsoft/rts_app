@@ -270,6 +270,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.immigirationStatus = 'GC';
             this.addCandidate = true;
             this.isRelocate = false;
             this.isNewCandidate = true;
@@ -486,7 +488,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
-      isRelocate: this.isRelocate,
+      relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience

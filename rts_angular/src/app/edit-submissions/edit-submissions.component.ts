@@ -199,7 +199,7 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -272,6 +272,8 @@ export class EditSubmissionsComponent implements OnInit {
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.immigirationStatus = 'GC';
             this.isRelocate = false;
             this.addCandidate = true;
             this.isNewCandidate = true;
@@ -489,7 +491,7 @@ export class EditSubmissionsComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
-      isRelocate: this.isRelocate,
+      relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience

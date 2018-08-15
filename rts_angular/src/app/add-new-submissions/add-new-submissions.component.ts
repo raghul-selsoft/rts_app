@@ -135,6 +135,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.getAllRequirementsForUser();
     }
     this.getAllCommonData();
+    this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+    this.immigirationStatus = 'GC';
   }
 
   getAllCommonData() {
@@ -291,6 +293,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
               this.isC2c = false;
             }
+            console.log(this.selectedCandidate);
             if (this.selectedCandidate.isRelocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
@@ -300,7 +303,6 @@ export class AddNewSubmissionsComponent implements OnInit {
             }
             this.isCandidate = true;
             this.isNewCandidate = false;
-            console.log(this.selectedCandidate);
             const immigiration = this.selectedCandidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -471,7 +473,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
-      isRelocate: this.isRelocate,
+      relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience

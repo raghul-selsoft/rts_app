@@ -110,11 +110,12 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.candidates = data.candidates;
             this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
+            console.log(this.selectedCandidate);
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;
             }
-            if (this.selectedCandidate.isRelocate) {
+            if (this.selectedCandidate.relocate) {
               this.myForm.controls.relocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -209,7 +210,7 @@ export class EditCandidateComponent implements OnInit {
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
-      isRelocate: this.isRelocate,
+      relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
