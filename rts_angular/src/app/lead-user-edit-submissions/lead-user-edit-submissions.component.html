@@ -87,9 +87,9 @@
         <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
+            <input *ngIf="selectedSubmission.status === 'TL_REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
               value="{{selectedSubmission.reasonForRejection}}">
-            <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
+            <input *ngIf="selectedSubmission.status !== 'TL_REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 

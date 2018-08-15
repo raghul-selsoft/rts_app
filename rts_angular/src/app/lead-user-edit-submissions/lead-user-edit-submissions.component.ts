@@ -176,7 +176,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
             }
             this.clientRecruiterName = this.recruiterName.join();
             this.clientRecruiterEmail = this.recruiterEmail.join();
-            if (this.selectedSubmission.status === 'REJECTED') {
+            if (this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
             if (this.selectedSubmission.approvedByAdmin === true) {
@@ -292,7 +292,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
   }
 
   changeStatus(event) {
-    if (event === 'REJECTED') {
+    if (event === 'TL_REJECTED') {
       this.isRejected = true;
     } else {
       this.isRejected = false;
