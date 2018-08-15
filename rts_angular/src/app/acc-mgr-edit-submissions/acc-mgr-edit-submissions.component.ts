@@ -205,7 +205,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isWillToRelocate) {
+            if (this.selectedSubmission.candidate.isRelocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -262,7 +262,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isWillToRelocate) {
+            if (this.selectedSubmission.candidate.isRelocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -486,7 +486,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
-      isWillToRelocate: this.isRelocate,
+      isRelocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience

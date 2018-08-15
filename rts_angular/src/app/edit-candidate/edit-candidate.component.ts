@@ -114,7 +114,7 @@ export class EditCandidateComponent implements OnInit {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;
             }
-            if (this.selectedCandidate.isWillToRelocate) {
+            if (this.selectedCandidate.isRelocate) {
               this.myForm.controls.relocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -209,7 +209,7 @@ export class EditCandidateComponent implements OnInit {
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
-      isWillToRelocate: this.isRelocate,
+      isRelocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,

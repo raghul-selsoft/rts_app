@@ -291,7 +291,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
               this.isC2c = false;
             }
-            if (this.selectedCandidate.isWillToRelocate) {
+            if (this.selectedCandidate.isRelocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -471,7 +471,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
-      isWillToRelocate: this.isRelocate,
+      isRelocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience

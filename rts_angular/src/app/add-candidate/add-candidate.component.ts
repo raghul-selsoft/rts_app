@@ -140,7 +140,7 @@ export class AddCandidateComponent implements OnInit {
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
-      isWillToRelocate: this.isRelocate,
+      isRelocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience
