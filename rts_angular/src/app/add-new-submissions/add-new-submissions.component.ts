@@ -294,7 +294,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.isC2c = false;
             }
             console.log(this.selectedCandidate);
-            if (this.selectedCandidate.isRelocate) {
+            if (this.selectedCandidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {

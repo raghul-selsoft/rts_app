@@ -205,7 +205,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -262,7 +262,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');

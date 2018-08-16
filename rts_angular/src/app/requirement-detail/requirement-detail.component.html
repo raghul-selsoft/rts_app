@@ -140,7 +140,7 @@
         <label for="notes" class="col-form-label bold-text">Notes:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="2" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.notes}}"></textarea>
+        <textarea rows="2" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}" disabled></textarea>
       </div>
     </div>
 
