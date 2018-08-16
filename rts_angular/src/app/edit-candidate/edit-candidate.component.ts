@@ -110,7 +110,6 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.candidates = data.candidates;
             this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
-            console.log(this.selectedCandidate);
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;

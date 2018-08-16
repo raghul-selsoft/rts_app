@@ -213,8 +213,7 @@ export class EditSubmissionsComponent implements OnInit {
             this.clientRecruiterName = this.recruiterName.join();
             this.clientRecruiterEmail = this.recruiterEmail.join();
 
-            console.log(this.selectedSubmission);
-            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+                     const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
             } else if (immigiration === 'CITIZEN') {

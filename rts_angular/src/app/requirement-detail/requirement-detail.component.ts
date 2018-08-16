@@ -114,7 +114,6 @@ export class RequirementDetailComponent implements OnInit {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
-            console.log(this.selectedRequirement);
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });

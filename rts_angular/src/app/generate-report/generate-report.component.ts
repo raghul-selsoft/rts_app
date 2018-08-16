@@ -51,7 +51,6 @@ export class GenerateReportComponent implements OnInit {
         data => {
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
-            console.log(this.approvedsubmissions);
             this.approvedsubmissionsLength = this.approvedsubmissions.length;
             for (const submission of this.approvedsubmissions) {
               const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);

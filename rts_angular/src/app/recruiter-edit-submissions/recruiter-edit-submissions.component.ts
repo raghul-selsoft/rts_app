@@ -194,7 +194,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   getRequirement(event) {
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    console.log(this.selectedRequirement);
   }
 
   getCandidateDetails() {
@@ -347,7 +346,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       deletedMediaFiles: this.deletedMediaFiles
     };
 
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
