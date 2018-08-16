@@ -165,7 +165,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -194,7 +194,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -222,7 +222,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -293,8 +293,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
               this.isC2c = false;
             }
-            console.log(this.selectedCandidate);
-            if (this.selectedCandidate.isRelocate) {
+            if (this.selectedCandidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -411,7 +410,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       candidateId: candidateId
     };
-    console.log(submission);
 
     this.submissionService.addSubmission(submission)
       .subscribe(
