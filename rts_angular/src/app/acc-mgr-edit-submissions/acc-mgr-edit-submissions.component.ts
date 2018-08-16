@@ -117,6 +117,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
@@ -491,7 +493,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

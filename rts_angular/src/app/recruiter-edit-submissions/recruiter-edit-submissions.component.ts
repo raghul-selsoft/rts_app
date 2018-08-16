@@ -101,6 +101,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       level2Date: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -410,7 +412,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

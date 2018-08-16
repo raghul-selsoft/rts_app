@@ -79,6 +79,7 @@ export class EditCandidateComponent implements OnInit {
       relocate: [''],
       interview: [''],
       experience: [''],
+      totalExperience: [''],
       resonForChange: [''],
     });
     this.getCommonDetails();
@@ -213,6 +214,7 @@ export class EditCandidateComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
+      totalExperience: form.value.totalExperience,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };

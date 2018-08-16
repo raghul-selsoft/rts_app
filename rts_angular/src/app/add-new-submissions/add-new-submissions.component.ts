@@ -107,6 +107,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: [''],
       interview: [''],
       experience: [''],
+      totalExperience: [''],
       resonForChange: [''],
       c2c: [''],
       editCandidateImmigirationStatus: [''],
@@ -119,6 +120,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       editLinkedIn: [''],
       otherTechnology: [''],
       editRelocate: [''],
+      editTotalExperience: [''],
       editInterview: [''],
       editExperience: [''],
       editResonForChange: [''],
@@ -474,7 +476,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (this.isEmployerDetails) {

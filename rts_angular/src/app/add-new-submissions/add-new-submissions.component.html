@@ -195,35 +195,42 @@
           </div>
 
           <div class="form-group row" *ngIf="selectedCandidate">
-              <label for="editRelocate" class="col-sm-4 col-form-label">Willing To Relocate:</label>
-              <div class="col-sm-7">
-                <mat-radio-group formControlName="editRelocate" disabled>
-                  <mat-radio-button value="true">Yes</mat-radio-button>
-                  <mat-radio-button value="false">No</mat-radio-button>
-                </mat-radio-group>
-              </div>
+            <label for="editRelocate" class="col-sm-4 col-form-label">Willing To Relocate:</label>
+            <div class="col-sm-7">
+              <mat-radio-group formControlName="editRelocate" disabled>
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
             </div>
-    
-            <div class="form-group row"  *ngIf="selectedCandidate">
-              <label for="editResonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control" name="editResonForChange" formControlName="editResonForChange" readonly ngModel="{{selectedCandidate.reasonForChange}}">
-              </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedCandidate">
+            <label for="editResonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editResonForChange" formControlName="editResonForChange" readonly ngModel="{{selectedCandidate.reasonForChange}}">
             </div>
-    
-            <div class="form-group row"  *ngIf="selectedCandidate">
-              <label for="editInterview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control" name="editInterview" formControlName="editInterview" readonly ngModel="{{selectedCandidate.availableTimeForInterview}}">
-              </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedCandidate">
+            <label for="editInterview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editInterview" formControlName="editInterview" readonly ngModel="{{selectedCandidate.availableTimeForInterview}}">
             </div>
-    
-            <div class="form-group row"  *ngIf="selectedCandidate">
-              <label for="editExperience" class="col-sm-4 col-form-label">Experience:</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control" name="editExperience" formControlName="editExperience" readonly ngModel="{{selectedCandidate.experience}}">
-              </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedCandidate">
+            <label for="editExperience" class="col-sm-4 col-form-label">Relevant Experience:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editExperience" formControlName="editExperience" readonly ngModel="{{selectedCandidate.experience}}">
             </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedCandidate">
+            <label for="editTotalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="totalExperience" formControlName="totalExperience" readonly ngModel="{{selectedCandidate.totalExperience}}">
+            </div>
+          </div>
 
           <div class="form-group row">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
@@ -393,6 +400,13 @@
             <label for="experience" class="col-sm-4 col-form-label">Experience:</label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="experience" formControlName="experience">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="totalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="totalExperience" formControlName="totalExperience">
             </div>
           </div>
 
