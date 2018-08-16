@@ -21,6 +21,7 @@ export class GenerateReportComponent implements OnInit {
   private rtsCompanyId: any;
   private currentDate: Date;
   private approvedsubmissionsLength: any;
+  private userRole: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -30,6 +31,7 @@ export class GenerateReportComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date();
   }
@@ -49,6 +51,7 @@ export class GenerateReportComponent implements OnInit {
         data => {
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
+            console.log(this.approvedsubmissions);
             this.approvedsubmissionsLength = this.approvedsubmissions.length;
             for (const submission of this.approvedsubmissions) {
               const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
