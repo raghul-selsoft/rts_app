@@ -165,7 +165,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -194,7 +194,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }

@@ -180,6 +180,7 @@ export class EditRequirementForAccMgrComponent implements OnInit {
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
             this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            console.log(this.selectedRequirement);
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
