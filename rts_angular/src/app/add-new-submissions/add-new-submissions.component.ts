@@ -107,6 +107,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: [''],
       interview: [''],
       experience: [''],
+      totalExperience: [''],
       resonForChange: [''],
       c2c: [''],
       editCandidateImmigirationStatus: [''],
@@ -119,6 +120,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       editLinkedIn: [''],
       otherTechnology: [''],
       editRelocate: [''],
+      editTotalExperience: [''],
       editInterview: [''],
       editExperience: [''],
       editResonForChange: [''],
@@ -474,7 +476,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (this.isEmployerDetails) {
@@ -494,45 +497,46 @@ export class AddNewSubmissionsComponent implements OnInit {
         technologyId: form.value.editTechnology
       }];
     }
+    console.log(candidate);
 
-    this.candidateService.addCandidate(candidate)
-      .subscribe(data => {
-        if (data.success) {
+    // this.candidateService.addCandidate(candidate)
+    //   .subscribe(data => {
+    //     if (data.success) {
 
-          if (this.candidateGetFiles.length > 0) {
-            const upload = {
-              file: this.candidateGetFiles,
-              candidateId: data.candidate.candidateId,
-              enteredBy: this.rtsUserId
-            };
-            this.candidateService.uploadFile(upload).subscribe(
-              file => {
-                if (file.success) {
-                  this.toastr.success(file.message, '', {
-                    positionClass: 'toast-top-center',
-                    timeOut: 3000,
-                  });
-                } else {
-                  this.toastr.error(file.message, '', {
-                    positionClass: 'toast-top-center',
-                    timeOut: 3000,
-                  });
-                }
-              });
-          }
-          this.toastr.success('New Candidate Successfully added', '', {
-            positionClass: 'toast-top-center',
-            timeOut: 3000,
-          });
+    //       if (this.candidateGetFiles.length > 0) {
+    //         const upload = {
+    //           file: this.candidateGetFiles,
+    //           candidateId: data.candidate.candidateId,
+    //           enteredBy: this.rtsUserId
+    //         };
+    //         this.candidateService.uploadFile(upload).subscribe(
+    //           file => {
+    //             if (file.success) {
+    //               this.toastr.success(file.message, '', {
+    //                 positionClass: 'toast-top-center',
+    //                 timeOut: 3000,
+    //               });
+    //             } else {
+    //               this.toastr.error(file.message, '', {
+    //                 positionClass: 'toast-top-center',
+    //                 timeOut: 3000,
+    //               });
+    //             }
+    //           });
+    //       }
+    //       this.toastr.success('New Candidate Successfully added', '', {
+    //         positionClass: 'toast-top-center',
+    //         timeOut: 3000,
+    //       });
 
-          this.SubmissionWithCandidate(form, data.candidate.candidateId);
-        } else {
-          this.toastr.error(data.message, '', {
-            positionClass: 'toast-top-center',
-            timeOut: 3000,
-          });
-        }
-      });
+    //       this.SubmissionWithCandidate(form, data.candidate.candidateId);
+    //     } else {
+    //       this.toastr.error(data.message, '', {
+    //         positionClass: 'toast-top-center',
+    //         timeOut: 3000,
+    //       });
+    //     }
+    //   });
 
   }
 

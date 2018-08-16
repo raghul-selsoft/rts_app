@@ -119,6 +119,8 @@ export class EditSubmissionsComponent implements OnInit {
       level2Date: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -213,7 +215,7 @@ export class EditSubmissionsComponent implements OnInit {
             this.clientRecruiterName = this.recruiterName.join();
             this.clientRecruiterEmail = this.recruiterEmail.join();
 
-                     const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
             } else if (immigiration === 'CITIZEN') {
@@ -493,7 +495,8 @@ export class EditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {
