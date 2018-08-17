@@ -128,6 +128,13 @@
         </div>
 
         <div class="form-group row">
+          <label for="currentCompany" class="col-sm-4 col-form-label">Current Company:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="currentCompany" formControlName="currentCompany">
+          </div>
+        </div>
+
+        <div class="form-group row">
           <label for="epNumber" class="col-sm-4 col-form-label">EP Number:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="epNumber" formControlName="epNumber">
@@ -142,19 +149,19 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Have you ever worked with Client (if yes please mention Full Time or contract):
+          <label class="col-sm-4 col-form-label">Have you ever worked with Client:
           </label>
           <div class="col-sm-7">
             <mat-radio-group (change)="getWorkedWithClient($event)">
-              <mat-radio-button value="Yes">Yes</mat-radio-button>
-              <mat-radio-button value="No" checked>No</mat-radio-button>
+              <mat-radio-button value="true">Yes</mat-radio-button>
+              <mat-radio-button value="false" checked>No</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
         <div class="form-group row" *ngIf="isWorkedWithClient">
-          <label for="workedWithClient" class="col-sm-4 col-form-label"></label>
+          <label for="workedClient" class="col-sm-4 col-form-label">If yes please mention Full Time or contract</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="workedWithClient" formControlName="workedWithClient">
+            <input type="text" class="form-control" name="workedClient" formControlName="workedClient">
           </div>
         </div>
 

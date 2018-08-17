@@ -69,9 +69,10 @@ export class AddCandidateComponent implements OnInit {
       totalExperience: [''],
       epNumber: [''],
       authorizedWorkInUs: [''],
-      workedWithClient: [''],
+      workedClient: [''],
       anotherInterviewOffer: [''],
-      vacationPlans: ['']
+      vacationPlans: [''],
+      currentCompany: [''],
     });
     this.getCommonDetails();
     this.myForm.controls.immigirationStatus.setValue('GC');
@@ -124,7 +125,7 @@ export class AddCandidateComponent implements OnInit {
   }
 
   getWorkedWithClient(event) {
-    if (event.value === 'Yes') {
+    if (event.value === 'true') {
       this.isWorkedWithClient = true;
     } else {
       this.isWorkedWithClient = false;
@@ -162,17 +163,19 @@ export class AddCandidateComponent implements OnInit {
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
       totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
       epNumber: form.value.epNumber,
-      authorizedWorkInUs: form.value.authorizedWorkInUs,
-      detailsOfWorkedClient: form.value.workedWithClient,
-      anotherInterviewOffer: form.value.anotherInterviewOffer,
-      vacationPlans: form.value.vacationPlans
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans
     };
 
     if (this.isWorkedWithClient) {
       newCandidate.workedWithClient = true;
+      newCandidate.workedClient = form.value.workedClient;
     } else {
       newCandidate.workedWithClient = false;
+      newCandidate.workedClient = '';
     }
 
     if (this.isEmployerDetails) {
@@ -192,7 +195,6 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
-    console.log(newCandidate);
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(

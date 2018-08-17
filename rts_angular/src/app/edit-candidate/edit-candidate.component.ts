@@ -85,9 +85,11 @@ export class EditCandidateComponent implements OnInit {
       resonForChange: [''],
       epNumber: [''],
       authorizedWorkInUs: [''],
-      workedWithClient: [''],
+      workedClient: [''],
       anotherInterviewOffer: [''],
-      vacationPlans: ['']
+      vacationPlans: [''],
+      currentCompany: [''],
+      workedWithClient: [''],
     });
     this.getCommonDetails();
     this.getAllCandidates();
@@ -128,6 +130,13 @@ export class EditCandidateComponent implements OnInit {
             } else {
               this.myForm.controls.relocate.setValue('false');
               this.isRelocate = false;
+            }
+            if (this.selectedCandidate.workedWithClient) {
+              this.myForm.controls.workedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.workedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
             }
             this.immigirationStatus = this.selectedCandidate.immigirationStatus;
             const immigiration = this.selectedCandidate.immigirationStatus;
@@ -188,7 +197,7 @@ export class EditCandidateComponent implements OnInit {
   }
 
   getWorkedWithClient(event) {
-    if (event.value === 'Yes') {
+    if (event.value === 'true') {
       this.isWorkedWithClient = true;
     } else {
       this.isWorkedWithClient = false;
@@ -230,20 +239,23 @@ export class EditCandidateComponent implements OnInit {
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
       totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
       epNumber: form.value.epNumber,
-      authorizedWorkInUs: form.value.authorizedWorkInUs,
-      detailsOfWorkedClient: form.value.workedWithClient,
-      anotherInterviewOffer: form.value.anotherInterviewOffer,
-      vacationPlans: form.value.vacationPlans,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };
 
     if (this.isWorkedWithClient) {
       candidate.workedWithClient = true;
+      candidate.workedClient = form.value.workedClient;
     } else {
       candidate.workedWithClient = false;
+      candidate.workedClient = '';
     }
+
     if (this.isEmployerDetails) {
       candidate.c2C = true;
       candidate.employeeName = form.value.employerName;
