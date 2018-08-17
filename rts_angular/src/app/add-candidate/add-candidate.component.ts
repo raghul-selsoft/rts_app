@@ -27,6 +27,7 @@ export class AddCandidateComponent implements OnInit {
   private isEmployerDetails: boolean;
   private immigirationStatus: any;
   private isRelocate: boolean;
+  private isWorkedWithClient: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -41,6 +42,7 @@ export class AddCandidateComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
     this.isRelocate = true;
+    this.isWorkedWithClient = false;
   }
 
   ngOnInit() {
@@ -63,7 +65,12 @@ export class AddCandidateComponent implements OnInit {
       employerContactName: [''],
       employerPhone: [''],
       employerEmail: [''],
-      totalExperience: ['']
+      totalExperience: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedWithClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: ['']
     });
     this.getCommonDetails();
     this.myForm.controls.immigirationStatus.setValue('GC');
@@ -115,6 +122,14 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  getWorkedWithClient(event) {
+    if (event.value === 'Yes') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
+    }
+  }
+
   relocate(event) {
     if (event.value === 'true') {
       this.isRelocate = true;
@@ -145,8 +160,19 @@ export class AddCandidateComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
-      totalExperience: form.value.totalExperience
+      totalExperience: form.value.totalExperience,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUs: form.value.authorizedWorkInUs,
+      detailsOfWorkedClient: form.value.workedWithClient,
+      anotherInterviewOffer: form.value.anotherInterviewOffer,
+      vacationPlans: form.value.vacationPlans
     };
+
+    if (this.isWorkedWithClient) {
+      newCandidate.workedWithClient = true;
+    } else {
+      newCandidate.workedWithClient = false;
+    }
 
     if (this.isEmployerDetails) {
       newCandidate.c2C = true;
@@ -165,6 +191,7 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
+    console.log(newCandidate);
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(

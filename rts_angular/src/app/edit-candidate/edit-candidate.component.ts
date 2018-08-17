@@ -34,6 +34,7 @@ export class EditCandidateComponent implements OnInit {
   private immigirationStatus: any;
   private baseUrl: any;
   private isRelocate: boolean;
+  private isWorkedWithClient: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -81,6 +82,11 @@ export class EditCandidateComponent implements OnInit {
       experience: [''],
       totalExperience: [''],
       resonForChange: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedWithClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: ['']
     });
     this.getCommonDetails();
     this.getAllCandidates();
@@ -180,6 +186,14 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+  getWorkedWithClient(event) {
+    if (event.value === 'Yes') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
+    }
+  }
+
   relocate(event) {
     if (event.value === 'true') {
       this.isRelocate = true;
@@ -215,10 +229,20 @@ export class EditCandidateComponent implements OnInit {
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
       totalExperience: form.value.totalExperience,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUs: form.value.authorizedWorkInUs,
+      detailsOfWorkedClient: form.value.workedWithClient,
+      anotherInterviewOffer: form.value.anotherInterviewOffer,
+      vacationPlans: form.value.vacationPlans,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };
 
+    if (this.isWorkedWithClient) {
+      candidate.workedWithClient = true;
+    } else {
+      candidate.workedWithClient = false;
+    }
     if (this.isEmployerDetails) {
       candidate.c2C = true;
       candidate.employeeName = form.value.employerName;
@@ -244,6 +268,7 @@ export class EditCandidateComponent implements OnInit {
       candidate: candidate,
       deletedMediaFiles: this.deletedMediaFiles
     };
+    console.log(updateCandidate);
 
     this.candidateService.editCandidate(updateCandidate)
       .subscribe(
