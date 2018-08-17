@@ -64,7 +64,8 @@ export class EditCandidateComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       name: [''],
       email: ['', Validators.email],
-      phoneNumber: [''],
+      // tslint:disable-next-line:max-line-length
+      phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
       location: [''],
       availability: [''],
       immigirationStatus: [''],
