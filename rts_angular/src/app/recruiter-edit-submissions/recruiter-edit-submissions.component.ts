@@ -46,6 +46,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private allRequirements: any;
   isWorkedWithClient: boolean;
   isOtherTechnology: boolean;
+  recruiterName: any;
+  recruiterEmail: any;
+  private clientRecruiterName: any;
+  private clientRecruiterEmail: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -63,6 +67,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.deletedMediaFiles = [];
     this.candidateGetFiles = [];
     this.allRequirements = [];
+    this.recruiterName = [];
+    this.recruiterEmail = [];
   }
 
   ngOnInit() {
@@ -198,6 +204,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
+            for (const recruiter of this.selectedRequirement.clientRecuriters) {
+              this.recruiterName.push(recruiter.name + ' ');
+              this.recruiterEmail.push(recruiter.email + ' ');
+            }
+            this.clientRecruiterName = this.recruiterName.join();
+            this.clientRecruiterEmail = this.recruiterEmail.join();
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -220,6 +232,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   getRequirement(event) {
     this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
+    console.log(this.selectedRequirement);
   }
 
   getCandidateDetails() {

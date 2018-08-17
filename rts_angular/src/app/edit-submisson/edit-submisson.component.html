@@ -1,7 +1,8 @@
 <h2 class="main-title">
-  <a [routerLink]="['/recruiter-submissions']">Submissions</a> / Edit Submission</h2>
+  <a [routerLink]="['/submissions']">Submissions</a> / Edit Submission</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
+
 
     <div class="row pt-3">
       <div class="col-6">
@@ -10,25 +11,30 @@
           <div class="col-sm-7">
             <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
               (change)="getRequirement($event.target.value);" required>
-              <option value="">Select</option>
               <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
             </select>
           </div>
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
-          <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
+          <label for="clientRate" class="col-sm-4 col-form-label">Client Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}"
+            <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}"
               readonly>
           </div>
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedRequirement">
           <label for="buyingRate" class="col-sm-4 col-form-label">Buying Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="buyingRate" formControlName="buyingRate" ngModel="{{selectedSubmission.buyingRate}}"
-              required>
+            <input type="text" class="form-control" name="buyingRate" formControlName="buyingRate" required ngModel="{{selectedSubmission.buyingRate}}">
           </div>
         </div>
 
@@ -43,7 +49,7 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="clientContactEmail" class="col-sm-4 col-form-label">Client Contact Email:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail"ngModel="{{clientRecruiterEmail}}"
+            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}"
               readonly>
           </div>
         </div>
@@ -67,48 +73,26 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="status" class="col-sm-4 col-form-label">Status:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="status" formControlName="status" value="{{selectedSubmission.status}}" readonly>
+            <select name="status" class="form-control" formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
+              required>
+              <option value="">Select</option>
+              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">SUBMITTED</option>
+            </select>
           </div>
         </div>
 
-        <div class="form-group row" *ngIf="selectedSubmission && selectedSubmission.status === 'REJECTED'">
+        <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}"
-              readonly>
+            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
+              value="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <div>
-            <label class="fileContainer">
-              <button class="btn btn-secondary">
-                Attach Files</button>
-              <input type="file" (change)="fileChangeEvent($event)" multiple/>
-            </label>
-          </div>
-          <div class="pb-2" *ngFor="let file of getFiles">
-            <a class="panel">{{file.name}}
-            </a>
-            <a class="btn" (click)="removeFile(file)">
-              <i class="material-icons">
-                clear
-              </i>
-            </a>
-          </div>
-        </div> -->
-        <!-- <div class="form-group" *ngIf="selectedSubmission">
-          <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-             <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
-            </i>
-            <a class="btn" (click)="removeUploadedFile(media)">
-              <i class="material-icons">
-                clear
-              </i>
-            </a>
-          </div>
-        </div> -->
       </div>
+
       <div class="col-6">
         <legend class="sub-heading">Interview Details:</legend>
 
@@ -161,10 +145,8 @@
             <input type="text" class="form-control" name="currentStatus" formControlName="currentStatus" ngModel="{{selectedSubmission.currentStatus}}">
           </div>
         </div>
-
       </div>
     </div>
-
 
     <legend class="sub-heading">Candidate Details:</legend>
 
@@ -266,28 +248,28 @@
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
-            <label for="editResonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
+            <label for="resonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editResonForChange" formControlName="editResonForChange" readonly ngModel="{{selectedSubmission.candidate.reasonForChange}}">
+              <input type="text" class="form-control" name="resonForChange" formControlName="resonForChange" readonly ngModel="{{selectedSubmission.candidate.reasonForChange}}">
             </div>
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
-            <label for="editInterview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
+            <label for="interview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editInterview" formControlName="editInterview" readonly ngModel="{{selectedSubmission.candidate.availableTimeForInterview}}">
+              <input type="text" class="form-control" name="interview" formControlName="interview" readonly ngModel="{{selectedSubmission.candidate.availableTimeForInterview}}">
             </div>
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
-            <label for="editExperience" class="col-sm-4 col-form-label">Relevant Experience:</label>
+            <label for="experience" class="col-sm-4 col-form-label">Relevant Experience:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editExperience" formControlName="editExperience" readonly ngModel="{{selectedSubmission.candidate.experience}}">
+              <input type="text" class="form-control" name="experience" formControlName="experience" readonly ngModel="{{selectedSubmission.candidate.experience}}">
             </div>
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
-            <label for="editTotalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+            <label for="totalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="totalExperience" formControlName="totalExperience" readonly ngModel="{{selectedSubmission.candidate.totalExperience}}">
             </div>
@@ -345,6 +327,7 @@
             </div>
           </div>
 
+
           <div class="form-group row" *ngIf="selectedSubmission">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
             <div class="col-sm-7">
@@ -362,6 +345,7 @@
               </i>
             </div>
           </div>
+
         </div>
         <div class="col-6" *ngIf="isC2c">
 
@@ -410,9 +394,9 @@
         <div class="col-6">
 
           <div class="form-group row">
-            <label for="editCandidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
+            <label for="candidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
             <div class="col-sm-7">
-              <mat-radio-group (change)="getImmigiration($event)" formControlName="editCandidateImmigirationStatus">
+              <mat-radio-group (change)="getImmigiration($event)" formControlName="candidateImmigirationStatus">
                 <mat-radio-button value="GC">GC</mat-radio-button>
                 <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
                 <mat-radio-button value="H1B">H1B</mat-radio-button>
@@ -425,35 +409,35 @@
           </div>
 
           <div class="form-group row">
-            <label for="editCandidateName" class="col-sm-4 col-form-label">Candidate Name:</label>
+            <label for="candidateName" class="col-sm-4 col-form-label">Candidate Name:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editCandidateName" formControlName="editCandidateName">
+              <input type="text" class="form-control" name="candidateName" formControlName="candidateName">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="editCandidatePhone" class="col-sm-4 col-form-label">Candidate Phone:</label>
+            <label for="candidatePhone" class="col-sm-4 col-form-label">Candidate Phone:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editCandidatePhone" formControlName="editCandidatePhone">
+              <input type="text" class="form-control" name="candidatePhone" formControlName="candidatePhone">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="editCandidateLocation" class="col-sm-4 col-form-label">Candidate Location:</label>
+            <label for="candidateLocation" class="col-sm-4 col-form-label">Candidate Location:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editCandidateLocation" formControlName="editCandidateLocation">
+              <input type="text" class="form-control" name="candidateLocation" formControlName="candidateLocation">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="editAvailability" class="col-sm-4 col-form-label">Availability:</label>
+            <label for="availability" class="col-sm-4 col-form-label">Availability:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editAvailability" formControlName="editAvailability">
+              <input type="text" class="form-control" name="availability" formControlName="availability">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="editTechnology" class="col-sm-4 col-form-label">Technology:</label>
+            <label for="technology" class="col-sm-4 col-form-label">Technology:</label>
             <div class="col-sm-7">
               <select name="editTechnology" class="form-control" formControlName="editTechnology" (change)="addTechnology($event.target.value);">
                 <option value="">Select</option>
@@ -470,14 +454,14 @@
           </div>
 
           <div class="form-group row">
-            <label for="editSkype" class="col-sm-4 col-form-label">Skype:</label>
+            <label for="skype" class="col-sm-4 col-form-label">Skype:</label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="editSkype" formControlName="editSkype">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="editLinkedIn" class="col-sm-4 col-form-label">LinkedIn:</label>
+            <label for="linkedIn" class="col-sm-4 col-form-label">LinkedIn:</label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn">
             </div>
@@ -573,7 +557,6 @@
             </div>
           </div>
 
-
           <div class="form-group row">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
             <div class="col-sm-7">
@@ -642,8 +625,10 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button [routerLink]="[ '/recruiter-submissions']" class="btn btn-default">Cancel</button>
+      <!-- <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button> -->
+      <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
+
 
   </form>
 </div>
