@@ -425,3 +425,15 @@ td {
   padding-top: 1em;
   color: #636363;
 }
+
+.icon-attachment {
+  font-size: 22px;
+}
+
+.icon-attachment > i {
+  vertical-align: middle;
+}
+
+.btn-secondary {
+  cursor: pointer;
+}
