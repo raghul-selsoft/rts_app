@@ -71,7 +71,7 @@ const appRoutes: Routes = [
   { path: 'edit-team/:id', component: EditTeamComponent },
   { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
   { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
-  // { path: 'edit-submission/:id', component: EditSubmissonComponent },
+  { path: 'edit-submission/:id', component: EditSubmissonComponent },
 ];
 
 

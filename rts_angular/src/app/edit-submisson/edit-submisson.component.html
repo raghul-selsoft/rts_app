@@ -77,7 +77,11 @@
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">SUBMITTED</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
+              <option *ngIf="selectedSubmission.status === 'TL_APPROVED' && userRole === 'ACC_MGR'" value="TL_APPROVED">TL Approved</option>
+              <option *ngIf="selectedSubmission.status === 'TL_REJECTED' && userRole === 'ACC_MGR'" value="TL_REJECTED">TL Rejected</option>
+              <option *ngIf="selectedSubmission.status === 'APPROVED' && userRole === 'TL'" value="APPROVED">Approved</option>
+              <option *ngIf="selectedSubmission.status === 'REJECTED' && userRole === 'TL'" value="REJECTED">Rejected</option>
             </select>
           </div>
         </div>
@@ -85,9 +89,10 @@
         <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
-              value="{{selectedSubmission.reasonForRejection}}">
-            <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
+            <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED'" type="text" class="form-control"
+              name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED'" type="text" class="form-control"
+              name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 
@@ -439,7 +444,7 @@
           <div class="form-group row">
             <label for="technology" class="col-sm-4 col-form-label">Technology:</label>
             <div class="col-sm-7">
-              <select name="editTechnology" class="form-control" formControlName="editTechnology" (change)="addTechnology($event.target.value);">
+              <select name="technology" class="form-control" formControlName="technology" ngModel (change)="addTechnology($event.target.value);">
                 <option value="">Select</option>
                 <option value="other">Other</option>
                 <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
@@ -456,14 +461,14 @@
           <div class="form-group row">
             <label for="skype" class="col-sm-4 col-form-label">Skype:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editSkype" formControlName="editSkype">
+              <input type="text" class="form-control" name="skype" formControlName="skype">
             </div>
           </div>
 
           <div class="form-group row">
             <label for="linkedIn" class="col-sm-4 col-form-label">LinkedIn:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn">
+              <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn">
             </div>
           </div>
 
@@ -625,7 +630,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <!-- <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button> -->
+      <button type="button" *ngIf="userRole === 'ACC_MGR' && sendToClient && !isSubmitted " class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
       <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 

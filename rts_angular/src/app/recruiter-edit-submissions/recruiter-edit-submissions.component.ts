@@ -206,10 +206,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             }
             for (const recruiter of this.selectedRequirement.clientRecuriters) {
               this.recruiterName.push(recruiter.name + ' ');
-              this.recruiterEmail.push(recruiter.email + ' ');
             }
             this.clientRecruiterName = this.recruiterName.join();
-            this.clientRecruiterEmail = this.recruiterEmail.join();
+
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -231,8 +230,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   getRequirement(event) {
+    this.recruiterName = [];
     this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
-    console.log(this.selectedRequirement);
+    for (const recruiter of this.selectedRequirement.clientRecuriters) {
+      this.recruiterName.push(recruiter.name + ' ');
+      this.recruiterEmail.push(recruiter.email + ' ');
+    }
+    this.clientRecruiterName = this.recruiterName.join();
   }
 
   getCandidateDetails() {
@@ -283,17 +287,17 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
-  fileChangeEvent(event: any) {
-    this.files = event.target.files;
-    for (const file of this.files) {
-      this.getFiles.push(file);
-    }
-  }
+  // fileChangeEvent(event: any) {
+  //   this.files = event.target.files;
+  //   for (const file of this.files) {
+  //     this.getFiles.push(file);
+  //   }
+  // }
 
-  removeFile(file) {
-    const clear = this.getFiles.indexOf(file);
-    this.getFiles.splice(clear, 1);
-  }
+  // removeFile(file) {
+  //   const clear = this.getFiles.indexOf(file);
+  //   this.getFiles.splice(clear, 1);
+  // }
 
   candidateFileEvent(event: any) {
     this.candidateFiles = event.target.files;
@@ -417,27 +421,27 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
 
-            if (this.getFiles.length > 0) {
-              const upload = {
-                file: this.getFiles,
-                submissionId: data.submission.submissionId,
-                enteredBy: this.rtsUserId
-              };
-              this.submissionService.uploadFile(upload).subscribe(
-                file => {
-                  if (file.success) {
-                    this.toastr.success(file.message, '', {
-                      positionClass: 'toast-top-center',
-                      timeOut: 3000,
-                    });
-                  } else {
-                    this.toastr.error(file.message, '', {
-                      positionClass: 'toast-top-center',
-                      timeOut: 3000,
-                    });
-                  }
-                });
-            }
+            // if (this.getFiles.length > 0) {
+            //   const upload = {
+            //     file: this.getFiles,
+            //     submissionId: data.submission.submissionId,
+            //     enteredBy: this.rtsUserId
+            //   };
+            //   this.submissionService.uploadFile(upload).subscribe(
+            //     file => {
+            //       if (file.success) {
+            //         this.toastr.success(file.message, '', {
+            //           positionClass: 'toast-top-center',
+            //           timeOut: 3000,
+            //         });
+            //       } else {
+            //         this.toastr.error(file.message, '', {
+            //           positionClass: 'toast-top-center',
+            //           timeOut: 3000,
+            //         });
+            //       }
+            //     });
+            // }
             this.toastr.success('Update Submission Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

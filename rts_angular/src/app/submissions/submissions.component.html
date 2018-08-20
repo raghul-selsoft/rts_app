@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
+            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
@@ -94,7 +94,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/leadUser-edit-submissions', submission.submissionId]">
+            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
@@ -141,7 +141,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/acc_mgr-edit-submissions', submission.submissionId]">
+            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
