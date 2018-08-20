@@ -297,8 +297,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
-            console.log(this.selectedCandidate);
-            if (this.selectedCandidate.isC2C) {
+            if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
             } else {
@@ -319,6 +318,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
+            this.isEmployerDetails = false;
             this.isCandidate = true;
             this.isNewCandidate = false;
             const immigiration = this.selectedCandidate.immigirationStatus;
