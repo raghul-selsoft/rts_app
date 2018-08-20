@@ -8,19 +8,20 @@ import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ApiUrl } from '../Services/api-url';
 
 @Component({
-  selector: 'app-recruiter-edit-submissions',
-  templateUrl: './recruiter-edit-submissions.component.html',
-  styleUrls: ['./recruiter-edit-submissions.component.css'],
+  selector: 'app-edit-submisson',
+  templateUrl: './edit-submisson.component.html',
+  styleUrls: ['./edit-submisson.component.css'],
   providers: [LoggedUserService]
 })
-export class RecruiterEditSubmissionsComponent implements OnInit {
+export class EditSubmissonComponent implements OnInit {
 
   public myForm: FormGroup;
+
   private rtsUser: any;
+  private userRole: any;
   private rtsUserId: any;
   private rtsCompanyId: any;
   private submissionId: any;
@@ -29,32 +30,36 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private getFiles: any;
   private files: any;
   private deletedMediaFiles: any;
+  private status: any;
+  private isRejected: boolean;
   private selectedRequirement: any;
+  private sendToClient: boolean;
   private addCandidate: boolean;
-  private technology: any;
+  private isSubmitToClient: boolean;
   private isNewCandidate: boolean;
-  private isC2c: boolean;
-  private isEmployerDetails: boolean;
+  private technology: any[];
   private level1Date: string;
   private level2Date: string;
+  private isEmployerDetails: boolean;
+  private isC2c: boolean;
+  private isOtherTechnology: boolean;
   private candidateGetFiles: any;
   private candidateFiles: any;
   private immigirationStatus: any;
-  private isUpdate: boolean;
-  private baseUrl: any;
-  private isRelocate: any;
-  private allRequirements: any;
-  isWorkedWithClient: boolean;
-  isOtherTechnology: boolean;
-  recruiterName: any;
-  recruiterEmail: any;
+  private recruiterName: any;
+  private recruiterEmail: any;
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
+  private allRequirements: any;
+  private baseUrl: any;
+  private isRelocate: boolean;
+  private isWorkedWithClient: boolean;
+  isSubmitted: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
-    private candidateService: CandidateService,
     private activatedRoute: ActivatedRoute,
+    private candidateService: CandidateService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
@@ -62,15 +67,23 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
-    this.getFiles = [];
-    this.deletedMediaFiles = [];
-    this.candidateGetFiles = [];
-    this.allRequirements = [];
     this.recruiterName = [];
     this.recruiterEmail = [];
+    this.getFiles = [];
+    this.allRequirements = [];
+    this.candidateGetFiles = [];
+    this.deletedMediaFiles = [];
+    // this.status = [
+    //   { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+    //   { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+    //   { 'name': 'Approved', 'value': 'APPROVED' },
+    //   { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+    //   { 'name': 'Rejected', 'value': 'REJECTED' },
+    //   { 'name': 'Closed', 'value': 'CLOSED' }
+    // ];
   }
-
   ngOnInit() {
     this.activatedRoute.params
       .subscribe((params: Params) => {
@@ -80,29 +93,31 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
-      requirements: ['', Validators.required],
+      requirements: [''],
       candidateName: [''],
       clientContactname: [''],
       clientContactEmail: [''],
       accountName: [''],
       location: [''],
-      buyingRate: [''],
+      clientRate: [''],
       sellingRate: [''],
+      buyingRate: [''],
       status: [''],
       reasonForRejection: [''],
       availability: [''],
-      candidateEmail: [''],
+      candidateEmail: ['', Validators.email],
       candidatePhone: [''],
       candidateLocation: [''],
       candidateImmigirationStatus: [''],
       technology: [''],
       workLocation: [''],
-      skype: [''],
-      linkedIn: [''],
       relocate: [''],
+      editRelocate: [''],
       interview: [''],
       experience: [''],
       resonForChange: [''],
+      skype: [''],
+      linkedIn: [''],
       interviewStatus: [''],
       currentStatus: [''],
       level1Date: [''],
@@ -110,20 +125,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       statusForLevel1: [''],
       statusForLevel2: [''],
       totalExperience: [''],
-      editTotalExperience: [''],
-      editCandidateImmigirationStatus: [''],
-      editCandidateName: [''],
-      editCandidatePhone: [''],
-      editCandidateLocation: [''],
-      editAvailability: [''],
-      editTechnology: [''],
       otherTechnology: [''],
-      editRelocate: [''],
-      editInterview: [''],
-      editExperience: [''],
-      editResonForChange: [''],
-      editSkype: [''],
-      editLinkedIn: [''],
       employerName: [''],
       employerContactName: [''],
       employerPhone: [''],
@@ -137,17 +139,48 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       vacationPlans: [''],
       currentCompany: [''],
     });
-    this.getAllRequirementsForUser();
-    this.getAllCommonData();
+
     this.isNewCandidate = false;
+
+    this.getAllCommonData();
+
+    if (this.userRole === 'ADMIN') {
+      this.status = [
+        { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+        { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+        { 'name': 'Approved', 'value': 'APPROVED' },
+        { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+        { 'name': 'Rejected', 'value': 'REJECTED' },
+        { 'name': 'Closed', 'value': 'CLOSED' }
+      ];
+      this.getAllRequirements();
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+      this.getAllRequirementsForLeadUserAndAccountManager();
+    }
+
+    if (this.userRole === 'TL') {
+      this.status = [
+        { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+        { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+        { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+        { 'name': 'Closed', 'value': 'CLOSED' }
+      ];
+    } else if (this.userRole === 'ACC_MGR') {
+      this.status = [
+        { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+        { 'name': 'Approved', 'value': 'APPROVED' },
+        { 'name': 'Rejected', 'value': 'REJECTED' },
+        { 'name': 'Closed', 'value': 'CLOSED' }
+      ];
+    }
   }
 
   getAllCommonData() {
-    const userId = {
+    const company = {
       userId: this.rtsUserId
     };
 
-    this.requirementService.commonDetails(userId)
+    this.requirementService.commonDetails(company)
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
@@ -156,87 +189,48 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   }
 
-  getAllRequirementsForUser() {
+  getAllRequirements() {
+
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.requirementsDetails(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requirementsDetails = data.requirements;
+            this.editSubmission(this.requirementsDetails);
+          }
+        });
+  }
+
+  getAllRequirementsForLeadUserAndAccountManager() {
 
     const userId = {
       userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetailsForUser(userId)
+    this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            for (const require of this.requirementsDetails) {
-              if (require.status !== 'Draft') {
-                this.allRequirements.push(require);
-              }
-            }
-            for (const sub of this.allRequirements) {
-              const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
-              if (submission !== undefined) {
-                this.selectedSubmission = submission;
-              }
-            }
-            this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
-            if (this.selectedSubmission.enteredBy === this.rtsUserId) {
-              this.isUpdate = true;
-            } else {
-              this.isUpdate = false;
-            }
-            if (this.selectedSubmission.candidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-            }
-            if (this.selectedSubmission.candidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-              this.isRelocate = true;
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-              this.isRelocate = false;
-            }
-            if (this.selectedSubmission.candidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
-            for (const recruiter of this.selectedRequirement.clientRecuriters) {
-              this.recruiterName.push(recruiter.name + ' ');
-            }
-            this.clientRecruiterName = this.recruiterName.join();
-
-            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
-            if (immigiration === 'GC') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
-            } else if (immigiration === 'CITIZEN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
-            } else if (immigiration === 'H1B') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
-            } else if (immigiration === 'W2/1099') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
-            } else if (immigiration === 'OPT/CPT') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
-            } else if (immigiration === 'EAD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
-            } else if (immigiration === 'H4AD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
-            }
+            this.editSubmission(this.requirementsDetails);
           }
         });
   }
 
   getRequirement(event) {
     this.recruiterName = [];
+    this.recruiterEmail = [];
     this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
     for (const recruiter of this.selectedRequirement.clientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
     }
     this.clientRecruiterName = this.recruiterName.join();
+    this.clientRecruiterEmail = this.recruiterEmail.join();
   }
 
   getCandidateDetails() {
@@ -250,13 +244,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            if (this.selectedSubmission.candidate.c2C) {
+            if (this.selectedSubmission.candidate.isC2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -272,10 +266,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.isNewCandidate = false;
           } else {
             this.isWorkedWithClient = false;
-            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.myForm.controls.candidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
-            this.isRelocate = true;
             this.addCandidate = true;
+            this.isRelocate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');
             this.isC2c = false;
@@ -287,17 +281,102 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
-  // fileChangeEvent(event: any) {
-  //   this.files = event.target.files;
-  //   for (const file of this.files) {
-  //     this.getFiles.push(file);
-  //   }
-  // }
+  editSubmission(allRequiments) {
+    for (const require of allRequiments) {
+      if (require.status !== 'Draft') {
+        this.allRequirements.push(require);
+      }
+    }
+    for (const sub of this.allRequirements) {
+      const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
+      if (submission !== undefined) {
+        this.selectedSubmission = submission;
+      }
+    }
+    this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
+    if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
+      this.isRejected = true;
+    }
+    if (this.selectedSubmission.approvedByAdmin === true) {
+      this.sendToClient = true;
+    } else {
+      this.sendToClient = false;
+    }
+    if (this.selectedSubmission.status === 'SUBMITTED') {
+      this.isSubmitted = true;
+    } else {
+      this.isSubmitted = false;
+    }
+    if (this.selectedSubmission.candidate.c2C) {
+      this.myForm.controls.c2c.setValue('Yes');
+      this.isC2c = true;
+    } else {
+      this.myForm.controls.c2c.setValue('No');
+    }
+    if (this.selectedSubmission.candidate.relocate) {
+      this.myForm.controls.editRelocate.setValue('true');
+      this.isRelocate = true;
+    } else {
+      this.myForm.controls.editRelocate.setValue('false');
+      this.isRelocate = false;
+    }
+    if (this.selectedSubmission.candidate.workedWithClient) {
+      this.myForm.controls.editWorkedWithClient.setValue('true');
+      this.isWorkedWithClient = true;
+    } else {
+      this.myForm.controls.editWorkedWithClient.setValue('false');
+      this.isWorkedWithClient = false;
+    }
+    for (const recruiter of this.selectedRequirement.clientRecuriters) {
+      this.recruiterName.push(recruiter.name + ' ');
+      this.recruiterEmail.push(recruiter.email + ' ');
+    }
+    this.clientRecruiterName = this.recruiterName.join();
+    this.clientRecruiterEmail = this.recruiterEmail.join();
 
-  // removeFile(file) {
-  //   const clear = this.getFiles.indexOf(file);
-  //   this.getFiles.splice(clear, 1);
-  // }
+    const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+    if (immigiration === 'GC') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+    } else if (immigiration === 'CITIZEN') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+    } else if (immigiration === 'H1B') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+    } else if (immigiration === 'W2/1099') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+    } else if (immigiration === 'OPT/CPT') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+    } else if (immigiration === 'EAD') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+    } else if (immigiration === 'H4AD') {
+      this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+    }
+
+  }
+
+  submissionToClient() {
+
+    const submit = {
+      submissionId: this.submissionId,
+      submittedBy: this.rtsUserId
+    };
+
+    this.submissionService.submitToClient(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('Submission Successfully send to Client ', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['submissions']);
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+  }
 
   candidateFileEvent(event: any) {
     this.candidateFiles = event.target.files;
@@ -315,6 +394,24 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.deletedMediaFiles.push(media.mediaId);
     const clear = this.selectedSubmission.mediaFiles.indexOf(media);
     this.selectedSubmission.mediaFiles.splice(clear, 1);
+  }
+
+  changeStatus(event) {
+    if (event === 'REJECTED' || event === 'TL_REJECTED') {
+      this.isRejected = true;
+    } else {
+      this.isRejected = false;
+    }
+  }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
+    }
   }
 
   getC2c(event) {
@@ -341,16 +438,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     }
   }
 
-  addTechnology(event) {
-    if (event === 'other') {
-      this.isOtherTechnology = true;
-      this.myForm.controls.otherTechnology.setValue('');
-    } else {
-      this.myForm.controls.otherTechnology.setValue(event);
-      this.isOtherTechnology = false;
-    }
-  }
-
   getImmigiration(event) {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
@@ -362,15 +449,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   updateSubmission(form: FormGroup) {
-
-    if (!this.isUpdate) {
-      this.toastr.error('You have no permission to update other recruiter submissions', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
     } else {
@@ -393,13 +471,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
     const submission = {
       requirementId: form.value.requirements,
+      location: form.value.location,
       accountName: form.value.accountName,
-      buyingRate: form.value.buyingRate,
+      clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
+      buyingRate: form.value.buyingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       status: form.value.status,
+      reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
@@ -409,44 +490,22 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
+      approvalUserId: this.rtsUserId
     };
     const editSubmission = {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
 
-
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
         data => {
           if (data.success) {
-
-            // if (this.getFiles.length > 0) {
-            //   const upload = {
-            //     file: this.getFiles,
-            //     submissionId: data.submission.submissionId,
-            //     enteredBy: this.rtsUserId
-            //   };
-            //   this.submissionService.uploadFile(upload).subscribe(
-            //     file => {
-            //       if (file.success) {
-            //         this.toastr.success(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       } else {
-            //         this.toastr.error(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       }
-            //     });
-            // }
             this.toastr.success('Update Submission Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['recruiter-submissions']);
+            this.router.navigate(['submissions']);
 
           } else {
             this.toastr.error(data.message, '', {
@@ -461,14 +520,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
     const candidate: any = {
       companyId: this.rtsCompanyId,
-      name: form.value.editCandidateName,
+      name: form.value.candidateName,
       email: form.value.candidateEmail,
-      location: form.value.editCandidateLocation,
-      availability: form.value.editAvailability,
-      phoneNumber: form.value.editCandidatePhone,
+      location: form.value.candidateLocation,
+      availability: form.value.availability,
+      phoneNumber: form.value.candidatePhone,
       immigirationStatus: this.immigirationStatus,
-      skype: form.value.editSkype,
-      linkedIn: form.value.editLinkedIn,
+      skype: form.value.skype,
+      linkedIn: form.value.linkedIn,
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
@@ -489,13 +548,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       candidate.workedClient = '';
     }
 
-    if (form.value.editTechnology === 'other') {
+    if (form.value.technology === 'other') {
       candidate.technology = [{
         technologyName: form.value.otherTechnology
       }];
     } else {
       candidate.technology = [{
-        technologyId: form.value.editTechnology
+        technologyId: form.value.technology
       }];
     }
 
@@ -549,4 +608,3 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
 }
-
