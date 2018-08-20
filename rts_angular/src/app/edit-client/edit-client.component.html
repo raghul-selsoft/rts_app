@@ -57,7 +57,7 @@
                   <a class="btn btn-light delete-btn" (click)="removeUnits(i)">
                     <mat-icon>close</mat-icon>
                   </a>
-                  <a class="btn btn-light add-btn" (click)="addUnits(i)">
+                  <a class="btn btn-light add-btn ml-2" (click)="addUnits(i)">
                     <mat-icon>add</mat-icon>
                   </a>
                 </div>
@@ -68,9 +68,9 @@
         </div>
       </div>
 
-      <div class="form-btn-container">
-        <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Client</button>
-        <button [routerLink]="[ '/manage-client']" class="btn btn-default">Cancel</button>
+      <div class="form-btn-container mt-5">
+        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update Client</button>
+        <button [routerLink]="[ '/manage-client']" class="btn btn-forms">Cancel</button>
       </div>
     </form>
   </div>

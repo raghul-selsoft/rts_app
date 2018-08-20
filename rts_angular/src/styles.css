@@ -167,7 +167,7 @@ td {
 }
 
 .table-header {
-  background: #e8e9ef;
+  background: #e8e9ef !important;
   color: #000000;
   text-transform: uppercase;
 }
