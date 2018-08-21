@@ -297,6 +297,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
+            console.log(this.selectedCandidate);
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;

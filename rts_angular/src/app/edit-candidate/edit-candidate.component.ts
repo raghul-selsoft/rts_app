@@ -264,6 +264,10 @@ export class EditCandidateComponent implements OnInit {
       candidate.employeeContactEmail = form.value.employerEmail;
     } else {
       candidate.c2C = false;
+      candidate.employeeName = '';
+      candidate.employeeContactName = '';
+      candidate.employeeContactPhone = '';
+      candidate.employeeContactEmail = '';
     }
 
 
