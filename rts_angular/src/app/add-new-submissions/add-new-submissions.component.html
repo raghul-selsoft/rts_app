@@ -263,10 +263,10 @@
           </div>
         </div>
 
-        <div class="row pt-3">
-          <div class="col-12">
-            <div class="form-group" *ngIf="selectedCandidate.mediaFiles.length > 0">
-              <label>Attachements:</label>
+        <div class="row">
+          <div class="col-sm-12 mt-4">
+            <div class="form-group" *ngIf="selectedCandidate">
+                <h2 class="form-title">Attachements:</h2>
               <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
                 <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
                 </i>
@@ -275,6 +275,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <div *ngIf="!isCandidate">
@@ -425,7 +426,7 @@
           </div>
 
           </div>
-        </div>
+       
 
       <div class="row" *ngIf="isEmployerDetails">
         <div class="col-sm-12">
@@ -478,6 +479,7 @@
         </div>
 
       </div>
+    </div>
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Submission</button>
