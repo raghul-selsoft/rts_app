@@ -285,7 +285,6 @@ export class EditCandidateComponent implements OnInit {
       candidate: candidate,
       deletedMediaFiles: this.deletedMediaFiles
     };
-    console.log(updateCandidate);
 
     this.candidateService.editCandidate(updateCandidate)
       .subscribe(
