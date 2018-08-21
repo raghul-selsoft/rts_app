@@ -244,7 +244,8 @@ export class EditSubmissonComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            if (this.selectedSubmission.candidate.isC2C) {
+            console.log(this.selectedSubmission.candidate);
+            if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
             } else {
@@ -261,6 +262,22 @@ export class EditSubmissonComponent implements OnInit {
             } else {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
+            }
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
             }
             this.addCandidate = false;
             this.isNewCandidate = false;

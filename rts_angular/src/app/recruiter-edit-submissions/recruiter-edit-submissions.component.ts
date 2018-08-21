@@ -256,7 +256,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -267,6 +267,22 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
+            }
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
             }
             this.addCandidate = false;
             this.isNewCandidate = false;
@@ -287,17 +303,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
-  // fileChangeEvent(event: any) {
-  //   this.files = event.target.files;
-  //   for (const file of this.files) {
-  //     this.getFiles.push(file);
-  //   }
-  // }
-
-  // removeFile(file) {
-  //   const clear = this.getFiles.indexOf(file);
-  //   this.getFiles.splice(clear, 1);
-  // }
 
   candidateFileEvent(event: any) {
     this.candidateFiles = event.target.files;
@@ -420,28 +425,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-
-            // if (this.getFiles.length > 0) {
-            //   const upload = {
-            //     file: this.getFiles,
-            //     submissionId: data.submission.submissionId,
-            //     enteredBy: this.rtsUserId
-            //   };
-            //   this.submissionService.uploadFile(upload).subscribe(
-            //     file => {
-            //       if (file.success) {
-            //         this.toastr.success(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       } else {
-            //         this.toastr.error(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       }
-            //     });
-            // }
             this.toastr.success('Update Submission Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

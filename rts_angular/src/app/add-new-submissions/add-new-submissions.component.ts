@@ -442,28 +442,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-
-            // if (this.getFiles.length > 0) {
-            //   const upload = {
-            //     file: this.getFiles,
-            //     submissionId: data.submission.submissionId,
-            //     enteredBy: this.rtsUserId
-            //   };
-            //   this.submissionService.uploadFile(upload).subscribe(
-            //     file => {
-            //       if (file.success) {
-            //         this.toastr.success(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       } else {
-            //         this.toastr.error(file.message, '', {
-            //           positionClass: 'toast-top-center',
-            //           timeOut: 3000,
-            //         });
-            //       }
-            //     });
-            // }
             this.toastr.success('New Submission Successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

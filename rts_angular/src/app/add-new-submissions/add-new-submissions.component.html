@@ -104,11 +104,11 @@
           <div class="col-sm-8">
             <div><label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
-              <mat-radio-group (change)="getImmigiration($event)" formControlName="editCandidateImmigirationStatus">
+              <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
                 <mat-radio-button value="GC">GC</mat-radio-button>
                 <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
                 <mat-radio-button value="H1B">H1B</mat-radio-button>
-                <mat-radio-button value="W1/1099">W2/1099</mat-radio-button>
+                <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
                 <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
                 <mat-radio-button value="EAD">EAD</mat-radio-button>
                 <mat-radio-button value="H4AD">H4AD</mat-radio-button>
@@ -263,10 +263,10 @@
           </div>
         </div>
 
-        <div class="row pt-3">
-          <div class="col-12">
-            <div class="form-group" *ngIf="selectedCandidate.mediaFiles.length > 0">
-              <label>Attachements:</label>
+        <div class="row">
+          <div class="col-sm-12 mt-4">
+            <div class="form-group" *ngIf="selectedCandidate">
+                <h2 class="form-title">Attachements:</h2>
               <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
                 <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
                 </i>
@@ -275,6 +275,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <div *ngIf="!isCandidate">
@@ -287,7 +288,7 @@
               <mat-radio-button value="GC">GC</mat-radio-button>
               <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
               <mat-radio-button value="H1B">H1B</mat-radio-button>
-              <mat-radio-button value="W1/1099">W2/1099</mat-radio-button>
+              <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
               <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
               <mat-radio-button value="EAD">EAD</mat-radio-button>
               <mat-radio-button value="H4AD">H4AD</mat-radio-button>
@@ -425,7 +426,7 @@
           </div>
 
           </div>
-        </div>
+       
 
       <div class="row" *ngIf="isEmployerDetails">
         <div class="col-sm-12">
@@ -478,6 +479,7 @@
         </div>
 
       </div>
+    </div>
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Submission</button>
