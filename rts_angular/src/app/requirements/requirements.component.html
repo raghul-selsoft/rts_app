@@ -3,6 +3,37 @@
 </div>
 <h2 class="main-title">Requirements</h2>
 <div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="filterByDate(myForm)">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="mb-3">
+          <label for="fromDate" class="form-label">From Date:</label>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="fromDate" formControlName="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="mb-3">
+          <label for="toDate" class="form-label">To Date:</label>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="toDate" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+          <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+   
+    <div class="form-btn-container">
+      <button class="btn btn-forms" type="submit">Get Requirements</button>
+    </div>
+  </div>
+
+  </form>
+
   <div *ngIf="userRole ==='ADMIN'">
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">

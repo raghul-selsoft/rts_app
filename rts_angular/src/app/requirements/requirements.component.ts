@@ -4,6 +4,7 @@ import { RequirementsService } from '../Services/requirements.service';
 import * as moment from 'moment';
 import { HideComponentService } from '../Services/hide-component.service';
 import * as _ from 'underscore';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-requirements',
@@ -26,10 +27,15 @@ export class RequirementsComponent implements OnInit {
   private requirementsLengthForTeam: any;
   private submittedRequirements: any;
 
+  public myForm: FormGroup;
+  fromDate: string;
+  toDate: string;
+
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private hideComponent: HideComponentService,
+    private formBuilder: FormBuilder,
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -42,6 +48,11 @@ export class RequirementsComponent implements OnInit {
 
   ngOnInit() {
     this.hideComponent.displayComponent = true;
+
+    this.myForm = this.formBuilder.group({
+      fromDate: [''],
+      toDate: ['']
+    });
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
@@ -49,6 +60,13 @@ export class RequirementsComponent implements OnInit {
     } else if (this.userRole === 'RECRUITER') {
       this.getAllRequirementsForUser();
     }
+  }
+
+  filterByDate(form: FormGroup) {
+
+    this.fromDate = moment(form.value.fromDate).format('YYYY-MM-DD');
+    this.toDate = moment(form.value.toDate).format('YYYY-MM-DD');
+    console.log(this.fromDate, this.toDate);
   }
 
   getAllRequirements() {
