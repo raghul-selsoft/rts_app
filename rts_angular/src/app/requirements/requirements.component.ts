@@ -84,6 +84,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   filterBy(value) {
+
     if (value === 'status') {
       this.isStatus = true;
       this.isClient = false;
@@ -109,6 +110,14 @@ export class RequirementsComponent implements OnInit {
       this.isTeam = false;
       this.isStatus = false;
       this.isClient = false;
+    }
+
+    if (this.userRole === 'ADMIN') {
+      this.getAllRequirements();
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+      this.getAllRequirementsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
 
   }
