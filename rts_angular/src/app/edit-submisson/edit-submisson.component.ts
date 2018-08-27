@@ -54,7 +54,8 @@ export class EditSubmissonComponent implements OnInit {
   private baseUrl: any;
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
-  isSubmitted: boolean;
+  private isSubmitted: boolean;
+  private plainFormat: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -385,9 +386,18 @@ export class EditSubmissonComponent implements OnInit {
 
   submissionToClient() {
 
+    if (this.plainFormat === undefined) {
+      this.toastr.error('Please Assign the Mail Format', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
     const submit = {
       submissionId: this.submissionId,
-      submittedBy: this.rtsUserId
+      submittedBy: this.rtsUserId,
+      isPlainFormat: this.plainFormat
     };
 
     this.submissionService.submitToClient(submit)
@@ -406,6 +416,14 @@ export class EditSubmissonComponent implements OnInit {
             });
           }
         });
+  }
+
+  getMailFormat(event) {
+    if (event.value === 'Yes') {
+      this.plainFormat = true;
+    } else {
+      this.plainFormat = false;
+    }
   }
 
   candidateFileEvent(event: any) {
