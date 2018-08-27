@@ -42,6 +42,7 @@ export class RequirementsComponent implements OnInit {
   private teamUsers: any;
   private selectedRequirements: any;
   private startDate: any;
+  private filter: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -65,6 +66,7 @@ export class RequirementsComponent implements OnInit {
       { 'name': 'Closed', 'value': 'Closed' },
       { 'name': 'Draft', 'value': 'Draft' }
     ];
+    this.filter = '';
   }
 
   ngOnInit() {
@@ -111,6 +113,7 @@ export class RequirementsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     } else if (value === '') {
+      this.filter = '';
       this.isRecruiter = false;
       this.isTeam = false;
       this.isStatus = false;
@@ -134,6 +137,7 @@ export class RequirementsComponent implements OnInit {
     } else {
       this.startDate = '';
     }
+    this.filterBy('');
 
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();

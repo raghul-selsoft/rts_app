@@ -5,6 +5,7 @@ import { HideComponentService } from '../Services/hide-component.service';
 import { SubmissionService } from '../Services/submission.service';
 import * as moment from 'moment';
 import { ApiUrl } from '../Services/api-url';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-generate-report',
@@ -24,11 +25,15 @@ export class GenerateReportComponent implements OnInit {
   private approvedsubmissionsLength: any;
   private userRole: any;
   private baseUrl: any;
+  public myForm: FormGroup;
+  private startDate: any;
+  private toDate: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private submissonService: SubmissionService,
-    private hideComponent: HideComponentService
+    private hideComponent: HideComponentService,
+    private formBuilder: FormBuilder,
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -39,8 +44,26 @@ export class GenerateReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.myForm = this.formBuilder.group({
+      fromDate: [''],
+      toDate: ['']
+    });
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.getApprovedSubmissions();
     this.baseUrl = ApiUrl.BaseUrl;
+  }
+
+  filterByDate(form: FormGroup) {
+
+    if (form.value.fromDate !== 'Invalid date' && form.value.fromDate !== '') {
+      this.startDate = moment(form.value.fromDate).format('YYYY-MM-DD');
+    } else {
+      this.startDate = '';
+    }
+
+
+    console.log(this.startDate, this.toDate);
+
   }
 
   getApprovedSubmissions() {

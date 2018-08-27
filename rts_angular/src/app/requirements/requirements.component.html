@@ -34,7 +34,7 @@
       <div class="col-md-auto divider-right">
         <div class="row mt-3">
           <div class="col-6">
-            <select class="form-control width-200" (change)="filterBy($event.target.value)">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter" >
               <option value="" selected>Filter By</option>
               <option value="status">Status</option>
               <option value="team">Team</option>
