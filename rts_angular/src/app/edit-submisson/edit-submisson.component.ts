@@ -200,7 +200,12 @@ export class EditSubmissonComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            this.editSubmission(this.requirementsDetails);
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'Draft') {
+                this.allRequirements.push(require);
+              }
+            }
+            this.editSubmission();
           }
         });
   }
@@ -216,7 +221,12 @@ export class EditSubmissonComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            this.editSubmission(this.requirementsDetails);
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'Draft') {
+                this.allRequirements.push(require);
+              }
+            }
+            this.editSubmission();
           }
         });
   }
@@ -297,76 +307,80 @@ export class EditSubmissonComponent implements OnInit {
         });
   }
 
-  editSubmission(allRequiments) {
-    for (const require of allRequiments) {
-      if (require.status !== 'Draft') {
-        this.allRequirements.push(require);
-      }
-    }
-    for (const sub of this.allRequirements) {
-      const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
-      if (submission !== undefined) {
-        this.selectedSubmission = submission;
-      }
-    }
-    this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
-    if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
-      this.isRejected = true;
-    }
-    if (this.selectedSubmission.approvedByAdmin === true) {
-      this.sendToClient = true;
-    } else {
-      this.sendToClient = false;
-    }
-    if (this.selectedSubmission.status === 'SUBMITTED') {
-      this.isSubmitted = true;
-    } else {
-      this.isSubmitted = false;
-    }
-    if (this.selectedSubmission.candidate.c2C) {
-      this.myForm.controls.c2c.setValue('Yes');
-      this.isC2c = true;
-    } else {
-      this.myForm.controls.c2c.setValue('No');
-    }
-    if (this.selectedSubmission.candidate.relocate) {
-      this.myForm.controls.editRelocate.setValue('true');
-      this.isRelocate = true;
-    } else {
-      this.myForm.controls.editRelocate.setValue('false');
-      this.isRelocate = false;
-    }
-    if (this.selectedSubmission.candidate.workedWithClient) {
-      this.myForm.controls.editWorkedWithClient.setValue('true');
-      this.isWorkedWithClient = true;
-    } else {
-      this.myForm.controls.editWorkedWithClient.setValue('false');
-      this.isWorkedWithClient = false;
-    }
-    for (const recruiter of this.selectedRequirement.clientRecuriters) {
-      this.recruiterName.push(recruiter.name + ' ');
-      this.recruiterEmail.push(recruiter.email + ' ');
-    }
-    this.clientRecruiterName = this.recruiterName.join();
-    this.clientRecruiterEmail = this.recruiterEmail.join();
+  editSubmission() {
 
-    const immigiration = this.selectedSubmission.candidate.immigirationStatus;
-    if (immigiration === 'GC') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('GC');
-    } else if (immigiration === 'CITIZEN') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
-    } else if (immigiration === 'H1B') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
-    } else if (immigiration === 'W2/1099') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
-    } else if (immigiration === 'OPT/CPT') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
-    } else if (immigiration === 'EAD') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
-    } else if (immigiration === 'H4AD') {
-      this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
-    }
+    const submit = {
+      submissionId: this.submissionId,
+    };
 
+    this.submissionService.getRequirementBySubmission(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.selectedRequirement = data.requirement;
+            const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
+            if (submission !== undefined) {
+              this.selectedSubmission = submission;
+            }
+            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
+              this.isRejected = true;
+            }
+            if (this.selectedSubmission.approvedByAdmin === true) {
+              this.sendToClient = true;
+            } else {
+              this.sendToClient = false;
+            }
+            if (this.selectedSubmission.status === 'SUBMITTED') {
+              this.isSubmitted = true;
+            } else {
+              this.isSubmitted = false;
+            }
+            if (this.selectedSubmission.candidate.c2C) {
+              this.myForm.controls.c2c.setValue('Yes');
+              this.isC2c = true;
+            } else {
+              this.myForm.controls.c2c.setValue('No');
+            }
+            if (this.selectedSubmission.candidate.relocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+              this.isRelocate = false;
+            }
+            if (this.selectedSubmission.candidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
+            }
+            for (const recruiter of this.selectedRequirement.clientRecuriters) {
+              this.recruiterName.push(recruiter.name + ' ');
+              this.recruiterEmail.push(recruiter.email + ' ');
+            }
+            this.clientRecruiterName = this.recruiterName.join();
+            this.clientRecruiterEmail = this.recruiterEmail.join();
+
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            }
+
+          }
+        });
   }
 
   submissionToClient() {

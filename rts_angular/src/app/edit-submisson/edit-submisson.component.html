@@ -528,7 +528,7 @@
       </div>
     </div>
 
-    <div class="form-btn-container">
+       <div class="form-btn-container">
       <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
       <button type="button" *ngIf="userRole === 'ACC_MGR' && sendToClient && !isSubmitted " class="btn btn-forms btn-space" (click)="submissionToClient();">Send To Client</button>
       <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
