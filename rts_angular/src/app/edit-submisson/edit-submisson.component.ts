@@ -387,7 +387,7 @@ export class EditSubmissonComponent implements OnInit {
   submissionToClient() {
 
     if (this.plainFormat === undefined) {
-      this.toastr.error('Please Assign the Mail Format', '', {
+      this.toastr.error('Please Select the Mail Format', '', {
         positionClass: 'toast-top-center',
         timeOut: 3000,
       });
