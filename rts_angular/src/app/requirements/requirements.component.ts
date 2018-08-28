@@ -152,6 +152,7 @@ export class RequirementsComponent implements OnInit {
   selectStatus(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { status: event });
@@ -162,6 +163,7 @@ export class RequirementsComponent implements OnInit {
   selectTeam(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { teamId: event });
@@ -172,6 +174,7 @@ export class RequirementsComponent implements OnInit {
   selectClient(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { clientId: event });
@@ -182,6 +185,7 @@ export class RequirementsComponent implements OnInit {
   selectRecruiter(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { allocationUserId: event });
@@ -265,6 +269,7 @@ export class RequirementsComponent implements OnInit {
   requirementsDetails(data) {
     this.requirements = data.requirements;
     this.selectedRequirements = this.requirements;
+    this.selectedRequirements.reverse();
     this.requirementsLength = this.requirements.length;
     for (const require of this.requirements) {
       const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
