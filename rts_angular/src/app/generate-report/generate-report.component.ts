@@ -88,9 +88,8 @@ export class GenerateReportComponent implements OnInit {
     } else {
       this.startDate = '';
     }
+    this.filterBy('');
     this.getApprovedSubmissions();
-
-
   }
 
   filterBy(value) {
