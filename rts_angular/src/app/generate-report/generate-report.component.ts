@@ -167,9 +167,12 @@ export class GenerateReportComponent implements OnInit {
   }
 
   generateReport() {
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       userId: this.rtsUserId,
+      fromDate: this.startDate,
+      toDate: this.toDate
     };
 
     this.submissonService.getReport(userId)
