@@ -61,6 +61,7 @@ import { RecruiterDashboardComponent } from './recruiter-dashboard/recruiter-das
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AccMgrDashboardComponent } from './acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GraphService } from './Services/graph.service';
 
 
 @NgModule({
@@ -135,6 +136,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     SubmissionService,
     TeamService,
     ToastrService,
+    GraphService,
     DatePipe],
 
   bootstrap: [AppComponent]

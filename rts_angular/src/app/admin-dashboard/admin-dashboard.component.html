@@ -7,7 +7,7 @@
             <h2 class="chart-title">Recruiters Submission Status</h2>
             <div class="filter-container-dashboard">
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" [value]="date">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="currentDate" (dateChange)="onDateChange($event.target.value)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -47,14 +47,13 @@
               (select)="onSelect($event)">
             </ngx-charts-pie-chart>
           </div>
-          <div>
-            <div><span class="chart-label">TCS: </span><span class="chart-result">8</span></div>
-            <div><span class="chart-label">Virtusa: </span><span class="chart-result">12</span></div>
-          </div>
+          <!-- <div>
+            <div><span class="chart-label" *ngFor="let team of teamDetails" >{{team.name}}: <span class="chart-result">{{team.value}}</span></span></div>
+         </div> -->
         </div>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-4 height-400">
         <ngx-charts-pie-grid
           [view]="view"
@@ -88,7 +87,7 @@
           (select)="onSelect($event)">
         </ngx-charts-bar-vertical-2d>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
   
