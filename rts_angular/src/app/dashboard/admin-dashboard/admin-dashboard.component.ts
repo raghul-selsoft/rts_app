@@ -14,11 +14,10 @@ export class AdminDashboardComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
-  private single: any[];
+  private recruitersSubmissions: any[];
   private multi: any[];
   private totalSubmissionByTeam: any[];
   private currentDate: Date;
-  private teamDetails: any;
   private date: any;
 
   view: any[] = undefined;
@@ -51,7 +50,6 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
-    this.teamDetails = [];
   }
 
   ngOnInit() {
@@ -60,7 +58,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUserGraphDetails() {
-    this.single = [];
+    this.recruitersSubmissions = [];
 
     const date = moment(this.currentDate).format('YYYY-MM-DD');
     const graph = {
@@ -72,8 +70,11 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.single = data.userSubmissions;
-            for (const count of this.single) {
+            this.recruitersSubmissions = data.userSubmissions;
+            for (const count of this.recruitersSubmissions) {
+              count.extra = {
+                userId: count.userId
+              };
               this.totalSubmission = this.totalSubmission + count.value;
             }
           }
@@ -95,12 +96,6 @@ export class AdminDashboardComponent implements OnInit {
         data => {
           if (data.success) {
             this.totalSubmissionByTeam = data.teamSubmission;
-            // for (const team of this.totalSubmissionByTeam) {
-            //   if (team.value !== 0) {
-            //     this.teamDetails.push(team);
-            //     this.totalSubmission = this.totalSubmission + team.value;
-            //   }
-            // }
           }
         });
   }
