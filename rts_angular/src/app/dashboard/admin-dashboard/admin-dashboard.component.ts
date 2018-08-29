@@ -65,7 +65,7 @@ export class AdminDashboardComponent implements OnInit {
       userId: this.rtsUserId,
       date: date
     };
-    this.totalSubmission = 0;
+
     this.graphService.userGraphDetails(graph)
       .subscribe(
         data => {
@@ -75,7 +75,6 @@ export class AdminDashboardComponent implements OnInit {
               count.extra = {
                 userId: count.userId
               };
-              this.totalSubmission = this.totalSubmission + count.value;
             }
           }
         });
@@ -89,13 +88,16 @@ export class AdminDashboardComponent implements OnInit {
       userId: this.rtsUserId,
       date: date
     };
-
+    this.totalSubmission = 0;
 
     this.graphService.teamGraphDetails(graph)
       .subscribe(
         data => {
           if (data.success) {
             this.totalSubmissionByTeam = data.teamSubmission;
+            for (const count of this.totalSubmissionByTeam) {
+              this.totalSubmission = this.totalSubmission + count.value;
+            }
           }
         });
   }
