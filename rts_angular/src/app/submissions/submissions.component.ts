@@ -36,6 +36,7 @@ export class SubmissionsComponent implements OnInit {
   selectedRequirements: any;
   submissionStatus: any;
   toDate: any;
+  filteredRequirements: any;
 
 
   constructor(
@@ -144,6 +145,7 @@ export class SubmissionsComponent implements OnInit {
   requimentsDetails(data) {
     this.submissionDetails = [];
     this.requirements = data.requirements;
+    this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
     for (const require of this.selectedRequirements) {
       if (require.submissions.length > 0) {
@@ -156,6 +158,7 @@ export class SubmissionsComponent implements OnInit {
   selectedRequirementsDetails(data) {
     this.submissionDetails = [];
     this.selectedRequirements = data;
+    this.filteredRequirements = this.selectedRequirements;
     for (const require of this.selectedRequirements) {
       if (require.submissions.length > 0) {
         this.submissionDetails.push(require);
@@ -218,6 +221,20 @@ export class SubmissionsComponent implements OnInit {
       this.getAllRequirementsForUser();
     }
 
+  }
+
+  filterItem(value) {
+    this.submissionDetails = [];
+    const filteredItems = Object.assign([], this.filteredRequirements).filter(
+      item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
+    );
+    this.selectedRequirements = filteredItems;
+    for (const require of this.selectedRequirements) {
+      if (require.submissions.length > 0) {
+        this.submissionDetails.push(require);
+      }
+    }
+    this.submissionsLength = this.submissionDetails.length;
   }
 
   filterByDate(form: FormGroup) {

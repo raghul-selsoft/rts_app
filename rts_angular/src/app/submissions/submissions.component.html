@@ -83,7 +83,7 @@
       <div class="col-4 mt-3">
         <div class="search-container">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
-            [(ngModel)]="searchString">
+            [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
           <span class="search-icon">
             <i class="material-icons">search</i>
           </span>
@@ -93,7 +93,7 @@
   </div>
 
   <div class="mt-5 pt-5">
-    <h6>Total Submissions: {{submissionsLength}}</h6>
+    <h6>Total Requirements: {{submissionsLength}}</h6>
   </div>
 
   <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR'" class="pt-2">
