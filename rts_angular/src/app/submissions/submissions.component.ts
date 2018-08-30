@@ -79,6 +79,8 @@ export class SubmissionsComponent implements OnInit {
       this.getAllSubmissions();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllSubmissionsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
   }
 
@@ -112,6 +114,25 @@ export class SubmissionsComponent implements OnInit {
     };
 
     this.requirementService.requirementsDetailsByTeam(teamId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.requimentsDetails(data);
+          }
+        });
+  }
+
+  getAllRequirementsForUser() {
+
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+
+    const userId = {
+      userId: this.rtsUserId,
+      fromDate: this.startDate,
+      toDate: this.toDate
+    };
+
+    this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -193,6 +214,8 @@ export class SubmissionsComponent implements OnInit {
       this.getAllSubmissions();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllSubmissionsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
 
   }
@@ -210,6 +233,8 @@ export class SubmissionsComponent implements OnInit {
       this.getAllSubmissions();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllSubmissionsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
     }
   }
 

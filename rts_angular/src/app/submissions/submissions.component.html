@@ -96,7 +96,7 @@
     <h6>Total Submissions: {{submissionsLength}}</h6>
   </div>
 
-  <div class="mt-3 pt-2">
+  <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR'" class="pt-2">
 
     <div class="table-wrapper mt-4" *ngIf="submissionsLength > 0 ; else noSummissions">
       <div class="block-wrapper" *ngFor="let sub of submissionDetails">
@@ -130,6 +130,55 @@
           </thead>
           <tbody>
             <tr *ngFor="let submission of sub.submissions | filter : searchString" [routerLink]="['/edit-submission', submission.submissionId]">
+              <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+              <td>{{submission.candidate.name}}</td>
+              <td>{{submission.candidate.technology[0].technologyName}}</td>
+              <td>{{submission.candidate.availability}}</td>
+              <td>{{sub.location}}</td>
+              <td>{{submission.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="userRole === 'RECRUITER'" class="pt-2">
+    <div class="table-wrapper" *ngIf="submissionsLength > 0 ; else noSummissions">
+      <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+
+        <div class="meta-info-wrapper">
+          <span class="block-header-label">Position Name: </span>
+          <span class="meta-info-content">{{sub.position.positionName}},</span>
+          <span class="block-header-label">Client Name: </span>
+          <span class="meta-info-content">{{sub.client.name}},</span>
+          <span *ngIf="sub.allocationUser">
+            <span class="block-header-label">Allocated to: </span>
+            <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+            </span>
+          </span>
+          <span *ngIf="!sub.allocationUser">
+            <span class="block-header-label">Allocated Team: </span>
+            <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+          </span>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>Created Date:</th>
+              <th>Candidate Name</th>
+              <th>Technology</th>
+              <th>Availability</th>
+              <th>Work Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
