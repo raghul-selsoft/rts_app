@@ -96,6 +96,7 @@ export class RequirementsComponent implements OnInit {
       item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
     );
     this.selectedRequirements = filteredItems;
+    this.requirementsLength = this.selectedRequirements.length;
   }
 
 
