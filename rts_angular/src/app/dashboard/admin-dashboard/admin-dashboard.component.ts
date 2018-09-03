@@ -42,7 +42,8 @@ export class AdminDashboardComponent implements OnInit {
   colorSchemeMulti = {
     domain: ['#0386a4', '#A10A28', '#5AA454']
   };
-  totalSubmission: any;
+  private totalSubmission: any;
+  private teamDetails: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -52,6 +53,7 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
+    this.teamDetails = [];
   }
 
   ngOnInit() {
@@ -96,13 +98,18 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.teamDetails = [];
             this.totalSubmissionByTeam = data.teamSubmission;
+            for (const team of this.totalSubmissionByTeam) {
+              this.teamDetails.push({ name: team.name, series: team.series });
+            }
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
               count.extra = {
                 teamId: count.teamId
               };
             }
+            console.log(this.teamDetails);
           }
         });
   }
