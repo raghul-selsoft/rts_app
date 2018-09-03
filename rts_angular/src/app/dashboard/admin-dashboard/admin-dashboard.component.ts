@@ -34,6 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   xAxisLabel = 'Recruiters';
   showYAxisLabel = true;
   yAxisLabel = 'Submissions';
+  yAxisClientLabel = 'Requirements';
 
   colorScheme = {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
@@ -44,6 +45,7 @@ export class AdminDashboardComponent implements OnInit {
   };
   private totalSubmission: any;
   private teamDetails: any;
+  private clientOpenRequitements: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -53,12 +55,12 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
-    this.teamDetails = [];
   }
 
   ngOnInit() {
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
+    this.getClientRequirementsDetails();
   }
 
   getUserGraphDetails() {
@@ -84,6 +86,31 @@ export class AdminDashboardComponent implements OnInit {
         });
   }
 
+  getClientRequirementsDetails() {
+    this.clientOpenRequitements = [];
+
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: date,
+      toDate: date
+    };
+
+    this.graphService.getClientOpenRequirements(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clientOpenRequitements = data.clientRequirements;
+            for (const count of this.clientOpenRequitements) {
+              count.extra = {
+                clientId: count.clientId
+              };
+            }
+          }
+        });
+  }
+
+
   getTeamGraphDetails() {
     this.totalSubmissionByTeam = [];
 
@@ -98,18 +125,13 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.teamDetails = [];
             this.totalSubmissionByTeam = data.teamSubmission;
-            for (const team of this.totalSubmissionByTeam) {
-              this.teamDetails.push({ name: team.name, series: team.series });
-            }
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
               count.extra = {
                 teamId: count.teamId
               };
             }
-            console.log(this.teamDetails);
           }
         });
   }
@@ -118,6 +140,7 @@ export class AdminDashboardComponent implements OnInit {
     if (event !== undefined) {
       this.getUserGraphDetails();
       this.getTeamGraphDetails();
+      this.getClientRequirementsDetails();
     }
   }
 
@@ -130,5 +153,10 @@ export class AdminDashboardComponent implements OnInit {
   onTeamSelect(event) {
     const date = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submisson', event.extra.teamId, date]);
+  }
+
+  onClientSelect(event) {
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['client-requirements', event.extra.clientId, date]);
   }
 }

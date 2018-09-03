@@ -66,6 +66,7 @@ import { RouterModule } from '@angular/router';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 import { MatSortModule } from '@angular/material/sort';
+import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { MatSortModule } from '@angular/material/sort';
     AccMgrDashboardComponent,
     UserSubmissionsComponent,
     TeamSubmissionsComponent,
+    ClientRequirementsComponent,
   ],
   imports: [
     BrowserModule,
