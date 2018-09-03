@@ -65,6 +65,7 @@ import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/rec
 import { RouterModule } from '@angular/router';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { TeamSubmissionsComponent } from './team-submissions/team-submissions.co
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatRadioModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatSortModule
   ],
   providers: [
     RegisterService,
