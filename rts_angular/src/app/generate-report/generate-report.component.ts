@@ -42,7 +42,7 @@ export class GenerateReportComponent implements OnInit {
   private teamUsers: any;
   private selectedSubmissions: any;
   private selectedReport: any;
-  sortedData: any;
+  private sortedData: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
