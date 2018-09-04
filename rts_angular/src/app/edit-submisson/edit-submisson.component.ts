@@ -63,6 +63,10 @@ export class EditSubmissonComponent implements OnInit {
   private adminUsersArray: any;
   private customBodyMessage: boolean;
   private defaultBodyMessage: boolean;
+  private customMailBody: any;
+  private selectedAdmins: any;
+  private isCustomBody: boolean;
+  private isDefaultBody: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -80,8 +84,6 @@ export class EditSubmissonComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.sendToClient = false;
-    this.defaultBodyMessage = false;
-    this.customBodyMessage = false;
     this.recruiterName = [];
     this.adminUsersArray = [];
     this.recruiterEmail = [];
@@ -91,6 +93,8 @@ export class EditSubmissonComponent implements OnInit {
     this.deletedMediaFiles = [];
     this.dropdownSettings = {};
     this.adminUsers = [];
+    this.customMailBody = '';
+    this.selectedAdmins = [];
   }
   ngOnInit() {
     this.activatedRoute.params
@@ -157,7 +161,8 @@ export class EditSubmissonComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
-      adminUser: ['']
+      adminUser: [''],
+      customMailBody: ['']
     });
 
     this.isNewCandidate = false;
@@ -430,11 +435,18 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   submissionToClient() {
+    this.selectedAdmins = [];
+    for (const user of this.adminUsersArray) {
+      this.selectedAdmins.push(user.email);
+    }
 
     const submit = {
       submissionId: this.submissionId,
       submittedBy: this.rtsUserId,
-      isPlainFormat: this.plainFormat
+      isPlainFormat: this.plainFormat,
+      isCustomBody: this.isCustomBody,
+      bodyText: this.customMailBody,
+      adminCC: this.selectedAdmins
     };
 
     this.submissionService.submitToClient(submit)
@@ -466,11 +478,11 @@ export class EditSubmissonComponent implements OnInit {
 
   getMailBodyMessage(event) {
     if (event.value === 'Yes') {
-      this.defaultBodyMessage = true;
-      this.customBodyMessage = false;
+      this.isDefaultBody = true;
+      this.isCustomBody = false;
     } else {
-      this.customBodyMessage = true;
-      this.defaultBodyMessage = false;
+      this.isCustomBody = true;
+      this.isDefaultBody = false;
     }
   }
 
@@ -564,7 +576,6 @@ export class EditSubmissonComponent implements OnInit {
     } else {
       this.level2Date = '';
     }
-    console.log(this.adminUsersArray);
 
     const submission: any = {
       requirementId: form.value.requirements,
@@ -608,29 +619,37 @@ export class EditSubmissonComponent implements OnInit {
         });
         return false;
       }
+
+      if (this.isCustomBody === undefined || this.isDefaultBody === undefined) {
+        this.toastr.error('Please Select the Mail Body', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        return false;
+      }
     }
 
-    // this.submissionService.editSubmission(editSubmission)
-    //   .subscribe(
-    //     data => {
-    //       if (data.success) {
-    //         this.toastr.success('Update Submission Successfully', '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //         if (this.sendToClient) {
-    //           this.submissionToClient();
-    //         } else {
-    //           this.router.navigate(['submissions']);
-    //         }
+    this.submissionService.editSubmission(editSubmission)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('Update Submission Successfully', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            if (this.sendToClient) {
+              this.submissionToClient();
+            } else {
+              this.router.navigate(['submissions']);
+            }
 
-    //       } else {
-    //         this.toastr.error(data.message, '', {
-    //           positionClass: 'toast-top-center',
-    //           timeOut: 3000,
-    //         });
-    //       }
-    //     });
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
   }
 
   createNewCandidate(form: FormGroup) {

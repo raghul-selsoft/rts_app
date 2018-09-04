@@ -512,7 +512,7 @@
 
       <div class="row pt-3">
         <div class="col-sm-12">
-          <h2 class="form-title">Interview Details:</h2>
+          <h2 class="form-title">Interview Details</h2>
           <div class="row">
             <div class="col-sm-12" *ngIf="selectedSubmission">
               <label for="interviewStatus" class="form-label">Interview Status:</label>
@@ -559,25 +559,27 @@
       </div>
       <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
 
-        <h2 class="form-title">Select CC For Admin:</h2>
+        <h2 class="form-title">Select CC For Admin</h2>
         <div class="col-sm-4">
           <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="adminUsers" formControlName="adminUser"
             [(ngModel)]="adminUsersArray" [settings]="dropdownSettings">
           </ng-multiselect-dropdown>
         </div>
 
-        <h2 class="form-title">Mail Format:</h2>
+        <h2 class="form-title">Mail Format</h2>
         <mat-radio-group (change)="getMailFormat($event)">
           <mat-radio-button value="Yes">Plain (TEXT) </mat-radio-button>
           <mat-radio-button value="No">Classic (HTML)</mat-radio-button>
         </mat-radio-group>
+        <h2 class="form-title">Mail Body</h2>
         <mat-radio-group class="mail-button" (change)="getMailBodyMessage($event)">
           <mat-radio-button value="Yes">Default Email Body Message </mat-radio-button>
           <mat-radio-button value="No">Custom Email Body Message</mat-radio-button>
         </mat-radio-group>
       </div>
-      <div *ngIf="customBodyMessage">
-       
+      <div *ngIf="isCustomBody" class="mb-3">
+        <app-ngx-editor height="100px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
+          [(ngModel)]="customMailBody" formControlName="customMailBody"></app-ngx-editor>
       </div>
 
       <div class="form-btn-container">
