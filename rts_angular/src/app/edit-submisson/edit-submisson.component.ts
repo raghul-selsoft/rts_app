@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { ApiUrl } from '../Services/api-url';
+import { UserService } from '../Services/user.service';
 
 @Component({
   selector: 'app-edit-submisson',
@@ -56,11 +57,19 @@ export class EditSubmissonComponent implements OnInit {
   private isWorkedWithClient: boolean;
   private isSubmitted: boolean;
   private plainFormat: boolean;
+  private adminUsers: any;
+  private dropdownSettings: any;
+  private users: any;
+  private adminUsersArray: any;
+  private customBodyMessage: boolean;
+  private defaultBodyMessage: boolean;
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
@@ -71,26 +80,34 @@ export class EditSubmissonComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.sendToClient = false;
+    this.defaultBodyMessage = false;
+    this.customBodyMessage = false;
     this.recruiterName = [];
+    this.adminUsersArray = [];
     this.recruiterEmail = [];
     this.getFiles = [];
     this.allRequirements = [];
     this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
-    // this.status = [
-    //   { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-    //   { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-    //   { 'name': 'Approved', 'value': 'APPROVED' },
-    //   { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-    //   { 'name': 'Rejected', 'value': 'REJECTED' },
-    //   { 'name': 'Closed', 'value': 'CLOSED' }
-    // ];
+    this.dropdownSettings = {};
+    this.adminUsers = [];
   }
   ngOnInit() {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'email',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
 
     this.baseUrl = ApiUrl.BaseUrl;
 
@@ -140,11 +157,13 @@ export class EditSubmissonComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
+      adminUser: ['']
     });
 
     this.isNewCandidate = false;
 
     this.getAllCommonData();
+    this.getAllUser();
 
     if (this.userRole === 'ADMIN') {
       this.status = [
@@ -175,6 +194,26 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Closed', 'value': 'CLOSED' }
       ];
     }
+  }
+
+  getAllUser() {
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.users = data.users;
+            for (const user of this.users) {
+              if (user.role === 'ADMIN') {
+                this.adminUsers.push({ email: user.email, firstName: user.firstName + ' ' + user.lastName });
+              }
+            }
+            this.adminUsersArray = [{ email: 'pushban@selsoftinc.com', firstName: 'Pushban R' }];
+          }
+        });
   }
 
   getAllCommonData() {
@@ -425,6 +464,16 @@ export class EditSubmissonComponent implements OnInit {
     }
   }
 
+  getMailBodyMessage(event) {
+    if (event.value === 'Yes') {
+      this.defaultBodyMessage = true;
+      this.customBodyMessage = false;
+    } else {
+      this.customBodyMessage = true;
+      this.defaultBodyMessage = false;
+    }
+  }
+
   candidateFileEvent(event: any) {
     this.candidateFiles = event.target.files;
     for (const file of this.candidateFiles) {
@@ -515,6 +564,7 @@ export class EditSubmissonComponent implements OnInit {
     } else {
       this.level2Date = '';
     }
+    console.log(this.adminUsersArray);
 
     const submission: any = {
       requirementId: form.value.requirements,
@@ -560,27 +610,27 @@ export class EditSubmissonComponent implements OnInit {
       }
     }
 
-    this.submissionService.editSubmission(editSubmission)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.toastr.success('Update Submission Successfully', '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-            if (this.sendToClient) {
-              this.submissionToClient();
-            } else {
-              this.router.navigate(['submissions']);
-            }
+    // this.submissionService.editSubmission(editSubmission)
+    //   .subscribe(
+    //     data => {
+    //       if (data.success) {
+    //         this.toastr.success('Update Submission Successfully', '', {
+    //           positionClass: 'toast-top-center',
+    //           timeOut: 3000,
+    //         });
+    //         if (this.sendToClient) {
+    //           this.submissionToClient();
+    //         } else {
+    //           this.router.navigate(['submissions']);
+    //         }
 
-          } else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
+    //       } else {
+    //         this.toastr.error(data.message, '', {
+    //           positionClass: 'toast-top-center',
+    //           timeOut: 3000,
+    //         });
+    //       }
+    //     });
   }
 
   createNewCandidate(form: FormGroup) {
