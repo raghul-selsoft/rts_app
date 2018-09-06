@@ -198,8 +198,13 @@ export class EditRequirementComponent implements OnInit {
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
-            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
-            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            if (this.selectedRequirement.team !== undefined) {
+              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+              this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              for (const user of this.selectedTeam.otherUsers) {
+                this.selectedTeamUsers.push(user);
+              }
+            }
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
@@ -207,10 +212,6 @@ export class EditRequirementComponent implements OnInit {
             }
             for (const value of this.selectedRequirement.clientRecuriters) {
               this.selectedrecruitersArray.push({ user: value.email, firstName: value.name });
-            }
-
-            for (const user of this.selectedTeam.otherUsers) {
-              this.selectedTeamUsers.push(user);
             }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {

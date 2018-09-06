@@ -66,6 +66,7 @@ import { ClientRequirementsComponent } from './client-requirements/client-requir
 import { NgxEditorModule } from 'ngx-editor';
 import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
 import { NgProgressModule } from 'ngx-progressbar';
+import { DeleteTeamComponent } from './delete-team/delete-team.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { NgProgressModule } from 'ngx-progressbar';
     UserSubmissionsComponent,
     TeamSubmissionsComponent,
     ClientRequirementsComponent,
+    DeleteTeamComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,9 @@
 <div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR'">
   <a class="sub-nav-link" [routerLink]="['/add-team']">Add New Team</a>
 </div>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  
 <h2 class="main-title">Manage Teams</h2>
 <div class="utility-container">
   <div *ngIf="userRole === 'ADMIN'">
@@ -21,6 +24,8 @@
             </div>
             <div class="col-sm-2 text-right">
               <a class="btn btn-sm btn-forms" [routerLink]="['/edit-team',team.teamId]">Edit Team</a>
+              <!-- <a class="btn btn-sm btn-forms" [routerLink]="['/delete-team',team.teamId]">Delete Team</a> -->
+              <a class="btn btn-sm btn-forms ml-2" (click)="deleteTeam(team.teamId);">Delete Team</a>
             </div>
           </div>
         </div>
@@ -78,6 +83,7 @@
             </div>
             <div class="col-sm-2 text-right">
               <a class="btn btn-sm btn-forms" [routerLink]="['/edit-team',team.teamId]">Edit Team</a>
+              <a class="btn btn-sm btn-forms ml-2" (click)="deleteTeam(team.teamId);">Delete Team</a>
             </div>
           </div>
         </div>

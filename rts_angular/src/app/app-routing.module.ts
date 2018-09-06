@@ -32,6 +32,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
+import { DeleteTeamComponent } from './delete-team/delete-team.component';
 
 
 export const appRoutes: Routes = [
@@ -68,6 +69,7 @@ export const appRoutes: Routes = [
   { path: 'user-submisson/:id/:fromDate/:toDate', component: UserSubmissionsComponent },
   { path: 'team-submisson/:id/:fromDate/:toDate', component: TeamSubmissionsComponent },
   { path: 'client-requirements/:id/:fromDate/:toDate', component: ClientRequirementsComponent },
+  { path: 'delete-team/:id', component: DeleteTeamComponent },
 ];
 
 
