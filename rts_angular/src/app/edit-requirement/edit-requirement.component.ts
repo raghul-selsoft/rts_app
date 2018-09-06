@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-requirement',
@@ -60,7 +61,8 @@ export class EditRequirementComponent implements OnInit {
     private toastr: ToastrService,
     private userService: UserService,
     private clientService: ClientService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -92,6 +94,7 @@ export class EditRequirementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
 
     this.activatedRoute.params
       .subscribe((params: Params) => {
@@ -189,6 +192,7 @@ export class EditRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');

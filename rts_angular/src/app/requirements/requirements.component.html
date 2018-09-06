@@ -151,7 +151,7 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of sortedData" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
@@ -192,7 +192,7 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of sortedData" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
