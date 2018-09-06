@@ -115,7 +115,6 @@ export class SubmissionsComponent implements OnInit {
         this.submissionDetails.push(require);
       }
     }
-    console.log(this.submissionDetails);
     for (const count of this.submissionDetails) {
       this.submissionsLength = this.submissionsLength + count.submissions.length;
     }
