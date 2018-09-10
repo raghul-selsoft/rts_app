@@ -374,7 +374,6 @@ export class EditSubmissonComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
-            console.log(this.selectedSubmission);
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
@@ -560,6 +559,12 @@ export class EditSubmissonComponent implements OnInit {
 
   openFiles(media) {
     window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
+  }
+
+  addChatmessage() {
+    if (this.comment !== '' && this.comment !== undefined) {
+      console.log(this.selectedSubmission.comments);
+    }
   }
 
   updateSubmission(form: FormGroup) {
