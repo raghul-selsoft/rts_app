@@ -58,6 +58,14 @@ export class AdminDashboardComponent implements OnInit {
     domain: ['#9780A6', '#C4B7D0', '#990A17', '#E12926', '#E4DEEB']
   };
 
+  colorSchemeMultiBar3 = {
+    domain: ['#6E6153', '#98A582', '#990A17', '#BDD9B5', '#EAF1D5']
+  };
+
+  colorSchemeMultiBar4 = {
+    domain: ['#5BB2A7', '#85C4BB', '#990A17', '#AFD5C6', '#E2EEE4']
+  };
+
   colorSchemeMulti = {
     domain: ['#0386a4', '#A10A28', '#5AA454']
   };
