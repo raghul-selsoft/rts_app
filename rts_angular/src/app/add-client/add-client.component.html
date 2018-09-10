@@ -36,11 +36,11 @@
             <div class="units" *ngFor="let field of myForm.controls.ccUnits.controls; let i = index">
               <div class="form-row" [formGroupName]='i'>
                 <div class="form-group col-3">
-                  <input type="text" class="form-input" name="name" formControlName="name" required>
+                  <input type="text" class="form-input" name="name" formControlName="name" >
                 </div>
 
                 <div class="form-group col-3">
-                  <input type="email" class="form-input" name="email" formControlName="email" required>
+                  <input type="email" class="form-input" name="email" formControlName="email" >
                 </div>
 
                 <div class="form-group col-3 unit-btn-container">
