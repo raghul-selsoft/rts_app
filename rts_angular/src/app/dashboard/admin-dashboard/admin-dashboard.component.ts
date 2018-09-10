@@ -70,8 +70,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    const currentDateMoment: moment.Moment = moment(this.currentDate);
-    this.fromDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
+    this.fromDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
