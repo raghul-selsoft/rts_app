@@ -90,7 +90,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'TCS',
         'series': [
           { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'In Progress','value': 4 },
+          { 'name': 'In Progress', 'value': 4 },
           { 'name': 'Client Rejection', 'value': 6 },
           { 'name': 'Internal Rejection', 'value': 2 },
           { 'name': 'Closed', 'value': 7 }
@@ -100,7 +100,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Virtusa',
         'series': [
           { 'name': 'Submitted', 'value': 12 },
-          { 'name': 'In Progress','value': 2 },
+          { 'name': 'In Progress', 'value': 2 },
           { 'name': 'Client Rejection', 'value': 6 },
           { 'name': 'Internal Rejection', 'value': 4 },
           { 'name': 'Closed', 'value': 9 }
@@ -110,7 +110,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'HCL',
         'series': [
           { 'name': 'Submitted', 'value': 4 },
-          { 'name': 'In Progress','value': 2 },
+          { 'name': 'In Progress', 'value': 2 },
           { 'name': 'Client Rejection', 'value': 2 },
           { 'name': 'Internal Rejection', 'value': 1 },
           { 'name': 'Closed', 'value': 3 }
@@ -123,7 +123,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'TCS',
         'series': [
           { 'name': 'Submitted', 'value': 50 },
-          { 'name': 'Interviewed','value': 30 },
+          { 'name': 'Interviewed', 'value': 30 },
           { 'name': 'Rejections', 'value': 10 },
           { 'name': 'Candidate Selected', 'value': 7 }
         ]
@@ -132,7 +132,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Virtusa',
         'series': [
           { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Interviewed', 'value': 7 },
           { 'name': 'Rejections', 'value': 2 },
           { 'name': 'Candidate Selected', 'value': 2 }
         ]
@@ -141,7 +141,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'HCL',
         'series': [
           { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Interviewed', 'value': 2 },
           { 'name': 'Rejections', 'value': 1 },
           { 'name': 'Candidate Selected', 'value': 1 }
         ]
@@ -153,7 +153,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Sugan',
         'series': [
           { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'Interviewed','value': 4 },
+          { 'name': 'Interviewed', 'value': 4 },
           { 'name': 'Rejections', 'value': 6 },
           { 'name': 'Candidate Selected', 'value': 7 }
         ]
@@ -162,7 +162,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Ajikumar',
         'series': [
           { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Interviewed', 'value': 7 },
           { 'name': 'Rejections', 'value': 2 },
           { 'name': 'Candidate Selected', 'value': 2 }
         ]
@@ -171,7 +171,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Pavithran',
         'series': [
           { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Interviewed', 'value': 2 },
           { 'name': 'Rejections', 'value': 1 },
           { 'name': 'Candidate Selected', 'value': 1 }
         ]

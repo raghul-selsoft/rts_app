@@ -167,7 +167,8 @@ export class EditSubmissonComponent implements OnInit {
       currentCompany: [''],
       adminUser: [''],
       customMailBody: [''],
-      comments: ['']
+      comments: [''],
+      interviewConferenceNumber: ['']
     });
 
     this.isNewCandidate = false;
@@ -182,7 +183,10 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Approved', 'value': 'APPROVED' },
         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
         { 'name': 'Rejected', 'value': 'REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
@@ -194,14 +198,20 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
         { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
     } else if (this.userRole === 'ACC_MGR') {
       this.status = [
         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
         { 'name': 'Approved', 'value': 'APPROVED' },
         { 'name': 'Rejected', 'value': 'REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
     }
   }
@@ -615,6 +625,7 @@ export class EditSubmissonComponent implements OnInit {
       workLocation: form.value.workLocation,
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
+      interviewConferenceNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,

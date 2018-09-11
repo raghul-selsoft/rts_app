@@ -518,9 +518,13 @@
         <div class="col-sm-12">
           <h2 class="form-title">Interview Details</h2>
           <div class="row">
-            <div class="col-sm-12" *ngIf="selectedSubmission">
+            <div class="col-sm-6" *ngIf="selectedSubmission">
               <label for="interviewStatus" class="form-label">Interview Status:</label>
               <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewStatus}}">
+            </div>
+            <div class="col-sm-6" *ngIf="selectedSubmission">
+              <label for="interviewConferenceNumber" class="form-label">Interview Conference Number:</label>
+              <input type="text" class="form-input" name="interviewConferenceNumber" formControlName="interviewConferenceNumber" ngModel="{{selectedSubmission.interviewConferenceNumber}}">
             </div>
           </div>
 
