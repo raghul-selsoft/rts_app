@@ -40,8 +40,8 @@ export class EditSubmissonComponent implements OnInit {
   private isSubmitToClient: boolean;
   private isNewCandidate: boolean;
   private technology: any[];
-  private level1Date: string;
-  private level2Date: string;
+  private level1Date: any;
+  private level2Date: any;
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
@@ -374,6 +374,7 @@ export class EditSubmissonComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
+            console.log(this.selectedSubmission);
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
@@ -592,12 +593,12 @@ export class EditSubmissonComponent implements OnInit {
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
     if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-      this.level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+      this.level1Date = moment(form.value.level1Date);
     } else {
       this.level1Date = '';
     }
     if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-      this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+      this.level2Date = moment(form.value.level2Date);
     } else {
       this.level2Date = '';
     }

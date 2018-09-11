@@ -69,6 +69,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -135,7 +136,9 @@ import { PaginationModule } from 'ngx-bootstrap';
     Ng4LoadingSpinnerModule,
     NgProgressModule,
     NgxPaginationModule,
-    PaginationModule
+    PaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     RegisterService,
