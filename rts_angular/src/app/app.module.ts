@@ -70,6 +70,7 @@ import { DeleteTeamComponent } from './delete-team/delete-team.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     TeamSubmissionsComponent,
     ClientRequirementsComponent,
     DeleteTeamComponent,
+    TeamSubmissionStatusComponent,
   ],
   imports: [
     BrowserModule,

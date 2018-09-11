@@ -74,6 +74,8 @@ export class AdminDashboardComponent implements OnInit {
   private clientOpenRequitements: any;
   private fromDate: any;
   private interviewReport: any;
+  noSubmissionsRequirement: any;
+  noSubmissionsRequirementLength: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -186,11 +188,39 @@ export class AdminDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
     this.getInterviewReport();
+    this.getNoSubmissionsRequirement();
+  }
 
+  dateFilter() {
+    this.ngProgress.start();
+    this.getUserGraphDetails();
+    this.getTeamGraphDetails();
+    this.getClientRequirementsDetails();
+    this.getInterviewReport();
+    this.getNoSubmissionsRequirement();
+  }
+
+  getNoSubmissionsRequirement() {
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.noSubmissionsRequirement(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.noSubmissionsRequirement = data.requirements;
+            this.noSubmissionsRequirementLength = this.noSubmissionsRequirement.length;
+          }
+        });
   }
 
   getInterviewReport() {
-    this.recruitersSubmissions = [];
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
@@ -284,16 +314,15 @@ export class AdminDashboardComponent implements OnInit {
                 teamId: count.teamId
               };
             }
+            for (const team of this.totalSubmissionByTeam) {
+              for (const series of team.series) {
+                series.extra = {
+                  teamId: team.teamId
+                };
+              }
+            }
           }
         });
-  }
-
-  dateFilter() {
-    this.ngProgress.start();
-    this.getUserGraphDetails();
-    this.getTeamGraphDetails();
-    this.getClientRequirementsDetails();
-    this.getInterviewReport();
   }
 
   onUserSelect(event) {
@@ -312,5 +341,11 @@ export class AdminDashboardComponent implements OnInit {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['client-requirements', event.extra.clientId, fromDate, toDate]);
+  }
+
+  onTeamSubmissionStatus(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
   }
 }

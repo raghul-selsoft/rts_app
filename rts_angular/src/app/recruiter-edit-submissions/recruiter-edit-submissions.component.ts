@@ -445,7 +445,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       workLocation: form.value.workLocation,
       status: form.value.status,
       interviewStatus: form.value.interviewStatus,
-      interviewConferenceNumber: form.value.interviewConferenceNumber,
+      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,

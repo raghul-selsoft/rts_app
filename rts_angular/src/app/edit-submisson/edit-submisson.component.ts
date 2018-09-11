@@ -384,7 +384,6 @@ export class EditSubmissonComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
-            console.log(this.selectedSubmission);
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
@@ -625,7 +624,7 @@ export class EditSubmissonComponent implements OnInit {
       workLocation: form.value.workLocation,
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
-      interviewConferenceNumber: form.value.interviewConferenceNumber,
+      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,
