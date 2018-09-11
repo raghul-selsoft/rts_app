@@ -114,9 +114,9 @@
           <h2 class="chart-title">Client wise submission status</h2>
         </div>
         <div class="chart-align-100-400 multi">
-          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar2" [results]="clientWise" [gradient]="gradient"
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar2" [results]="clientWiseSubmissionStatus" [gradient]="gradient"
             [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
+            [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onClientSubmissionStatus($event)">
           </ngx-charts-bar-vertical-2d>
         </div>
       </div>

@@ -8,25 +8,28 @@ import { SubmissionService } from '../Services/submission.service';
 import { NgProgress } from 'ngx-progressbar';
 import { GraphService } from '../Services/graph.service';
 
+
 @Component({
-  selector: 'app-team-submission-status',
-  templateUrl: './team-submission-status.component.html',
-  styleUrls: ['./team-submission-status.component.css'],
+  selector: 'app-client-submission-status',
+  templateUrl: './client-submission-status.component.html',
+  styleUrls: ['./client-submission-status.component.css'],
   providers: [LoggedUserService]
 })
-export class TeamSubmissionStatusComponent implements OnInit {
+export class ClientSubmissionStatusComponent implements OnInit {
+
   private rtsUser: any;
   private rtsUserId: any;
   private fromDate: any;
   private toDate: any;
-  private teamId: any;
   private submissionDetails: any;
   private totalSubmissionByTeam: any;
   private status: any;
-  private selectedTeam: any;
   private selectedStatus: any;
   private filteredRequirements: any;
-  teamName: any;
+  private clientWiseSubmissionStatus: any;
+  private selectedClient: any;
+  private clientName: any;
+  private clientId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -43,30 +46,30 @@ export class TeamSubmissionStatusComponent implements OnInit {
     this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
-        this.teamId = params['id'];
+        this.clientId = params['id'];
         this.status = params['status'];
         this.fromDate = params['fromDate'];
         this.toDate = params['toDate'];
       });
-    this.getTeamGraphDetails();
+    this.getClientSubmissionStatus();
   }
 
-  getTeamGraphDetails() {
+  getClientSubmissionStatus() {
     const graph = {
       userId: this.rtsUserId,
       fromDate: this.fromDate,
       toDate: this.toDate
     };
 
-    this.graphService.teamGraphDetails(graph)
+    this.graphService.clientSubmissionStatus(graph)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.totalSubmissionByTeam = data.teamSubmission;
-            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: this.teamId });
-            this.teamName = this.selectedTeam.name;
-            for (const series of this.selectedTeam.series) {
+            this.clientWiseSubmissionStatus = data.clientSubmissions;
+            this.selectedClient = _.findWhere(this.clientWiseSubmissionStatus, { clientId: this.clientId });
+            this.clientName = this.selectedClient.name;
+            for (const series of this.selectedClient.series) {
               if (series.name === this.status) {
                 this.selectedStatus = series;
               }
@@ -84,4 +87,5 @@ export class TeamSubmissionStatusComponent implements OnInit {
     );
     this.submissionDetails = filteredItems;
   }
+
 }

@@ -74,8 +74,9 @@ export class AdminDashboardComponent implements OnInit {
   private clientOpenRequitements: any;
   private fromDate: any;
   private interviewReport: any;
-  noSubmissionsRequirement: any;
-  noSubmissionsRequirementLength: any;
+  private noSubmissionsRequirement: any;
+  private noSubmissionsRequirementLength: any;
+  private clientWiseSubmissionStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -87,38 +88,38 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
     // Remove the following data after the chart implementation
-    this.clientWise = [
-      {
-        'name': 'TCS',
-        'series': [
-          { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'In Progress', 'value': 4 },
-          { 'name': 'Client Rejection', 'value': 6 },
-          { 'name': 'Internal Rejection', 'value': 2 },
-          { 'name': 'Closed', 'value': 7 }
-        ]
-      },
-      {
-        'name': 'Virtusa',
-        'series': [
-          { 'name': 'Submitted', 'value': 12 },
-          { 'name': 'In Progress', 'value': 2 },
-          { 'name': 'Client Rejection', 'value': 6 },
-          { 'name': 'Internal Rejection', 'value': 4 },
-          { 'name': 'Closed', 'value': 9 }
-        ]
-      },
-      {
-        'name': 'HCL',
-        'series': [
-          { 'name': 'Submitted', 'value': 4 },
-          { 'name': 'In Progress', 'value': 2 },
-          { 'name': 'Client Rejection', 'value': 2 },
-          { 'name': 'Internal Rejection', 'value': 1 },
-          { 'name': 'Closed', 'value': 3 }
-        ]
-      }
-    ];
+    // this.clientWise = [
+    //   {
+    //     'name': 'TCS',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 10 },
+    //       { 'name': 'In Progress', 'value': 4 },
+    //       { 'name': 'Client Rejection', 'value': 6 },
+    //       { 'name': 'Internal Rejection', 'value': 2 },
+    //       { 'name': 'Closed', 'value': 7 }
+    //     ]
+    //   },
+    //   {
+    //     'name': 'Virtusa',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 12 },
+    //       { 'name': 'In Progress', 'value': 2 },
+    //       { 'name': 'Client Rejection', 'value': 6 },
+    //       { 'name': 'Internal Rejection', 'value': 4 },
+    //       { 'name': 'Closed', 'value': 9 }
+    //     ]
+    //   },
+    //   {
+    //     'name': 'HCL',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 4 },
+    //       { 'name': 'In Progress', 'value': 2 },
+    //       { 'name': 'Client Rejection', 'value': 2 },
+    //       { 'name': 'Internal Rejection', 'value': 1 },
+    //       { 'name': 'Closed', 'value': 3 }
+    //     ]
+    //   }
+    // ];
 
     this.teamComparison = [
       {
@@ -189,6 +190,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getClientRequirementsDetails();
     this.getInterviewReport();
     this.getNoSubmissionsRequirement();
+    this.getClientSubmissionStatus();
   }
 
   dateFilter() {
@@ -198,6 +200,35 @@ export class AdminDashboardComponent implements OnInit {
     this.getClientRequirementsDetails();
     this.getInterviewReport();
     this.getNoSubmissionsRequirement();
+    this.getClientSubmissionStatus();
+  }
+
+  getClientSubmissionStatus() {
+    this.clientWiseSubmissionStatus = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.clientSubmissionStatus(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clientWiseSubmissionStatus = data.clientSubmissions;
+            for (const client of this.clientWiseSubmissionStatus) {
+              for (const series of client.series) {
+                series.extra = {
+                  clientId: client.clientId
+                };
+              }
+            }
+            console.log(this.clientWiseSubmissionStatus);
+          }
+        });
   }
 
   getNoSubmissionsRequirement() {
@@ -347,5 +378,12 @@ export class AdminDashboardComponent implements OnInit {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
+  }
+
+  onClientSubmissionStatus(event) {
+    console.log(event);
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['client-submissions-status', event.extra.clientId, event.name, fromDate, toDate]);
   }
 }
