@@ -380,7 +380,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onClientSubmissionStatus(event) {
-    console.log(event);
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['client-submissions-status', event.extra.clientId, event.name, fromDate, toDate]);
