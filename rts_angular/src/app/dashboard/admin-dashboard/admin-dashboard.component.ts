@@ -226,7 +226,6 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
-            console.log(this.clientWiseSubmissionStatus);
           }
         });
   }
