@@ -673,6 +673,7 @@ export class EditSubmissonComponent implements OnInit {
           positionClass: 'toast-top-center',
           timeOut: 3000,
         });
+        this.ngProgress.done();
         return false;
       }
 
@@ -681,6 +682,7 @@ export class EditSubmissonComponent implements OnInit {
           positionClass: 'toast-top-center',
           timeOut: 3000,
         });
+        this.ngProgress.done();
         return false;
       }
     }
