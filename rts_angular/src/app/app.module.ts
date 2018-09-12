@@ -69,6 +69,8 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
 import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
+import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
+import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 
 
 @NgModule({
@@ -107,6 +109,8 @@ import { ClientSubmissionStatusComponent } from './client-submission-status/clie
     DeleteTeamComponent,
     TeamSubmissionStatusComponent,
     ClientSubmissionStatusComponent,
+    RecruiterComparisonComponent,
+    TeamComparisonComponent,
   ],
   imports: [
     BrowserModule,

@@ -32,6 +32,8 @@ import { ClientRequirementsComponent } from './client-requirements/client-requir
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
 import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
 import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
+import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
+import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 
 
 export const appRoutes: Routes = [
@@ -67,6 +69,8 @@ export const appRoutes: Routes = [
   { path: 'client-requirements/:id/:fromDate/:toDate', component: ClientRequirementsComponent },
   { path: 'team-submissions-status/:id/:status/:fromDate/:toDate', component: TeamSubmissionStatusComponent },
   { path: 'client-submissions-status/:id/:status/:fromDate/:toDate', component: ClientSubmissionStatusComponent },
+  { path: 'recruiter-comparison/:id/:status/:fromDate/:toDate', component: RecruiterComparisonComponent },
+  { path: 'team-comparison/:id/:status/:fromDate/:toDate', component: TeamComparisonComponent },
   { path: 'delete-team/:id', component: DeleteTeamComponent },
 ];
 
