@@ -408,7 +408,8 @@ export class EditSubmissonComponent implements OnInit {
             for (const interviews of this.selectedSubmission.interviewDetails) {
               control.push(this.formBuilder.group(interviews));
             }
-            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
+            // tslint:disable-next-line:max-line-length
+            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED') {
               this.isRejected = true;
             }
             if (this.selectedSubmission.status === 'TL_APPROVED' || this.selectedSubmission.status === 'APPROVED') {
@@ -544,7 +545,7 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   changeStatus(event) {
-    if (event === 'REJECTED' || event === 'TL_REJECTED') {
+    if (event === 'REJECTED' || event === 'TL_REJECTED' || event === 'CLIENT_REJECTED') {
       this.isRejected = true;
     } else {
       this.isRejected = false;

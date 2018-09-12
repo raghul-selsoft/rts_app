@@ -60,7 +60,10 @@ export class SubmissionsComponent implements OnInit {
       { 'name': 'Rejected', 'value': 'REJECTED' },
       { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
       { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-      { 'name': 'Closed', 'value': 'CLOSED' }
+      { 'name': 'Closed', 'value': 'CLOSED' },
+      { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+      { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+      { 'name': 'Interview', 'value': 'INTERVIEWED' }
     ];
     this.filter = '';
   }
