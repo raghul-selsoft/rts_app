@@ -637,13 +637,11 @@ export class EditSubmissonComponent implements OnInit {
       workLocation: form.value.workLocation,
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
-      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
       approvalUserId: this.rtsUserId,
-      interviewDetails: form.value.units,
     };
 
     if (this.sendToClient) {
@@ -685,7 +683,6 @@ export class EditSubmissonComponent implements OnInit {
         return false;
       }
     }
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(

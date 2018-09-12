@@ -33,7 +33,6 @@ export class GenerateReportComponent implements OnInit {
   private baseUrl: any;
   public myForm: FormGroup;
   private startDate: any;
-  private toDate: any;
   private isTeam: boolean;
   private isClient: boolean;
   private isRecruiter: boolean;
@@ -64,10 +63,6 @@ export class GenerateReportComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    this.myForm = this.formBuilder.group({
-      fromDate: [''],
-      toDate: ['']
-    });
     this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getApprovedSubmissions();
@@ -91,12 +86,6 @@ export class GenerateReportComponent implements OnInit {
   }
 
   filterByDate(form: FormGroup) {
-
-    if (form.value.fromDate !== 'Invalid date' && form.value.fromDate !== '') {
-      this.startDate = moment(form.value.fromDate).format('YYYY-MM-DD');
-    } else {
-      this.startDate = '';
-    }
     this.ngProgress.start();
     this.filterBy('');
     this.getApprovedSubmissions();
@@ -159,13 +148,13 @@ export class GenerateReportComponent implements OnInit {
   }
 
   getApprovedSubmissions() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.submissonService.approvedSubmissionDetails(userId)
@@ -285,7 +274,10 @@ export class GenerateReportComponent implements OnInit {
   }
 
   compare(a, b, isAsc) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    if (a === undefined && b === undefined) {
+    } else {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
   }
 
 }
