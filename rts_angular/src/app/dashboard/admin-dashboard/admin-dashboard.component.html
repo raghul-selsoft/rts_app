@@ -51,6 +51,12 @@
             [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
           </ngx-charts-pie-chart>
         </div>
+        <div class="chart-pie-meta">
+          <div *ngFor="let meta of totalSubmissionByTeam">
+            <span *ngIf="meta.value === 0; else metaTemplate"></span>
+            <ng-template #metaTemplate>{{meta.name}} : {{meta.value}}</ng-template>
+          </div>
+        </div>
         <div>
           <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span class="chart-result">{{totalSubmission}}</span></div>
         </div>
