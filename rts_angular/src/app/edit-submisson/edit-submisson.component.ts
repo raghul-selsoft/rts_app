@@ -643,6 +643,7 @@ export class EditSubmissonComponent implements OnInit {
       submissionId: this.submissionId,
       candidateId: candidateId,
       approvalUserId: this.rtsUserId,
+      interviewDetails: form.value.units,
     };
 
     if (this.sendToClient) {
