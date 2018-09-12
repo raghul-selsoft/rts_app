@@ -285,7 +285,10 @@ export class GenerateReportComponent implements OnInit {
   }
 
   compare(a, b, isAsc) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    if (a === undefined && b === undefined) {
+    } else {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
   }
 
 }
