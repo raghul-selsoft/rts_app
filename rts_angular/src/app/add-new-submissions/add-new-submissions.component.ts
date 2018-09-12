@@ -423,7 +423,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientRate: form.value.clientRate,
       buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
-      status: form.value.status,
+      // status: form.value.status,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
