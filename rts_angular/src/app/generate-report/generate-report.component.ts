@@ -172,9 +172,13 @@ export class GenerateReportComponent implements OnInit {
     this.selectedReport = [];
     for (const report of this.sortedData) {
       const submissionDate = moment(report.submissionDate).format('MM/DD/YYYY');
-      let interviewDate: any = '';
-      if (report.interviewDate !== undefined) {
-        interviewDate = moment(report.interviewDate).format('MM/DD/YYYY, hh:mm a');
+      let L1Date: any = '';
+      if (report.dateOfL1 !== undefined) {
+        L1Date = moment(report.dateOfL1).format('MM/DD/YYYY, hh:mm a');
+      }
+      let L2Date: any = '';
+      if (report.dateOfL2 !== undefined) {
+        L2Date = moment(report.dateOfL1).format('MM/DD/YYYY, hh:mm a');
       }
       this.selectedReport.push({
         'Candidate Name': report.candidateName,
@@ -183,8 +187,8 @@ export class GenerateReportComponent implements OnInit {
         'Submission Date': submissionDate,
         'Recruiter Name': report.recruiterName,
         'Interview Status': report.interviewStatus,
-        'Interview Date & Time': interviewDate,
-        'Interview Level': report.interviewLevel,
+        'L1 Date': L1Date,
+        'L2 Date': L2Date,
         'Client Contact Name': report.clientContactName,
         'No of DaysPending': report.age,
         'Current Status': report.currentStatus
@@ -264,8 +268,8 @@ export class GenerateReportComponent implements OnInit {
         case 'submissionDate': return this.compare(a.submissionDate, b.submissionDate, isAsc);
         case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
         case 'interviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
-        case 'interviewDate': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
-        case 'interviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
+        case 'l1': return this.compare(a.dateOfL1, b.dateOfL1, isAsc);
+        case 'l2': return this.compare(a.dateOfL2, b.dateOfL2, isAsc);
         case 'age': return this.compare(a.age, b.age, isAsc);
         case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
         default: return 0;
