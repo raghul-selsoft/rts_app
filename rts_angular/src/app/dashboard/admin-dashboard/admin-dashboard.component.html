@@ -171,8 +171,8 @@
                 <th>Position Name</th>
                 <th>Candidate Name</th>
                 <th>Client Name</th>
-                <th>L1 Interview Date & Time</th>
-                <th>L2 Interview Date & Time</th>
+                <th>Interview Date & Time</th>
+                <th>Interview Level</th>
                 <th>Recruiter Name</th>
                 <th>Skype</th>
                 <th>Phone Number</th>
@@ -183,8 +183,8 @@
                 <td>{{submission.positionName}}</td>
                 <td>{{submission.candidateName}}</td>
                 <td>{{submission.clientName}}</td>
-                <td>{{submission.dateOfL1 | date: 'MMM d, y, hh:mm a'}}</td>
-                <td>{{submission.dateOfL2 | date: 'MMM d, y, hh:mm a'}}</td>
+                <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
+                <td>{{submission.interviewLevel}}</td>
                 <td>{{submission.recruiterName}}</td>
                 <td>{{submission.skypeId}}</td>
                 <td>{{submission.phoneNumber}}</td>
