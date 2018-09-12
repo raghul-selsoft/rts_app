@@ -88,38 +88,6 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
     // Remove the following data after the chart implementation
-    // this.clientWise = [
-    //   {
-    //     'name': 'TCS',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 10 },
-    //       { 'name': 'In Progress', 'value': 4 },
-    //       { 'name': 'Client Rejection', 'value': 6 },
-    //       { 'name': 'Internal Rejection', 'value': 2 },
-    //       { 'name': 'Closed', 'value': 7 }
-    //     ]
-    //   },
-    //   {
-    //     'name': 'Virtusa',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 12 },
-    //       { 'name': 'In Progress', 'value': 2 },
-    //       { 'name': 'Client Rejection', 'value': 6 },
-    //       { 'name': 'Internal Rejection', 'value': 4 },
-    //       { 'name': 'Closed', 'value': 9 }
-    //     ]
-    //   },
-    //   {
-    //     'name': 'HCL',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 4 },
-    //       { 'name': 'In Progress', 'value': 2 },
-    //       { 'name': 'Client Rejection', 'value': 2 },
-    //       { 'name': 'Internal Rejection', 'value': 1 },
-    //       { 'name': 'Closed', 'value': 3 }
-    //     ]
-    //   }
-    // ];
 
     this.teamComparison = [
       {
