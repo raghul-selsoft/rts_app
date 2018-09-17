@@ -149,7 +149,6 @@ export class EditClientComponent implements OnInit {
       enteredBy: this.rtsUserId,
       clientId: this.clientId,
       clientRecuriters: form.value.units,
-      // ccRecuriters: form.value.ccUnits,
     };
 
     if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {

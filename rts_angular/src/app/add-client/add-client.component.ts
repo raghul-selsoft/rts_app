@@ -20,7 +20,7 @@ export class AddClientComponent implements OnInit {
   private rtsCompanyId: any;
 
   public myForm: FormGroup;
-  private isCcEmpty: any;
+  private isCcEmpty: boolean;
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
