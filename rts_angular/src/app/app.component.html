@@ -99,6 +99,9 @@
   <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
     <ul class="nav nav-taps">
       <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/recruiter-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">

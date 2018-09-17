@@ -38,6 +38,19 @@ export class RecruiterDashboardComponent implements OnInit {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
   };
 
+  colorSchemePie = {
+    domain: ['#b24348', '#f3a043', '#f8c644', '#d0d864', '#d05577', '#d14e46']
+  };
+
+  colorSchemeMultiBar1 = {
+    domain: ['#08B3E5', '#0FBED8', '#14C9CB', '#990A17', '#22E4AC']
+  };
+
+  fromDate: any;
+  totalSubmissionByTeam: any;
+  totalSubmission: any;
+  totalSubmissionStatus: any;
+
   constructor(
     private loggedUser: LoggedUserService,
     private graphService: GraphService,
@@ -50,6 +63,85 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
+    this.fromDate = this.currentDate;
+    this.getRecruiterTeamStatus();
+    this.getRecruiterTeamSubmissions();
   }
+
+  dateFilter() {
+    this.ngProgress.start();
+    this.getRecruiterTeamStatus();
+    this.getRecruiterTeamSubmissions();
+  }
+
+  getRecruiterTeamStatus() {
+    this.totalSubmissionStatus = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.recruiterTeamStatus(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.totalSubmissionStatus = data.teamSubmission;
+            for (const team of this.totalSubmissionStatus) {
+              for (const series of team.series) {
+                series.extra = {
+                  teamId: team.teamId
+                };
+              }
+            }
+          }
+        });
+  }
+
+  getRecruiterTeamSubmissions() {
+    this.totalSubmissionByTeam = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+    this.totalSubmission = 0;
+
+    this.graphService.recruiterTeamSubmissions(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.totalSubmissionByTeam = data.userSubmissions;
+            for (const count of this.totalSubmissionByTeam) {
+              this.totalSubmission = this.totalSubmission + count.value;
+              count.extra = {
+                teamId: count.teamId
+              };
+            }
+          }
+        });
+  }
+
+  onTeamSelect(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
+  }
+
+  onTeamSubmissionStatus(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
+  }
+
+
 
 }
