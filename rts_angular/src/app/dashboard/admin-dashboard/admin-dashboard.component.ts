@@ -26,7 +26,6 @@ export class AdminDashboardComponent implements OnInit {
   showDataLabel = true;
   show = true;
 
-  // Remove this after implementing the chart.
   clientWise: any[];
   teamComparison: any[];
   recruiterComparison: any[];
