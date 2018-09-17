@@ -65,11 +65,13 @@ export class AccMgrDashboardComponent implements OnInit {
     this.ngProgress.start();
     this.fromDate = this.currentDate;
     this.getTeamGraphDetails();
+    this.getUserGraphDetails();
   }
 
   dateFilter() {
     this.ngProgress.start();
     this.getTeamGraphDetails();
+    this.getUserGraphDetails();
   }
 
   getTeamGraphDetails() {
@@ -88,7 +90,6 @@ export class AccMgrDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.totalSubmissionByTeam = data.teamSubmission;
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
@@ -107,6 +108,33 @@ export class AccMgrDashboardComponent implements OnInit {
         });
   }
 
+  getUserGraphDetails() {
+    this.recruitersSubmissions = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.userGraphDetails(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.recruitersSubmissions = data.userSubmissions;
+            for (const count of this.recruitersSubmissions) {
+              count.extra = {
+                userId: count.userId
+              };
+            }
+          }
+        });
+  }
+
+
   onTeamSelect(event) {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
@@ -117,5 +145,11 @@ export class AccMgrDashboardComponent implements OnInit {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
+  }
+
+  onUserSelect(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['user-submisson', event.extra.userId, fromDate, toDate]);
   }
 }
