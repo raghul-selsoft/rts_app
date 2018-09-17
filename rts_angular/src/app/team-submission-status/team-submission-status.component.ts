@@ -26,7 +26,8 @@ export class TeamSubmissionStatusComponent implements OnInit {
   private selectedTeam: any;
   private selectedStatus: any;
   private filteredRequirements: any;
-  teamName: any;
+  private teamName: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,6 +38,7 @@ export class TeamSubmissionStatusComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
