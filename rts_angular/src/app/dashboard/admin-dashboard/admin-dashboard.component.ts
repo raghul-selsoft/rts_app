@@ -157,6 +157,7 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.teamComparison = data.teamSubmission;
             for (const team of this.teamComparison) {
               for (const series of team.series) {
@@ -281,7 +282,6 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.clientOpenRequitements = data.clientRequirements;
             for (const count of this.clientOpenRequitements) {
               count.extra = {
