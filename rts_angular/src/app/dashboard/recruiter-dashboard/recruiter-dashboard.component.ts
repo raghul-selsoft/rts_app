@@ -122,7 +122,6 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.totalSubmissionByTeam = data.userSubmissions;
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
@@ -148,6 +147,7 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.interviewReport = data.submissionReport;
             this.interviewReportLength = this.interviewReport.length;
           }

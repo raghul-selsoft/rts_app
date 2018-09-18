@@ -127,7 +127,6 @@ export class AccMgrDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.recruitersSubmissions = data.userSubmissions;
             for (const count of this.recruitersSubmissions) {
               count.extra = {
@@ -152,6 +151,7 @@ export class AccMgrDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.interviewReport = data.submissionReport;
             this.interviewReportLength = this.interviewReport.length;
           }
