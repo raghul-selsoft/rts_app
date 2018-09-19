@@ -131,15 +131,7 @@ export class RequirementsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     }
-
-    if (this.userRole === 'ADMIN') {
-      this.getAllRequirements();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
-      this.getAllRequirementsForUser();
-    }
-
+    this.selectedRequirementsDetails(this.requirements);
   }
 
   filterByDate() {
