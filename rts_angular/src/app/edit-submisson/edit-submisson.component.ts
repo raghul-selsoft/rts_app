@@ -651,6 +651,7 @@ export class EditSubmissonComponent implements OnInit {
 
     if (this.sendToClient) {
       submission.status = 'APPROVED';
+      submission.isApprovedByAdmin = true;
     } else {
       submission.status = form.value.status;
     }
