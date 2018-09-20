@@ -78,14 +78,14 @@ export class EditRequirementComponent implements OnInit {
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
     this.immigration = [
-      { 'id': 'GC', 'value': 'GC' },
-      { 'id': 'CITIZEN', 'value': 'CITIZEN' },
-      { 'id': 'H1B', 'value': 'H1B' },
-      { 'id': 'W2_1099', 'value': 'W2/1099' },
-      { 'id': 'OPT_CPT', 'value': 'OPT/CPT' },
-      { 'id': 'EAD', 'value': 'EAD' },
-      { 'id': 'H4AD', 'value': 'H4AD' },
-      { 'id': 'TN', 'value': 'TN' },
+      { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
+      { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
+      { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
+      { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
+      { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
+      { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
+      { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
+      { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
     ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
@@ -207,7 +207,6 @@ export class EditRequirementComponent implements OnInit {
                 this.selectedTeamUsers.push(user);
               }
             }
-            console.log(this.selectedRequirement);
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
@@ -265,7 +264,6 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
