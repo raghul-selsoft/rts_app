@@ -85,6 +85,7 @@ export class EditRequirementComponent implements OnInit {
       { 'id': 'OPT_CPT', 'value': 'OPT/CPT' },
       { 'id': 'EAD', 'value': 'EAD' },
       { 'id': 'H4AD', 'value': 'H4AD' },
+      { 'id': 'TN', 'value': 'TN' },
     ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
@@ -132,6 +133,7 @@ export class EditRequirementComponent implements OnInit {
       OPT_CPT: [''],
       EAD: [''],
       H4AD: [''],
+      TN: [''],
       otherTechnology: [''],
       recruitersName: ['']
     });
@@ -205,6 +207,7 @@ export class EditRequirementComponent implements OnInit {
                 this.selectedTeamUsers.push(user);
               }
             }
+            console.log(this.selectedRequirement);
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
@@ -239,6 +242,8 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.EAD.setValue('EAD');
               } else if (value === 'H4AD') {
                 this.myForm.controls.H4AD.setValue('H4AD');
+              } else if (value === 'TN') {
+                this.myForm.controls.TN.setValue('TN');
               }
             }
           }
@@ -260,6 +265,7 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
     }
+    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
