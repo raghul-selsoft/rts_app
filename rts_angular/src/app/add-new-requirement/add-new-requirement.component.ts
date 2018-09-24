@@ -252,13 +252,11 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    console.log(data);
     if (this.selctedVisaStatus.indexOf(data) === -1) {
       this.selctedVisaStatus.push(data);
     } else {
       this.selctedVisaStatus.splice(this.selctedVisaStatus.indexOf(data), 1);
     }
-    console.log(this.selctedVisaStatus);
   }
 
   getOtherImmigration(data) {
