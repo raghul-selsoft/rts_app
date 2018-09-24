@@ -70,16 +70,6 @@ export class AddNewRequirementComponent implements OnInit {
     this.recruitersArray = [];
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    // this.immigration = [
-    //   { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
-    //   { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
-    //   { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
-    //   { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
-    //   { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
-    //   { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
-    //   { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
-    //   { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
-    // ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -277,7 +267,7 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.isOtherImmigration = false;
     }
-     }
+  }
 
   changePositionName(event) {
     if (event === 'other') {
