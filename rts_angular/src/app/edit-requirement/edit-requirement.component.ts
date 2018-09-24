@@ -178,16 +178,15 @@ export class EditRequirementComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      requirementId: this.requirementId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            this.selectedRequirement = data.requirement;
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.selctedVisaStatus = this.selectedRequirement.visaStatus;
