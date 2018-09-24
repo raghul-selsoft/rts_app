@@ -45,7 +45,7 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedRecruites: any;
   private selectedClient: any;
   isOtherImmigration: boolean;
-  visaStatus: any;
+  selctedVisaStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -66,21 +66,20 @@ export class AddNewRequirementComponent implements OnInit {
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
+    this.selctedVisaStatus = [];
     this.recruitersArray = [];
-    this.visaStatus = [];
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    this.immigration = [
-      { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
-      { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
-      { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
-      { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
-      { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
-      { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
-      { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
-      { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
-      // { 'id': 'other', 'value': 'OTHER', 'name': 'OTHER' },
-    ];
+    // this.immigration = [
+    //   { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
+    //   { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
+    //   { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
+    //   { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
+    //   { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
+    //   { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
+    //   { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
+    //   { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
+    // ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -142,6 +141,7 @@ export class AddNewRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.immigration = data.visaStatus;
           }
         });
   }
@@ -262,11 +262,13 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.visaStatus.indexOf(data) === -1) {
-      this.visaStatus.push(data);
+    console.log(data);
+    if (this.selctedVisaStatus.indexOf(data) === -1) {
+      this.selctedVisaStatus.push(data);
     } else {
-      this.visaStatus.splice(this.visaStatus.indexOf(data), 1);
+      this.selctedVisaStatus.splice(this.selctedVisaStatus.indexOf(data), 1);
     }
+    console.log(this.selctedVisaStatus);
   }
 
   getOtherImmigration(data) {
@@ -275,18 +277,7 @@ export class AddNewRequirementComponent implements OnInit {
     } else {
       this.isOtherImmigration = false;
     }
-    // if (this.otherVisa.indexOf(data) === -1) {
-    //   this.otherVisa.push(data);
-    // } else {
-    //   this.otherVisa.splice(this.otherVisa.indexOf(data), 1);
-    // }
-    // console.log(this.otherVisa);
-    // if (this.otherVisa[0] === 'other') {
-    //   this.isOtherImmigration = true;
-    // } else {
-    //   this.isOtherImmigration = false;
-    // }
-  }
+     }
 
   changePositionName(event) {
     if (event === 'other') {
@@ -359,7 +350,7 @@ export class AddNewRequirementComponent implements OnInit {
 
   addNewRequirement(form: FormGroup) {
     this.immigrationByUser = [];
-    for (const label of this.visaStatus) {
+    for (const label of this.selctedVisaStatus) {
       this.immigrationByUser.push({ visaId: label });
     }
     if (this.isOtherImmigration) {
