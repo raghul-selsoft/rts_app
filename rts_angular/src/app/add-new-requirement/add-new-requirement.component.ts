@@ -44,6 +44,8 @@ export class AddNewRequirementComponent implements OnInit {
   private recruitersArray: any;
   private selectedRecruites: any;
   private selectedClient: any;
+  isOtherImmigration: boolean;
+  visaStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -65,9 +67,20 @@ export class AddNewRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
     this.recruitersArray = [];
+    this.visaStatus = [];
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4EAD', 'TN'];
+    this.immigration = [
+      { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
+      { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
+      { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
+      { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
+      { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
+      { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
+      { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
+      { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
+      // { 'id': 'other', 'value': 'OTHER', 'name': 'OTHER' },
+    ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -98,7 +111,8 @@ export class AddNewRequirementComponent implements OnInit {
       comments: [''],
       notes: [''],
       otherTechnology: [''],
-      recruitersName: ['']
+      recruitersName: [''],
+      otherImmigration: ['']
     });
     this.dropdownSettings = {
       singleSelection: false,
@@ -248,11 +262,30 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.immigrationByUser.indexOf(data) === -1) {
-      this.immigrationByUser.push(data);
+    if (this.visaStatus.indexOf(data) === -1) {
+      this.visaStatus.push(data);
     } else {
-      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
+      this.visaStatus.splice(this.visaStatus.indexOf(data), 1);
     }
+  }
+
+  getOtherImmigration(data) {
+    if (data.checked) {
+      this.isOtherImmigration = true;
+    } else {
+      this.isOtherImmigration = false;
+    }
+    // if (this.otherVisa.indexOf(data) === -1) {
+    //   this.otherVisa.push(data);
+    // } else {
+    //   this.otherVisa.splice(this.otherVisa.indexOf(data), 1);
+    // }
+    // console.log(this.otherVisa);
+    // if (this.otherVisa[0] === 'other') {
+    //   this.isOtherImmigration = true;
+    // } else {
+    //   this.isOtherImmigration = false;
+    // }
   }
 
   changePositionName(event) {
@@ -325,6 +358,13 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   addNewRequirement(form: FormGroup) {
+    this.immigrationByUser = [];
+    for (const label of this.visaStatus) {
+      this.immigrationByUser.push({ visaId: label });
+    }
+    if (this.isOtherImmigration) {
+      this.immigrationByUser.push({ visaName: form.value.otherImmigration });
+    }
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
       this.toastr.error('Client Rate should not be empty', '', {
@@ -341,12 +381,13 @@ export class AddNewRequirementComponent implements OnInit {
       });
       return false;
     }
+
     this.ngProgress.start();
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
       requirementType: this.requirementByUser,
-      immigrationRequirement: this.immigrationByUser,
+      visaStatus: this.immigrationByUser,
       positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
