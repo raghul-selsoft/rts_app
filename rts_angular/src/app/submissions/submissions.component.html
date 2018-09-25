@@ -80,14 +80,16 @@
         </div>
       </div>
       <div class="col-4 mt-3">
-        <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
-          <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
-            (select)="onUserSelect($event)">
-          </ngx-charts-bar-vertical>
+        <div class="row">
+          <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
+            <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
+              [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+              (select)="onUserSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+          <button *ngIf="!searchBox" class="btn btn-sm btn-primary mt-2" (click)="graphExpand();">Graph Expand</button>
         </div>
-        <button *ngIf="!searchBox" class="btn btn-sm btn-primary" (click)="graphExpand();">Graph Expand</button>
 
         <div class="submissions search-container" *ngIf="searchBox">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
