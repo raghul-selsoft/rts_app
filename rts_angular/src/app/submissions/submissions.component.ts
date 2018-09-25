@@ -8,6 +8,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
+import { MatDialog } from '@angular/material';
+
+export interface DialogData {
+  chartData: any;
+}
 
 @Component({
   selector: 'app-submissions',
@@ -74,7 +80,8 @@ export class SubmissionsComponent implements OnInit {
     private hideComponent: HideComponentService,
     private formBuilder: FormBuilder,
     private ngProgress: NgProgress,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -437,5 +444,18 @@ export class SubmissionsComponent implements OnInit {
     // const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     // const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     // this.router.navigate(['recruiter-submissions-status', event.extra.userId, event.name, fromDate, toDate]);
+  }
+
+  graphExpand() {
+    const dialogRef = this.dialog.open(GraphExpansationComponent, {
+      height: '800px',
+      width: '1200px',
+      data: { chartData: this.chartData, fromDate: this.startDate, toDate: this.currentDate, recruiter: this.recruiter }
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('dialog closed');
+    // });
+
   }
 }

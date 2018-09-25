@@ -87,6 +87,8 @@
             (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
+        <button *ngIf="!searchBox" class="btn btn-sm btn-primary" (click)="graphExpand();">Graph Expand</button>
+
         <div class="submissions search-container" *ngIf="searchBox">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
             [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
