@@ -54,7 +54,7 @@ export class SubmissionsComponent implements OnInit {
   private isTeam: boolean;
   private isRecruiter: boolean;
   private filter: string;
-  private startDate: any;
+  // private startDate: any;
   private clients: any;
   private teams: any;
   private teamUsers: any;
@@ -73,6 +73,7 @@ export class SubmissionsComponent implements OnInit {
   team: string;
   client: string;
   status: string;
+  fromDate: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -90,6 +91,7 @@ export class SubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.selectedRequirements = [];
     this.submissionDetails = [];
+    this.fromDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
     this.submissionStatus = [
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
@@ -120,14 +122,14 @@ export class SubmissionsComponent implements OnInit {
       toDate: ['']
     });
 
-    this.startDate = this.currentDate;
+    // this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getAllSubmissions();
   }
 
 
   getAllSubmissions() {
-    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     let userId = {
@@ -140,7 +142,7 @@ export class SubmissionsComponent implements OnInit {
       SubmissionsComponent.userDetails = userId;
     } else {
       userId = SubmissionsComponent.userDetails;
-      this.startDate = userId.fromDate;
+      this.fromDate = moment(userId.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -441,7 +443,7 @@ export class SubmissionsComponent implements OnInit {
   }
 
   onUserSelect(event) {
-    // const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    // const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     // const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     // this.router.navigate(['recruiter-submissions-status', event.extra.userId, event.name, fromDate, toDate]);
   }
@@ -450,7 +452,7 @@ export class SubmissionsComponent implements OnInit {
     const dialogRef = this.dialog.open(GraphExpansationComponent, {
       height: '800px',
       width: '1200px',
-      data: { chartData: this.chartData, fromDate: this.startDate, toDate: this.currentDate, recruiter: this.recruiter }
+      data: { chartData: this.chartData, fromDate: this.fromDate, toDate: this.currentDate, recruiter: this.recruiter }
     });
 
     // dialogRef.afterClosed().subscribe(result => {
