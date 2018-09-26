@@ -188,9 +188,6 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Interview', 'value': 'INTERVIEWED' },
         { 'name': 'Hold', 'value': 'HOLD' }
       ];
-      this.getAllRequirements();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllRequirementsForLeadUserAndAccountManager();
     }
 
     if (this.userRole === 'TL') {
@@ -269,6 +266,11 @@ export class EditSubmissonComponent implements OnInit {
           this.immigration = data.visaStatus;
           for (const immigration of this.immigration) {
             immigration.isChecked = false;
+          }
+          if (this.userRole === 'ADMIN') {
+            this.getAllRequirements();
+          } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+            this.getAllRequirementsForLeadUserAndAccountManager();
           }
         }
       });
@@ -446,9 +448,9 @@ export class EditSubmissonComponent implements OnInit {
             this.clientRecruiterEmail = this.recruiterEmail.join();
 
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
-            for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
-                immigration.isChecked = true;
+            for (const visaStatus of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, visaStatus.visaId)) {
+                visaStatus.isChecked = true;
               }
             }
 
