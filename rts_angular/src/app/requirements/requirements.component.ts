@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../Services/user.service';
 import { Sort } from '@angular/material';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-requirements',
@@ -89,6 +90,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
     this.hideComponent.displayComponent = true;
 
