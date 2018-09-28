@@ -49,7 +49,17 @@ export class RequirementsComponent implements OnInit {
   private clientStatus: any;
 
   public static userDetails: any;
+  public static filterBy: any;
+  public static recruiter: any;
+  public static team: any;
+  public static status: any;
+  public static client: any;
+  public static clientStatus: any;
   private fromDate: Date;
+  recruiter: string;
+  team: string;
+  client: string;
+  status: string;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -109,6 +119,7 @@ export class RequirementsComponent implements OnInit {
 
 
   filterBy(value) {
+    RequirementsComponent.filterBy = value;
 
     if (value === 'status') {
       this.isClientStatus = false;
@@ -141,12 +152,26 @@ export class RequirementsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     }
+    this.recruiter = '';
+    this.status = '';
+    this.team = '';
+    this.client = '';
     this.selectedRequirementsDetails(this.requirements);
   }
 
   filterByDate() {
 
     RequirementsComponent.userDetails = undefined;
+    RequirementsComponent.recruiter = undefined;
+    RequirementsComponent.status = undefined;
+    RequirementsComponent.client = undefined;
+    RequirementsComponent.team = undefined;
+    RequirementsComponent.clientStatus = undefined;
+    this.recruiter = '';
+    this.team = '';
+    this.client = '';
+    this.status = '';
+    this.clientStatus = '';
     this.filterBy('');
     this.ngProgress.start();
 
@@ -161,6 +186,8 @@ export class RequirementsComponent implements OnInit {
   }
 
   selectStatus(event) {
+    RequirementsComponent.status = event;
+    this.status = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -172,6 +199,8 @@ export class RequirementsComponent implements OnInit {
   }
 
   selectTeam(event) {
+    RequirementsComponent.team = event;
+    this.team = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -183,20 +212,27 @@ export class RequirementsComponent implements OnInit {
   }
 
   selectClient(event) {
-    this.clientStatus = '';
+    RequirementsComponent.client = event;
+    this.client = event;
     this.isClientStatus = true;
     if (event === 'selectAll') {
+      this.clientStatus = '';
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { clientId: event });
       this.selectedClientRequirements = this.selectedRequirements;
+      if (RequirementsComponent.clientStatus !== undefined) {
+        this.selectClientStatus(RequirementsComponent.clientStatus);
+      }
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }
 
   selectClientStatus(event) {
+    RequirementsComponent.clientStatus = event;
+    this.clientStatus = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.selectedClientRequirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -208,6 +244,8 @@ export class RequirementsComponent implements OnInit {
   }
 
   selectRecruiter(event) {
+    RequirementsComponent.recruiter = event;
+    this.recruiter = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -342,6 +380,19 @@ export class RequirementsComponent implements OnInit {
         require.age = months + ' months ago';
       } else {
         require.age = years + ' years ago';
+      }
+    }
+    if (RequirementsComponent.filterBy !== undefined) {
+      this.filter = RequirementsComponent.filterBy;
+      this.filterBy(RequirementsComponent.filterBy);
+      if (RequirementsComponent.filterBy === 'recruiter') {
+        this.selectRecruiter(RequirementsComponent.recruiter);
+      } else if (RequirementsComponent.filterBy === 'status') {
+        this.selectStatus(RequirementsComponent.status);
+      } else if (RequirementsComponent.filterBy === 'team') {
+        this.selectTeam(RequirementsComponent.team);
+      } else if (RequirementsComponent.filterBy === 'client') {
+        this.selectClient(RequirementsComponent.client);
       }
     }
     this.sortedData = this.selectedRequirements.slice();

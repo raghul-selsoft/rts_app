@@ -53,6 +53,11 @@ export class AppComponent implements DoCheck, OnDestroy {
     AdminDashboardComponent.graphData = undefined;
     AccMgrDashboardComponent.graphData = undefined;
     GenerateReportComponent.userDetails = undefined;
+    RequirementsComponent.recruiter = undefined;
+    RequirementsComponent.status = undefined;
+    RequirementsComponent.client = undefined;
+    RequirementsComponent.team = undefined;
+    RequirementsComponent.clientStatus = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',
