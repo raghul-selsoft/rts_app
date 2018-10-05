@@ -209,7 +209,7 @@ export class InterviewHistoryComponent implements OnInit {
     }
 
     sortData(sort: Sort) {
-        const data = this.interviewReport.slice();
+        const data = this.selectedInterviews.slice();
         if (!sort.active || sort.direction === '') {
             this.sortedData = data;
             return;
