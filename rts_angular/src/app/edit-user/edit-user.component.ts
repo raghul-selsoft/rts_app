@@ -36,6 +36,7 @@ export class EditUserComponent implements OnInit {
   private userRole: string;
   private rtsCompanyId: any;
   private phoneNumber: any;
+  userStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -94,6 +95,7 @@ export class EditUserComponent implements OnInit {
             this.ngProgress.done();
             this.userDetails = data.users;
             this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
@@ -116,6 +118,7 @@ export class EditUserComponent implements OnInit {
             this.ngProgress.done();
             this.userDetails = data.users;
             this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
