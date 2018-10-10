@@ -47,7 +47,7 @@ export class RecruiterDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar1 = {
-    domain: ['#5BB2A7', '#0FBED8', '#990A17', '#22E4AC', '#7ed3ed']
+    domain: ['#5BB2A7', '#0FBED8', '#f3a043', '#990A17', '#22E4AC']
   };
 
   fromDate: any;
