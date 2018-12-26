@@ -363,7 +363,6 @@ export class RequirementsComponent implements OnInit {
     this.requirements = data.requirements;
     this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
-    console.log(this.selectedRequirements);
 
     for (const requirement of this.selectedRequirements) {
       this.allocationUsers = [];
