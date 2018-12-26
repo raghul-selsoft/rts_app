@@ -54,7 +54,7 @@ export class SubmissionByRequirementComponent implements OnInit {
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.requirements = data.requirements;
+            // this.requirements = data.requirements;
             this.selectedRequirement = data.requirement;
             this.submissionsLength = this.selectedRequirement.submissions.length;
           }
