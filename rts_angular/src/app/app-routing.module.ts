@@ -43,6 +43,7 @@ import { InterviewHistoryComponent } from './interview-history/interview-history
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { CandidateReportComponent } from './candidate-report/candidate-report.component';
 import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
+import { JoiningDateComponent } from './joining-date/joining-date.component';
 
 
 export const appRoutes: Routes = [
@@ -91,6 +92,7 @@ export const appRoutes: Routes = [
   { path: 'interview-history', component: InterviewHistoryComponent },
   { path: 'candidate-report', component: CandidateReportComponent },
   { path: 'in-progress-interviews', component: InProgressInterviewsComponent },
+  { path: 'joining-date', component: JoiningDateComponent },
 ];
 
 
