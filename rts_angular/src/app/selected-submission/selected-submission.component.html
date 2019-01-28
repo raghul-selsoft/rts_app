@@ -3,22 +3,7 @@
 <h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / OnBoard Reminder</h2>
 <div class="utility-container">
 
-  <div class="filter-container">
-    <div class="row">
-      <div class="col-2">
-        <mat-form-field>
-          <input matInput [matDatepicker]="fromDate" [(ngModel)]="startDate" placeholder="From Date">
-          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-          <mat-datepicker #fromDate></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col-4 mt-3">
-        <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-5 pt-5">
+  <div>
     <h6>Total {{interviewsLength}} Results</h6>
   </div>
 
@@ -31,6 +16,7 @@
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="joiningDate">Joining Date</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
+          <th mat-sort-header="status">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -40,6 +26,7 @@
           <td>{{submission.clientName}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>
     </table>
@@ -54,6 +41,7 @@
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="joiningDate">Joining Date</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
+          <th mat-sort-header="status">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -63,6 +51,7 @@
           <td>{{submission.clientName}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>
     </table>

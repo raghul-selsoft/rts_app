@@ -7,19 +7,20 @@ import { NgProgress } from 'ngx-progressbar';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-joining-date',
-  templateUrl: './joining-date.component.html',
-  styleUrls: ['./joining-date.component.css'],
+  selector: 'app-selected-submission',
+  templateUrl: './selected-submission.component.html',
+  styleUrls: ['./selected-submission.component.css'],
   providers: [LoggedUserService]
 })
-export class JoiningDateComponent implements OnInit {
+export class SelectedSubmissionComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
   sortedData: any[];
   onBoardCandidates: any;
   interviewsLength: any;
-  private startDate: Date;
+  selectedSubmissions: any;
+  startDate: Date;
   userRole: any;
 
   constructor(
@@ -37,35 +38,30 @@ export class JoiningDateComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    this.getOnboardReminder();
+    this.getAllSelectedSubmissions();
   }
 
-  getOnboardReminder() {
+  getAllSelectedSubmissions() {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const userId = {
       userId: this.rtsUserId,
       fromDate: fromDate
     };
 
-    this.submissonService.GetAllOnBoardReminder(userId)
+    this.submissonService.GetAllSelectedSubmission(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.onBoardCandidates = data.submissionReport;
-            this.interviewsLength = this.onBoardCandidates.length;
-            this.sortedData = this.onBoardCandidates.slice();
+            this.selectedSubmissions = data.submissionReport;
+            this.interviewsLength = this.selectedSubmissions.length;
+            this.sortedData = this.selectedSubmissions.slice();
           }
         });
   }
 
-  filterByDate() {
-    this.ngProgress.start();
-    this.getOnboardReminder();
-  }
-
   sortData(sort: Sort) {
-    const data = this.onBoardCandidates.slice();
+    const data = this.selectedSubmissions.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -79,6 +75,7 @@ export class JoiningDateComponent implements OnInit {
         case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
         case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
         case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'status': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
         default: return 0;
       }
     });

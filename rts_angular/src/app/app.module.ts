@@ -87,6 +87,7 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
 import { SnackbarComponentComponent } from './snackbar-component/snackbar-component.component';
 import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
 import { JoiningDateComponent } from './joining-date/joining-date.component';
+import { SelectedSubmissionComponent } from './selected-submission/selected-submission.component';
 
 
 @NgModule({
@@ -136,6 +137,7 @@ import { JoiningDateComponent } from './joining-date/joining-date.component';
     SnackbarComponentComponent,
     InProgressInterviewsComponent,
     JoiningDateComponent,
+    SelectedSubmissionComponent,
   ],
   imports: [
     BrowserModule,

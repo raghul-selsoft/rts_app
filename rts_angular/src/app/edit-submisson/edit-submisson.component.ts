@@ -73,6 +73,7 @@ export class EditSubmissonComponent implements OnInit {
     private clientCC: any;
     private clientCcArray: any;
     isSelected: boolean;
+    joinDate: Date;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -440,6 +441,12 @@ export class EditSubmissonComponent implements OnInit {
                         } else {
                             this.isSubmitted = false;
                         }
+                        if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
+                            this.isSelected = true;
+                            this.joinDate = moment(this.selectedSubmission.joiningDateStr, 'YYYY-MM-DD').toDate();
+                        } else {
+                            this.isSelected = false;
+                        }
                         if (this.selectedSubmission.candidate.c2C) {
                             this.myForm.controls.c2c.setValue('Yes');
                             this.isC2c = true;
@@ -668,7 +675,7 @@ export class EditSubmissonComponent implements OnInit {
             candidateId: candidateId,
             approvalUserId: this.rtsUserId,
             interviewDetails: form.value.units,
-            joiningDateStr:form.value.joiningDate
+            joiningDateStr: form.value.joiningDate
         };
 
         if (this.sendToClient) {
