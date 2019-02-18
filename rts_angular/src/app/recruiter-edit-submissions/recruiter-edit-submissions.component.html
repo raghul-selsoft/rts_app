@@ -70,7 +70,7 @@
                 <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
               </select>
               <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
-                formControlName="status" ngModel="{{selectedSubmission.status}}" required>
+                formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}" required>
                 <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
                 <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
                 <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
@@ -86,6 +86,7 @@
                 <option value="RESCHEDULED">Rescheduled</option>
                 <option value="AWAITING_FOR_FEEDBACK">Awaiting For Feedback</option>
                 <option value="HOLD">Hold</option>
+                <option value="OTHER_REJECTION">Other Rejection</option>
               </select>
             </div>
 

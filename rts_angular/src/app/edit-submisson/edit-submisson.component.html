@@ -22,9 +22,9 @@
               </select>
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
+            <div class="col-sm-4" *ngIf="selectedRequirement">
               <label for="clientRate" class="form-label">Client Rate:</label>
-              <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}"
+              <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
                 readonly>
             </div>
 
