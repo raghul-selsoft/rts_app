@@ -152,7 +152,7 @@ export class AdminDashboardComponent implements OnInit {
                 series.extra = {
                   userId: recruiter.userId
                 };
-                if(series.name === 'Submitted'){
+                if (series.name === 'Submitted') {
                   recruiter.submittedCount = series.value
                 }
               }
@@ -166,7 +166,6 @@ export class AdminDashboardComponent implements OnInit {
                 }
               }
             }
-            console.log(this.recruiterComparison);           
             this.sortedRecruiterComparationData = this.recruiterComparison.slice();
           }
         });
