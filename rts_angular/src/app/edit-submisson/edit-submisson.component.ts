@@ -819,6 +819,9 @@ export class EditSubmissonComponent implements OnInit {
             dateOfBirth: form.value.dateOfBirth,
             currentProject: form.value.currentProject,
             totalUsExperience: form.value.totalUsExperience,
+            enteredBy: {
+                userId: this.rtsUserId
+            }
         };
 
         if (this.isWorkedWithClient) {
