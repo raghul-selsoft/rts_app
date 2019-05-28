@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -88,6 +88,9 @@ import { SnackbarComponentComponent } from './snackbar-component/snackbar-compon
 import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
 import { JoiningDateComponent } from './joining-date/joining-date.component';
 import { SelectedSubmissionComponent } from './selected-submission/selected-submission.component';
+import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SendMailComponent } from './send-mail/send-mail.component';
 
 
 @NgModule({
@@ -138,6 +141,8 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
     InProgressInterviewsComponent,
     JoiningDateComponent,
     SelectedSubmissionComponent,
+    SearchCandidatesComponent,
+    SendMailComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,11 +155,12 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
     MatSnackBarModule,
     MatDatepickerModule,
     MatInputModule,
+    MatAutocompleteModule,MatOptionModule,
     MatCheckboxModule,
     NativeDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    Ng2SearchPipeModule,
+    Ng2SearchPipeModule,NgSelectModule,
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,

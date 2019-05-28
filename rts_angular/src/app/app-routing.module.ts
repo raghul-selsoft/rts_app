@@ -45,6 +45,8 @@ import { CandidateReportComponent } from './candidate-report/candidate-report.co
 import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
 import { JoiningDateComponent } from './joining-date/joining-date.component';
 import { SelectedSubmissionComponent } from './selected-submission/selected-submission.component';
+import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
+import { SendMailComponent } from './send-mail/send-mail.component';
 
 
 export const appRoutes: Routes = [
@@ -95,6 +97,8 @@ export const appRoutes: Routes = [
   { path: 'in-progress-interviews', component: InProgressInterviewsComponent },
   { path: 'joining-date', component: JoiningDateComponent },
   { path: 'selected-submissions', component: SelectedSubmissionComponent },
+  { path: 'search-candidates', component: SearchCandidatesComponent },
+  { path: 'send-mail', component: SendMailComponent },
 ];
 
 
