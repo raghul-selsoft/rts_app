@@ -2,13 +2,13 @@ a.chart-button{
  color: #50b2eb;
 }
 
-.table_fixed tbody {
+/* table tbody {
     display:block;
     height:250px;
     overflow:auto;
 }
 
-.table_fixed thead,  tr {
+table thead,  tr {
     display:table;
     width:100%;
     table-layout:fixed;
@@ -16,4 +16,4 @@ a.chart-button{
 
 thead {
     width: calc( 100% - 1em )
-}
+} */

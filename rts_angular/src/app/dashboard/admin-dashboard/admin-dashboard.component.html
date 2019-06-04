@@ -36,7 +36,7 @@
           <h2 class="chart-title">{{noSubmissionsRequirementLength}} Reqs. with 0 submissions</h2>
         </div>
         <div class="chart-scroll-wrapper">
-          <table class="table_fixed table-sm table-bordered table-hover">
+          <table class="table table-sm table-bordered table-hover">
             <thead class="table-header">
               <tr>
                 <th>Created On</th>
@@ -123,8 +123,8 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
-        <!-- <div class="chart-scroll-wrapper"> -->
-        <table class="table_fixed table-hover table-bordered table-sm" matSort (matSortChange)="sortTeam($event)">
+        <div class="chart-scroll-wrapper">
+        <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeam($event)">
           <thead class="table-header">
             <tr>
               <th>Team Name</th>
@@ -144,7 +144,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
+        </div>
       </div>
     </div>
     <div class="col-6">
@@ -152,8 +152,8 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team Comparison</h2>
         </div>
-        <!-- <div class="chart-scroll-wrapper"> -->
-        <table class="table_fixed table-hover table-bordered table-sm" matSort
+        <div class="chart-scroll-wrapper">
+        <table class="table table-hover table-bordered table-sm" matSort
           (matSortChange)="sortTeamComparison($event)">
           <thead class="table-header">
             <tr>
@@ -173,7 +173,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
+        </div>
       </div>
     </div>
 
@@ -239,7 +239,7 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Recruiter Comparison Table</h2>
         </div>
-        <!-- <div class="chart-scroll-wrapper"> -->
+        <div class="chart-scroll-wrapper">
         <table class="table_fixed table-hover table-bordered table-sm" matSort
           (matSortChange)="sortRecruiterComparation($event)">
           <thead class="table-header">
@@ -259,7 +259,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -274,7 +274,7 @@
             IN-Progress Interviews</p>
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
-        <!-- <div class="chart-scroll-wrapper"> -->
+        <div class="chart-scroll-wrapper">
         <table class="table_fixed table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
           <thead class="table-header">
             <tr>
@@ -301,7 +301,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
+        </div>
       </div>
     </div>
   </div>
