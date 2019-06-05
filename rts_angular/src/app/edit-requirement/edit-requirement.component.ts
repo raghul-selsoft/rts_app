@@ -9,6 +9,8 @@ import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgProgress } from 'ngx-progressbar';
+import { DeleteRequirementComponent } from '../delete-requirement/delete-requirement.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-edit-requirement',
@@ -67,6 +69,7 @@ export class EditRequirementComponent implements OnInit {
     private userService: UserService,
     private clientService: ClientService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -327,6 +330,19 @@ export class EditRequirementComponent implements OnInit {
 
   deSelectAll() {
     this.myForm.controls.recruitersName.setValue('');
+  }
+
+  deleteRequirement(id) {
+    const dialogRef = this.dialog.open(DeleteRequirementComponent, {
+      width: '500px',
+      data: { requirementId: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('result',result);
+      // this.router.navigate(['requirements']);
+    });
+
   }
 
   updateRequirement(form: FormGroup) {

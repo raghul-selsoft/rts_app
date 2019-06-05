@@ -91,6 +91,8 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
 import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SendMailComponent } from './send-mail/send-mail.component';
+import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
+import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
 
 
 @NgModule({
@@ -143,6 +145,8 @@ import { SendMailComponent } from './send-mail/send-mail.component';
     SelectedSubmissionComponent,
     SearchCandidatesComponent,
     SendMailComponent,
+    DeleteRequirementComponent,
+    DeleteSubmissionComponent,
   ],
   imports: [
     BrowserModule,
