@@ -61,7 +61,7 @@ export class TeamSubmissionsComponent implements OnInit {
 
   getTeamSubmission() {
     const userId = {
-      teamId: this.teamId,
+      teamId: parseInt(this.teamId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };

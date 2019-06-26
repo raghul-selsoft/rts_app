@@ -95,7 +95,8 @@ export class EditUserComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.userDetails = data.users;
-            this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.selectedUser = _.findWhere(this.userDetails, { userId: parseInt(this.userId) });           
+            console.log(this.selectedUser)
             this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
@@ -118,7 +119,7 @@ export class EditUserComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.userDetails = data.users;
-            this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.selectedUser = _.findWhere(this.userDetails, { userId: parseInt(this.userId) });
             this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
@@ -134,7 +135,7 @@ export class EditUserComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DeleteUserComponent, {
       width: '500px',
-      data: { userId: this.userId }
+      data: { userId: parseInt(this.userId) }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -159,7 +160,7 @@ export class EditUserComponent implements OnInit {
       role: form.value.role,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
-      userId: this.userId
+      userId: parseInt(this.userId)
     };
 
     this.userService.editUser(editUser)

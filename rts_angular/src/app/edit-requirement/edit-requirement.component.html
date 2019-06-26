@@ -167,7 +167,7 @@
       <div class="row" *ngIf="selectedRequirement">
         <div class="col-sm-4">
           <label for="team" class="form-label">Select Team:</label>
-          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}"
+          <select name="team" class="form-input" formControlName="team" ngModel="{{teamName}}"
             (change)="selectTeam($event.target.value)" required>
             <option value="">Select</option>
             <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>

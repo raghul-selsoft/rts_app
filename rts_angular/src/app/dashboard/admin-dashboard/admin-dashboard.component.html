@@ -240,7 +240,7 @@
           <h2 class="chart-title">Recruiter Comparison Table</h2>
         </div>
         <div class="chart-scroll-wrapper">
-        <table class="table_fixed table-hover table-bordered table-sm" matSort
+        <table class="table table-hover table-bordered table-sm" matSort
           (matSortChange)="sortRecruiterComparation($event)">
           <thead class="table-header">
             <tr>
@@ -275,7 +275,7 @@
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
         <div class="chart-scroll-wrapper">
-        <table class="table_fixed table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+        <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
           <thead class="table-header">
             <tr>
               <th mat-sort-header="positionName">Position Name</th>
@@ -290,14 +290,14 @@
           </thead>
           <tbody>
             <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-              <td>{{submission.positionName}}</td>
-              <td>{{submission.candidateName}}</td>
-              <td>{{submission.clientName}}</td>
+              <td>{{submission.position.positionName}}</td>
+              <td>{{submission.candidate.name}}</td>
+              <td>{{submission.client.name}}</td>
               <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
               <td>{{submission.interviewLevel}}</td>
-              <td>{{submission.recruiterName}}</td>
-              <td>{{submission.skypeId}}</td>
-              <td>{{submission.phoneNumber}}</td>
+              <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+              <td>{{submission.candidate.skype}}</td>
+              <td>{{submission.candidate.phoneNumber}}</td>
             </tr>
           </tbody>
         </table>

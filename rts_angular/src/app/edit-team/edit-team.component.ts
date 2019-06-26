@@ -96,11 +96,12 @@ export class EditTeamComponent implements OnInit {
 
     this.requirementService.commonDetails(companyId)
       .subscribe(
-        data => {
+        data => { 
           if (data.success) {
             this.ngProgress.done();
             this.teams = data.teams;
-            this.selectedTeam = _.findWhere(this.teams, { teamId: this.teamId });
+            this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(this.teamId) });
+            console.log(this.selectedTeam)
             this.teamName = this.selectedTeam.name;
             if (this.selectedTeam.leadUser !== undefined) {
               this.teamLeadName = this.selectedTeam.leadUser.userId;

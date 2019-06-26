@@ -111,14 +111,14 @@ export class AddTeamComponent implements OnInit {
     this.ngProgress.start();
     this.teamMembers = [];
     for (const recruiter of this.recruitersArray) {
-      this.teamMembers.push(recruiter.user);
+      this.teamMembers.push({ userId: recruiter.user });
     }
 
     const team = {
-      teamName: form.value.teamName,
-      leadUserId: form.value.teamLeadUser,
+      name: form.value.teamName,
+      leadUserId: parseInt(form.value.teamLeadUser),
       otherUsers: this.teamMembers,
-      accountManagerId: form.value.accountManager
+      accountManagerId: parseInt(form.value.accountManager)
     };
 
     this.teamService.addTeam(team)

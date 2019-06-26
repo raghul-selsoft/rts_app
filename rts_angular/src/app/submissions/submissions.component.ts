@@ -210,6 +210,7 @@ export class SubmissionsComponent implements OnInit {
                 this.submissionDetails.push(require);
             }
         }
+       
         for (const count of this.submissionDetails) {
             this.submissionsLength = this.submissionsLength + count.filteredSubmissions.length;
         }

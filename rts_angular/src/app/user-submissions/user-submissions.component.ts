@@ -60,7 +60,7 @@ export class UserSubmissionsComponent implements OnInit {
 
   getUserSubmission() {
     const userId = {
-      userId: this.recruiterId,
+      userId: parseInt(this.recruiterId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };

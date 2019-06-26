@@ -104,6 +104,7 @@ export class EditCandidateComponent implements OnInit {
       totalUsExperience:[''],
     });
     this.getCommonDetails();
+    // this.getCandidateById();
   }
 
   getCommonDetails() {
@@ -136,6 +137,7 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedCandidate = data.candidate;
+            console.log(this.selectedCandidate)
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;
@@ -156,11 +158,11 @@ export class EditCandidateComponent implements OnInit {
             }
             const immigirationStatus = this.selectedCandidate.visaStatus;
             for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+              if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
                 immigration.isChecked = true;
               }
             }
-            this.immigirationStatus = { visaId: immigirationStatus.visaId };
+            this.immigirationStatus = { visaStatusId: immigirationStatus.visaStatusId };
           }
         });
 
@@ -220,7 +222,7 @@ export class EditCandidateComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = { visaId: event };
+      this.immigirationStatus = { visaStatusId: event };
     }
   }
 
@@ -252,7 +254,7 @@ export class EditCandidateComponent implements OnInit {
       anyOffer: form.value.anotherInterviewOffer,
       vacationPlan: form.value.vacationPlans,
       enteredBy: this.rtsUserId,
-      candidateId: this.candidateId,
+      candidateId: parseInt(this.candidateId),
       locationPreferences: form.value.locationPreferences,
       workedAsFullTime: form.value.workedAsFullTime,
       graduationYear: form.value.graduationYear,

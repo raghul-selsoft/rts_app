@@ -307,6 +307,8 @@ export class EditSubmissonComponent implements OnInit {
                             }
                         }
                         this.adminUsersArray = [{ email: 'pushban@selsoftinc.com', firstName: 'Pushban R' }];
+                    this.editSubmission();
+
                     }
                 });
     }
@@ -329,7 +331,7 @@ export class EditSubmissonComponent implements OnInit {
                     // } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
                     //     this.getAllRequirementsForLeadUserAndAccountManager();
                     // }
-                    this.editSubmission();
+                    // this.editSubmission();
                 }
             });
 

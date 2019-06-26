@@ -67,7 +67,8 @@ export class ClientSubmissionStatusComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.clientWiseSubmissionStatus = data.clientSubmissions;
-            this.selectedClient = _.findWhere(this.clientWiseSubmissionStatus, { clientId: this.clientId });
+            this.selectedClient = _.findWhere(this.clientWiseSubmissionStatus, { clientId: parseInt(this.clientId) });
+            console.log(this.selectedClient)
             this.clientName = this.selectedClient.name;
             for (const series of this.selectedClient.series) {
               if (series.name === this.status) {
@@ -76,6 +77,7 @@ export class ClientSubmissionStatusComponent implements OnInit {
             }
             this.submissionDetails = this.selectedStatus.requirements;
             this.filteredRequirements = this.selectedStatus.requirements;
+            console.log(this.submissionDetails)
           }
         });
   }

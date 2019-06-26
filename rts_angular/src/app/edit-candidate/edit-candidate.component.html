@@ -50,7 +50,7 @@
             <label for="immigirationStatus" class="form-label">Immigiration Status:</label>
           </div>
           <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="immigirationStatus">
-            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">
+            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId" [checked]="data.isChecked">
               {{data.visaName}}</mat-radio-button>
           </mat-radio-group>
         </div>

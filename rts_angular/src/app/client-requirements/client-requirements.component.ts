@@ -48,7 +48,7 @@ export class ClientRequirementsComponent implements OnInit {
   getClientRequirements() {
 
     const userId = {
-      clientId: this.clientId,
+      clientId: parseInt(this.clientId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };
