@@ -415,7 +415,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = { visaId: event };
+      this.immigirationStatus = { visaStatusId: event };
     }
   }
 
@@ -516,9 +516,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      enteredBy: {
-        userId: this.rtsUserId
-      }
+      enteredBy: parseInt(this.rtsUserId)
     };
 
     if (this.isWorkedWithClient) {
@@ -543,7 +541,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       }];
     } else {
       candidate.technology = [{
-        technologyId: form.value.editTechnology
+        technologyId: parseInt(form.value.editTechnology)
       }];
     }
 

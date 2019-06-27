@@ -286,14 +286,13 @@ export class EditCandidateComponent implements OnInit {
       candidate.employeeContactEmail = '';
     }
 
-
     if (form.value.technologies === 'other') {
       candidate.technology = [{
         technologyName: form.value.otherTechnology
       }];
     } else {
       candidate.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
 

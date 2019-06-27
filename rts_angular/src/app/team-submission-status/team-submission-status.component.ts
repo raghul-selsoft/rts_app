@@ -71,7 +71,7 @@ export class TeamSubmissionStatusComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.totalSubmissionByTeam = data.teamSubmission;
-            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: this.teamId });
+            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: parseInt(this.teamId) });
             this.teamName = this.selectedTeam.name;
             for (const series of this.selectedTeam.series) {
               if (series.name === this.status) {
@@ -97,7 +97,9 @@ export class TeamSubmissionStatusComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.totalSubmissionStatus = data.teamSubmission;
-            this.selectedTeam = _.findWhere(this.totalSubmissionStatus, { teamId: this.teamId });
+            console.log(this.totalSubmissionStatus)
+            this.selectedTeam = _.findWhere(this.totalSubmissionStatus, { teamId: parseInt(this.teamId) });
+           
             this.teamName = this.selectedTeam.name;
             for (const series of this.selectedTeam.series) {
               if (series.name === this.status) {
@@ -107,6 +109,7 @@ export class TeamSubmissionStatusComponent implements OnInit {
             this.submissionDetails = this.selectedStatus.requirements;
             this.filteredRequirements = this.selectedStatus.requirements;
           }
+          console.log(this.submissionDetails)
         });
   }
 

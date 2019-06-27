@@ -848,7 +848,7 @@ export class EditSubmissonComponent implements OnInit {
             }];
         } else {
             candidate.technology = [{
-                technologyId: form.value.technology
+                technologyId: parseInt(form.value.technology)
             }];
         }
 
