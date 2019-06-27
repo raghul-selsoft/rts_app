@@ -615,7 +615,7 @@ export class EditSubmissonComponent implements OnInit {
     }
 
     removeUploadedFile(media) {
-        this.deletedMediaFiles.push(media.mediaId);
+        this.deletedMediaFiles.push(media.mediaFileId);
         const clear = this.selectedSubmission.mediaFiles.indexOf(media);
         this.selectedSubmission.mediaFiles.splice(clear, 1);
     }

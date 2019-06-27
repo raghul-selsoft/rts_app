@@ -181,7 +181,8 @@ export class EditCandidateComponent implements OnInit {
   }
 
   removeUploadedFile(media) {
-    this.deletedMediaFiles.push(media.mediaId);
+    console.log(media)
+    this.deletedMediaFiles.push(media.mediaFileId);
     const clear = this.selectedCandidate.mediaFiles.indexOf(media);
     this.selectedCandidate.mediaFiles.splice(clear, 1);
   }

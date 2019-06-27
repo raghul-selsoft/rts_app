@@ -57,6 +57,7 @@ export class RequirementDetailComponent implements OnInit {
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedTeam = [];
     this.allocationUsers = [];
     this.selectedRequirement = {};
   }
@@ -122,18 +123,23 @@ export class RequirementDetailComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
+            console.log(this.selectedRequirement)
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
-            this.requirementByUser = this.selectedRequirement.requirementType;
+            this.requirementByUser = this.selectedRequirement.requirementTypes;
             for (const immigration of this.selectedRequirement.visaStatus) {
               this.immigrationByUser.push(immigration.visaName);
             }
-            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
-            if (this.selectedTeam.leadUser !== undefined) {
-              this.selectedTeamUsers.push(this.selectedTeam.leadUser);
-            }
-            for (const user of this.selectedTeam.otherUsers) {
-              this.selectedTeamUsers.push(user);
-            }
+            // if (this.selectedRequirement.team !== undefined) {
+            //   this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.team.teamId });
+            //   if (this.selectedTeam.leadUser !== undefined) {
+            //     this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            //   }
+            //   for (const user of this.selectedTeam.otherUsers) {
+            //     this.selectedTeamUsers.push(user);
+            //   }
+            // }
+            console.log(this.immigrationByUser)
+
             for (const user of this.selectedRequirement.allocationUsers) {
               this.allocationUsers.push(user.firstName + ' ');
 
