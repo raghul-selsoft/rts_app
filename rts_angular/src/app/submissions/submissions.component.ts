@@ -96,20 +96,20 @@ export class SubmissionsComponent implements OnInit {
         this.submissionDetails = [];
         this.fromDate = new Date(Date.now());
         this.currentDate = new Date(Date.now());
-        this.submissionStatus = [
-            { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-            { 'name': 'Submitted', 'value': 'SUBMITTED' },
-            { 'name': 'Approved', 'value': 'APPROVED' },
-            { 'name': 'Rejected', 'value': 'REJECTED' },
-            { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-            { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-            { 'name': 'Closed', 'value': 'CLOSED' },
-            { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-            { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-            { 'name': 'Interview', 'value': 'INTERVIEWED' },
-            { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-            { 'name': 'Hold', 'value': 'HOLD' }
-        ];
+        // this.submissionStatus = [
+        //     { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+        //     { 'name': 'Submitted', 'value': 'SUBMITTED' },
+        //     { 'name': 'Approved', 'value': 'APPROVED' },
+        //     { 'name': 'Rejected', 'value': 'REJECTED' },
+        //     { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+        //     { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+        //     { 'name': 'Closed', 'value': 'CLOSED' },
+        //     { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        //     { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        //     { 'name': 'Interview', 'value': 'INTERVIEWED' },
+        //     { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
+        //     { 'name': 'Hold', 'value': 'HOLD' }
+        // ];
         this.filter = '';
         this.recruiter = '';
         this.status = '';
@@ -228,6 +228,7 @@ export class SubmissionsComponent implements OnInit {
                         this.clients = data.clients;
                         this.teams = data.teams;
                         this.teamUsers = data.myTeamUser;
+                        this.submissionStatus = data.submissionStatus;
                     }
                 });
     }
@@ -309,6 +310,7 @@ export class SubmissionsComponent implements OnInit {
     }
 
     selectStatus(event) {
+        console.log(event)
         SubmissionsComponent.status = event;
         this.status = event;
         this.searchBox = true;
@@ -320,13 +322,15 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
+            console.log(this.requirements)
             for (const require of this.requirements) {
-                const selectedSubmissions = _.where(require.submissions, { status: event });
+                const selectedSubmissions = _.where(require.submissions, { statusId: parseInt(event) });
                 if (selectedSubmissions.length !== 0) {
                     require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);
                 }
             }
+            console.log(this.selectedRequirements)
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -342,10 +346,12 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
+            console.log(this.requirements)
             for (const require of this.requirements) {
                 require.filteredSubmissions = require.submissions;
             }
-            this.selectedRequirements = _.where(this.requirements, { teamId: event });
+            this.selectedRequirements = _.where(this.requirements, { teamId: parseInt(event) });
+            console.log(this.selectedRequirements)
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -364,7 +370,7 @@ export class SubmissionsComponent implements OnInit {
             for (const require of this.requirements) {
                 require.filteredSubmissions = require.submissions;
             }
-            this.selectedRequirements = _.where(this.requirements, { clientId: event });
+            this.selectedRequirements = _.where(this.requirements, { clientId: parseInt(event) });
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -384,7 +390,7 @@ export class SubmissionsComponent implements OnInit {
             this.searchBox = false;
             this.selectedRequirements = [];
             for (const require of this.requirements) {
-                const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
+                const selectedSubmissions = _.where(require.submissions, { enteredBy: parseInt(event) });
                 if (selectedSubmissions.length !== 0) {
                     require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);

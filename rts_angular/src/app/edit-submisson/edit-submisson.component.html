@@ -75,10 +75,11 @@
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="status" class="form-label">Status:</label>
               <select name="status" class="form-input" formControlName="status"
-                (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}" required>
+                (change)="changeStatus($event.target.value);" ngModel="{{status}}" required>
                 <option value="">Select</option>
-                <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-                <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
+                <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}
+                </option>
+                <!-- <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
                 <option *ngIf="selectedSubmission.status === 'TL_APPROVED' && userRole === 'ACC_MGR'"
                   value="TL_APPROVED">TL
                   Approved</option>
@@ -88,19 +89,21 @@
                 <option *ngIf="selectedSubmission.status === 'APPROVED' && userRole === 'TL'" value="APPROVED">Approved
                 </option>
                 <option *ngIf="selectedSubmission.status === 'REJECTED' && userRole === 'TL'" value="REJECTED">Rejected
-                </option>
+                </option> -->
               </select>
             </div>
 
             <div class="col-sm-4" *ngIf="isRejected">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
-              <input
+              <!-- <input
                 *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED' || selectedSubmission.status === 'INTERVIEWED_REJECTED' || selectedSubmission.status === 'OTHER_REJECTION'"
                 type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
                 ngModel="{{selectedSubmission.reasonForRejection}}">
               <input
                 *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED' && selectedSubmission.status !== 'CLIENT_REJECTED' && selectedSubmission.status !== 'INTERVIEWED_REJECTED' && selectedSubmission.status !== 'OTHER_REJECTION'"
-                type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection">
+                type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"> -->
+              <input *ngIf="selectedSubmission" type="text" class="form-input" name="reasonForRejection"
+                formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
@@ -140,7 +143,8 @@
                   <label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
                 </div>
                 <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId"
+                    [checked]="data.isChecked">
                     {{data.visaName}}</mat-radio-button>
                 </mat-radio-group>
               </div>
@@ -394,7 +398,7 @@
                 </div>
                 <mat-radio-group (change)="getImmigiration($event.source.value)"
                   formControlName="candidateImmigirationStatus">
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}
                   </mat-radio-button>
                 </mat-radio-group>
               </div>

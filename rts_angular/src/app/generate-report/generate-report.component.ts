@@ -124,7 +124,7 @@ export class GenerateReportComponent implements OnInit {
       this.selectedSubmissionDetails(this.selectedSubmissions);
     } else {
       this.selectedSubmissions = [];
-      this.selectedSubmissions = _.where(this.approvedsubmissions, { teamId: event });
+      this.selectedSubmissions = _.where(this.approvedsubmissions, { teamId: parseInt(event) });
       this.selectedSubmissionDetails(this.selectedSubmissions);
     }
   }
@@ -135,7 +135,7 @@ export class GenerateReportComponent implements OnInit {
       this.selectedSubmissionDetails(this.selectedSubmissions);
     } else {
       this.selectedSubmissions = [];
-      this.selectedSubmissions = _.where(this.approvedsubmissions, { clientId: event });
+      this.selectedSubmissions = _.where(this.approvedsubmissions, { clientId: parseInt(event) });
       this.selectedSubmissionDetails(this.selectedSubmissions);
     }
   }
@@ -146,7 +146,7 @@ export class GenerateReportComponent implements OnInit {
       this.selectedSubmissionDetails(this.selectedSubmissions);
     } else {
       this.selectedSubmissions = [];
-      this.selectedSubmissions = _.where(this.approvedsubmissions, { recruiterId: event });
+      this.selectedSubmissions = _.where(this.approvedsubmissions, { recruiterId: parseInt(event) });
       this.selectedSubmissionDetails(this.selectedSubmissions);
     }
   }
@@ -281,11 +281,11 @@ export class GenerateReportComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
+        case 'candidateName': return this.compare(a.name, b.name, isAsc);
         case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
-        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'clientName': return this.compare(a.name, b.name, isAsc);
         case 'submissionDate': return this.compare(a.submissionDate, b.submissionDate, isAsc);
-        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'recruiterName': return this.compare(a.firstName, b.firstName, isAsc);
         case 'interviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
         case 'l1': return this.compare(a.dateOfL1, b.dateOfL1, isAsc);
         case 'l2': return this.compare(a.dateOfL2, b.dateOfL2, isAsc);

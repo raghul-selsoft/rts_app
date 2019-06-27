@@ -196,7 +196,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.selectRequiement = data.requirement;
             if (this.selectRequiement !== undefined) {
               this.allRequirements.push(this.selectRequiement);
-              for (const recruiter of this.selectRequiement.toClientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecruiters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -224,9 +224,9 @@ export class AddNewSubmissionsComponent implements OnInit {
                 this.allRequirements.push(require);
               }
             }
-            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: parseInt(this.requirementId) });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.toClientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecruiters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -254,9 +254,9 @@ export class AddNewSubmissionsComponent implements OnInit {
                 this.allRequirements.push(require);
               }
             }
-            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: parseInt(this.requirementId) });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.toClientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecruiters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -283,9 +283,9 @@ export class AddNewSubmissionsComponent implements OnInit {
                 this.allRequirements.push(require);
               }
             }
-            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: parseInt(this.requirementId) });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.toClientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecruiters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -299,8 +299,8 @@ export class AddNewSubmissionsComponent implements OnInit {
   getRequirement(event) {
     this.recruiterName = [];
     this.recruiterEmail = [];
-    this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    for (const recruiter of this.selectRequiement.toClientRecuriters) {
+    this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: parseInt(event) });
+    for (const recruiter of this.selectRequiement.toClientRecruiters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
     }
@@ -372,7 +372,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               immigration.isChecked = false;
             }
             for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+              if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
                 immigration.isChecked = true;
               }
             }
@@ -454,7 +454,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   SubmissionWithCandidate(form: FormGroup, candidateId: any) {
 
     const submission = {
-      requirementId: form.value.requirements,
+      requirementId: parseInt(form.value.requirements),
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       buyingRate: form.value.buyingRate,
@@ -464,7 +464,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
-      candidateId: candidateId
+      candidateId: parseInt(candidateId)
     };
 
     this.submissionService.addSubmission(submission)

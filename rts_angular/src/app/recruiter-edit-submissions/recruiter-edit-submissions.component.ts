@@ -278,7 +278,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
-            for (const recruiter of this.selectedRequirement.toClientRecuriters) {
+            for (const recruiter of this.selectedRequirement.toClientRecruiters) {
               this.recruiterName.push(recruiter.name + ' ');
             }
             this.clientRecruiterName = this.recruiterName.join();
@@ -337,7 +337,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             }
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
             for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+              if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
                 immigration.isChecked = true;
               }
             }
@@ -422,7 +422,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = { visaId: event };
+      this.immigirationStatus = { visaStatusId: event };
     }
   }
 

@@ -94,7 +94,7 @@
             <div><label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -137,7 +137,8 @@
             <label for="technology" class="form-label">Technology:</label>
             <select name="technology" class="form-input" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
               disabled>
-              <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+              <!-- <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option> -->
+              <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
             </select>
           </div>
 
@@ -337,7 +338,7 @@
             <div><label for="editCandidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="editCandidateImmigirationStatus">
-                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}</mat-radio-button>
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>

@@ -134,7 +134,7 @@
                   <label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
                 </div>
                 <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId" [checked]="data.isChecked">
                     {{data.visaName}}</mat-radio-button>
                 </mat-radio-group>
               </div>
@@ -391,7 +391,7 @@
                 </div>
                 <mat-radio-group (change)="getImmigiration($event.source.value)"
                   formControlName="editCandidateImmigirationStatus">
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}
                   </mat-radio-button>
                 </mat-radio-group>
               </div>

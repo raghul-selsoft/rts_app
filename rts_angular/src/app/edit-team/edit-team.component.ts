@@ -96,7 +96,7 @@ export class EditTeamComponent implements OnInit {
 
     this.requirementService.commonDetails(companyId)
       .subscribe(
-        data => { 
+        data => {
           if (data.success) {
             this.ngProgress.done();
             this.teams = data.teams;
@@ -160,15 +160,15 @@ export class EditTeamComponent implements OnInit {
 
     this.teamMembers = [];
     for (const recruiter of this.recruitersArray) {
-      this.teamMembers.push(recruiter.user);
+      this.teamMembers.push({ userId: recruiter.user });
     }
 
     const team = {
-      teamName: form.value.teamName,
-      leadUserId: form.value.teamLeadUser,
+      name: form.value.teamName,
+      leadUserId: parseInt(form.value.teamLeadUser),
       otherUsers: this.teamMembers,
-      accountManagerId: form.value.accountManager,
-      teamId: this.teamId
+      accountManagerId: parseInt(form.value.accountManager),
+      teamId: parseInt(this.teamId)
     };
 
     this.teamService.editTeam(team)
