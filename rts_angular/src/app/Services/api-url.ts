@@ -65,6 +65,7 @@ export class ApiUrl {
     static CandidateFileUpload = 'rtsCandidateMySQL/candidate/fileUpload';   
     static UpdateCandidate = 'rtsCandidateMySQL/candidate/updateCandidate';
     static GetCandidateById = 'rtsCandidateMySQL/candidate/candidateById';
+    static GetCandidateByTechnology = 'rtsCandidateMySQL/candidate/searchByTechnology';
 
     // team api
     static AddTeam = 'rtsTeamMySQL/team/createTeam';

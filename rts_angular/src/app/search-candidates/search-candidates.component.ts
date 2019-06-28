@@ -5,6 +5,7 @@ import * as _ from 'underscore';
 import { RequirementsService } from '../Services/requirements.service';
 import { SendMailComponent } from '../send-mail/send-mail.component';
 import { Router } from '@angular/router';
+import { CandidateService } from '../Services/candidate.service';
 
 
 @Component({
@@ -16,65 +17,29 @@ import { Router } from '@angular/router';
 export class SearchCandidatesComponent implements OnInit {
 
   selected: any[];
-  candidates: any[];
   selectedCandidates: any[];
   rtsUserId: any;
   technologies: any;
   rtsUser: any;
   candidateLength: number;
+  rtsCompanyId: any;
 
   constructor(
     private requirementService: RequirementsService,
+    private candidateService: CandidateService,
     private loggedUser: LoggedUserService,
     private router: Router,
     private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
     this.selected = [];
   }
 
   ngOnInit() {
     this.ngProgress.start();
     this.getCommonDetails();
-    this.candidates = [
-      {
-        "name": "Raghul",
-        "technologyName": "WinAutomation",
-        "technologyId": "5b672ed4c2b46a27f41f2873",
-        "email":"raghul@selsoftinc.com"
-      },
-      {
-        "name": "saba",
-        "technologyName": "iOS, xcode",
-        "technologyId": "5b683e1ac2b46a63ddf115af",
-        "email":"rathina@selsoftinc.com"
-      },
-      {
-        "name": "rathina",
-        "technologyName": "Android",
-        "technologyId": "5b686777c2b46a63ddf115b4",
-        "email":"raghul@selsoftinc.com"
-      },
-      {
-        "name": "rajesh",
-        "technologyName": "Java Developer",
-        "technologyId": "5b6874c2c2b46a63ddf115b8",
-        "email":"rajesh@sel.com"
-      },
-      {
-        "name": "Kumar",
-        "technologyName": "Full Stack update",
-        "technologyId": "5b7a683bc2b46a0d6867e7af",
-        "email":"kumar@sel.com"
-      },
-      {
-        "name": "Vishnu",
-        "technologyName": "SAP",
-        "technologyId": "5b688361c2b46a63ddf115bc",
-        "email":"vishnu@sel.com"
-      },
-    ]
   }
 
   getCommonDetails() {
@@ -93,16 +58,25 @@ export class SearchCandidatesComponent implements OnInit {
   }
 
   getTech() {
-    this.selectedCandidates = [];
+    this.ngProgress.start();
+    const technology = []
     for (const techId of this.selected) {
-      const candidate = _.findWhere(this.candidates, { technologyId: techId })
-      if (candidate !== undefined) {
-        this.selectedCandidates.push(candidate);
-      }
+      technology.push({ technologyId: techId })
     }
-    this.candidateLength = this.selectedCandidates.length;
-    console.log(this.selectedCandidates);
+    const submit = {
+      technology: technology,
+      companyId: this.rtsCompanyId
+    }
 
+    this.candidateService.getCandidateByTechnology(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.selectedCandidates = data.candidates;
+            this.candidateLength = this.selectedCandidates.length;
+          }
+        });
   }
 
   sendMail() {

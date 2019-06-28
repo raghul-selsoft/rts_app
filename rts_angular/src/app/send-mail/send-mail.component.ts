@@ -25,6 +25,7 @@ export class SendMailComponent implements OnInit {
   users: any;
   rtsUserEmail: any;
   selectedCandidates: any[];
+  candidateList: any[];
 
 
   constructor(
@@ -44,20 +45,10 @@ export class SendMailComponent implements OnInit {
     this.adminUsersArray = [];
     this.users = [];
     this.selectedCandidates = [];
+    this.candidateList = [];
   }
 
   ngOnInit() {
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'email',
-      textField: 'name',
-      enableCheckAll: false,
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
 
     this.myForm = this.formBuilder.group({
       mailFrom: [''],
@@ -70,8 +61,11 @@ export class SendMailComponent implements OnInit {
 
     if (SendMailComponent.candidatesList !== undefined) {
       for (const mail of SendMailComponent.candidatesList) {
-        this.selectedCandidates.push(mail.email);
+        this.selectedCandidates.push({ email: mail.email });
+        this.candidateList.push(mail.email)
       }
+
+      console.log(this.candidateList)
     }
 
   }
