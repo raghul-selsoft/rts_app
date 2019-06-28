@@ -58,7 +58,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   isRejected: boolean;
   submissionStatus: any;
   status: any;
-
+  statusObj: any;
+ 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private candidateService: CandidateService,
@@ -243,6 +244,11 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             }
             console.log(this.selectedSubmission)
             this.status = this.selectedSubmission.submissionStatus.statusId;
+            this.statusObj = this.selectedSubmission.submissionStatus;
+            const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
+            if (isStatusExiting === -1) {
+              this.submissionStatus.push(this.statusObj);
+            }
             if (this.selectedSubmission.interviewDetails.length > 0) {
               this.removeUnits(0);
             }
@@ -298,6 +304,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           }
         });
   }
+
+  // statusExiting(status){
+  //   this.submissionStatus.splice(this.submissionStatus.indexOf(status), 1)
+  // }
 
   getRequirement(event) {
     this.recruiterName = [];
