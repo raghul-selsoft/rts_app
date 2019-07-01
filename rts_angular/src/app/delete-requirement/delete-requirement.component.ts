@@ -53,6 +53,7 @@ export class DeleteRequirementComponent implements OnInit {
   }
 
   deleteRequirement() {
+    this.dialogRef.close();
 
     // this.teamService.deleteTeam(this.data)
     //   .subscribe(

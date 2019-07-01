@@ -137,7 +137,7 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedCandidate = data.candidate;
-            console.log(this.selectedCandidate)
+            // console.log(this.selectedCandidate)
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;

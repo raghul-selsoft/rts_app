@@ -26,12 +26,14 @@
       <tr>
         <th>Candidate Name</th>
         <th>Technology</th>
+        <th>Location</th>
       </tr>
     </thead>
     <tbody *ngIf="candidateLength > 0 ; else noCandidates">
       <tr *ngFor="let candidate of selectedCandidates" [routerLink]="['/edit-candidate',candidate.candidateId]">
         <td>{{candidate.name}}</td>
         <td>{{candidate.technology[0].technologyName}}</td>
+        <td>{{candidate.location}}</td>
       </tr>
     </tbody>
     <ng-template #noCandidates>

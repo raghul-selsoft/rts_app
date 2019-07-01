@@ -85,6 +85,7 @@ export class SearchCandidatesComponent implements OnInit {
             this.selectedCandidates = data.candidates;
             this.candidateLength = this.selectedCandidates.length;
           } else {
+            this.ngProgress.done();
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

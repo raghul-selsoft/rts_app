@@ -72,7 +72,7 @@ export class RecruiterComparisonComponent implements OnInit {
             }
             this.submissionDetails = this.selectedStatus.requirements;
             this.filteredRequirements = this.selectedStatus.requirements;
-            console.log(this.submissionDetails)
+            // console.log(this.submissionDetails)
           }
         });
   }
