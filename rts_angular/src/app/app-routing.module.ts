@@ -49,6 +49,7 @@ import { SearchCandidatesComponent } from './search-candidates/search-candidates
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
 import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
+import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
 
 
 export const appRoutes: Routes = [
@@ -100,6 +101,7 @@ export const appRoutes: Routes = [
   { path: 'joining-date', component: JoiningDateComponent },
   { path: 'selected-submissions', component: SelectedSubmissionComponent },
   { path: 'search-candidates', component: SearchCandidatesComponent },
+  { path: 'search-candidates-email', component: SearchCandidateEmailComponent },
   { path: 'send-mail', component: SendMailComponent },
   { path: 'delete-requirement', component: DeleteRequirementComponent },
   { path: 'delete-submission', component: DeleteSubmissionComponent },

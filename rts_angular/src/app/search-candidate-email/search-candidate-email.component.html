@@ -1,28 +1,22 @@
 <div class="sub-nav-wrapper">
   <a class="sub-nav-link" [routerLink]="['/add-candidate']">Add New Candidate</a>
   <span class="divider">
-    <a class="sub-nav-link" [routerLink]="['/search-candidates-email']" > Search By Email</a>
-  </span>
-  <!-- <span class="divider">
     <a class="sub-nav-link" [routerLink]="['/search-candidates']"> Search By Technology</a>
-  </span> -->
+  </span>
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="main-title">Search Candidates By Technology</h2>
+<h2 class="main-title">Search Candidates By Email</h2>
 <div class="utility-container">
 
   <div class="row mb-4">
     <div class="col-8">
-      <ng-select [items]="technologies" bindLabel="technologyName" bindValue="technologyId" [multiple]="true"
-        placeholder="Search Technology" [(ngModel)]="selected">
-      </ng-select>
+      <input type="text" class="form-control" placeholder="Search by Email" [(ngModel)]="searchString">
     </div>
     <div class="col-4">
-      <button class="btn btn-sm btn-primary" (click)="getTech();">Search</button>
-      <button *ngIf="candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Email</button>
+      <button class="btn btn-sm btn-primary" (click)="getCandidate();">Search</button>
     </div>
   </div>
 

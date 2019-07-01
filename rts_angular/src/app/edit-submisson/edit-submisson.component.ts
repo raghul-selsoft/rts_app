@@ -488,7 +488,7 @@ export class EditSubmissonComponent implements OnInit {
                         if (this.status === 5 || this.status === 4 || this.status === 7 || this.status === 11 || this.status === 14) {
                             this.isRejected = true;
                         }
-                        if (this.selectedSubmission.status === 'TL_APPROVED' || this.selectedSubmission.status === 'APPROVED') {
+                        if (this.status === 2 || this.status === 3) {
                             this.isSubmitted = true;
                         } else {
                             this.isSubmitted = false;
@@ -554,8 +554,8 @@ export class EditSubmissonComponent implements OnInit {
         }
 
         const submit = {
-            submissionId: this.submissionId,
-            submittedBy: this.rtsUserId,
+            submissionId: parseInt(this.submissionId),
+            submittedUserId: this.rtsUserId,
             mailFormat: this.mailFormat,
             isCustomBody: this.isCustomBody,
             bodyText: this.customMailBody,
@@ -703,6 +703,7 @@ export class EditSubmissonComponent implements OnInit {
 
     updateSubmission(form: FormGroup) {
         this.ngProgress.start();
+        this.sendToClient = false;
         if (this.isNewCandidate) {
             this.createNewCandidate(form);
         } else {
@@ -735,9 +736,9 @@ export class EditSubmissonComponent implements OnInit {
         };
 
         if (this.sendToClient) {
-            submission.status = 'APPROVED';
+            submission.statusId = 3;
             submission.isApprovedByAdmin = true;
-        } else {
+        } else {           
             submission.statusId = parseInt(form.value.status);
         }
 

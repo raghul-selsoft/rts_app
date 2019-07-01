@@ -93,6 +93,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
 import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
+import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
 
 
 @NgModule({
@@ -147,6 +148,7 @@ import { DeleteSubmissionComponent } from './delete-submission/delete-submission
     SendMailComponent,
     DeleteRequirementComponent,
     DeleteSubmissionComponent,
+    SearchCandidateEmailComponent,
   ],
   imports: [
     BrowserModule,

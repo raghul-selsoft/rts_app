@@ -3,20 +3,18 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { NgProgress } from 'ngx-progressbar';
 import * as _ from 'underscore';
 import { RequirementsService } from '../Services/requirements.service';
-import { SendMailComponent } from '../send-mail/send-mail.component';
 import { Router } from '@angular/router';
 import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
-  selector: 'app-search-candidates',
-  templateUrl: './search-candidates.component.html',
-  styleUrls: ['./search-candidates.component.css'],
+  selector: 'app-search-candidate-email',
+  templateUrl: './search-candidate-email.component.html',
+  styleUrls: ['./search-candidate-email.component.css'],
   providers: [LoggedUserService]
 })
-export class SearchCandidatesComponent implements OnInit {
-
+export class SearchCandidateEmailComponent implements OnInit {
   selected: any[];
   selectedCandidates: any[];
   rtsUserId: any;
@@ -24,7 +22,7 @@ export class SearchCandidatesComponent implements OnInit {
   rtsUser: any;
   candidateLength: number;
   rtsCompanyId: any;
-  static technology: any;
+  searchString: any;
 
   constructor(
     private requirementService: RequirementsService,
@@ -38,53 +36,31 @@ export class SearchCandidatesComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.selected = [];
+    this.searchString = '';
+    this.selectedCandidates = [];
   }
 
   ngOnInit() {
-    this.ngProgress.start();
-    this.getCommonDetails();
-    if (SearchCandidatesComponent.technology !== undefined) {
-      this.selected = SearchCandidatesComponent.technology;
-      this.getTech();
-    }
-
+   
   }
 
-  getCommonDetails() {
-    const companyId = {
-      userId: this.rtsUserId
+  getCandidate() {
+    this.ngProgress.start();
+
+    const candidate = {
+      email: this.searchString,
+      companyId: this.rtsCompanyId
     };
 
-    this.requirementService.commonDetails(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.technologies = data.technologies;
-            this.ngProgress.done();
-          }
-        });
-  }
-
-  getTech() {
-    this.ngProgress.start();
-    const technology = []
-    SearchCandidatesComponent.technology = this.selected;
-    for (const techId of this.selected) {
-      technology.push({ technologyId: techId })
-    }
-    const submit = {
-      technology: technology,
-      companyId: this.rtsCompanyId
-    }
-
-    this.candidateService.getCandidateByTechnology(submit)
+    this.candidateService.getCandidate(candidate)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.selectedCandidates = data.candidates;
+            this.selectedCandidates.push(data.candidate);
             this.candidateLength = this.selectedCandidates.length;
-          } else {
+          }
+          else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -92,12 +68,6 @@ export class SearchCandidatesComponent implements OnInit {
           }
         });
   }
-
-  sendMail() {
-    SendMailComponent.candidatesList = this.selectedCandidates;
-    this.router.navigate(['/send-mail']);
-  }
-
 
 
 }

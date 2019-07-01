@@ -59,7 +59,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   submissionStatus: any;
   status: any;
   statusObj: any;
- 
+
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private candidateService: CandidateService,
@@ -261,7 +261,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.isUpdate = false;
             }
-            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED' || this.selectedSubmission.status === 'OTHER_REJECTION') {
+            if (this.status === 5 || this.status === 4 || this.status === 7 || this.status === 14) {
               this.isRejected = true;
             }
             if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {

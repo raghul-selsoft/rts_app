@@ -57,6 +57,7 @@ export class DeleteSubmissionComponent implements OnInit {
   }
 
   deleteSubmission() {
+    this.dialogRef.close();
 
     // this.teamService.deleteTeam(this.data)
     //   .subscribe(

@@ -25,8 +25,7 @@ export class SendMailComponent implements OnInit {
   users: any;
   rtsUserEmail: any;
   selectedCandidates: any[];
-  candidateList: any[];
-
+  candidateList: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -64,8 +63,6 @@ export class SendMailComponent implements OnInit {
         this.selectedCandidates.push({ email: mail.email });
         this.candidateList.push(mail.email)
       }
-
-      console.log(this.candidateList)
     }
 
   }
