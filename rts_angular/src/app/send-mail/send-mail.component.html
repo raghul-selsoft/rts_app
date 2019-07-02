@@ -19,6 +19,7 @@
           <ng-select [items]="selectedCandidates" bindLabel="email" bindValue="email" [multiple]="true"
             formControlName="mailTo" placeholder="Search Users" [(ngModel)]="candidateList">
           </ng-select>
+          <button type="button" class="btn btn-light" ngxClipboard [cbContent]="candidateList" (cbOnSuccess)="copied($event)">Copy</button>
         </div>
       </div>
 

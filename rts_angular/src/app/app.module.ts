@@ -94,6 +94,7 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
 import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
 import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 @NgModule({
@@ -173,6 +174,7 @@ import { SearchCandidateEmailComponent } from './search-candidate-email/search-c
     MatRadioModule,
     NgxChartsModule,
     MatSortModule,
+    ClipboardModule,
     NgxEditorModule,
     Ng4LoadingSpinnerModule,
     NgProgressModule,

@@ -3,6 +3,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { NgProgress } from 'ngx-progressbar';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../Services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-send-mail',
@@ -31,7 +32,8 @@ export class SendMailComponent implements OnInit {
     private loggedUser: LoggedUserService,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private toastr: ToastrService,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -45,6 +47,7 @@ export class SendMailComponent implements OnInit {
     this.users = [];
     this.selectedCandidates = [];
     this.candidateList = [];
+
   }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class SendMailComponent implements OnInit {
         this.candidateList.push(mail.email)
       }
     }
+    console.log(this.candidateList)
 
   }
 
@@ -86,6 +90,13 @@ export class SendMailComponent implements OnInit {
             // this.adminUsersArray = [{ email: 'pushban@selsoftinc.com', name: 'Pushban R' }];
           }
         });
+  }
+
+  copied(event) {    
+    this.toastr.info('Text Copied', '', {
+      positionClass: 'toast-bottom-right',
+      timeOut: 2000,
+    });
   }
 
   sendMail(form: FormGroup) {
