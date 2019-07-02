@@ -144,7 +144,7 @@
                 <div class="mb-3">
                   <label for="editRelocate" class="form-label">Willing To Relocate:</label>
                 </div>
-                <mat-radio-group formControlName="editRelocate" disabled>
+                <mat-radio-group formControlName="editRelocate" disabled ngModel="{{isRelocate}}">
                   <mat-radio-button value="true">Yes</mat-radio-button>
                   <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
@@ -245,7 +245,7 @@
                   <label class="form-label">Have you ever worked with Client:
                   </label>
                 </div>
-                <mat-radio-group formControlName="editWorkedWithClient" disabled>
+                <mat-radio-group formControlName="editWorkedWithClient" disabled ngModel="{{isWorkedWithClient}}">
                   <mat-radio-button value="true">Yes</mat-radio-button>
                   <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
@@ -315,9 +315,9 @@
                 <div class="mb-3">
                   <label for="c2c" class="form-label">C2C:</label>
                 </div>
-                <mat-radio-group disabled formControlName="c2c">
-                  <mat-radio-button value="Yes">Yes</mat-radio-button>
-                  <mat-radio-button value="No">No</mat-radio-button>
+                <mat-radio-group disabled formControlName="c2c" ngModel="{{isC2c}}">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
               </div>
 

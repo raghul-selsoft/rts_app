@@ -245,6 +245,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             console.log(this.selectedSubmission)
             this.status = this.selectedSubmission.submissionStatus.statusId;
             this.statusObj = this.selectedSubmission.submissionStatus;
+            this.isC2c = this.selectedSubmission.candidate.c2C;
+            this.isRelocate = this.selectedSubmission.candidate.relocate;
+            this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
             if (isStatusExiting === -1) {
               this.submissionStatus.push(this.statusObj);
@@ -270,26 +273,26 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.isSelected = false;
             }
-            if (this.selectedSubmission.candidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-            }
-            if (this.selectedSubmission.candidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-              this.isRelocate = true;
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-              this.isRelocate = false;
-            }
-            if (this.selectedSubmission.candidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
+            // if (this.selectedSubmission.candidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isC2c = true;
+            // } else {
+            //   this.myForm.controls.c2c.setValue('No');
+            // }
+            // if (this.selectedSubmission.candidate.relocate) {
+            //   this.myForm.controls.editRelocate.setValue('true');
+            //   this.isRelocate = true;
+            // } else {
+            //   this.myForm.controls.editRelocate.setValue('false');
+            //   this.isRelocate = false;
+            // }
+            // if (this.selectedSubmission.candidate.workedWithClient) {
+            //   this.myForm.controls.editWorkedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.editWorkedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
             for (const recruiter of this.selectedRequirement.toClientRecruiters) {
               this.recruiterName.push(recruiter.name + ' ');
             }
@@ -330,24 +333,27 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            if (this.selectedSubmission.candidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-            }
-            if (this.selectedSubmission.candidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-            }
-            if (this.selectedSubmission.candidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
+            this.isC2c = this.selectedSubmission.candidate.c2C;
+            this.isRelocate = this.selectedSubmission.candidate.relocate;
+            this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+            // if (this.selectedSubmission.candidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isC2c = true;
+            // } else {
+            //   this.myForm.controls.c2c.setValue('No');
+            // }
+            // if (this.selectedSubmission.candidate.relocate) {
+            //   this.myForm.controls.editRelocate.setValue('true');
+            // } else {
+            //   this.myForm.controls.editRelocate.setValue('false');
+            // }
+            // if (this.selectedSubmission.candidate.workedWithClient) {
+            //   this.myForm.controls.editWorkedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.editWorkedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
@@ -449,7 +455,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   addChatMessage() {
     if (this.comment !== '' && this.comment !== undefined) {
       const addMessage = {
-        submissionId: this.submissionId,
+        submissionId: parseInt(this.submissionId),
         enteredBy: this.rtsUserId,
         comment: this.comment
       };

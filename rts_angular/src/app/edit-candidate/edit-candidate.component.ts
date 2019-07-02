@@ -53,6 +53,7 @@ export class EditCandidateComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
     this.deletedMediaFiles = [];
+    this.isEmployerDetails = false;
   }
 
   ngOnInit() {
@@ -95,13 +96,13 @@ export class EditCandidateComponent implements OnInit {
       workedWithClient: [''],
       enteredUser: [''],
       createdDate: [''],
-      locationPreferences:[''],
-      workedAsFullTime:[''],
-      graduationYear:[''],
-      educationCredentials:[''],
-      dateOfBirth:[''],
-      currentProject:[''],
-      totalUsExperience:[''],
+      locationPreferences: [''],
+      workedAsFullTime: [''],
+      graduationYear: [''],
+      educationCredentials: [''],
+      dateOfBirth: [''],
+      currentProject: [''],
+      totalUsExperience: [''],
     });
     this.getCommonDetails();
     // this.getCandidateById();
@@ -137,25 +138,28 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedCandidate = data.candidate;
-            // console.log(this.selectedCandidate)
-            if (this.selectedCandidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isEmployerDetails = true;
-            }
-            if (this.selectedCandidate.relocate) {
-              this.myForm.controls.relocate.setValue('true');
-              this.isRelocate = true;
-            } else {
-              this.myForm.controls.relocate.setValue('false');
-              this.isRelocate = false;
-            }
-            if (this.selectedCandidate.workedWithClient) {
-              this.myForm.controls.workedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.workedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
+            console.log(this.selectedCandidate)
+            this.isRelocate = this.selectedCandidate.relocate;
+            this.isWorkedWithClient = this.selectedCandidate.workedWithClient;
+            this.isEmployerDetails = this.selectedCandidate.c2C;
+            // if (this.selectedCandidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isEmployerDetails = true;
+            // }
+            // if (this.selectedCandidate.relocate) {
+            //   this.myForm.controls.relocate.setValue('true');
+            //   this.isRelocate = true;
+            // } else {
+            //   this.myForm.controls.relocate.setValue('false');
+            //   this.isRelocate = false;
+            // }
+            // if (this.selectedCandidate.workedWithClient) {
+            //   this.myForm.controls.workedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.workedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
             const immigirationStatus = this.selectedCandidate.visaStatus;
             for (const immigration of this.immigration) {
               if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
@@ -198,7 +202,7 @@ export class EditCandidateComponent implements OnInit {
   }
 
   getC2c(event) {
-    if (event.value === 'Yes') {
+    if (event.value === 'true') {
       this.isEmployerDetails = true;
     } else {
       this.isEmployerDetails = false;

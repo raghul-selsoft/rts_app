@@ -111,6 +111,7 @@ export class EditSubmissonComponent implements OnInit {
         this.selectedAdmins = [];
         this.submissionStatus = [];
         this.clients = [];
+        this.isC2c = false;
     }
     ngOnInit() {
         this.ngProgress.start();
@@ -407,24 +408,27 @@ export class EditSubmissonComponent implements OnInit {
                 data => {
                     if (data.success) {
                         this.selectedSubmission.candidate = data.candidate;
-                        if (this.selectedSubmission.candidate.c2C) {
-                            this.myForm.controls.c2c.setValue('Yes');
-                            this.isC2c = true;
-                        } else {
-                            this.myForm.controls.c2c.setValue('No');
-                        }
-                        if (this.selectedSubmission.candidate.relocate) {
-                            this.myForm.controls.editRelocate.setValue('true');
-                        } else {
-                            this.myForm.controls.editRelocate.setValue('false');
-                        }
-                        if (this.selectedSubmission.candidate.workedWithClient) {
-                            this.myForm.controls.editWorkedWithClient.setValue('true');
-                            this.isWorkedWithClient = true;
-                        } else {
-                            this.myForm.controls.editWorkedWithClient.setValue('false');
-                            this.isWorkedWithClient = false;
-                        }
+                        this.isC2c = this.selectedSubmission.candidate.c2C
+                        this.isRelocate = this.selectedSubmission.candidate.relocate;
+                        this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+                        // if (this.selectedSubmission.candidate.c2C) {
+                        //     this.myForm.controls.c2c.setValue('Yes');
+                        //     this.isC2c = true;
+                        // } else {
+                        //     this.myForm.controls.c2c.setValue('No');
+                        // }
+                        // if (this.selectedSubmission.candidate.relocate) {
+                        //     this.myForm.controls.editRelocate.setValue('true');
+                        // } else {
+                        //     this.myForm.controls.editRelocate.setValue('false');
+                        // }
+                        // if (this.selectedSubmission.candidate.workedWithClient) {
+                        //     this.myForm.controls.editWorkedWithClient.setValue('true');
+                        //     this.isWorkedWithClient = true;
+                        // } else {
+                        //     this.myForm.controls.editWorkedWithClient.setValue('false');
+                        //     this.isWorkedWithClient = false;
+                        // }
                         for (const immigration of this.immigration) {
                             immigration.isChecked = false;
                         }
@@ -470,10 +474,13 @@ export class EditSubmissonComponent implements OnInit {
                         if (submission !== undefined) {
                             this.selectedSubmission = submission;
                         }
-                        console.log(this.selectedRequirement)
+                        console.log(this.selectedSubmission)
                         this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(this.selectedRequirement.client.clientId) });
                         this.status = this.selectedSubmission.submissionStatus.statusId;
                         const ccRecruiters = this.selectedClient.ccRecruitersJSON;
+                        this.isC2c = this.selectedSubmission.candidate.c2C;
+                        this.isRelocate = this.selectedSubmission.candidate.relocate;
+                        this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
                         for (const ccUser of ccRecruiters) {
                             this.clientCC.push({ email: ccUser.email, firstName: ccUser.name });
                         }
@@ -499,26 +506,26 @@ export class EditSubmissonComponent implements OnInit {
                         } else {
                             this.isSelected = false;
                         }
-                        if (this.selectedSubmission.candidate.c2C) {
-                            this.myForm.controls.c2c.setValue('Yes');
-                            this.isC2c = true;
-                        } else {
-                            this.myForm.controls.c2c.setValue('No');
-                        }
-                        if (this.selectedSubmission.candidate.relocate) {
-                            this.myForm.controls.editRelocate.setValue('true');
-                            this.isRelocate = true;
-                        } else {
-                            this.myForm.controls.editRelocate.setValue('false');
-                            this.isRelocate = false;
-                        }
-                        if (this.selectedSubmission.candidate.workedWithClient) {
-                            this.myForm.controls.editWorkedWithClient.setValue('true');
-                            this.isWorkedWithClient = true;
-                        } else {
-                            this.myForm.controls.editWorkedWithClient.setValue('false');
-                            this.isWorkedWithClient = false;
-                        }
+                        // if (this.selectedSubmission.candidate.c2C) {
+                        //     this.myForm.controls.c2c.setValue('Yes');
+                        //     this.isC2c = true;
+                        // } else {
+                        //     this.myForm.controls.c2c.setValue('No');
+                        // }
+                        // if (this.selectedSubmission.candidate.relocate) {
+                        //     this.myForm.controls.editRelocate.setValue('true');
+                        //     this.isRelocate = true;
+                        // } else {
+                        //     this.myForm.controls.editRelocate.setValue('false');
+                        //     this.isRelocate = false;
+                        // }
+                        // if (this.selectedSubmission.candidate.workedWithClient) {
+                        //     this.myForm.controls.editWorkedWithClient.setValue('true');
+                        //     this.isWorkedWithClient = true;
+                        // } else {
+                        //     this.myForm.controls.editWorkedWithClient.setValue('false');
+                        //     this.isWorkedWithClient = false;
+                        // }
                         for (const recruiter of this.selectedRequirement.toClientRecruiters) {
                             this.recruiterName.push(recruiter.name + ' ');
                             this.recruiterEmail.push(recruiter.email + ' ');
@@ -649,7 +656,7 @@ export class EditSubmissonComponent implements OnInit {
     }
 
     getC2c(event) {
-        if (event.value === 'Yes') {
+        if (event.value === 'true') {
             this.isEmployerDetails = true;
         } else {
             this.isEmployerDetails = false;
@@ -674,7 +681,7 @@ export class EditSubmissonComponent implements OnInit {
 
     getImmigiration(event) {
         if (event !== undefined) {
-            this.immigirationStatus = { visaId: event };
+            this.immigirationStatus = { visaStatusId: event };
         }
     }
 
@@ -685,7 +692,7 @@ export class EditSubmissonComponent implements OnInit {
     addChatMessage() {
         if (this.comment !== '' && this.comment !== undefined) {
             const addMessage = {
-                submissionId: this.submissionId,
+                submissionId: parseInt(this.submissionId),
                 enteredBy: this.rtsUserId,
                 comment: this.comment
             };
@@ -738,7 +745,7 @@ export class EditSubmissonComponent implements OnInit {
         if (this.sendToClient) {
             submission.statusId = 3;
             submission.isApprovedByAdmin = true;
-        } else {           
+        } else {
             submission.statusId = parseInt(form.value.status);
         }
 
