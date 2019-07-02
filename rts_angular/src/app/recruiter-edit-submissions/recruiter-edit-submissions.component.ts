@@ -59,6 +59,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   submissionStatus: any;
   status: any;
   statusObj: any;
+  // submissionComment: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -465,6 +466,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           data => {
             if (data.success) {
               this.selectedSubmission.comments = data.submission.comments;
+              // this.submissionComment = data.submission.comments;
+              // console.log(this.submissionComment)
               this.comment = '';
             }
           });
@@ -507,19 +510,20 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       submissionId: parseInt(this.submissionId),
       candidateId: candidateId,
       interviewDetails: form.value.units,
-      joiningDateStr: this.selectedSubmission.joiningDateStr
+      joiningDateStr: this.selectedSubmission.joiningDateStr,
+      comments: this.selectedSubmission.comments
     };
 
-    if (this.comment === '' || this.comment === undefined) {
-      submission.comments = [];
-    } else {
-      submission.comments = [
-        {
-          comment: this.comment,
-          enteredBy: this.rtsUserId
-        }
-      ];
-    }
+    // if (this.submissionComment === '' || this.submissionComment === undefined) {
+    //   submission.comments = [];
+    // } else {
+    //   submission.comments = [
+    //     {
+    //       comment: this.submissionComment,
+    //       enteredBy: this.rtsUserId
+    //     }
+    //   ];
+    // }
 
     // const editSubmission = {
     //   submission: submission,

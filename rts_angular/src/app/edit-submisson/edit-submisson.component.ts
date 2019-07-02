@@ -77,6 +77,7 @@ export class EditSubmissonComponent implements OnInit {
     clients: any;
     selectedClient: any;
     submissionStatus: any;
+    // submissionComment: any;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -474,7 +475,7 @@ export class EditSubmissonComponent implements OnInit {
                         if (submission !== undefined) {
                             this.selectedSubmission = submission;
                         }
-                        console.log(this.selectedSubmission)
+                        // console.log(this.selectedSubmission)
                         this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(this.selectedRequirement.client.clientId) });
                         this.status = this.selectedSubmission.submissionStatus.statusId;
                         const ccRecruiters = this.selectedClient.ccRecruitersJSON;
@@ -702,6 +703,8 @@ export class EditSubmissonComponent implements OnInit {
                     data => {
                         if (data.success) {
                             this.selectedSubmission.comments = data.submission.comments;
+                            // this.submissionComment = this.comment;
+                            // console.log(this.submissionComment)
                             this.comment = '';
                         }
                     });
@@ -719,6 +722,13 @@ export class EditSubmissonComponent implements OnInit {
     }
 
     updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
+
+        // if (this.comment !== '' || this.comment !== undefined) {
+        //     this.selectedSubmission.comments.push({ comment: this.comment, enteredBy: this.rtsUserId });
+        //     console.log(this.submissionComment)
+        //     console.log(this.selectedSubmission.comments)
+        // }
+
 
         const submission: any = {
             requirementId: parseInt(form.value.requirements),
@@ -739,7 +749,8 @@ export class EditSubmissonComponent implements OnInit {
             candidateId: candidateId,
             approvalUserId: this.rtsUserId,
             interviewDetails: form.value.units,
-            joiningDateStr: form.value.joiningDate
+            joiningDateStr: form.value.joiningDate,
+            comments: this.selectedSubmission.comments
         };
 
         if (this.sendToClient) {
@@ -749,16 +760,7 @@ export class EditSubmissonComponent implements OnInit {
             submission.statusId = parseInt(form.value.status);
         }
 
-        if (this.comment === '' || this.comment === undefined) {
-            submission.comments = [];
-        } else {
-            submission.comments = [
-                {
-                    comment: this.comment,
-                    enteredBy: this.rtsUserId
-                }
-            ];
-        }
+
 
         // const editSubmission = {
         //     submission: submission,
