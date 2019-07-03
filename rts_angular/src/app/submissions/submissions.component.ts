@@ -310,7 +310,6 @@ export class SubmissionsComponent implements OnInit {
     }
 
     selectStatus(event) {
-        console.log(event)
         SubmissionsComponent.status = event;
         this.status = event;
         this.searchBox = true;
@@ -322,7 +321,6 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
-            console.log(this.requirements)
             for (const require of this.requirements) {
                 const selectedSubmissions = _.where(require.submissions, { statusId: parseInt(event) });
                 if (selectedSubmissions.length !== 0) {
@@ -330,7 +328,6 @@ export class SubmissionsComponent implements OnInit {
                     this.selectedRequirements.push(require);
                 }
             }
-            console.log(this.selectedRequirements)
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -346,12 +343,10 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
-            console.log(this.requirements)
             for (const require of this.requirements) {
                 require.filteredSubmissions = require.submissions;
             }
             this.selectedRequirements = _.where(this.requirements, { teamId: parseInt(event) });
-            console.log(this.selectedRequirements)
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }

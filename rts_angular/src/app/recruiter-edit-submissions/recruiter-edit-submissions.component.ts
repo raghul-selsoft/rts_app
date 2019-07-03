@@ -243,7 +243,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
-            console.log(this.selectedSubmission)
+            // console.log(this.selectedSubmission)
             this.status = this.selectedSubmission.submissionStatus.statusId;
             this.statusObj = this.selectedSubmission.submissionStatus;
             this.isC2c = this.selectedSubmission.candidate.c2C;

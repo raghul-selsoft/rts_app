@@ -58,9 +58,9 @@ export class SearchCandidatesComponent implements OnInit {
     this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
-          if (data.success) {
-            this.technologies = data.technologies;
             this.ngProgress.done();
+            if (data.success) {
+            this.technologies = data.technologies;
           }
         });
   }

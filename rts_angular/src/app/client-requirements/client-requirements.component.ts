@@ -56,8 +56,8 @@ export class ClientRequirementsComponent implements OnInit {
     this.clientService.getClientRequirements(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedRequirements = data.requirements;
             this.requirementsLength = this.selectedRequirements.length;
             for (const require of this.selectedRequirements) {

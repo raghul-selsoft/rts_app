@@ -129,7 +129,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isRecruiters">
-        <label for="clientName" class="form-label">Select Recruiters:</label>
+        <label for="clientName" class="form-label">Select Client Recruiters:</label>
         <div class="pt-4">
           <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
             [(ngModel)]="selectedRecruites" [settings]="dropdownSettings">

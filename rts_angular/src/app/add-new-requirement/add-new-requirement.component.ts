@@ -340,7 +340,6 @@ export class AddNewRequirementComponent implements OnInit {
     if (event !== undefined) {
       this.isRecruiters = true;
       this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(event) });
-      console.log(this.selectedClient)
       for (const recruiter of this.selectedClient.clientRecruiters) {
         this.recruitersArray.push({ user: recruiter.clientRecruiterId, firstName: recruiter.name });
       }
@@ -354,12 +353,10 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   addNewRequirement(form: FormGroup) {
-    console.log(this.selectedRecruites)
     const selectedRecruitersId = [];
     for (const clientRecruiters of this.selectedRecruites) {
       selectedRecruitersId.push({ clientRecruiterId: clientRecruiters.user });
     }
-    console.log(this.selctedVisaStatus)
     this.immigrationByUser = [];
     for (const label of this.selctedVisaStatus) {
       this.immigrationByUser.push({ visaStatusId: label });
@@ -428,7 +425,7 @@ export class AddNewRequirementComponent implements OnInit {
       }];
     } else {
       requirement.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
 

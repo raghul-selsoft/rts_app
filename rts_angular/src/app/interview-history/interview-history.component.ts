@@ -112,8 +112,8 @@ export class InterviewHistoryComponent implements OnInit {
         this.submissonService.getAllInterviewDetails(userId)
             .subscribe(
                 data => {
-                    if (data.success) {
                         this.ngProgress.done();
+                        if (data.success) {
                         this.interviewReport = data.submissionReport;
                         this.selectedInterviews = this.interviewReport;
                         this.interviewReportLength = this.interviewReport.length;

@@ -36,7 +36,7 @@ export class EditCandidateComponent implements OnInit {
   private baseUrl: any;
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
-  immigration: any;
+  private immigration: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -138,7 +138,6 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedCandidate = data.candidate;
-            console.log(this.selectedCandidate)
             this.isRelocate = this.selectedCandidate.relocate;
             this.isWorkedWithClient = this.selectedCandidate.workedWithClient;
             this.isEmployerDetails = this.selectedCandidate.c2C;
@@ -185,7 +184,6 @@ export class EditCandidateComponent implements OnInit {
   }
 
   removeUploadedFile(media) {
-    console.log(media)
     this.deletedMediaFiles.push(media.mediaFileId);
     const clear = this.selectedCandidate.mediaFiles.indexOf(media);
     this.selectedCandidate.mediaFiles.splice(clear, 1);

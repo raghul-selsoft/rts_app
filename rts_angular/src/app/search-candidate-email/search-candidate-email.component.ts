@@ -54,13 +54,11 @@ export class SearchCandidateEmailComponent implements OnInit {
       .subscribe(
         data => {
           this.ngProgress.done();
-          if (data.success) {
-            // this.ngProgress.done();
+          if (data.success) {;
             this.selectedCandidates.push(data.candidate);
             this.candidateLength = this.selectedCandidates.length;
           }
           else {
-            // this.ngProgress.done();
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

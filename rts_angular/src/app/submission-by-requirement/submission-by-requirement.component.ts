@@ -49,14 +49,14 @@ export class SubmissionByRequirementComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      requirementId: this.requirementId
+      requirementId: parseInt(this.requirementId)
     };
 
     this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             // this.requirements = data.requirements;
             this.selectedRequirement = data.requirement;
             this.submissionsLength = this.selectedRequirement.submissions.length;

@@ -48,8 +48,8 @@ export class InProgressInterviewsComponent implements OnInit {
     this.submissonService.GetAllProgressInterviews(companyId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedInterviews = data.submissionReport;
             this.interviewsLength = this.selectedInterviews.length;
             this.sortedData = this.selectedInterviews.slice();

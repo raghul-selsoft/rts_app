@@ -138,7 +138,7 @@
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isRecruiters">
-          <label for="clientName" class="form-label">Add New Client:</label>
+          <label for="clientName" class="form-label">Select Client Recruiters:</label>
           <div class="pt-4">
             <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
               [(ngModel)]="selectedrecruitersArray" [settings]="dropdownSettings">
@@ -223,7 +223,7 @@
       <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-forms btn-space" type="submit">Submissions</button>
       <button class="btn btn-forms btn-space" [routerLink]="['/add-new-submission', requirementId]">Add New Submission</button>
       <button [routerLink]="[ '/requirements']" class="btn btn-forms">Cancel</button>
-      <button class="btn btn-forms ml-2" type="button" (click)="deleteRequirement(requirementId);">Delete</button>
+      <!-- <button class="btn btn-forms ml-2" type="button" (click)="deleteRequirement(requirementId);">Delete</button> -->
     </div>
 
   </form>

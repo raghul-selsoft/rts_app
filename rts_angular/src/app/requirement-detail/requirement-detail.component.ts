@@ -120,10 +120,9 @@ export class RequirementDetailComponent implements OnInit {
     this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedRequirement = data.requirement;
-            console.log(this.selectedRequirement)
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementTypes;
             for (const immigration of this.selectedRequirement.visaStatus) {
@@ -138,7 +137,6 @@ export class RequirementDetailComponent implements OnInit {
             //     this.selectedTeamUsers.push(user);
             //   }
             // }
-            console.log(this.immigrationByUser)
 
             for (const user of this.selectedRequirement.allocationUsers) {
               this.allocationUsers.push(user.firstName + ' ');

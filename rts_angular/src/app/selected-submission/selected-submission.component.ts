@@ -51,8 +51,8 @@ export class SelectedSubmissionComponent implements OnInit {
     this.submissonService.GetAllSelectedSubmission(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedSubmissions = data.submissionReport;
             this.interviewsLength = this.selectedSubmissions.length;
             this.sortedData = this.selectedSubmissions.slice();

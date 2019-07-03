@@ -124,12 +124,12 @@ export class AddTeamComponent implements OnInit {
     this.teamService.addTeam(team)
       .subscribe(
         data => {
-          if (data.success) {
+            this.ngProgress.done();
+            if (data.success) {
             this.toastr.success('New Team successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
             this.router.navigate(['manage-team']);
 
           } else {
@@ -137,7 +137,6 @@ export class AddTeamComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
           }
         });
   }

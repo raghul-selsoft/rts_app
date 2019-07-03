@@ -171,8 +171,8 @@ export class GenerateReportComponent implements OnInit {
     this.submissonService.approvedSubmissionDetails(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.submissionDetails(data);
           }
         });
