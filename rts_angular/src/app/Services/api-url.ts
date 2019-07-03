@@ -85,4 +85,9 @@ export class ApiUrl {
     static GetRecruiterSubmissionStatus = 'rtsCommonMySQL/common/recruiterSubmissionStatus';
     static GetCommonDetails = 'rtsCommonMySQL/common/getAllCommonDetails';
 
+    // vendor api
+    static GetAllVendors = 'rtsVendorMySQL/vendor/getAllVendors';
+
+    
+
 }

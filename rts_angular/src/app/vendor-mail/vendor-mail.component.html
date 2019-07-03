@@ -1,13 +1,29 @@
+<!-- <div class="sub-nav-wrapper">
+  <a class="sub-nav-link">Add New Vendor</a>
+</div> -->
+
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="main-title">
-  <a [routerLink]="['/search-candidates']">Search Candidates</a> / Send Mail</h2>
-
+<h2 class="main-title">Search Vendors</h2>
 <div class="utility-container">
-  <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
-    <div class="container">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-10 mb-2">
+        <ng-select [items]="vendorsList" bindLabel="name" bindValue="vendorId" [multiple]="true"
+          placeholder="Search Vendors" [(ngModel)]="selected">
+        </ng-select>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-sm btn-primary" (click)="getVendor();">Search</button>
+        <!-- <button *ngIf="candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Email</button> -->
+      </div>
+    </div>
+
+    <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
+
       <div class="row">
         <label class="form-label">From:</label>
         <input type="text" class="form-input" formControlName="mailFrom" ngModel="{{rtsUserEmail}}" readonly>
@@ -16,10 +32,11 @@
       <div class="row">
         <label class="form-label pb-3">To:</label>
         <div class="col-12">
-          <ng-select [items]="selectedCandidates" bindLabel="email" bindValue="email" [multiple]="true"
-            formControlName="mailTo" placeholder="Search Candidates" [(ngModel)]="candidateList">
+          <ng-select [items]="items$ | async" bindLabel="email" bindValue="email" [multiple]="true" 
+            formControlName="mailTo" placeholder="Select vendor" [(ngModel)]="vendorEmails">
           </ng-select>
-          <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="candidateList" (cbOnSuccess)="copied($event)">Copy</button>
+          <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="vendorEmails"
+            (cbOnSuccess)="copied($event)">Copy</button>
         </div>
       </div>
 
@@ -45,11 +62,10 @@
 
       <div class="row mt-3">
         <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send</button>
-        <button class="btn btn-forms btn-space" [routerLink]="[ '/search-candidates']">Cancel</button>
+        <!-- <button class="btn btn-forms btn-space" [routerLink]="[ '/search-candidates']">Cancel</button> -->
       </div>
 
-    </div>
-  </form>
 
-
+    </form>
+  </div>
 </div>

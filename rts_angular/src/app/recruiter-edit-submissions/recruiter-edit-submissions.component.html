@@ -124,6 +124,10 @@
             <div class="col-sm-1 pt-5 mt-1">
               <button type="button" class="btn btn-forms" (click)="getCandidateDetails()">Search</button>
             </div>
+            <div class="col-sm-1 pt-5 mt-1" *ngIf="!addCandidate && selectedSubmission">
+              <button type="button" class="btn btn-forms"
+                [routerLink]="['/edit-candidate',selectedSubmission.candidate.candidateId]">Edit Candidate</button>
+            </div>
           </div>
 
           <div *ngIf="!addCandidate">

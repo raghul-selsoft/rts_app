@@ -95,6 +95,8 @@ import { DeleteRequirementComponent } from './delete-requirement/delete-requirem
 import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
 import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
+import { VendorService } from './Services/vendor.service';
 
 
 @NgModule({
@@ -150,6 +152,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     DeleteRequirementComponent,
     DeleteSubmissionComponent,
     SearchCandidateEmailComponent,
+    VendorMailComponent,
   ],
   imports: [
     BrowserModule,
@@ -200,6 +203,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     TeamService,
     ToastrService,
     GraphService,
+    VendorService,
     MessagingService,
     AsyncPipe,
     DatePipe],

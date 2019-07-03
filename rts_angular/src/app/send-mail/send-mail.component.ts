@@ -20,7 +20,7 @@ export class SendMailComponent implements OnInit {
   adminUsers: any[];
   customMailBody: any;
   selectedAdmins: any[];
-  dropdownSettings: any;
+  // dropdownSettings: any;
   rtsCompanyId: any;
   adminUsersArray: any;
   users: any;
@@ -39,7 +39,7 @@ export class SendMailComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.rtsUserEmail = this.rtsUser.email;
-    this.dropdownSettings = {};
+    // this.dropdownSettings = {};
     this.adminUsers = [];
     this.customMailBody = '';
     this.selectedAdmins = [];

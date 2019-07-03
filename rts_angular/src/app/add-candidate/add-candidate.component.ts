@@ -249,7 +249,7 @@ export class AddCandidateComponent implements OnInit {
               timeOut: 3000,
             });
             this.ngProgress.done();
-            this.router.navigate(['manage-candidate']);
+            this.router.navigate(['search-candidates']);
 
           } else {
             this.toastr.error(data.message, '', {

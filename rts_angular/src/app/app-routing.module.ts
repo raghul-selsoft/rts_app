@@ -50,6 +50,7 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
 import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
 import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
+import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
 
 
 export const appRoutes: Routes = [
@@ -105,6 +106,7 @@ export const appRoutes: Routes = [
   { path: 'send-mail', component: SendMailComponent },
   { path: 'delete-requirement', component: DeleteRequirementComponent },
   { path: 'delete-submission', component: DeleteSubmissionComponent },
+  { path: 'search-vendors', component: VendorMailComponent },
 ];
 
 

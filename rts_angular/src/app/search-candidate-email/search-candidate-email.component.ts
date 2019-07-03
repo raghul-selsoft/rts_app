@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { NgProgress } from 'ngx-progressbar';
 import * as _ from 'underscore';
-import { RequirementsService } from '../Services/requirements.service';
 import { Router } from '@angular/router';
 import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +24,6 @@ export class SearchCandidateEmailComponent implements OnInit {
   searchString: any;
 
   constructor(
-    private requirementService: RequirementsService,
     private candidateService: CandidateService,
     private loggedUser: LoggedUserService,
     private router: Router,
@@ -41,7 +39,7 @@ export class SearchCandidateEmailComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+
   }
 
   getCandidate() {
@@ -55,12 +53,14 @@ export class SearchCandidateEmailComponent implements OnInit {
     this.candidateService.getCandidate(candidate)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
+            // this.ngProgress.done();
             this.selectedCandidates.push(data.candidate);
             this.candidateLength = this.selectedCandidates.length;
           }
           else {
+            // this.ngProgress.done();
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

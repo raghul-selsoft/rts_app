@@ -337,7 +337,7 @@ export class EditCandidateComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['manage-candidate']);
+            this.router.navigate(['search-candidates']);
 
           } else {
             this.toastr.error(data.message, '', {

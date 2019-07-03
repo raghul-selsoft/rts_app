@@ -533,12 +533,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.submissionService.editSubmission(submission)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
             this.toastr.success('Update Submission Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
+            // this.ngProgress.done();
             this.router.navigate(['submissions']);
 
           } else {
@@ -546,7 +547,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
+            // this.ngProgress.done();
           }
         });
   }
