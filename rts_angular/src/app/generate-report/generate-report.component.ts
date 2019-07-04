@@ -192,11 +192,11 @@ export class GenerateReportComponent implements OnInit {
         L2Date = moment(report.dateOfL2).format('MM/DD/YYYY, hh:mm a');
       }
       this.selectedReport.push({
-        'Candidate Name': report.candidateName,
-        'Position Name': report.positionName,
-        'Client Name': report.clientName,
+        'Candidate Name': report.candidate.name,
+        'Position Name': report.position.positionName,
+        'Client Name': report.client.name,
         'Submission Date': submissionDate,
-        'Recruiter Name': report.recruiterName,
+        'Recruiter Name': report.recruiter.firstName,
         'Interview Status': report.interviewStatus,
         'L1 Date': L1Date,
         'L2 Date': L2Date,

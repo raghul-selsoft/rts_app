@@ -392,98 +392,98 @@ export class SubmissionsComponent implements OnInit {
                 }
             }
 
-            this.chartData = [];
-            let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0, INTERVIEWED_REJECTED = 0;
-            for (const req of this.selectedRequirements) {
-                for (const sub of req.filteredSubmissions) {
+            // this.chartData = [];
+            // let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0, INTERVIEWED_REJECTED = 0;
+            // for (const req of this.selectedRequirements) {
+            //     for (const sub of req.filteredSubmissions) {
 
-                    if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
-                        APPROVED++;
-                    } else if (sub.status === 'REJECTED' || sub.status === 'TL_REJECTED') {
-                        REJECTED++;
-                    } else if (sub.status === 'IN-PROGRESS') {
-                        IN_PROGRESS++;
-                    } else if (sub.status === 'CLOSED') {
-                        CLOSED++;
-                    } else if (sub.status === 'SUBMITTED') {
-                        SUBMITTED++;
-                    } else if (sub.status === 'CLIENT_REJECTED') {
-                        CLIENT_REJECTED++;
-                    } else if (sub.status === 'SELECTED') {
-                        SELECTED++;
-                    } else if (sub.status === 'INTERVIEWED') {
-                        INTERVIEWED++;
-                    } else if (sub.status === 'HOLD') {
-                        HOLD++;
-                    } else if (sub.status === 'INTERVIEWED_REJECTED') {
-                        INTERVIEWED_REJECTED++;
-                    }
-                }
-            }
+            //         if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
+            //             APPROVED++;
+            //         } else if (sub.status === 'REJECTED' || sub.status === 'TL_REJECTED') {
+            //             REJECTED++;
+            //         } else if (sub.status === 'IN-PROGRESS') {
+            //             IN_PROGRESS++;
+            //         } else if (sub.status === 'CLOSED') {
+            //             CLOSED++;
+            //         } else if (sub.status === 'SUBMITTED') {
+            //             SUBMITTED++;
+            //         } else if (sub.status === 'CLIENT_REJECTED') {
+            //             CLIENT_REJECTED++;
+            //         } else if (sub.status === 'SELECTED') {
+            //             SELECTED++;
+            //         } else if (sub.status === 'INTERVIEWED') {
+            //             INTERVIEWED++;
+            //         } else if (sub.status === 'HOLD') {
+            //             HOLD++;
+            //         } else if (sub.status === 'INTERVIEWED_REJECTED') {
+            //             INTERVIEWED_REJECTED++;
+            //         }
+            //     }
+            // }
 
-            let ApprovedObj = {
-                name: 'APPROVED',
-                value: APPROVED
-            };
+            // let ApprovedObj = {
+            //     name: 'APPROVED',
+            //     value: APPROVED
+            // };
 
-            let RejecedObj = {
-                name: 'REJECTED',
-                value: REJECTED
-            };
+            // let RejecedObj = {
+            //     name: 'REJECTED',
+            //     value: REJECTED
+            // };
 
-            let InProgressObj = {
-                name: 'IN-PROGRESS',
-                value: IN_PROGRESS
-            };
+            // let InProgressObj = {
+            //     name: 'IN-PROGRESS',
+            //     value: IN_PROGRESS
+            // };
 
-            let ClosedObj = {
-                name: 'CLOSED',
-                value: CLOSED
-            };
+            // let ClosedObj = {
+            //     name: 'CLOSED',
+            //     value: CLOSED
+            // };
 
-            let SubmittedObj = {
-                name: 'SUBMITTED',
-                value: SUBMITTED
-            };
+            // let SubmittedObj = {
+            //     name: 'SUBMITTED',
+            //     value: SUBMITTED
+            // };
 
-            let ClientRejectedObj = {
-                name: 'CLIENT_REJECTED',
-                value: CLIENT_REJECTED
-            };
+            // let ClientRejectedObj = {
+            //     name: 'CLIENT_REJECTED',
+            //     value: CLIENT_REJECTED
+            // };
 
-            let SelectedObj = {
-                name: 'SELECTED',
-                value: SELECTED
-            };
+            // let SelectedObj = {
+            //     name: 'SELECTED',
+            //     value: SELECTED
+            // };
 
-            let InterviewObj = {
-                name: 'INTERVIEWED',
-                value: INTERVIEWED
-            };
+            // let InterviewObj = {
+            //     name: 'INTERVIEWED',
+            //     value: INTERVIEWED
+            // };
 
-            let HoldObj = {
-                name: 'HOLD',
-                value: HOLD
-            };
+            // let HoldObj = {
+            //     name: 'HOLD',
+            //     value: HOLD
+            // };
 
-            let InterviewedRejectedObj = {
-                name: 'INTERVIEWED_REJECTED',
-                value: INTERVIEWED_REJECTED
-            };
+            // let InterviewedRejectedObj = {
+            //     name: 'INTERVIEWED_REJECTED',
+            //     value: INTERVIEWED_REJECTED
+            // };
 
-            this.chartData.push(SubmittedObj);
-            this.chartData.push(ApprovedObj);
-            this.chartData.push(InProgressObj);
-            this.chartData.push(RejecedObj);
-            this.chartData.push(HoldObj);
-            this.chartData.push(InterviewObj);
-            this.chartData.push(SelectedObj);
-            this.chartData.push(ClosedObj);
-            this.chartData.push(ClientRejectedObj);
-            this.chartData.push(InterviewedRejectedObj);
-            for (const user of this.chartData) {
-                user.extra = { userId: event };
-            }
+            // this.chartData.push(SubmittedObj);
+            // this.chartData.push(ApprovedObj);
+            // this.chartData.push(InProgressObj);
+            // this.chartData.push(RejecedObj);
+            // this.chartData.push(HoldObj);
+            // this.chartData.push(InterviewObj);
+            // this.chartData.push(SelectedObj);
+            // this.chartData.push(ClosedObj);
+            // this.chartData.push(ClientRejectedObj);
+            // this.chartData.push(InterviewedRejectedObj);
+            // for (const user of this.chartData) {
+            //     user.extra = { userId: event };
+            // }
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
