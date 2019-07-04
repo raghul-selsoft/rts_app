@@ -324,7 +324,7 @@ export class EditRequirementComponent implements OnInit {
   }
 
   deSelectAllAllocationUsers() {
-    this.myForm.controls.allocation.setValue('');
+    this.myForm.controls.allocation.setValue([]);
   }
 
   getClientRecruiters(event) {

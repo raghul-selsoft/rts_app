@@ -97,8 +97,7 @@ export class TeamSubmissionStatusComponent implements OnInit {
             this.ngProgress.done();
             if (data.success) {
             this.totalSubmissionStatus = data.teamSubmission;
-            this.selectedTeam = _.findWhere(this.totalSubmissionStatus, { teamId: parseInt(this.teamId) });
-           
+            this.selectedTeam = _.findWhere(this.totalSubmissionStatus, { teamId: parseInt(this.teamId) });           
             this.teamName = this.selectedTeam.name;
             for (const series of this.selectedTeam.series) {
               if (series.name === this.status) {

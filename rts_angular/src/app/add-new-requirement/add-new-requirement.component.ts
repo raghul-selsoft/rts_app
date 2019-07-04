@@ -46,7 +46,7 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedClient: any;
   isOtherImmigration: boolean;
   selctedVisaStatus: any;
-  selectedAllocationUsers: any;
+  selectedAllocationUsers: any[];
   multiselectUsers: any[];
   dropdownSettingsForAllocationUers: any;
 
@@ -331,7 +331,7 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   deSelectAllAllocationUsers() {
-    this.myForm.controls.allocation.setValue('');
+    this.myForm.controls.allocation.setValue([]);
   }
 
   getClientRecruiters(event) {
@@ -396,9 +396,6 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: form.value.jobDescription,
       teamId: parseInt(form.value.team),
       note: form.value.notes,
-      // client: {
-      //   clientId: parseInt(form.value.clientName),
-      // },
       toClientRecruiters: selectedRecruitersId,
       allocationUsers: this.selectedAllocationUsers
     };
