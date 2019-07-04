@@ -12,8 +12,16 @@
 
     <div class="row">
       <div class="col-10 mb-2">
-        <ng-select [items]="vendorsList" bindLabel="name" bindValue="vendorId" [multiple]="true"
+        <ng-select [items]="vendorsList" bindLabel="name" bindValue="vendorId" [multiple]="true" 
           placeholder="Search Vendors" [(ngModel)]="selected">
+          <!-- <ng-template ng-header-tmp>
+
+            <div>
+              <button class="btn btn-link" (click)="onSelectAll()">Select All</button>
+              <button class="btn btn-link" (click)="onClearAll()">Clear All</button>
+            </div>
+
+          </ng-template> -->
         </ng-select>
       </div>
       <div class="col-2">
@@ -32,7 +40,7 @@
       <div class="row">
         <label class="form-label pb-3">To:</label>
         <div class="col-12">
-          <ng-select [items]="items$ | async" bindLabel="email" bindValue="email" [multiple]="true" 
+          <ng-select [items]="items$ | async" bindLabel="email" bindValue="email" [multiple]="true"
             formControlName="mailTo" placeholder="Select vendor" [(ngModel)]="vendorEmails">
           </ng-select>
           <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="vendorEmails"

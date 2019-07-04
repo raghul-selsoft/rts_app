@@ -145,6 +145,14 @@ export class VendorMailComponent implements OnInit {
 
   }
 
+  // onSelectAll() {   
+  //   this.selected = this.vendorsList.map(x => x.vendorId);
+  // }
+
+  // onClearAll() {
+  //   this.selected = [];
+  // }
+
   sendMail(form: FormGroup) {
     console.log(form.value);
   }
