@@ -77,6 +77,7 @@ export class EditSubmissonComponent implements OnInit {
     clients: any;
     selectedClient: any;
     submissionStatus: any;
+    statusObj: any;
     // submissionComment: any;
 
     constructor(
@@ -478,10 +479,15 @@ export class EditSubmissonComponent implements OnInit {
                         // console.log(this.selectedSubmission)
                         this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(this.selectedRequirement.client.clientId) });
                         this.status = this.selectedSubmission.submissionStatus.statusId;
+                        this.statusObj = this.selectedSubmission.submissionStatus;
                         const ccRecruiters = this.selectedClient.ccRecruitersJSON;
                         this.isC2c = this.selectedSubmission.candidate.c2C;
                         this.isRelocate = this.selectedSubmission.candidate.relocate;
                         this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+                        const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
+                        if (isStatusExiting === -1) {
+                          this.submissionStatus.push(this.statusObj);
+                        }
                         for (const ccUser of ccRecruiters) {
                             this.clientCC.push({ email: ccUser.email, firstName: ccUser.name });
                         }
