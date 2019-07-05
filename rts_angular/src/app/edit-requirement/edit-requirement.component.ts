@@ -364,7 +364,7 @@ export class EditRequirementComponent implements OnInit {
     for (const clientRecruiters of this.selectedrecruitersArray) {
       selectedRecruitersId.push({ clientRecruiterId: clientRecruiters.user });
     }
-    
+
     const selectedImmigration = [];
     for (const label of this.immigrationByUser) {
       selectedImmigration.push({ visaStatusId: label });
@@ -386,13 +386,10 @@ export class EditRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      requirementId: this.requirementId,
+      requirementId: parseInt(this.requirementId),
       teamId: parseInt(form.value.team),
       note: form.value.notes,
-      toClientRecruiters: selectedRecruitersId,
-      // client: {
-      //   clientId: parseInt(form.value.clientName)
-      // }
+      toClientRecruiters: selectedRecruitersId
     };
 
     if (form.value.positionName === 'other') {
@@ -417,7 +414,7 @@ export class EditRequirementComponent implements OnInit {
       }];
     } else {
       requirement.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
 
@@ -426,20 +423,18 @@ export class EditRequirementComponent implements OnInit {
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
             this.toastr.success('Requirement Update successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
             this.router.navigate(['requirements']);
-
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
           }
         });
   }
