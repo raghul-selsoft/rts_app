@@ -116,7 +116,7 @@ export class EditClientComponent implements OnInit {
             this.ngProgress.done();
             this.selectedClient = data.client;
             // this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(this.clientId) });
-            console.log(this.selectedClient)
+            // console.log(this.selectedClient)
             const control = <FormArray>this.myForm.controls['units'];
             for (const recruiter of this.selectedClient.clientRecruiters) {
               control.push(this.formBuilder.group(recruiter));

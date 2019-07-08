@@ -216,7 +216,7 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
-    console.log(newCandidate)
+    // console.log(newCandidate)
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(

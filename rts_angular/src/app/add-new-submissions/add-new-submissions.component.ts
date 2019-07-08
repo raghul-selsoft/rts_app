@@ -343,27 +343,31 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
-            if (this.selectedCandidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-              this.isC2c = false;
-            }
-            if (this.selectedCandidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-              this.isRelocate = true;
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-              this.isRelocate = false;
-            }
-            if (this.selectedCandidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
+            // console.log(this.selectedCandidate)
+            this.isC2c = this.selectedCandidate.c2C;
+            this.isRelocate = this.selectedCandidate.relocate;
+            this.isWorkedWithClient = this.selectedCandidate.workedWithClient;
+            // if (this.selectedCandidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isC2c = true;
+            // } else {
+            //   this.myForm.controls.c2c.setValue('No');
+            //   this.isC2c = false;
+            // }
+            // if (this.selectedCandidate.relocate) {
+            //   this.myForm.controls.editRelocate.setValue('true');
+            //   this.isRelocate = true;
+            // } else {
+            //   this.myForm.controls.editRelocate.setValue('false');
+            //   this.isRelocate = false;
+            // }
+            // if (this.selectedCandidate.workedWithClient) {
+            //   this.myForm.controls.editWorkedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.editWorkedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
             this.isEmployerDetails = false;
             this.isCandidate = true;
             this.isNewCandidate = false;
