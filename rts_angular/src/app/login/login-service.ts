@@ -23,6 +23,7 @@ export class LoginService {
     storeUserData(token, rts) {
         localStorage.setItem('id_token', token);
         localStorage.setItem('rts_user', JSON.stringify(rts));
+        localStorage.setItem('user_id', rts.userId);
         this.authToken = token;
         this.user = rts;
     }
@@ -32,8 +33,10 @@ export class LoginService {
         this.user = null;
         localStorage.removeItem('id_token');
         localStorage.removeItem('rts_user');
+        localStorage.removeItem('user_id');
         this.router.navigate(['login']);
     }
+
 
     forgotPassword(email) {
         const headers = new Headers();

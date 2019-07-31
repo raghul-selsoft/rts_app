@@ -46,10 +46,17 @@
         <a class="nav-link" [routerLink]="['/search-vendors']" [routerLinkActive]="['active-link']">Search
           Vendors</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+          Sheet</a>
+      </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
     </ul>
+    <app-auto-refresh (TimerExpired)="refresh()">
+    </app-auto-refresh>
+
   </div>
 
   <div *ngIf="userRole ==='ACC_MGR'">
@@ -87,6 +94,9 @@
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
     </ul>
+    <app-auto-refresh (TimerExpired)="refresh()">
+    </app-auto-refresh>
+
   </div>
 
   <div *ngIf="userRole ==='TL'">
@@ -114,6 +124,9 @@
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
     </ul>
+    <app-auto-refresh (TimerExpired)="refresh()">
+    </app-auto-refresh>
+
   </div>
 
   <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
@@ -138,6 +151,9 @@
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
     </ul>
+    <app-auto-refresh (TimerExpired)="refresh()">
+    </app-auto-refresh>
+
   </div>
 
   <div *ngIf="userRole ==='HR_MANAGER'">
@@ -153,6 +169,9 @@
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
     </ul>
+    <app-auto-refresh (TimerExpired)="refresh()">
+    </app-auto-refresh>
+
   </div>
 
 </div>

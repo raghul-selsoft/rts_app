@@ -97,6 +97,9 @@ import { SearchCandidateEmailComponent } from './search-candidate-email/search-c
 import { ClipboardModule } from 'ngx-clipboard';
 import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
 import { VendorService } from './Services/vendor.service';
+import { AutoRefreshComponent } from './auto-refresh/auto-refresh.component';
+import { TimeSheetService } from './Services/timeSheet.service';
+import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 
 @NgModule({
@@ -153,6 +156,8 @@ import { VendorService } from './Services/vendor.service';
     DeleteSubmissionComponent,
     SearchCandidateEmailComponent,
     VendorMailComponent,
+    AutoRefreshComponent,
+    TimeSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -205,6 +210,7 @@ import { VendorService } from './Services/vendor.service';
     GraphService,
     VendorService,
     MessagingService,
+    TimeSheetService,
     AsyncPipe,
     DatePipe],
 

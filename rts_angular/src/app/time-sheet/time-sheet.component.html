@@ -1,0 +1,38 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 class="main-title">Time Sheet</h2>
+<div class="utility-container">
+  <mat-form-field>
+    <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+    <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
+
+
+  <table class="table table-bordered table-sm table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wendesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+      </tr>     
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
+      </tr>
+      <tr>
+        <td *ngFor="let sheet of weekSheet">{{sheet.workingHoursStr}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

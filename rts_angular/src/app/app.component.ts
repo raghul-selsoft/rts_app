@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy } from '@angular/core';
+import { Component, DoCheck, OnDestroy, HostListener } from '@angular/core';
 import { LoggedUserService } from './Services/logged-user.service';
 import { HideComponentService } from './Services/hide-component.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ import { GraphExpansationComponent } from './graph-expansation/graph-expansation
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { CandidateReportComponent } from './candidate-report/candidate-report.component';
 import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
+import { TimeSheetService } from './Services/timeSheet.service';
+import { ApiUrl } from 'src/app/Services/api-url';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +27,14 @@ export class AppComponent implements DoCheck, OnDestroy {
   displayComponent: boolean;
   rtsUser: any;
   userRole: any;
+  rtsUserId: any;
+
 
   constructor(private loggedUser: LoggedUserService,
     private hideComponent: HideComponentService,
     private router: Router,
     private loginService: LoginService,
+    private timeSheetService: TimeSheetService,
     private toastr: ToastrService,
   ) {
     this.displayComponent = this.hideComponent.displayComponent;
@@ -42,13 +47,73 @@ export class AppComponent implements DoCheck, OnDestroy {
     if (this.rtsUser) {
       this.userRole = this.rtsUser.role;
     }
+    const loginService = this.loginService;
+
+    window.onbeforeunload = function (event) {
+      // const token = localStorage.getItem('id_token');
+      // const userId = localStorage.getItem('user_id');
+      // const data = {
+      //   sessionOutStr: "sessionOut",
+      //   userId: parseInt(userId)
+      // }
+
+      // fetch(ApiUrl.BaseUrl + ApiUrl.TimeSheetInOrOut, {
+      //   method: 'POST',
+      //   body: JSON.stringify(data),
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': token
+      //   }
+      // }).then(res => res.json())
+      //   .then(response => {
+      //     loginService.logout();
+      //   });
+      // event.returnValue = '';
+      var message = 'Important: Please click on \'Save\' button to leave this page.';
+      if (typeof event == 'undefined') {
+        event = window.event;
+      }
+      if (event) {
+        const token = localStorage.getItem('id_token');
+        const userId = localStorage.getItem('user_id');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', ApiUrl.BaseUrl + ApiUrl.TimeSheetInOrOut);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', token);
+        xhr.onload = function () {
+          loginService.logout();
+          return message;
+        };
+        xhr.send(JSON.stringify({
+          sessionOutStr: "sessionOut",
+          userId: parseInt(userId)
+        }));
+        event.returnValue = message;
+      }
+      return message;
+    };
   }
 
   ngOnDestroy() {
     this.hideComponent.displayComponent = false;
   }
 
+  refresh() {
+    this.onLogout();
+  }
+
   onLogout() {
+    const userId = {
+      sessionOutStr: "sessionOut",
+      userId: this.rtsUser.userId
+    };
+
+    this.timeSheetService.timeSheetSession(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+          }
+        });
     SubmissionsComponent.filterBy = undefined;
     SubmissionsComponent.userDetails = undefined;
     SubmissionsComponent.recruiter = undefined;
