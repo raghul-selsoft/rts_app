@@ -36,6 +36,7 @@ export class ApiUrl {
     static DeleteUser = 'rtsUser/user/deleteUser';
     static ForgotPassword = 'rtsUser/user/forgotPassword';
     static UpdateFcmToken = 'rtsUser/user/updateFcmToken';
+    static UserLogout = 'rtsUser/user/userLogout';
 
     //submission api
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
@@ -90,7 +91,7 @@ export class ApiUrl {
     static GetAllVendors = 'rtsVendor/vendor/getAllVendors';
 
     // timesheet api 
-    static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';
+    // static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';
     static GetWeekSheet = 'rtsTimeSheet/timeSheet/getWeekSheet';
 
 

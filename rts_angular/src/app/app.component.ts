@@ -16,6 +16,7 @@ import { CandidateReportComponent } from './candidate-report/candidate-report.co
 import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
 import { TimeSheetService } from './Services/timeSheet.service';
 import { ApiUrl } from 'src/app/Services/api-url';
+import { browser } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -41,6 +42,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
   }
 
+
   ngDoCheck() {
     this.displayComponent = this.hideComponent.displayComponent;
     this.rtsUser = JSON.parse(localStorage.getItem('rts_user'));
@@ -49,71 +51,52 @@ export class AppComponent implements DoCheck, OnDestroy {
     }
     const loginService = this.loginService;
 
-    window.onbeforeunload = function (event) {
-      // const token = localStorage.getItem('id_token');
-      // const userId = localStorage.getItem('user_id');
-      // const data = {
-      //   sessionOutStr: "sessionOut",
-      //   userId: parseInt(userId)
-      // }
+    // window.addEventListener("beforeunload", function (e) {
+    //   const token = localStorage.getItem('id_token');
+    //   const userId = localStorage.getItem('user_id');
+    //   var confirmationMessage = "\o/";
+    //   (e || window.event).returnValue = confirmationMessage;
+    //   // loginService.logout();
+    //   // const user = {
+    //   //   userId: userId,
+    //   //   autoLogout: true
+    //   // };
+    //   // let headers = {
+    //   //   type: 'application/json',
+    //   //   Authorization:token
+    //   // };
+    //   // let blob = new Blob([JSON.stringify(user)], headers);
+    //   // navigator.sendBeacon(ApiUrl.BaseUrl + ApiUrl.UserLogout, blob);
 
-      // fetch(ApiUrl.BaseUrl + ApiUrl.TimeSheetInOrOut, {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': token
-      //   }
-      // }).then(res => res.json())
-      //   .then(response => {
-      //     loginService.logout();
-      //   });
-      // event.returnValue = '';
-      var message = 'Important: Please click on \'Save\' button to leave this page.';
-      if (typeof event == 'undefined') {
-        event = window.event;
-      }
-      if (event) {
-        const token = localStorage.getItem('id_token');
-        const userId = localStorage.getItem('user_id');
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', ApiUrl.BaseUrl + ApiUrl.TimeSheetInOrOut);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Authorization', token);
-        xhr.onload = function () {
-          loginService.logout();
-          return message;
-        };
-        xhr.send(JSON.stringify({
-          sessionOutStr: "sessionOut",
-          userId: parseInt(userId)
-        }));
-        event.returnValue = message;
-      }
-      return message;
-    };
+    //   return confirmationMessage;
+    // });
+    
+
   }
+
 
   ngOnDestroy() {
     this.hideComponent.displayComponent = false;
   }
 
   refresh() {
-    this.onLogout();
-  }
-
-  onLogout() {
     const userId = {
-      sessionOutStr: "sessionOut",
-      userId: this.rtsUser.userId
+      userId: this.rtsUser.userId,
+      autoLogout: true
     };
-
-    this.timeSheetService.timeSheetSession(userId)
+    this.loginService.isLogout(userId)
       .subscribe(
         data => {
           if (data.success) {
+            this.toastr.success('You are logged out', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
           }
         });
+  }
+
+  onLogout() {
     SubmissionsComponent.filterBy = undefined;
     SubmissionsComponent.userDetails = undefined;
     SubmissionsComponent.recruiter = undefined;
@@ -138,11 +121,22 @@ export class AppComponent implements DoCheck, OnDestroy {
     CandidateReportComponent.client = undefined;
     InterviewHistoryComponent.interviewStatus = undefined;
     SearchCandidatesComponent.skills = undefined;
-    this.loginService.logout();
-    this.toastr.success('You are logged out', '', {
-      positionClass: 'toast-top-center',
-      timeOut: 3000,
-    });
+    const userId = {
+      userId: this.rtsUser.userId,
+      autoLogout: false
+    };
+
+    this.loginService.isLogout(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('You are logged out', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+    this.router.navigate(['login']);
     return false;
   }
 }
