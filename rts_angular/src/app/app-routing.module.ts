@@ -52,6 +52,7 @@ import { DeleteSubmissionComponent } from './delete-submission/delete-submission
 import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
 import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
+import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 
 
 export const appRoutes: Routes = [
@@ -109,6 +110,7 @@ export const appRoutes: Routes = [
   { path: 'delete-submission', component: DeleteSubmissionComponent },
   { path: 'search-vendors', component: VendorMailComponent },
   { path: 'time-sheet', component: TimeSheetComponent },
+  { path: 'time-sheet-expand', component: TimeSheetDetailsComponent },
 ];
 
 

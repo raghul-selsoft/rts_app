@@ -7,6 +7,15 @@ import { NgProgress } from 'ngx-progressbar';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TimeSheetService } from '../Services/timeSheet.service';
+import { UserService } from '../Services/user.service';
+import { RequirementsService } from '../Services/requirements.service';
+import { MatDialog } from '@angular/material';
+import { TimeSheetDetailsComponent } from '../time-sheet-details/time-sheet-details.component';
+
+export interface DialogData {
+  weekSheet: any;
+  date: any;
+}
 
 @Component({
   selector: 'app-time-sheet',
@@ -22,21 +31,29 @@ export class TimeSheetComponent implements OnInit {
   private startDate: any;
   private fromDate: Date
   private days: any[];
+  private rtsCompanyId: any;
   selectedDays: any[];
   weekSheet: any;
+  userDetails: any[];
+  selectedUser: any;
+  currentDate: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
     private activatedRoute: ActivatedRoute,
     private ngProgress: NgProgress,
     private toastr: ToastrService,
-    private timeSheetService: TimeSheetService
+    private timeSheetService: TimeSheetService,
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.days = [];
     this.selectedDays = [];
+    this.selectedUser = this.rtsUserId;
+    this.startDate = new Date(Date.now())
   }
 
   ngOnInit() {
@@ -47,11 +64,58 @@ export class TimeSheetComponent implements OnInit {
     this.days[4] = "Thursday";
     this.days[5] = "Friday";
     this.days[6] = "Saturday";
+    if (this.userRole === 'ADMIN') {
+      this.getManageUser();
+    } else {
+      this.getAllUser();
+    }
   }
+  getAllUser() {
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.userDetails = [];
+            for (const user of data.users) {
+              if (user.userStatus === 'Active' && user.role !== 'ADMIN') {
+                this.userDetails.push(user);
+              }
+            }
+          }
+        });
+  }
+
+  getManageUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.userService.manageUsers(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.userDetails = [];
+            for (const user of data.users) {
+              if (user.userStatus === 'Active') {
+                this.userDetails.push(user);
+              }
+            }
+          }
+        });
+  }
+
 
   dateFilter() {
     this.ngProgress.start();
     this.selectedDays = [];
+    this.currentDate = new Date(this.startDate);
+
     if (this.days[this.startDate.getDay()] == 'Sunday') {
       this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD') });
       for (const day of this.days) {
@@ -61,24 +125,39 @@ export class TimeSheetComponent implements OnInit {
       this.selectedDays.pop();
 
       const days = {
-        userId: this.rtsUserId,
+        userId: this.selectedUser,
         daySheets: this.selectedDays
       };
 
       this.timeSheetService.getWeekSheet(days)
         .subscribe(data => {
-          console.log(data)
           this.ngProgress.done();
           if (data.success) {
             this.weekSheet = data.weekSheet.daySheets;
+            for (const sheet of this.weekSheet) {
+              if (!sheet.workingHoursStr) {
+                sheet.workingHoursStr = '0:0';
+              }
+            }
           }
         });
+
     } else {
+      this.ngProgress.done();
       this.toastr.error('Please Select Sunday', '', {
         positionClass: 'toast-top-center',
         timeOut: 3000,
       });
     }
+    this.startDate = this.currentDate;
   }
 
+  getTimeDetails(dateId) {
+    const dialogRef = this.dialog.open(TimeSheetDetailsComponent, {
+      height: '500px',
+      width: '1000px',
+      data: { weekSheet: this.weekSheet, date: dateId }
+    });
+
+  }
 }

@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -100,6 +100,7 @@ import { VendorService } from './Services/vendor.service';
 import { AutoRefreshComponent } from './auto-refresh/auto-refresh.component';
 import { TimeSheetService } from './Services/timeSheet.service';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
+import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 
 
 @NgModule({
@@ -158,6 +159,7 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     VendorMailComponent,
     AutoRefreshComponent,
     TimeSheetComponent,
+    TimeSheetDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -170,12 +172,12 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     MatSnackBarModule,
     MatDatepickerModule,
     MatInputModule,
-    MatAutocompleteModule,MatOptionModule,
+    MatAutocompleteModule, MatOptionModule,
     MatCheckboxModule,
     NativeDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    Ng2SearchPipeModule,NgSelectModule,
+    Ng2SearchPipeModule, NgSelectModule,
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
@@ -189,6 +191,8 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     NgxPaginationModule,
     PaginationModule,
     OwlDateTimeModule,
+    MatSelectModule,
+    MatOptionModule,
     OwlNativeDateTimeModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,

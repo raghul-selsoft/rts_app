@@ -3,18 +3,37 @@
 </ng-progress>
 <h2 class="main-title">Time Sheet</h2>
 <div class="utility-container">
-  <mat-form-field>
-    <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
-    <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
-    <mat-datepicker #fromDatePicker></mat-datepicker>
-  </mat-form-field>
-
-  <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
-
+  <div class="row">
+    <div class="col-8">
+      <div class="row mt-2">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field>
+            <mat-label>Select User</mat-label>
+            <mat-select [(ngModel)]="selectedUser">
+              <mat-option *ngFor="let user of userDetails" [value]="user.userId">
+                {{user.firstName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2 mt-3">
+          <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <table class="table table-bordered table-sm table-hover">
     <thead class="table-header">
       <tr>
+        <th><b>Days</b></th>
         <th>Sunday</th>
         <th>Monday</th>
         <th>Tuesday</th>
@@ -22,14 +41,16 @@
         <th>Thursday</th>
         <th>Friday</th>
         <th>Saturday</th>
-      </tr>     
+      </tr>
     </thead>
     <tbody>
       <tr>
+        <td><b>Date</b></td>
         <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
       </tr>
       <tr>
-        <td *ngFor="let sheet of weekSheet">{{sheet.workingHoursStr}}</td>
+        <td><b>Working Hours</b></td>
+        <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);">{{sheet.workingHoursStr}}</td>
       </tr>
     </tbody>
   </table>
