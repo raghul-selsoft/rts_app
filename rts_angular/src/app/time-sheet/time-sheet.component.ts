@@ -57,6 +57,7 @@ export class TimeSheetComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.days[0] = "Sunday";
     this.days[1] = "Monday";
     this.days[2] = "Tuesday";
@@ -64,52 +65,23 @@ export class TimeSheetComponent implements OnInit {
     this.days[4] = "Thursday";
     this.days[5] = "Friday";
     this.days[6] = "Saturday";
-    if (this.userRole === 'ADMIN') {
-      this.getManageUser();
-    } else {
-      this.getAllUser();
-    }
-  }
-  getAllUser() {
-    const userId = {
-      companyId: this.rtsCompanyId
-    };
-
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          this.ngProgress.done();
-          if (data.success) {
-            this.userDetails = [];
-            for (const user of data.users) {
-              if (user.userStatus === 'Active' && user.role !== 'ADMIN') {
-                this.userDetails.push(user);
-              }
-            }
-          }
-        });
+    this.getActiveUsers();
   }
 
-  getManageUser() {
+  getActiveUsers() {
     const userId = {
       userId: this.rtsUserId
     };
 
-    this.userService.manageUsers(userId)
+    this.userService.getActiceUsers(userId)
       .subscribe(
         data => {
           this.ngProgress.done();
           if (data.success) {
-            this.userDetails = [];
-            for (const user of data.users) {
-              if (user.userStatus === 'Active') {
-                this.userDetails.push(user);
-              }
-            }
+            this.userDetails = data.users;
           }
         });
   }
-
 
   dateFilter() {
     this.ngProgress.start();

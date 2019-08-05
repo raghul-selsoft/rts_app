@@ -33,7 +33,7 @@ export class TimeSheetDetailsComponent implements OnInit {
     this.date = this.data.date
     const selected = _.findWhere(this.weekSheets, { dateId: this.data.date });
     this.selectedTimeSheet = selected.timeSessions;
-    console.log(this.selectedTimeSheet)
+    // console.log(this.selectedTimeSheet)
   }
 
 }

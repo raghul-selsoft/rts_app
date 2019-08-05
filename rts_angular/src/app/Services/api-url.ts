@@ -37,6 +37,8 @@ export class ApiUrl {
     static ForgotPassword = 'rtsUser/user/forgotPassword';
     static UpdateFcmToken = 'rtsUser/user/updateFcmToken';
     static UserLogout = 'rtsUser/user/userLogout';
+    static GetActiveUsers = 'rtsUser/user/getActiveUser';
+
 
     //submission api
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
