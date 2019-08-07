@@ -15,6 +15,7 @@ import { TimeSheetDetailsComponent } from '../time-sheet-details/time-sheet-deta
 export interface DialogData {
   weekSheet: any;
   date: any;
+  isProductivity: boolean
 }
 
 @Component({
@@ -110,6 +111,9 @@ export class TimeSheetComponent implements OnInit {
               if (!sheet.workingHoursStr) {
                 sheet.workingHoursStr = '0:0';
               }
+              if (!sheet.productivityHoursStr) {
+                sheet.productivityHoursStr = '0:0';
+              }
             }
           }
         });
@@ -124,11 +128,11 @@ export class TimeSheetComponent implements OnInit {
     this.startDate = this.currentDate;
   }
 
-  getTimeDetails(dateId) {
+  getTimeDetails(dateId, isProductivity) {
     const dialogRef = this.dialog.open(TimeSheetDetailsComponent, {
       height: '500px',
       width: '1000px',
-      data: { weekSheet: this.weekSheet, date: dateId }
+      data: { weekSheet: this.weekSheet, date: dateId, isProductivity: isProductivity }
     });
 
   }

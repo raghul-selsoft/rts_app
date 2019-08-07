@@ -30,30 +30,63 @@
     </div>
   </div>
 
-  <table class="table table-bordered table-sm table-hover">
-    <thead class="table-header">
-      <tr>
-        <th><b>Days</b></th>
-        <th>Sunday</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wendesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><b>Date</b></td>
-        <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
-      </tr>
-      <tr>
-        <td><b>Working Hours</b></td>
-        <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);">{{sheet.workingHoursStr}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
+    <table class="table table-bordered table-sm table-hover">
+      <thead class="table-header">
+        <tr>
+          <th><b>Days</b></th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wendesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Date</b></td>
+          <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
+        </tr>
+        <tr>
+          <td><b>Working Hours</b></td>
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,false);">{{sheet.workingHoursStr}}</td>
+        </tr>
+        <tr>
+          <td><b>Productivity Hours</b></td>
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);">{{sheet.productivityHoursStr}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="userRole === 'RECRUITER'">
+    <table class="table table-bordered table-sm table-hover">
+      <thead class="table-header">
+        <tr>
+          <th><b>Days</b></th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wendesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Date</b></td>
+          <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
+        </tr>
+        <tr>
+          <td><b>Working Hours</b></td>
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);">{{sheet.workingHoursStr}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
 </div>
