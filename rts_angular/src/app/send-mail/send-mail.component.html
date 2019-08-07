@@ -2,8 +2,7 @@
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="main-title">
-  <a [routerLink]="['/search-candidates']">Search Candidates</a> / Send Mail</h2>
+<h2 class="main-title"><a [routerLink]="['/search-candidates']">Search Candidates</a> / Send Mail</h2>
 
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
@@ -16,10 +15,11 @@
       <div class="row">
         <label class="form-label pb-3">To:</label>
         <div class="col-12">
-          <ng-select [items]="selectedCandidates" bindLabel="email" bindValue="email" [multiple]="true"
-            formControlName="mailTo" placeholder="Search Candidates" [(ngModel)]="candidateList">
+          <ng-select [items]="selectedMailId" bindLabel="email" bindValue="email" [multiple]="true"
+            formControlName="mailTo" [(ngModel)]="mailToAddress">
           </ng-select>
-          <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="candidateList" (cbOnSuccess)="copied($event)">Copy</button>
+          <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="mailToAddress"
+            (cbOnSuccess)="copied($event)">Copy</button>
         </div>
       </div>
 
@@ -40,12 +40,12 @@
       <div class="row">
         <label class="form-label mb-4">Body:</label>
         <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
-          [(ngModel)]="mailBody" formControlName="mailBody"></app-ngx-editor>
+          [(ngModel)]="customMailBody" formControlName="mailBody"></app-ngx-editor>
       </div>
 
       <div class="row mt-3">
         <!-- <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send</button> -->
-        <button class="btn btn-forms btn-space" [routerLink]="[ '/search-candidates']">Cancel</button>
+        <!-- <button class="btn btn-forms btn-space" [routerLink]="[ '/search-candidates']">Cancel</button> -->
       </div>
 
     </div>

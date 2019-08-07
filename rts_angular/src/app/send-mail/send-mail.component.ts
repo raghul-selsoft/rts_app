@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SendMailComponent implements OnInit {
 
   public myForm: FormGroup;
-  static candidatesList: any[];
+  static mailToAddress: any[];
   rtsUserId: any;
   rtsUser: any;
   adminUsers: any[];
@@ -24,8 +24,8 @@ export class SendMailComponent implements OnInit {
   adminUsersArray: any;
   users: any;
   rtsUserEmail: any;
-  selectedCandidates: any[];
-  candidateList: any;
+  selectedMailId: any[];
+  mailToAddress: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -43,8 +43,8 @@ export class SendMailComponent implements OnInit {
     this.selectedAdmins = [];
     this.adminUsersArray = [];
     this.users = [];
-    this.selectedCandidates = [];
-    this.candidateList = [];
+    this.selectedMailId = [];
+    this.mailToAddress = [];
   }
 
   ngOnInit() {
@@ -58,12 +58,15 @@ export class SendMailComponent implements OnInit {
     })
     this.getAllUser();
 
-    if (SendMailComponent.candidatesList !== undefined) {
-      for (const mail of SendMailComponent.candidatesList) {
-        this.selectedCandidates.push({ email: mail.email });
-        this.candidateList.push(mail.email)
+    if (SendMailComponent.mailToAddress !== undefined) {
+      for (const mail of SendMailComponent.mailToAddress) {
+        this.selectedMailId.push({ email: mail.email });
+        this.mailToAddress.push(mail.email)
       }
     }
+    // this.customMailBody = '<p><b>Employee Name :</b> R Raghul</p>';
+
+
   }
 
   getAllUser() {
@@ -87,7 +90,7 @@ export class SendMailComponent implements OnInit {
         });
   }
 
-  copied(event) {    
+  copied(event) {
     this.toastr.info('Text Copied', '', {
       positionClass: 'toast-bottom-right',
       timeOut: 2000,
