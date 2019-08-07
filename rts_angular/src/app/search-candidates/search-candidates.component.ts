@@ -9,6 +9,10 @@ import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material';
 
+export interface DialogData {
+  mailTo: any;
+}
+
 
 @Component({
   selector: 'app-search-candidates',
@@ -88,8 +92,8 @@ export class SearchCandidatesComponent implements OnInit {
   getTech() {
     this.ngProgress.start();
     SearchCandidatesComponent.skills = this.selectedSkills;
-   
-    if (this.selectedSkills.length > 0) {    
+
+    if (this.selectedSkills.length > 0) {
 
       const submit = {
         skills: this.selectedSkills,
@@ -117,9 +121,18 @@ export class SearchCandidatesComponent implements OnInit {
     }
   }
 
+  // sendMail() {
+  //   SendMailComponent.mailToAddress = this.selectedCandidates;
+  //   this.router.navigate(['/send-mail']);
+  // }
+
   sendMail() {
-    SendMailComponent.mailToAddress = this.selectedCandidates;
-    this.router.navigate(['/send-mail']);
+    const dialogRef = this.dialog.open(SendMailComponent, {
+      height: '800px',
+      width: '1200px',
+      data: { mailTo: this.selectedCandidates }
+    });
+
   }
 
 

@@ -11,11 +11,15 @@ import { UserService } from '../Services/user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import { MatDialog } from '@angular/material';
 import { TimeSheetDetailsComponent } from '../time-sheet-details/time-sheet-details.component';
+import { SendMailComponent } from '../send-mail/send-mail.component';
 
 export interface DialogData {
   weekSheet: any;
   date: any;
-  isProductivity: boolean
+  isProductivity: boolean;
+}
+export interface DialogMailData {
+  daySheets: any;
 }
 
 @Component({
@@ -38,6 +42,8 @@ export class TimeSheetComponent implements OnInit {
   userDetails: any[];
   selectedUser: any;
   currentDate: Date;
+  selectedDaysLength: number;
+  selectedSheet: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -53,6 +59,7 @@ export class TimeSheetComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.days = [];
     this.selectedDays = [];
+    this.selectedSheet = [];
     this.selectedUser = this.rtsUserId;
     this.startDate = new Date(Date.now())
   }
@@ -87,6 +94,7 @@ export class TimeSheetComponent implements OnInit {
   dateFilter() {
     this.ngProgress.start();
     this.selectedDays = [];
+    this.selectedSheet = [];
     this.currentDate = new Date(this.startDate);
 
     if (this.days[this.startDate.getDay()] == 'Sunday') {
@@ -96,6 +104,7 @@ export class TimeSheetComponent implements OnInit {
         this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD') });
       }
       this.selectedDays.pop();
+      this.selectedDaysLength = this.selectedDays.length;
 
       const days = {
         userId: this.selectedUser,
@@ -117,6 +126,9 @@ export class TimeSheetComponent implements OnInit {
             }
           }
         });
+      for (const day of this.selectedDays) {
+        this.selectedSheet.push(day.dateId)
+      }
 
     } else {
       this.ngProgress.done();
@@ -133,6 +145,15 @@ export class TimeSheetComponent implements OnInit {
       height: '500px',
       width: '1000px',
       data: { weekSheet: this.weekSheet, date: dateId, isProductivity: isProductivity }
+    });
+
+  }
+
+  sendMail() {
+    const dialogRef = this.dialog.open(SendMailComponent, {
+      height: '800px',
+      width: '1200px',
+      data: { daySheets: this.selectedSheet }
     });
 
   }
