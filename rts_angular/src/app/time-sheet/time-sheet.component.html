@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
+  <div *ngIf="userRole === 'ADMIN'">
     <table class="table table-bordered table-sm table-hover">
       <thead class="table-header">
         <tr>
@@ -65,7 +65,7 @@
     </table>
   </div>
 
-  <div *ngIf="userRole === 'RECRUITER'">
+  <div *ngIf="userRole !== 'ADMIN'">
     <table class="table table-bordered table-sm table-hover">
       <thead class="table-header">
         <tr>
