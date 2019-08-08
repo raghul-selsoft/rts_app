@@ -133,7 +133,8 @@ export class SendMailComponent implements OnInit {
       daySheets: this.mailData.daySheets,
       to: form.value.mailTo,
       cc: form.value.mailCC,
-      subject: form.value.mailSubject
+      subject: form.value.mailSubject,
+      body:form.value.mailBody
     };
 
     this.timeSheetService.sendTimeSheet(submit)
