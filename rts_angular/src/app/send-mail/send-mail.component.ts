@@ -32,6 +32,7 @@ export class SendMailComponent implements OnInit {
   mailToAddress: any;
   addCustom = (item) => ({ email: item });
   selectedDays: any[];
+  isMail: boolean;
 
 
   constructor(
@@ -60,7 +61,6 @@ export class SendMailComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.myForm = this.formBuilder.group({
       mailFrom: [''],
       mailTo: [''],
@@ -75,6 +75,11 @@ export class SendMailComponent implements OnInit {
         this.selectedMailId.push({ email: mail.email });
         this.mailToAddress.push(mail.email)
       }
+    }
+    if (this.mailData.daySheets === undefined) {
+      this.isMail = true;
+    } else {
+      this.isMail = false;
     }
   }
 
@@ -107,7 +112,7 @@ export class SendMailComponent implements OnInit {
   }
 
   sendMail(form: FormGroup) {
-    console.log(form.value);
+    // console.log(form.value);
     if (form.value.mailTo.length === 0) {
       this.toastr.error('Please Add To Addresss', '', {
         positionClass: 'toast-top-center',
@@ -129,7 +134,6 @@ export class SendMailComponent implements OnInit {
       to: form.value.mailTo,
       cc: form.value.mailCC,
       subject: form.value.mailSubject
-
     };
 
     this.timeSheetService.sendTimeSheet(submit)
