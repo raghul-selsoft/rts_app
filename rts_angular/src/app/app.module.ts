@@ -102,6 +102,7 @@ import { TimeSheetService } from './Services/timeSheet.service';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 import { TimesheetReportComponent } from './timesheet-report/timesheet-report.component';
+import { LeaveRequestComponent } from './leave-request/leave-request.component';
 
 
 @NgModule({
@@ -162,6 +163,7 @@ import { TimesheetReportComponent } from './timesheet-report/timesheet-report.co
     TimeSheetComponent,
     TimeSheetDetailsComponent,
     TimesheetReportComponent,
+    LeaveRequestComponent,
   ],
   imports: [
     BrowserModule,
