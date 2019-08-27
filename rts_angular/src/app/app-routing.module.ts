@@ -55,6 +55,8 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 import { TimesheetReportComponent } from './timesheet-report/timesheet-report.component';
 import { LeaveRequestComponent } from './leave-request/leave-request.component';
+import { CreateHolidayComponent } from './create-holiday/create-holiday.component';
+import { HolidayListComponent } from './holiday-list/holiday-list.component';
 
 
 export const appRoutes: Routes = [
@@ -115,6 +117,8 @@ export const appRoutes: Routes = [
   { path: 'time-sheet-expand', component: TimeSheetDetailsComponent },
   { path: 'time-sheet-report', component: TimesheetReportComponent },
   { path: 'leave-request', component: LeaveRequestComponent },
+  { path: 'create-holiday', component: CreateHolidayComponent },
+  { path: 'holiday-list', component: HolidayListComponent },
 ];
 
 

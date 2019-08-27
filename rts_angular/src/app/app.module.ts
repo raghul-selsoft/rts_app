@@ -103,7 +103,9 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 import { TimesheetReportComponent } from './timesheet-report/timesheet-report.component';
 import { LeaveRequestComponent } from './leave-request/leave-request.component';
-
+import { SatDatepickerModule, SatNativeDateModule } from 'node_modules/saturn-datepicker';
+import { CreateHolidayComponent } from './create-holiday/create-holiday.component';
+import { HolidayListComponent } from './holiday-list/holiday-list.component';
 
 @NgModule({
   declarations: [
@@ -164,6 +166,8 @@ import { LeaveRequestComponent } from './leave-request/leave-request.component';
     TimeSheetDetailsComponent,
     TimesheetReportComponent,
     LeaveRequestComponent,
+    CreateHolidayComponent,
+    HolidayListComponent,
   ],
   imports: [
     BrowserModule,
@@ -180,6 +184,8 @@ import { LeaveRequestComponent } from './leave-request/leave-request.component';
     MatCheckboxModule,
     NativeDateModule,
     MatNativeDateModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
     MatFormFieldModule,
     Ng2SearchPipeModule, NgSelectModule,
     ToastrModule.forRoot(),
