@@ -6,4 +6,7 @@
     text-align: end;
     padding-right: 0.5em;
   }
-  
+  .text{
+    padding-top: 1.2em;
+    color: red;
+}
