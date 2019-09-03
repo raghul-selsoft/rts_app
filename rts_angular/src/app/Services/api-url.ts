@@ -99,6 +99,7 @@ export class ApiUrl {
     static SendTimeSheetToMail = 'rtsTimeSheet/timeSheet/sendTimeSheetToMail';
     // static TimeSheetReport = 'rtsTimeSheet/timeSheet/timeSheetReport';
     static LeaveRequest = 'rtsTimeSheet/timeSheet/leaveRequest';
+    static CancelLeaveRequest = 'rtsTimeSheet/timeSheet/cancelLeaveRequest';
     static CreateHoliday = 'rtsTimeSheet/timeSheet/createHoliday';
     static GetHolidays = 'rtsTimeSheet/timeSheet/holidayList';
 
