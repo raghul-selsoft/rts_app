@@ -104,6 +104,9 @@ export class ApiUrl {
     static GetHolidays = 'rtsTimeSheet/timeSheet/holidayList';
     static UpcomingLeaveRequest = 'rtsTimeSheet/timeSheet/upcomingLeaveRequest';
 
+    //Dice api
+    static GetAllDice = 'rtsDice/dice/getAllDiceAccount';
+
 
 
 

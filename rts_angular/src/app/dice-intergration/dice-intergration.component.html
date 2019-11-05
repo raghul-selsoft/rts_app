@@ -1,0 +1,163 @@
+<div class="sub-nav-wrapper">
+  <!-- <span>
+    <a class="sub-nav-link" [routerLink]="['/choose-dice']">Choose Dice Account</a>
+  </span> -->
+  <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
+    <a class="sub-nav-link" [routerLink]="['/add-dice']">Add Dice</a>
+  </span>
+  <span class="divider">
+    <mat-form-field>
+      <mat-label>Choose Dice</mat-label>
+      <mat-select [(ngModel)]="selectedDice" (ngModelChange)="diceSelection()">
+        <mat-option *ngFor="let dice of diceAccount" [value]="dice.diceId">
+          {{dice.userName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </span>
+
+</div>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+
+
+<h2 class="main-title">Dice Search</h2>
+
+<div class="utility-container">
+
+  <form [formGroup]="myForm" (ngSubmit)="getCandidates(myForm)">
+    <div class="row ml-4 mr-4">
+      <div class="col-6">
+        <label class="form-label">Query:</label>
+        <input type="text" class="form-input" formControlName="query">
+      </div>
+      <div class="col-4">
+        <label class="form-label">Location:</label>
+        <input type="text" class="form-input" formControlName="location">
+      </div>
+      <div class="col-2 searchBtn">
+        <button type="button" class="btn btn-primary" (click)="getCandidates(myForm);">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <h2 class="form-title">Candidates List</h2>
+  <div class="row">
+    <div class="col-2">
+      <h4 class="candidate-list">Filter Options</h4>
+      <form [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)">
+        <input type="text" class="form-input" formControlName="distance" placeholder="Distance">
+        <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active">
+        <label class="filterLabel">Contact Method :</label>
+        <span *ngFor="let contact of contactMethod">
+          <mat-checkbox color="primary" formControlName="contactMethod" [value]="contact.value">{{contact.name}}
+          </mat-checkbox>
+        </span>
+        <mat-form-field>
+          <mat-label>Relocate</mat-label>
+          <mat-select formControlName="relocate">
+            <mat-option value="Yes">Yes</mat-option>
+            <mat-option value="No">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="Search Skills"
+          formControlName="skills" [(ngModel)]="selectedSkills">
+        </ng-select>
+        <ng-select [items]="educationDegree" bindLabel="name" [multiple]="true" placeholder="Education"
+          formControlName="education">
+        </ng-select>
+        <input type="text" class="form-input" formControlName="experience" placeholder="Experience">
+        <input type="text" class="form-input" formControlName="employmentType" placeholder="EmploymentType">
+        <ng-select [items]="immigration" bindLabel="visaName" bindValue="visaStatusId" [multiple]="true"
+          placeholder="Work Permit" formControlName="workPermit">
+        </ng-select>
+        <input type="text" class="form-input" formControlName="pageSize" placeholder="Page Size">
+        <!-- <mat-form-field>
+            <mat-label>EmploymentType</mat-label>
+            <mat-select formControlName="employmentType">
+              <mat-option value="C2C">C2C</mat-option>
+              <mat-option value="C2H">C2H</mat-option>
+              <mat-option value="FTE">FTE</mat-option>
+              <mat-option value="TBD">TBD</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        <div class="filterBtn">
+          <button mat-raised-button color="primary" class="mr-2" (click)="resetForm();">Clear</button>
+          <button mat-raised-button color="primary" (click)="candidateFilter(candidateForm);">Filter</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-10 divide">
+      <div class="mat-paginator-container">
+        <h4 class="candidate-list">{{candidatesLength}} Candidates Found</h4>
+        <mat-paginator [length]="candidatesLength" [pageSize]="10" [pageSizeOptions]="[5, 10]"
+          (page)="getPaginatorData($event)">
+        </mat-paginator>
+      </div>
+      <div class="scroll-wrapper">
+        <div *ngFor="let candidate of (candidates | slice: lowValue : highValue)">
+          <mat-card class="card-container">
+            <div *ngFor="let socialMedia of candidate.socialProfiles">
+              <img mat-card-sm-image src="{{socialMedia.icon_64}}">
+            </div>
+            <mat-card-header class="candidate-header">
+
+              <div mat-card-avatar class="candidate-image">
+                <span *ngIf="candidate.imageUrl; else noImage">
+                  <img mat-card-lg-image src="{{candidate.imageUrl}}">
+                </span>
+                <ng-template #noImage>
+                  <img mat-card-lg-image src="https://mhcd.org/wp-content/uploads/2017/12/placeholder-man.png">
+                </ng-template>
+              </div>
+              <mat-card-title class="candidate-name">{{candidate.fullName}}
+                <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
+              </mat-card-title>
+
+              <mat-card-subtitle class="candidate-name"> <i class="material-icons icon-exp pl-2"> work_outline
+                </i>Prefered:{{candidate.desiredJobTitles[0]}}</mat-card-subtitle>
+
+              <mat-card-subtitle class="candidate-name">
+                <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
+                {{candidate.country}}
+                <i class="material-icons icon-exp icon-padding"> event_note </i>{{candidate.yearsOfExperience}} years
+                exp
+                <i class="fa fa-globe pr-2 icon-padding" style="font-size:17px">
+                </i>{{candidate.workPermitDocuments[0]}}
+              </mat-card-subtitle>
+
+              <mat-card-subtitle class="candidate-name">
+                <i class="fa fa-map-o pl-2 pr-1" style="font-size:17px"></i>
+                <span *ngIf="candidate.workPreferences[0].willingToRelocate; else notRelocate">Willing to
+                  relocate</span>
+                <ng-template #notRelocate>
+                  Not willing to relocate
+                </ng-template>
+                <i class="fa fa-money icon-padding" style="font-size:18px"></i>
+                <span *ngIf="candidate.workPreferences[0].annualSalary; else noSalary">
+                  {{candidate.workPreferences[0].annualSalary.min}}+(USD) /yr </span>
+                <ng-template #noSalary>
+                  No desired salary disclosed
+                </ng-template>
+                <i class="material-icons icon-exp icon-padding"> watch_later
+                </i>{{candidate.dateLastActive | date:'MMM d, y'}}
+              </mat-card-subtitle>
+
+            </mat-card-header>
+            <mat-card-content>
+              <mat-grid-list class="grid-list" cols="5" rowHeight="6:1">
+                <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">{{tech.skill}}
+                  <span class="grid-sub-tile">{{tech.lastUsed}}</span></mat-grid-tile>
+              </mat-grid-list>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>VIEW</button>
+            </mat-card-actions>
+
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

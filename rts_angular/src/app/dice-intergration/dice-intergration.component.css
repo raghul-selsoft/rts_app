@@ -1,0 +1,152 @@
+.form-btn-container{
+    text-align: right;
+    margin-right: 3em;
+    margin-top: 3em;
+}
+.divider{
+    display: unset;
+    padding-left: 1em;
+    margin-left: 1em;
+    border-left: 1px solid #d0d0d0;
+}
+
+.mat-form-field {
+     /* width: 250px !important; */
+     width: fit-content;
+}
+
+.mat-card {
+    margin-top: 3px;
+}
+
+.searchBtn{
+    margin-top: 3.2rem !important;
+}
+.divide{
+    border-left: 1px solid #6f89a0;
+}
+
+.filterBtn{
+    margin-top: 1.5em;
+    text-align: right;
+}
+
+.dice-title{
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    font-size: 1.2em; 
+    margin-top: 2em;
+    padding: 0.5em;  
+}
+
+.candidate-list{
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: 1.1em;
+    padding: 0.5em;
+    border-bottom: 1px solid #3484c8;
+}
+
+.candidate-image { 
+    padding: 5px;
+    width: 150px;
+}
+
+.candidate-header {
+    height: 10em; 
+    padding-left: 0.5em;
+}
+
+.candidate-name{
+    padding-left: 5px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    font-size: medium;
+}
+
+.card-container {     
+    max-width: 100%;
+}
+.scroll-wrapper{
+    overflow-y: scroll;
+    height: 50em;
+}
+
+.card-container div:last-child {
+    text-align: right;
+}
+  
+.mat-input-element {
+    font-weight: 600;
+}
+
+.mat-card-lg-image {
+    border-radius: 50%;
+}
+
+.mat-card-sm-image {
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+.mat-grid-list{
+    padding: 1em;
+}
+
+.filterLabel{
+    margin-top: 1em;
+    display: block;
+}
+
+.mat-checkbox{
+    padding: 5px;
+}
+
+.mat-expansion-panel-header{
+    margin-top: 10px;
+}
+
+.ng-select{
+    margin-top: 1em;
+}
+
+.icon-exp {
+    position: relative;
+    top: 5px;
+    font-size: 19px;
+    padding-right: 5px;
+}
+.icon-padding{
+    padding-left: 5em;
+}
+
+.mat-grid-tile {
+    background: whitesmoke;
+    padding: 1em;
+    padding-top: 24px !important;
+}
+
+.mat-paginator-container{
+    justify-content: space-between;
+}
+
+.grid-tile >::ng-deep .mat-figure{
+    justify-content: left;
+    padding-left: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    border-left: 1px solid rgb(163, 150, 150);
+    color: darkslategray;
+    /* display: inline; */
+}
+
+.grid-sub-tile {
+    margin-left: auto;
+    padding: 8px;
+    color: cadetblue;
+}
+
+  
+ 
