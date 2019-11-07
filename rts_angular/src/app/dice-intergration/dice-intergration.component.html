@@ -5,7 +5,7 @@
   <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
     <a class="sub-nav-link" [routerLink]="['/add-dice']">Add Dice</a>
   </span>
-  <span class="divider">
+  <!-- <span class="divider">
     <mat-form-field>
       <mat-label>Choose Dice</mat-label>
       <mat-select [(ngModel)]="selectedDice" (ngModelChange)="diceSelection()">
@@ -14,7 +14,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </span>
+  </span> -->
 
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
@@ -47,7 +47,7 @@
     <div class="col-2">
       <h4 class="candidate-list">Filter Options</h4>
       <form [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)">
-        <input type="text" class="form-input" formControlName="distance" placeholder="Distance">
+        <input type="text" class="form-input" formControlName="distance" placeholder="Distance">      
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active">
         <label class="filterLabel">Contact Method :</label>
         <span *ngFor="let contact of contactMethod">
@@ -115,8 +115,13 @@
                 <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
               </mat-card-title>
 
-              <mat-card-subtitle class="candidate-name"> <i class="material-icons icon-exp pl-2"> work_outline
-                </i>Prefered:{{candidate.desiredJobTitles[0]}}</mat-card-subtitle>
+              <mat-card-subtitle class="candidate-name slider"> <i class="material-icons icon-exp pl-2"> work_outline
+                </i>Preferred:{{candidate.desiredJobTitles[0]}}
+                <section class="slider-section">
+                  Likely to Switch<mat-progress-bar mode="determinate" value="{{candidate.likelyToMoveScore}}">
+                  </mat-progress-bar>
+                </section>
+              </mat-card-subtitle>
 
               <mat-card-subtitle class="candidate-name">
                 <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
@@ -134,14 +139,14 @@
                 <ng-template #notRelocate>
                   Not willing to relocate
                 </ng-template>
-                <i class="fa fa-money icon-padding" style="font-size:18px"></i>
+                <i class="fa fa-money icon-padding " style="font-size:18px"></i>
                 <span *ngIf="candidate.workPreferences[0].annualSalary; else noSalary">
                   {{candidate.workPreferences[0].annualSalary.min}}+(USD) /yr </span>
                 <ng-template #noSalary>
                   No desired salary disclosed
                 </ng-template>
                 <i class="material-icons icon-exp icon-padding"> watch_later
-                </i>{{candidate.dateLastActive | date:'MMM d, y'}}
+                </i>{{candidate.dateLastActive | timeAgo}}
               </mat-card-subtitle>
 
             </mat-card-header>
@@ -152,7 +157,7 @@
               </mat-grid-list>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button>VIEW</button>
+              <button mat-button [routerLink]="['/dice-detail-view']">VIEW</button>
             </mat-card-actions>
 
           </mat-card>

@@ -67,6 +67,7 @@
 
 .card-container {     
     max-width: 100%;
+    /* background-color: lightcyan; */
 }
 .scroll-wrapper{
     overflow-y: scroll;
@@ -83,6 +84,13 @@
 
 .mat-card-lg-image {
     border-radius: 50%;
+}
+
+.mat-form-field {   
+    width: -webkit-fill-available;
+}
+.mat-input-element{
+    font-weight: 300;
 }
 
 .mat-card-sm-image {
@@ -147,6 +155,30 @@
     padding: 8px;
     color: cadetblue;
 }
+
+ ::ng-deep .mat-card-header-text {  
+    width: 150% !important;
+}
+
+.slider-section{
+    width: 16%;
+    margin-left: auto;
+}
+
+.slider {
+    margin-top: -8px;
+    display: flex;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: seagreen;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 5px;
+    height: 10px !important;
+}
+
 
   
  

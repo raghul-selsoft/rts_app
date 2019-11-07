@@ -1,27 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import * as moment from 'moment';
 import { DiceService } from '../Services/dice.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-choose-dice-account',
-  templateUrl: './choose-dice-account.component.html',
-  styleUrls: ['./choose-dice-account.component.css'],
+  selector: 'app-dice-login',
+  templateUrl: './dice-login.component.html',
+  styleUrls: ['./dice-login.component.css'],
   providers: [LoggedUserService]
 })
-export class ChooseDiceAccountComponent implements OnInit {
+export class DiceLoginComponent implements OnInit {
+
+  public myForm: FormGroup;
   rtsUser: any;
   rtsUserId: any;
   userRole: any;
   rtsCompanyId: any;
   diceAccount: any;
+  hide = true;
 
   constructor(
+    public dialogRef: MatDialogRef<DiceLoginComponent>,
     private loggedUser: LoggedUserService,
+    private router: Router,
     private formBuilder: FormBuilder,
     private ngProgress: NgProgress,
     private toastr: ToastrService,
@@ -34,6 +40,11 @@ export class ChooseDiceAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.myForm = this.formBuilder.group({
+      userEmail: ['', Validators.required],
+      userPassword: ['', Validators.required]
+    });
     this.getAllDiceAccount();
   }
 
@@ -49,6 +60,12 @@ export class ChooseDiceAccountComponent implements OnInit {
             this.diceAccount = data.diceInfo;
           }
         });
+  }
+
+  diceLogin(form: FormGroup) {
+    console.log(form)
+    this.dialogRef.close();
+    this.router.navigate(['dice-view']);
   }
 
 }

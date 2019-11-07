@@ -61,7 +61,9 @@ import { CancelLeaveRequestComponent } from './cancel-leave-request/cancel-leave
 import { LeaveManageComponent } from './leave-manage/leave-manage.component';
 import { DiceIntergrationComponent } from './dice-intergration/dice-intergration.component';
 import { AddDiceComponent } from './add-dice/add-dice.component';
-import { ChooseDiceAccountComponent } from './choose-dice-account/choose-dice-account.component';
+import { DiceLoginComponent } from './dice-login/dice-login.component';
+import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
+
 
 
 export const appRoutes: Routes = [
@@ -127,9 +129,10 @@ export const appRoutes: Routes = [
   { path: 'cancel-leave-request', component: CancelLeaveRequestComponent },
   { path: 'cancel-leave-request/:id', component: CancelLeaveRequestComponent },
   { path: 'leave-manage', component: LeaveManageComponent },
-  { path: 'dice', component: DiceIntergrationComponent },
-  { path: 'add-dice', component: AddDiceComponent },
-  { path: 'choose-dice', component: ChooseDiceAccountComponent },
+  { path: 'dice-login', component: DiceLoginComponent },
+  { path: 'dice-view', component: DiceIntergrationComponent },
+  { path: 'add-dice', component: AddDiceComponent }, 
+  { path: 'dice-detail-view', component: DiceDetailViewComponent }, 
 ];
 
 
