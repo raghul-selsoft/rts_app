@@ -25,8 +25,7 @@ export class DiceDetailViewComponent implements OnInit {
   diceAccount: any;
   hide = true;
   selectedCandidate: any;
-  resume: string;
-  trustedURL: any;
+  candidateResume: string;
 
   constructor(
     // public sanitizer: DomSanitizer,
@@ -386,8 +385,8 @@ export class DiceDetailViewComponent implements OnInit {
 
     }
     console.log(this.selectedCandidate)
-    // this.trustedURL = this.sanitizer.bypassSecurityTrustUrl(this.selectedCandidate.resume.resumeData);
-    //  this.resume = (atob(this.selectedCandidate.resume.resumeData)); 
+    this.candidateResume = 'data:application/pdf;base64,' + this.selectedCandidate.resume.resumeData;
+  
   }
 
 }

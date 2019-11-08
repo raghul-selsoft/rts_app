@@ -114,6 +114,7 @@ import { DiceLoginComponent } from './dice-login/dice-login.component';
 import { DiceService } from './Services/dice.service';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
+import { SafePipe } from './dice-detail-view/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -182,7 +183,8 @@ import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.com
     AddDiceComponent,
     DiceLoginComponent,
     TimeAgoPipe,
-    DiceDetailViewComponent
+    DiceDetailViewComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

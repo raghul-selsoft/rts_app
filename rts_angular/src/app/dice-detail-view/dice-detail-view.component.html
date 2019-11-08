@@ -120,6 +120,14 @@
       </div>
     </div>
   </mat-card>
+  <!-- <nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{link.label}}
+    </a>
+    <a mat-tab-link [routerLink]="link.path">Skills</a>
+    <a mat-tab-link [routerLink]="link.path">Work History</a>
+  </nav> -->
 
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4">
     <mat-tab label="Skills">
@@ -131,13 +139,6 @@
       </mat-grid-list>
     </mat-tab>
     <mat-tab label="Work History">
-      <!-- <mat-list>
-        <mat-list-item role="listitem" *ngFor="let workHistory of selectedCandidate.experience.history">
-          {{workHistory.title}}, {{workHistory.org}}  <br/>       
-          <p class="mat-list-hint" *ngIf="workHistory.periodStart">{{workHistory.periodStart.year}}-{{workHistory.periodEnd.year}}
-          </p>
-        </mat-list-item>
-      </mat-list> -->
       <mat-list>
         <mat-list-item *ngFor="let workHistory of selectedCandidate.experience.history">
           <h3 matLine> {{workHistory.title}}, {{workHistory.org}} </h3>
@@ -153,13 +154,8 @@
     <mat-tab label="Summary"> Content 3 </mat-tab>
     <mat-tab label="Social"> Content 3 </mat-tab>
     <mat-tab label="Work Perferences"> Content 3 </mat-tab>
-    <mat-tab *ngIf="selectedCandidate" label="Resume"> 
-      <!-- <iframe src="data:{{selectedCandidate.resume.contentType}};base64,
-      {{selectedCandidate.resume.resumeData}}"></iframe> -->
-      <!-- <iframe src="sanitizer.bypassSecurityTrustResourceUrl(data:{{selectedCandidate.resume.contentType}};base64,
-      {{selectedCandidate.resume.resumeData}})" frameborder="0" height="100%" width="100%">
-      </iframe> -->
-      <!-- <iframe src="data:{{selectedCandidate.resume.contentType}};base64,{{trustedURL}}"></iframe> -->
+    <mat-tab *ngIf="selectedCandidate" label="Resume">
+      <iframe [src]="candidateResume | safe" height="100%" width="100%"> </iframe>
     </mat-tab>
   </mat-tab-group>
 
