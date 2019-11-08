@@ -57,13 +57,18 @@
     font-size: 1.2em;
     color: darkslategray;
 }
+.candidate-id{
+    color: cornflowerblue;
+    float: right;
+}
 
 .card-container {     
     max-width: 100%;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
     height: 25em;
     padding-left: 2.5em;
     padding-right: 2.5em;
+    border-radius: 1.5em;
 }
 
 .mat-card-lg-image {
@@ -121,6 +126,7 @@
     justify-content: center;
     align-items: center;
     padding: 2em;
+    /* background-color: lightcyan; */
 }
 
 ::ng-deep .mat-tab-label{
@@ -161,6 +167,19 @@
    color: darkslategray;
 }
 ::ng-deep .mat-tab-body{
-    height: 20em !important;
+    height: 25em !important;
 }
+
+::ng-deep .mat-tab-body:last-child{
+    height: 60em !important;
+}
+.mat-tab-group{
+    border-radius: 1.5em;
+}
+.candidate-work{
+  letter-spacing: 1px;
+  color: grey;
+  font-weight: 600;
+}
+
 

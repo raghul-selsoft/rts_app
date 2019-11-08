@@ -67,7 +67,8 @@
 
 .card-container {     
     max-width: 100%;
-    /* background-color: lightcyan; */
+    border-radius: 1em;
+        /* background-color: lightcyan; */
 }
 .scroll-wrapper{
     overflow-y: scroll;

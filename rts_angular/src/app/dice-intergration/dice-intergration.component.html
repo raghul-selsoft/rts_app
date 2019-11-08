@@ -97,7 +97,7 @@
       </div>
       <div class="scroll-wrapper">
         <div *ngFor="let candidate of (candidates | slice: lowValue : highValue)">
-          <mat-card class="card-container">
+          <mat-card class="card-container mb-2">
             <div *ngFor="let socialMedia of candidate.socialProfiles">
               <img mat-card-sm-image src="{{socialMedia.icon_64}}">
             </div>

@@ -10,6 +10,8 @@
         <span *ngFor="let socialMedia of selectedCandidate.socialProfiles">
           <img mat-card-sm-image src="{{socialMedia.icon_64}}">
         </span>
+        <button class="candidate-id" mat-button ngxClipboard
+          [cbContent]="selectedCandidate.id">{{selectedCandidate.id}}</button>
       </h4>
     </div>
     <div class="row">
@@ -120,17 +122,9 @@
       </div>
     </div>
   </mat-card>
-  <!-- <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-      [active]="rla.isActive">
-      {{link.label}}
-    </a>
-    <a mat-tab-link [routerLink]="link.path">Skills</a>
-    <a mat-tab-link [routerLink]="link.path">Work History</a>
-  </nav> -->
 
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4">
-    <mat-tab label="Skills">
+    <mat-tab *ngIf="selectedCandidate.skills" label="Skills">
       <mat-grid-list class="grid-list" cols="5" rowHeight="7:1">
         <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of selectedCandidate.skills">{{tech.skill}}
           <span *ngIf="tech.yearsUsed" class="grid-sub-tile">{{tech.yearsUsed}} yrs</span><span
@@ -138,7 +132,7 @@
         </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
-    <mat-tab label="Work History">
+    <mat-tab *ngIf="selectedCandidate.experience" label="Work History">
       <mat-list>
         <mat-list-item *ngFor="let workHistory of selectedCandidate.experience.history">
           <h3 matLine> {{workHistory.title}}, {{workHistory.org}} </h3>
@@ -152,11 +146,85 @@
       </mat-list>
     </mat-tab>
     <mat-tab label="Summary"> Content 3 </mat-tab>
-    <mat-tab label="Social"> Content 3 </mat-tab>
-    <mat-tab label="Work Perferences"> Content 3 </mat-tab>
-    <mat-tab *ngIf="selectedCandidate" label="Resume">
+    <!-- <mat-tab label="Social"> Content 3 </mat-tab> -->
+    <mat-tab *ngIf="selectedCandidate.workPreferences" label="Work Perferences">
+      <div class="col-7 candidate-work mt-2 ">
+        <div class="row">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Relocate:</strong>
+          </div>
+          <div class="col-6">
+            <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else noRelocate"> Yes</span>
+            <ng-template #noRelocate>
+              No
+            </ng-template>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Preferred Location:</strong>
+          </div>
+          <div class="col-8">
+            <!-- <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else noRelocate"> Yes</span>
+            <ng-template #noRelocate>
+              No
+            </ng-template> -->
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Work Authorization:</strong>
+          </div>
+          <div class="col-6">
+            <span>{{selectedCandidate.workPermitLocations}}</span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Desired Hourly Rate:</strong>
+          </div>
+          <div class="col-6">
+            <span *ngFor="let hourRate of selectedCandidate.workPreferences">
+              <span *ngIf="hourRate.hourlyRate">
+                <span>{{hourRate.hourlyRate.min}}+ ({{hourRate.hourlyRate.currency}})</span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Desired Salary:</strong>
+          </div>
+          <div class="col-6">
+            <span *ngFor="let salary of selectedCandidate.workPreferences">
+              <span *ngIf="salary.annualSalary">
+                <span>{{salary.annualSalary.min}}+ ({{salary.annualSalary.currency}})</span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <strong style="padding-top: 4px; font-weight: 100;">Security Allowance :</strong>
+          </div>
+          <div class="col-6">
+            <span *ngIf="selectedCandidate.securityAllowance">
+              <span *ngIf="selectedCandidate.securityAllowance.status; else noSecurityAllowance">
+                Yes
+              </span>
+              <ng-template #noSecurityAllowance>
+                No
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="selectedCandidate.resume" label="Resume">
       <iframe [src]="candidateResume | safe" height="100%" width="100%"> </iframe>
     </mat-tab>
   </mat-tab-group>
+
 
 </div>
