@@ -10,6 +10,12 @@
     border-left: 1px solid #d0d0d0;
 }
 
+.main-title{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
 .mat-form-field {
      /* width: 250px !important; */
      width: fit-content;

@@ -385,8 +385,8 @@ export class DiceDetailViewComponent implements OnInit {
 
     }
     console.log(this.selectedCandidate)
-    this.candidateResume = 'data:application/pdf;base64,' + this.selectedCandidate.resume.resumeData;
-  
+    this.candidateResume = 'data:' + this.selectedCandidate.resume.contentType + ';base64,' + this.selectedCandidate.resume.resumeData;
+
   }
 
 }

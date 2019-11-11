@@ -1,31 +1,14 @@
 <div class="sub-nav-wrapper">
-  <!-- <span>
-    <a class="sub-nav-link" [routerLink]="['/choose-dice']">Choose Dice Account</a>
-  </span> -->
   <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
     <a class="sub-nav-link" [routerLink]="['/add-dice']">Add Dice</a>
   </span>
-  <!-- <span class="divider">
-    <mat-form-field>
-      <mat-label>Choose Dice</mat-label>
-      <mat-select [(ngModel)]="selectedDice" (ngModelChange)="diceSelection()">
-        <mat-option *ngFor="let dice of diceAccount" [value]="dice.diceId">
-          {{dice.userName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </span> -->
-
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-
 <h2 class="main-title">Dice Search</h2>
-
 <div class="utility-container">
-
   <form [formGroup]="myForm" (ngSubmit)="getCandidates(myForm)">
     <div class="row ml-4 mr-4">
       <div class="col-6">
@@ -47,7 +30,7 @@
     <div class="col-2">
       <h4 class="candidate-list">Filter Options</h4>
       <form [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)">
-        <input type="text" class="form-input" formControlName="distance" placeholder="Distance">      
+        <input type="text" class="form-input" formControlName="distance" placeholder="Distance">
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active">
         <label class="filterLabel">Contact Method :</label>
         <span *ngFor="let contact of contactMethod">
@@ -108,7 +91,7 @@
                   <img mat-card-lg-image src="{{candidate.imageUrl}}">
                 </span>
                 <ng-template #noImage>
-                  <img mat-card-lg-image src="https://mhcd.org/wp-content/uploads/2017/12/placeholder-man.png">
+                  <img mat-card-lg-image src="../../assets/placeholder.png">
                 </ng-template>
               </div>
               <mat-card-title class="candidate-name">{{candidate.fullName}}

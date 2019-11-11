@@ -2,6 +2,20 @@
     border-left: 1px solid lightblue;
 }
 
+.dice-title{
+    margin-bottom: -50px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    text-transform: capitalize;
+    height: 6em;
+    background-color: aqua;
+    padding-top: 1.6em;
+    padding-left: 1.8em;
+    border-radius: 15px;
+    font-size: 1.3em;
+}
+
+
 .candidate-title{
     letter-spacing: 1.1px;
     border-bottom: 1px solid lightblue;
@@ -38,7 +52,7 @@
 }
 
 .candidate-contact{
-    padding: 3px;
+    /* padding: 3px; */
     letter-spacing: 1.1px;
     font-style: oblique;
     color: cornflowerblue;
@@ -53,7 +67,7 @@
 }
 
 .candidate-activity{
-    padding: 10px;
+    padding: 5px;
     font-size: 1.2em;
     color: darkslategray;
 }
@@ -65,10 +79,11 @@
 .card-container {     
     max-width: 100%;
     /* background-color: lightcyan; */
-    height: 25em;
+    height: 30em;
     padding-left: 2.5em;
     padding-right: 2.5em;
     border-radius: 1.5em;
+    /* background-color:aquamarine; */
 }
 
 .mat-card-lg-image {
@@ -97,8 +112,9 @@
 .icon-contact {
     position: relative;
     top: 5px;
-    font-size: 25px;
+    /* font-size: 25px; */
     padding-right: 5px;
+    /* display: block; */
 }
 
 ::ng-deep .mat-card-header-text {  
@@ -107,8 +123,8 @@
 }
 
 .slider-section{
-    width: 30%;
-    /* margin-left: auto; */
+    width: 20%;
+    margin-left: 1.5em;
 }
 
 ::ng-deep .mat-progress-bar-fill::after {
@@ -125,7 +141,10 @@
     /* display: flex; */
     justify-content: center;
     align-items: center;
-    padding: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 2em;
+    /* padding: 2em; */
     /* background-color: lightcyan; */
 }
 
@@ -167,7 +186,7 @@
    color: darkslategray;
 }
 ::ng-deep .mat-tab-body{
-    height: 25em !important;
+    height: 32em !important;
 }
 
 ::ng-deep .mat-tab-body:last-child{
@@ -176,10 +195,14 @@
 .mat-tab-group{
     border-radius: 1.5em;
 }
+
 .candidate-work{
   letter-spacing: 1px;
-  color: grey;
-  font-weight: 600;
+  font-weight: 400;
 }
+
+
+
+
 
 
