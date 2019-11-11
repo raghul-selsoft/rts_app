@@ -4,18 +4,21 @@
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 <div class="center">
-  <mat-card class="card-container mb-2" *ngIf="selectedCandidate">
-    <div class="candidate-title">
-      <h4>{{selectedCandidate.fullName}} <span class="candidate-subtitle">{{selectedCandidate.currentJobTitle}}</span>
-        <span *ngFor="let socialMedia of selectedCandidate.socialProfiles">
-          <a href="{{socialMedia.url}}" target="blank"> <img mat-card-sm-image src="{{socialMedia.icon_64}}"></a>
-        </span>
-        <button class="candidate-id" mat-button ngxClipboard
-          [cbContent]="selectedCandidate.id">{{selectedCandidate.id}}</button>
-      </h4>
-    </div>
-    <div class="row">    
-      <div class="col-9">
+  <div class="row">
+    <div class="col-9">
+      <mat-card class="card-container mb-2" *ngIf="selectedCandidate">
+        <div class="candidate-title">
+          <h4>{{selectedCandidate.fullName}} <span
+              class="candidate-subtitle">{{selectedCandidate.currentJobTitle}}</span>
+            <span *ngFor="let socialMedia of selectedCandidate.socialProfiles">
+              <a href="{{socialMedia.url}}" target="blank"> <img mat-card-sm-image src="{{socialMedia.icon_64}}"></a>
+            </span>
+            <button class="candidate-id" mat-button ngxClipboard
+              [cbContent]="selectedCandidate.id">{{selectedCandidate.id}}</button>
+          </h4>
+        </div>
+        <!-- <div class="row">
+        <div class="col-9"> -->
         <mat-card-header class="candidate-header">
           <div mat-card-avatar class="candidate-image">
             <span *ngIf="selectedCandidate.imageUrl; else noImage">
@@ -48,7 +51,7 @@
                     <span>{{selectedCandidate.desiredJobTitles[0]}}<br /></span>
                   </div>
                 </div>
-                <div class="row pt-2">
+                <div class="row pt-4">
                   <div class="col-4" style="display:contents;">
                     <i class="fa fa-map-marker pl-2 pr-2 pt-2" style="font-size:17px">
                     </i> <strong style="padding-top: 4px; font-weight: 100;">Location:</strong>
@@ -63,7 +66,7 @@
                   <i class="material-icons icon-exp"> event_note </i>
                   {{selectedCandidate.yearsOfExperience}} years exp <br />
                 </div>
-                <div class="row pt-2">
+                <div class="row pt-4">
                   <i class="fa fa-money pr-2" style="font-size:18px"></i>
                   <span *ngIf="selectedCandidate.workPreferences[0].annualSalary; else noSalary">
                     {{selectedCandidate.workPreferences[0].annualSalary.min}}+(USD) /yr </span>
@@ -71,7 +74,7 @@
                     No desired salary disclosed
                   </ng-template><br />
                 </div>
-                <div class="row pt-2">
+                <div class="row pt-4">
                   <i class="fa fa-map-o pr-2" style="font-size:17px"></i>
                   <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else notRelocate">Willing to
                     relocate</span>
@@ -91,49 +94,38 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row pt-4">
-              <section class="slider-section">
-                <strong style="font-weight: 100;">Likely to Switch</strong>
-                <mat-progress-bar mode="determinate" value="{{selectedCandidate.likelyToMoveScore}}">
-                </mat-progress-bar>
-              </section>
-            </div> -->
           </mat-card-subtitle>
-        
-        </mat-card-header>        
-      </div>
-      <div class="col-3 divide">
-        <!-- <section class="slider-section">
-              <strong style="font-weight: 100;">Likely to Switch</strong>
-              <mat-progress-bar mode="determinate" value="{{selectedCandidate.likelyToMoveScore}}">
-              </mat-progress-bar>
-            </section> -->
-        <div class="contact-title"> Contact Details </div>
+        </mat-card-header>
+      </mat-card>
+
+    </div>
+    <div class="col-3">
+      <mat-card class="card-sub-container mb-2" *ngIf="selectedCandidate">
+        <section class="slider-section">
+          <!-- <strong style="font-weight: 100;">Likely to Switch</strong> -->
+          <div class="contact-title"> Likely to Switch </div>
+          <mat-progress-bar mode="determinate" value="{{selectedCandidate.likelyToMoveScore}}">
+          </mat-progress-bar>
+        </section>
+        <div class="contact-title pt-4"> Contact Details </div>
         <div class="candidate-contact" *ngFor="let contact of selectedCandidate.email">
           <i class="material-icons icon-contact  pt-2"> email </i> {{contact}}<br />
         </div>
         <div class="candidate-contact" *ngFor="let contact of selectedCandidate.phone">
-          <i class="material-icons icon-contact pt-2"> phone </i> {{contact}}<br />
+          <i class="material-icons icon-contact pt-2"> phone </i> {{contact}}<br />         
         </div>
         <div class="contact-title pt-4"> Candidate Activity </div>
-        <div class="candidate-activity"> {{selectedCandidate.firstName}} {{selectedCandidate.dateLastActive | timeAgo}}
+        <div class="candidate-activity"> {{selectedCandidate.firstName}}
+          {{selectedCandidate.dateLastActive | timeAgo}}
         </div>
         <div class="candidate-activity"> Resume updated {{selectedCandidate.dateResumeLastUpdated | timeAgo}}</div>
-      </div>
-    </div>  
-    <!-- <mat-card-content>
-        <section class="slider-section">
-            <strong style="font-weight: 100;">Likely to Switch</strong>
-            <mat-progress-bar mode="determinate" value="{{selectedCandidate.likelyToMoveScore}}">
-            </mat-progress-bar>
-          </section>
-    </mat-card-content> -->
-  </mat-card>
-
+      </mat-card>
+    </div>
+  </div>
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4">
 
     <mat-tab *ngIf="selectedCandidate.skills" label="Skills">
-      <mat-grid-list class="grid-list" cols="5" rowHeight="7:1">
+      <mat-grid-list class="grid-list" cols="4" rowHeight="7:1">
         <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of selectedCandidate.skills">{{tech.skill}}
           <span *ngIf="tech.yearsUsed" class="grid-sub-tile">{{tech.yearsUsed}} yrs</span><span
             class="grid-right-tile">{{tech.lastUsed}}</span>
@@ -149,7 +141,7 @@
             <span class="list-hint" *ngIf="workHistory.periodStart">
               {{workHistory.periodStart.year}}-{{workHistory.periodEnd.year}},
             </span>
-            <span *ngIf="workHistory.location">{{workHistory.location}}</span>
+            <span class="list-hint" *ngIf="workHistory.location">{{workHistory.location}}</span>
           </p>
         </mat-list-item>
       </mat-list>
@@ -262,6 +254,5 @@
     </mat-tab>
 
   </mat-tab-group>
-
 
 </div>

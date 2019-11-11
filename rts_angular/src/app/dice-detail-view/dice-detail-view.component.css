@@ -47,7 +47,7 @@
     padding-left: 4.2em;
     letter-spacing: 1.2px;
     font-weight: 600;
-    font-size: medium; 
+    font-size: 1.1em; 
     padding-right: 3px;   
 }
 
@@ -66,6 +66,10 @@
     font-size: 1.3em;
 }
 
+::ng-deep .contact-title:first-child{
+    border-bottom: none !important;
+}
+
 .candidate-activity{
     padding: 5px;
     font-size: 1.2em;
@@ -79,10 +83,21 @@
 .card-container {     
     max-width: 100%;
     /* background-color: lightcyan; */
-    height: 30em;
+    overflow-y: auto;
+    height: 35em;
     padding-left: 2.5em;
     padding-right: 2.5em;
-    border-radius: 1.5em;
+    border-radius: 1.2em;
+    /* background-color:aquamarine; */
+}
+.card-sub-container {     
+    max-width: 100%;
+    /* background-color: lightcyan; */
+    overflow-y: auto;
+    height: 35em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 1.2em;
     /* background-color:aquamarine; */
 }
 
@@ -123,8 +138,8 @@
 }
 
 .slider-section{
-    width: 20%;
-    margin-left: 1.5em;
+    width: 100%;
+    /* margin-left: 1.5em; */
 }
 
 ::ng-deep .mat-progress-bar-fill::after {
@@ -186,19 +201,20 @@
    color: darkslategray;
 }
 ::ng-deep .mat-tab-body{
-    height: 32em !important;
+    height: 40em !important;
 }
 
 ::ng-deep .mat-tab-body:last-child{
     height: 60em !important;
 }
 .mat-tab-group{
-    border-radius: 1.5em;
+    border-radius: 1.2em;
 }
 
 .candidate-work{
   letter-spacing: 1px;
   font-weight: 400;
+  font-size: 1.1em;
 }
 
 
