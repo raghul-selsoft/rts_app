@@ -45,22 +45,22 @@ export class DiceLoginComponent implements OnInit {
       userEmail: ['', Validators.required],
       userPassword: ['', Validators.required]
     });
-    this.getAllDiceAccount();
+    // this.getAllDiceAccount();
   }
 
-  getAllDiceAccount() {
-    const companyId = {
-      companyId: this.rtsCompanyId
-    };
+  // getAllDiceAccount() {
+  //   const companyId = {
+  //     companyId: this.rtsCompanyId
+  //   };
 
-    this.diceService.getAllDice(companyId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.diceAccount = data.diceInfo;
-          }
-        });
-  }
+  //   this.diceService.getAllDice(companyId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.diceAccount = data.diceInfo;
+  //         }
+  //       });
+  // }
 
   diceLogin(form: FormGroup) {
     console.log(form)

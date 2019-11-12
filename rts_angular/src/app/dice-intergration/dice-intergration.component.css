@@ -9,6 +9,36 @@
     margin-left: 1em;
     border-left: 1px solid #d0d0d0;
 }
+.form-label{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: large;
+}
+.form-input{
+    font-size: 1em;
+}
+.dice-title{
+    margin-bottom: -75px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    height: 6em;
+    background-color: aqua;
+    padding-top: 1.3em !important;
+    padding-left: 1.6em !important;
+    border-radius: 15px;
+    font-size: 1.3em !important;
+    margin-top: 0em !important;
+    font-size: 1.5em;
+}
+
+.filterLabel{
+    margin-top: 1em;
+    display: block;   
+    font-weight: 500;
+    font-size: large;
+    font-family: 'Raleway', sans-serif;
+}
 
 .main-title{
     font-family: 'Raleway', sans-serif;
@@ -29,12 +59,12 @@
     margin-top: 3.2rem !important;
 }
 .divide{
-    border-left: 1px solid #6f89a0;
+    border-left: 1px solid #3484c8;
 }
 
 .filterBtn{
-    margin-top: 1.5em;
-    text-align: right;
+    margin-top: 1.2em;
+    text-align: center;
 }
 
 .dice-title{
@@ -49,7 +79,7 @@
 .candidate-list{
     letter-spacing: 1px;
     font-weight: 400;
-    font-size: 1.1em;
+    font-size: 22px;
     padding: 0.5em;
     border-bottom: 1px solid #3484c8;
 }
@@ -78,8 +108,9 @@
 }
 .scroll-wrapper{
     overflow-y: scroll;
-    height: 50em;
+    height: 88em;
 }
+
 
 .card-container div:last-child {
     text-align: right;
@@ -107,11 +138,6 @@
 }
 .mat-grid-list{
     padding: 1em;
-}
-
-.filterLabel{
-    margin-top: 1em;
-    display: block;
 }
 
 .mat-checkbox{
@@ -185,6 +211,11 @@
     border-radius: 5px;
     height: 10px !important;
 }
+
+/* ::ng-deep .mat-select-arrow{
+    margin-right: 15px !important;
+} */
+
 
 
   
