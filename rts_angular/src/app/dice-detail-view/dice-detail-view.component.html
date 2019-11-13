@@ -162,6 +162,10 @@
   </div>
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4">
 
+    <mat-tab *ngIf="selectedCandidate" label="Resume">
+      <iframe [src]="candidateResume | safe" height="100%" width="100%"> </iframe>
+    </mat-tab>
+
     <mat-tab *ngIf="selectedCandidate" label="Skills">
       <mat-grid-list class="grid-list" cols="4" rowHeight="7:1">
         <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of selectedCandidate.skills">{{tech.skill}}
@@ -194,10 +198,22 @@
             <strong style="padding-top: 4px; font-weight: 100; color: gray;">Relocate:</strong>
           </div>
           <div class="col-6">
-            <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else noRelocate"> Yes</span>
+            <span *ngIf="selectedCandidate.workPreferences.length > 0; else noRelocate">
+              <span *ngFor="let work of selectedCandidate.workPreferences | filterUnique">
+                <span *ngIf="work.willingToRelocate; else notRelocate">Yes </span>
+                <ng-template #notRelocate>
+                  No
+                </ng-template><br />
+              </span>
+              <!-- <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else noRelocate"> Yes</span>
+              <ng-template #noRelocate>
+                No
+              </ng-template> -->
+            </span>
             <ng-template #noRelocate>
               No
             </ng-template>
+
           </div>
         </div>
         <div class="row mt-2">
@@ -287,10 +303,6 @@
         </div>
 
       </div>
-    </mat-tab>
-
-    <mat-tab *ngIf="selectedCandidate" label="Resume">
-      <iframe [src]="candidateResume | safe" height="100%" width="100%"> </iframe>
     </mat-tab>
 
   </mat-tab-group>

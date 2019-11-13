@@ -112,8 +112,7 @@ export class DiceIntergrationComponent implements OnInit {
         this.distanceUnit = 'miles';
         this.sortByDirection = "desc";
         this.workPermit = [
-            { "name": "US", "value": "us" },
-            { "name": "Citizenship", "value": "citizenship" },
+            { "name": " US Citizenship", "value": "us citizenship" },
             { "name": "Green Card", "value": "green card" },
             { "name": "Employment Auth Document", "value": "employment auth document" },
             { "name": "Have H1", "value": "have h1" },
@@ -122,7 +121,7 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "TN Permit Holder", "value": "tn permit holder" },
         ]
         this.educationDegree = [
-            { "name": "Bechelors", "value": "bechelors" },
+            { "name": "Bechelors", "value": "bachelors" },
             { "name": "Masters", "value": "masters" },
             { "name": "MBA", "value": "mba" },
             { "name": "Associate", "value": "associate" },
@@ -130,17 +129,17 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "Vocational School", "value": "vocational school" },
             { "name": "Military Service", "value": "military service" }];
         this.employmentType = [
-            { "name": "Full time", "value": "full - time" },
+            { "name": "Full time", "value": "full-time" },
             { "name": "Contract - W2", "value": "contract - w2" },
             { "name": "Contract to Hire -W2", "value": "contract to hire - w2" },
-            { "name": "Contract to Hire - Independent", "value": "contract to hire - independent" },
+            { "name": "Contract to Hire - Independent", "value": "ccontract to hire - independent" },
             { "name": "Contract - Independent", "value": "contract - independent" },
-            { "name": "Part Time", "value": "part-time" },
-            { "name": "Contract to Hire - Corp-to-Crop", "value": "contract to hire - corp-to-crop" },
-            { "name": "Contract - Crop-to-Crop", "value": "contract - crop-to-crop" },
+            { "name": "Part Time", "value": "part-  time" },
+            { "name": "Contract to Hire - Corp-to-Crop", "value": "contract to hire - corp-to-corp" },
+            { "name": "Contract - Crop-to-Crop", "value": "contract - corp-to-corp" },
             { "name": "1099 Employee", "value": "1099 employee" },
             { "name": "Announced", "value": "announced" },
-            { "name": "Crop-to-Crop", "value": "corp-to-crop" },
+            { "name": "Crop-to-Crop", "value": "corp-to-corp" },
             { "name": "EB-1", "value": "eb-1" },
             { "name": "Eb-2", "value": "eb-2" },
             { "name": "Eb-3", "value": "eb-3" },
@@ -151,7 +150,7 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "J2", "value": "j-2" },
             { "name": "Tax Term", "value": "tax term" },
             { "name": "W2", "value": "w-2" },
-            { "name": "W2/1099", "value": "w-2/1099" }];
+            { "name": "W2/1099", "value": "w-2 / 1099" }];
     }
 
     // getAllDiceAccount() {
