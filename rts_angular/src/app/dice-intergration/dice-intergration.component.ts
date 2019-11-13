@@ -32,7 +32,7 @@ export class DiceIntergrationComponent implements OnInit {
     diceAccount: any;
     selectedDice: any;
     contactMethod: any[];
-    selectedSkills: any[];
+    selectedSkills: string;
     skills: any;
     educationDegree: { "name": string; "value": string; }[];
     diceCandidates: any;
@@ -55,6 +55,8 @@ export class DiceIntergrationComponent implements OnInit {
     filterForm: FormGroup;
     isFilterAction: boolean;
     diceMetaDataCount: number;
+    loading: boolean;
+    sortByDirection: string;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -70,7 +72,6 @@ export class DiceIntergrationComponent implements OnInit {
         this.rtsCompanyId = this.rtsUser.companyId;
         this.candidates = [];
         this.skills = [];
-        this.selectedSkills = [];
         this.selectedWorkPermit = [];
         this.selectedEmploymentType = [];
         this.selectedEducationDegree = [];
@@ -79,6 +80,8 @@ export class DiceIntergrationComponent implements OnInit {
         this.selectedSocialProfiles = [];
         this.pageSize = 25;
         this.diceMetaDataCount = 0;
+        this.isFilterAction = false;
+        this.loading = false;
     }
 
     ngOnInit() {
@@ -86,11 +89,7 @@ export class DiceIntergrationComponent implements OnInit {
 
         this.myForm = this.formBuilder.group({
             query: [''],
-            skills: [''],
-            location: [''],
-            experience: [''],
-            workPermit: [''],
-            employmentType: ['']
+            location: ['']
         })
         this.candidateForm = this.formBuilder.group({
             distance: [''],
@@ -99,7 +98,7 @@ export class DiceIntergrationComponent implements OnInit {
             hasEmail: [''],
             hasPhone: [''],
             relocate: [''],
-            skills: [''],
+            skillsKeyword: [''],
             experience: [''],
             employmentType: [''],
             education: [''],
@@ -110,14 +109,14 @@ export class DiceIntergrationComponent implements OnInit {
             searchType: [''],
             language: [''],
             socialProfile: [''],
-            // excludeThirdParty:[''],
+            sortByDirection: [''],
         })
         // this.getAllDiceAccount();
-        this.getAllSkills();
         this.contactMethod = [{ "name": "Email", "value": true }, { "name": "Phone", "value": true }];
         this.searchType = "Integrated";
         this.sortBy = "relevancy";
         this.distanceUnit = 'miles';
+        this.sortByDirection = "desc";
         this.languages = ["English", "Spanish", "French", "German", "Russian", "Hindi", "Portuguese", "Chinese", "Arabic", "Japanese"];
         this.socialProfiles = ["Github", "Stackoverflow", "Dribbble", "Twitter", "Facebook", "Linkedin", "Meetup"];
         this.workPermit = [
@@ -162,22 +161,7 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "W2", "value": "w-2" },
             { "name": "W2/1099", "value": "w-2/1099" }];
     }
-
-    getAllSkills() {
-        const companyId = {
-            companyId: this.rtsCompanyId
-        };
-
-        this.requirementService.getAllSkills(companyId)
-            .subscribe(
-                data => {
-                    this.ngProgress.done();
-                    if (data.success) {
-                        this.skills = data.skills;
-                    }
-                });
-    }
-
+  
     // getAllDiceAccount() {
     //     const companyId = {
     //         companyId: this.rtsCompanyId
@@ -194,24 +178,25 @@ export class DiceIntergrationComponent implements OnInit {
 
 
     public getPaginatorData(event: PageEvent): PageEvent {
-        console.log(event)
+        this.loading = true;
         this.pageNumber = 1 + event.pageIndex;
         this.pageSize = event.pageSize;
-        // if (this.isFilterAction) {
-        //     this.filterFunction(this.filterForm)
-        // } else {
+        if (this.isFilterAction) {
+            this.filterFunction(this.filterForm)
+        } else {
             const submit = {
                 userId: this.rtsUserId,
                 q: this.selectedQuery,
                 page: this.pageNumber + event.pageIndex,
                 pageSize: event.pageSize,
                 location: this.selectedLocation,
-                sortByDirection: "desc",
+                sortByDirection: this.sortByDirection,
             };
             this.diceService.diceSearch(submit)
                 .subscribe(
                     data => {
                         this.ngProgress.done();
+                        this.loading = false;
                         if (data.success) {
                             this.candidates = data.diceCandidate.data;
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
@@ -219,61 +204,63 @@ export class DiceIntergrationComponent implements OnInit {
 
                         }
                     });
-        // }
+        }
         return event;
     }
 
 
     getCandidates(form: FormGroup) {
-        // if (this.diceMetaDataCount > 25) {
-        //     this.filterFunction(this.filterForm);
-        // }
+        this.loading = true;
+        if (this.isFilterAction) {
+            this.filterFunction(this.filterForm);
+        } else {
 
-        const submit = {
-            userId: this.rtsUserId,
-            q: form.value.query,
-            location: form.value.location,
-            page: this.pageNumber,
-            sortByDirection: "desc",
-        };
-        this.diceService.diceSearch(submit)
-            .subscribe(
-                data => {
-                    this.ngProgress.done();
-                    if (data.success) {
-                        this.candidates = data.diceCandidate.data;
-                        this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
-                        this.candidatesLength = this.candidates.length;
-                        console.log(this.candidates)
-                    }
-                });
-
+            const submit = {
+                userId: this.rtsUserId,
+                q: form.value.query,
+                location: form.value.location,
+                page: this.pageNumber,
+                sortByDirection: this.sortByDirection,
+            };
+            this.diceService.diceSearch(submit)
+                .subscribe(
+                    data => {
+                        this.ngProgress.done();
+                        this.loading = false;
+                        if (data.success) {
+                            this.candidates = data.diceCandidate.data;
+                            this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
+                            this.candidatesLength = this.candidates.length;
+                        }
+                    });
+        }
     }
 
     candidateFilter(form: FormGroup) {
+        this.loading = true;
         console.log(form)
-        // this.isFilterAction = true;
-        // this.filterForm = form;
-        // this.filterFunction(this.filterForm)
-    // }
+        this.isFilterAction = true;
+        this.filterForm = form;
+        this.filterFunction(this.filterForm)
+    }
 
-    // filterFunction(form) {
+    filterFunction(form) {
         const educationDegree = this.selectedEducationDegree.map(x => x).join(",");
         const workPermit = this.selectedWorkPermit.map(x => x).join(",");
         const employmentType = this.selectedEmploymentType.map(x => x).join(",");
-        const language = this.selectedLanguages.map(x => x).join(",");
-        const socialProfile = this.selectedSocialProfiles.map(x => x).join(",");
+        // const language = this.selectedLanguages.map(x => x).join(",");
+        // const socialProfile = this.selectedSocialProfiles.map(x => x).join(",");
 
         const submit = {
             userId: this.rtsUserId,
             q: this.selectedQuery,
-            location: form.value.location,
+            location: this.selectedLocation,
             sortBy: this.sortBy,
             searchType: this.searchType,
             page: this.pageNumber,
             pageSize: this.pageSize,
-            skills: form.value.skills,
-            sortByDirection: "desc",
+            skillsKeyword: form.value.skillsKeyword,
+            sortByDirection: this.sortByDirection,
             distance: parseInt(form.value.distance),
             distanceUnit: form.value.distanceUnit,
             lastActive: parseInt(form.value.lastActive),
@@ -285,14 +272,15 @@ export class DiceIntergrationComponent implements OnInit {
             workPermit: workPermit,
             educationDegree: educationDegree,
             employmentType: employmentType,
-            language: language,
-            socialProfiles: socialProfile
+            language: form.value.language,
+            socialProfiles: form.value.socialProfile
         };
         console.log(submit)
         this.diceService.diceSearch(submit)
             .subscribe(
                 data => {
                     this.ngProgress.done();
+                    this.loading = false;
                     if (data.success) {
                         this.candidates = data.diceCandidate.data;
                         this.diceMetaDataCount = data.diceCandidate.meta.totalCount;

@@ -32,7 +32,7 @@
       <form style=" font-family: sans-serif;" [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)">
 
         <div class="filterBtn">
-          <button mat-raised-button color="primary" class="mr-2" (click)="resetForm();">Clear</button>
+          <!-- <button mat-raised-button color="primary" class="mr-2" (click)="resetForm();">Clear</button> -->
           <button mat-raised-button color="primary" (click)="candidateFilter(candidateForm);">Apply</button>
         </div>
 
@@ -46,12 +46,21 @@
 
         <label class="form-label">Last Active:</label>
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="30">
+        <mat-hint>in days</mat-hint>
 
         <label class="filterLabel">Contact Method :</label>
         <mat-checkbox [ngModel]="false" ngInit="hasEmail=true" color="primary" formControlName="hasEmail">Email
         </mat-checkbox>
         <mat-checkbox [ngModel]="false" ngInit="hasPhone=true" color="primary" formControlName="hasPhone">Phone
         </mat-checkbox>
+
+        <mat-form-field class="mt-2">
+          <mat-label>Sort By Direction</mat-label>
+          <mat-select [(ngModel)]="sortByDirection" formControlName="sortByDirection">
+            <mat-option value="asc">Ascending</mat-option>
+            <mat-option value="desc">Descending</mat-option>
+          </mat-select>
+        </mat-form-field>
 
         <mat-form-field>
           <mat-label>Relocate</mat-label>
@@ -65,7 +74,7 @@
           <mat-label>Search Type</mat-label>
           <mat-select [(ngModel)]="searchType" formControlName="searchType">
             <mat-option value="Resume">Resume</mat-option>
-            <mat-option value="OpenWeb">OpenWeb</mat-option>
+            <mat-option value="OpenWeb">Open Web</mat-option>
             <mat-option value="Integrated">Integrated</mat-option>
           </mat-select>
         </mat-form-field>
@@ -81,8 +90,10 @@
 
         <label class="form-label">Job Title:</label>
         <input type="text" class="form-input" formControlName="jobTitle" placeholder="Job Title">
-        <label class="form-label">Skills:</label>
-        <input type="text" class="form-input" formControlName="skills" placeholder="Skills">
+        
+        <label class="form-label">Skills Keyword:</label>
+        <input type="text" class="form-input" formControlName="skillsKeyword" placeholder="Skills Keyword"
+          [(ngModel)]="selectedSkills">
 
         <label class="form-label">Education:</label>
         <ng-select [items]="educationDegree" bindLabel="name" bindValue="value" [multiple]="true"
@@ -90,7 +101,7 @@
         </ng-select>
 
         <label class="form-label">Experience:</label>
-        <input type="text" class="form-input" formControlName="experience" placeholder="Example 4 Example [ 0 to 3]">
+        <input type="text" class="form-input" formControlName="experience" placeholder="Example 4 or [ 0 to 3]">
 
         <label class="form-label">Employment Type:</label>
         <ng-select [items]="employmentType" bindLabel="name" bindValue="value" [multiple]="true"
@@ -103,18 +114,12 @@
         </ng-select>
 
         <label class="form-label">Languages:</label>
-        <ng-select [items]="languages" bindLabel="name" [multiple]="true" placeholder="Languages"
-          formControlName="language" [(ngModel)]="selectedLanguages">
-        </ng-select>
+        <input type="text" class="form-input" formControlName="language" placeholder="Languages"
+          [(ngModel)]="selectedLanguages">
 
         <label class="form-label">Social Profile:</label>
-        <ng-select [items]="socialProfiles" bindLabel="name" [multiple]="true" placeholder="Social Profile"
-          formControlName="socialProfile" [(ngModel)]="selectedSocialProfiles">
-        </ng-select>
-
-        <label class="form-label">Page Size:</label>
-        <input type="text" class="form-input" formControlName="pageSize" placeholder="Page Size" [ngModel]="25">
-
+        <input type="text" class="form-input" formControlName="socialProfile" placeholder="Social Profile"
+          [(ngModel)]="selectedSocialProfiles">
 
       </form>
     </div>
@@ -122,9 +127,10 @@
       <div *ngIf="candidatesLength > 0; else noCandidates">
         <div class="mat-paginator-container">
           <h4 class="candidate-list">{{diceMetaDataCount}} Candidates Found</h4>
-          <mat-paginator [length]="diceMetaDataCount" [pageSize]="25" [pageSizeOptions]="[5, 10, 25]"
+          <mat-paginator [length]="diceMetaDataCount" [pageSize]="25" [pageSizeOptions]="[10, 25, 50]"
             (page)="getPaginatorData($event)">
           </mat-paginator>
+          <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="scroll-wrapper">
           <div *ngFor="let candidate of candidates">
@@ -218,6 +224,8 @@
         </div>
       </div>
       <ng-template #noCandidates>
+        <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+
         <mat-card class="scroll-wrapper" style="border-radius: 1em;">
           <mat-card-title>No Candidates Found</mat-card-title>
         </mat-card>

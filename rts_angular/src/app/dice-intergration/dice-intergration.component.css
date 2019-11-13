@@ -207,14 +207,27 @@
     background-color: seagreen;
 }
 
+::ng-deep .progress-bar .mat-progress-bar-fill::after {
+    background-color: rgb(111, 111, 243);
+}
+
+::ng-deep .mat-progress-bar.progress-bar {
+    border-radius: 10px !important;
+    height: 3px !important;
+}
+
 ::ng-deep .mat-progress-bar {
     border-radius: 5px;
     height: 10px !important;
 }
 
-/* ::ng-deep .mat-select-arrow{
-    margin-right: 15px !important;
+/* .grid-tile[foo="Json"] >::ng-deep .mat-figure{
+color: green;
+}
+h4[foo~="Options"]{
+    color: red;
 } */
+
 
 
 
