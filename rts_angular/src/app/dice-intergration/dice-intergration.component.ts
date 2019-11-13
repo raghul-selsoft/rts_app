@@ -20,7 +20,6 @@ export class DiceIntergrationComponent implements OnInit {
 
     // lowValue: number = 0;
     // highValue: number = 10;
-
     public myForm: FormGroup;
     public candidateForm: FormGroup;
     rtsUser: any;
@@ -33,6 +32,7 @@ export class DiceIntergrationComponent implements OnInit {
     selectedDice: any;
     contactMethod: any[];
     selectedSkills: string;
+    selected:string;
     skills: any;
     educationDegree: { "name": string; "value": string; }[];
     diceCandidates: any;
@@ -44,10 +44,6 @@ export class DiceIntergrationComponent implements OnInit {
     selectedEducationDegree: any[];
     employmentType: { "name": string; "value": string; }[];
     selectedEmploymentType: any[];
-    languages: any[];
-    selectedLanguages: any[];
-    selectedSocialProfiles: any[];
-    socialProfiles: string[];
     selectedQuery: string;
     selectedLocation: string;
     pageNumber: number = 1;
@@ -75,9 +71,7 @@ export class DiceIntergrationComponent implements OnInit {
         this.selectedWorkPermit = [];
         this.selectedEmploymentType = [];
         this.selectedEducationDegree = [];
-        this.selectedLanguages = [];
         this.diceCandidates = {};
-        this.selectedSocialProfiles = [];
         this.pageSize = 25;
         this.diceMetaDataCount = 0;
         this.isFilterAction = false;
@@ -117,8 +111,6 @@ export class DiceIntergrationComponent implements OnInit {
         this.sortBy = "relevancy";
         this.distanceUnit = 'miles';
         this.sortByDirection = "desc";
-        this.languages = ["English", "Spanish", "French", "German", "Russian", "Hindi", "Portuguese", "Chinese", "Arabic", "Japanese"];
-        this.socialProfiles = ["Github", "Stackoverflow", "Dribbble", "Twitter", "Facebook", "Linkedin", "Meetup"];
         this.workPermit = [
             { "name": "US", "value": "us" },
             { "name": "Citizenship", "value": "citizenship" },
@@ -248,8 +240,6 @@ export class DiceIntergrationComponent implements OnInit {
         const educationDegree = this.selectedEducationDegree.map(x => x).join(",");
         const workPermit = this.selectedWorkPermit.map(x => x).join(",");
         const employmentType = this.selectedEmploymentType.map(x => x).join(",");
-        // const language = this.selectedLanguages.map(x => x).join(",");
-        // const socialProfile = this.selectedSocialProfiles.map(x => x).join(",");
 
         const submit = {
             userId: this.rtsUserId,
