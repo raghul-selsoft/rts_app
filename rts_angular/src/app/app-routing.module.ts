@@ -132,7 +132,7 @@ export const appRoutes: Routes = [
   { path: 'dice-login', component: DiceLoginComponent },
   { path: 'dice-view', component: DiceIntergrationComponent },
   { path: 'add-dice', component: AddDiceComponent }, 
-  { path: 'dice-detail-view', component: DiceDetailViewComponent }, 
+  { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
 ];
 
 

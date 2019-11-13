@@ -64,7 +64,7 @@
 
 .filterBtn{
     margin-top: 1.2em;
-    text-align: center;
+    text-align: right;
 }
 
 .dice-title{
@@ -159,7 +159,7 @@
     padding-right: 5px;
 }
 .icon-padding{
-    padding-left: 5em;
+    padding-left: 3.2em;
 }
 
 .mat-grid-tile {

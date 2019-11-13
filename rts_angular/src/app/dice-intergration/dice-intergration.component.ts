@@ -32,7 +32,7 @@ export class DiceIntergrationComponent implements OnInit {
     selectedDice: any;
     contactMethod: any[];
     selectedSkills: string;
-    selected:string;
+    selected: string;
     skills: any;
     educationDegree: { "name": string; "value": string; }[];
     diceCandidates: any;
@@ -153,7 +153,7 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "W2", "value": "w-2" },
             { "name": "W2/1099", "value": "w-2/1099" }];
     }
-  
+
     // getAllDiceAccount() {
     //     const companyId = {
     //         companyId: this.rtsCompanyId
@@ -184,7 +184,7 @@ export class DiceIntergrationComponent implements OnInit {
                 location: this.selectedLocation,
                 sortByDirection: this.sortByDirection,
             };
-            this.diceService.diceSearch(submit)
+            this.diceService.diceFilterSearch(submit)
                 .subscribe(
                     data => {
                         this.ngProgress.done();
@@ -194,6 +194,11 @@ export class DiceIntergrationComponent implements OnInit {
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                             this.candidatesLength = this.candidates.length;
 
+                        } else {
+                            this.toastr.error(data.message, '', {
+                                positionClass: 'toast-top-center',
+                                timeOut: 3000,
+                            });
                         }
                     });
         }
@@ -223,6 +228,11 @@ export class DiceIntergrationComponent implements OnInit {
                             this.candidates = data.diceCandidate.data;
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                             this.candidatesLength = this.candidates.length;
+                        } else {
+                            this.toastr.error(data.message, '', {
+                                positionClass: 'toast-top-center',
+                                timeOut: 3000,
+                            });
                         }
                     });
         }
@@ -266,7 +276,7 @@ export class DiceIntergrationComponent implements OnInit {
             socialProfiles: form.value.socialProfile
         };
         console.log(submit)
-        this.diceService.diceSearch(submit)
+        this.diceService.diceFilterSearch(submit)
             .subscribe(
                 data => {
                     this.ngProgress.done();
@@ -275,6 +285,11 @@ export class DiceIntergrationComponent implements OnInit {
                         this.candidates = data.diceCandidate.data;
                         this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                         this.candidatesLength = this.candidates.length;
+                    } else {
+                        this.toastr.error(data.message, '', {
+                            positionClass: 'toast-top-center',
+                            timeOut: 3000,
+                        });
                     }
                 });
     }
