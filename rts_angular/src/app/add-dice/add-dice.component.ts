@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import * as moment from 'moment';
+import { DiceService } from '../Services/dice.service';
 
 @Component({
   selector: 'app-add-dice',
@@ -25,6 +26,8 @@ export class AddDiceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngProgress: NgProgress,
     private toastr: ToastrService,
+    private diceService: DiceService,
+    private router: Router,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -33,12 +36,40 @@ export class AddDiceComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.myForm = this.formBuilder.group({
       userName: [''],
       password: ['']
     })
   }
+
+  addDice(form: FormGroup) {
+    this.ngProgress.start();
+    const submit = {
+      companyId: this.rtsCompanyId,
+      userName: form.value.userName,
+      password: form.value.password
+    };
+
+    this.diceService.addDice(submit)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.toastr.success('Dice Account Added', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['dice-view']);
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+  }
+
+
 
 
 }

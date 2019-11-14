@@ -1,7 +1,16 @@
-<div class="sub-nav-wrapper">
-  <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
-    <a class="sub-nav-link" [routerLink]="['/add-dice']">Add Dice</a>
+<div *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'" class="sub-nav-wrapper">
+  <span>
+    <a class="sub-nav-link pr-2" [routerLink]="['/add-dice']">Add Dice</a>
+    <a class="sub-nav-link divide pl-2" [routerLink]="['/edit-dice']">Edit Dice</a>
+
+    <mat-form-field class="sub-nav-link col-3" style="float: right;">
+      <mat-label>Choose Dice</mat-label>
+      <mat-select [(ngModel)]="rtsDiceId" (ngModelChange)="setDiceAccount()">
+        <mat-option *ngFor="let dice of diceAccount" [value]="dice.diceId">{{dice.userName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </span>
+
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
@@ -20,7 +29,8 @@
         <input type="text" class="form-input" formControlName="location" [(ngModel)]="selectedLocation">
       </div>
       <div class="col-2 searchBtn">
-        <button type="button" class="btn btn-primary" (click)="getCandidates(myForm);">Find Candidates</button>
+        <button mat-raised-button color="primary" type="button" (click)="getCandidates(myForm);">Find
+          Candidates</button>
       </div>
     </div>
   </form>
@@ -46,7 +56,9 @@
 
         <label class="form-label">Last Active:</label>
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="30">
-        <mat-hint>in days</mat-hint>
+        <mat-hint class="mb-2" style="display: block;">in days</mat-hint>
+
+        <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="false">Exclude ThirdParty</mat-slide-toggle>
 
         <label class="filterLabel">Contact Method :</label>
         <mat-checkbox [ngModel]="false" ngInit="hasEmail=true" color="primary" formControlName="hasEmail">Email
@@ -124,7 +136,9 @@
     <div class="col-10 divide">
       <div *ngIf="candidatesLength > 0; else noCandidates">
         <div class="mat-paginator-container">
-          <h4 class="candidate-list">{{diceMetaDataCount}} Candidates Found</h4>
+          <h4 class="candidate-list"><span
+              style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{diceMetaDataCount}}</span> Candidates Found
+          </h4>
           <mat-paginator [length]="diceMetaDataCount" [pageSize]="25" [pageSizeOptions]="[10, 25, 50]"
             (page)="getPaginatorData($event)">
           </mat-paginator>

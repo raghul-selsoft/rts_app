@@ -17,13 +17,23 @@
 .form-input{
     font-size: 1em;
 }
+
+.sub-nav-wrapper{
+    padding: 1em !important;
+}
+
+.sub-nav-link:last-child{
+    /* font-size: .850em; */
+    text-transform: unset;
+    font-weight: 400;
+}
 .dice-title{
     margin-bottom: -75px;
     font-family: 'Raleway', sans-serif;
     font-weight: 500 !important;
     text-transform: capitalize !important;
     height: 6em;
-    background-color: aqua;
+    /* background-color: aqua; */
     padding-top: 1.3em !important;
     padding-left: 1.6em !important;
     border-radius: 15px;
@@ -56,7 +66,7 @@
 }
 
 .searchBtn{
-    margin-top: 3.2rem !important;
+    margin-top: 3.5rem !important;
 }
 .divide{
     border-left: 1px solid #3484c8;
@@ -77,6 +87,7 @@
 }
 
 .candidate-list{
+    font-family: 'Raleway', sans-serif;
     letter-spacing: 1px;
     font-weight: 400;
     font-size: 22px;
@@ -108,7 +119,7 @@
 }
 .scroll-wrapper{
     overflow-y: scroll;
-    height: 88em;
+    height: 92em;
 }
 
 
@@ -219,6 +230,20 @@
 ::ng-deep .mat-progress-bar {
     border-radius: 5px;
     height: 10px !important;
+}
+
+::ng-deep .mat-slide-toggle-content{
+    font-size: large;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+}
+
+::ng-deep .mat-select-value{
+    font-size: 16px;
+}
+::ng-deep .mat-option-text{
+    font-size: 16px;
 }
 
 

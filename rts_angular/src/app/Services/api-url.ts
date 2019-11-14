@@ -105,7 +105,9 @@ export class ApiUrl {
     static UpcomingLeaveRequest = 'rtsTimeSheet/timeSheet/upcomingLeaveRequest';
 
     //Dice api
-    static AddDice = 'rtsDice/dice/addDice';
+    static AddDice = 'rtsDice/dice/addDiceAccount';
+    static EditDice = 'rtsDice/dice/editDiceAccount';
+    static SetDefaultDice = 'rtsDice/dice/setDefaultDiceAccount';
     static GetAllDice = 'rtsDice/dice/getAllDiceAccount';
     static DiceSearch = 'rtsDice/dice/diceSearch';
     static GetDiceProfile = 'rtsDice/dice/diceProfileView';

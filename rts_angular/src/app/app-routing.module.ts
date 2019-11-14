@@ -63,6 +63,7 @@ import { DiceIntergrationComponent } from './dice-intergration/dice-intergration
 import { AddDiceComponent } from './add-dice/add-dice.component';
 import { DiceLoginComponent } from './dice-login/dice-login.component';
 import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
+import { EditDiceComponent } from './edit-dice/edit-dice.component';
 
 
 
@@ -132,6 +133,7 @@ export const appRoutes: Routes = [
   { path: 'dice-login', component: DiceLoginComponent },
   { path: 'dice-view', component: DiceIntergrationComponent },
   { path: 'add-dice', component: AddDiceComponent }, 
+  { path: 'edit-dice', component: EditDiceComponent }, 
   { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
 ];
 

@@ -49,7 +49,6 @@ export class DiceService {
         return this.http.post(ApiUrl.BaseUrl + ApiUrl.DiceSearch, submit,
             { headers: headers })
             .map(res => {
-                console.log(res)
                 const responseToken = res.headers.get('refresh-token');
                 localStorage.setItem('id_token', responseToken);
                 return res.json();
@@ -84,26 +83,95 @@ export class DiceService {
             });
     }
 
-    // getAllDice(submit) {
-    //     AutoRefreshComponent.reset.next(void 0);
-    //     const token = localStorage.getItem('id_token');
-    //     const headers = new Headers();
-    //     headers.append('Content-Type', 'application/json');
-    //     headers.append('Authorization', token);
+    getAllDice(submit) {
+        AutoRefreshComponent.reset.next(void 0);
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
 
-    //     return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetAllDice, submit,
-    //         { headers: headers })
-    //         .map(res => {
-    //             const responseToken = res.headers.get('refresh-token');
-    //             localStorage.setItem('id_token', responseToken);
-    //             return res.json();
-    //         }).catch(err => {
-    //             if (err.status === 401) {
-    //                 this.loginService.logout();
-    //             }
-    //             return '{}';
-    //         });
-    // }
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetAllDice, submit,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
+    addDice(submit) {
+        AutoRefreshComponent.reset.next(void 0);
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.AddDice, submit,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+
+            
+    }
+
+    editDice(submit) {
+        AutoRefreshComponent.reset.next(void 0);
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.EditDice, submit,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+
+            
+    }
+
+    setDefaultDice(submit) {
+        AutoRefreshComponent.reset.next(void 0);
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.SetDefaultDice, submit,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+
+            
+    }
 
 
 }

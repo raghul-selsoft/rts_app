@@ -116,6 +116,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
 import { SafePipe } from './dice-detail-view/safe.pipe';
 import { FilterPipe } from './dice-detail-view/unique.pipe';
+import { EditDiceComponent } from './edit-dice/edit-dice.component';
 
 @NgModule({
   declarations: [
@@ -186,7 +187,8 @@ import { FilterPipe } from './dice-detail-view/unique.pipe';
     TimeAgoPipe,
     DiceDetailViewComponent,
     SafePipe,
-    FilterPipe
+    FilterPipe,
+    EditDiceComponent
   ],
   imports: [
     BrowserModule,
@@ -209,6 +211,7 @@ import { FilterPipe } from './dice-detail-view/unique.pipe';
     SatNativeDateModule,
     MatGridListModule,
     MatFormFieldModule,
+    MatSlideToggleModule,
     MatPaginatorModule,
     Ng2SearchPipeModule, NgSelectModule,
     ToastrModule.forRoot(),

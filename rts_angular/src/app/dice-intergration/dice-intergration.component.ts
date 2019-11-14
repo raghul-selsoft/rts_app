@@ -53,6 +53,7 @@ export class DiceIntergrationComponent implements OnInit {
     diceMetaDataCount: number;
     loading: boolean;
     sortByDirection: string;
+    rtsDiceId: any;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -66,6 +67,7 @@ export class DiceIntergrationComponent implements OnInit {
         this.rtsUserId = this.rtsUser.userId;
         this.userRole = this.rtsUser.role;
         this.rtsCompanyId = this.rtsUser.companyId;
+        this.rtsDiceId = this.rtsUser.diceId;
         this.candidates = [];
         this.skills = [];
         this.selectedWorkPermit = [];
@@ -104,8 +106,9 @@ export class DiceIntergrationComponent implements OnInit {
             language: [''],
             socialProfile: [''],
             sortByDirection: [''],
+            excludeThirdParty: ['']
         })
-        // this.getAllDiceAccount();
+        this.getAllDiceAccount();
         this.contactMethod = [{ "name": "Email", "value": true }, { "name": "Phone", "value": true }];
         this.searchType = "Integrated";
         this.sortBy = "relevancy";
@@ -153,19 +156,42 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "W2/1099", "value": "w-2 / 1099" }];
     }
 
-    // getAllDiceAccount() {
-    //     const companyId = {
-    //         companyId: this.rtsCompanyId
-    //     };
+    getAllDiceAccount() {
+        const companyId = {
+            companyId: this.rtsCompanyId
+        };
 
-    //     this.diceService.getAllDice(companyId)
-    //         .subscribe(
-    //             data => {
-    //                 if (data.success) {
-    //                     this.diceAccount = data.diceInfo;
-    //                 }
-    //             });
-    // }
+        this.diceService.getAllDice(companyId)
+            .subscribe(
+                data => {
+                    if (data.success) {
+                        this.diceAccount = data.diceInfo;
+                    }
+                });
+    }
+
+    setDiceAccount() {
+        const submit = {
+            userId: this.rtsUserId,
+            diceId: this.rtsDiceId
+        };
+
+        this.diceService.setDefaultDice(submit)
+            .subscribe(
+                data => {
+                    if (data.success) {
+                        this.toastr.success(data.message, '', {
+                            positionClass: 'toast-top-center',
+                            timeOut: 3000,
+                        });
+                    } else {
+                        this.toastr.error(data.message, '', {
+                            positionClass: 'toast-top-center',
+                            timeOut: 3000,
+                        });
+                    }
+                });
+    }
 
 
     public getPaginatorData(event: PageEvent): PageEvent {
@@ -192,7 +218,6 @@ export class DiceIntergrationComponent implements OnInit {
                             this.candidates = data.diceCandidate.data;
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                             this.candidatesLength = this.candidates.length;
-
                         } else {
                             this.toastr.error(data.message, '', {
                                 positionClass: 'toast-top-center',
@@ -239,7 +264,6 @@ export class DiceIntergrationComponent implements OnInit {
 
     candidateFilter(form: FormGroup) {
         this.loading = true;
-        console.log(form)
         this.isFilterAction = true;
         this.filterForm = form;
         this.filterFunction(this.filterForm)
@@ -272,9 +296,10 @@ export class DiceIntergrationComponent implements OnInit {
             educationDegree: educationDegree,
             employmentType: employmentType,
             language: form.value.language,
-            socialProfiles: form.value.socialProfile
+            socialProfiles: form.value.socialProfile,
+            excludeThirdParty: form.value.excludeThirdParty
         };
-        console.log(submit)
+        
         this.diceService.diceFilterSearch(submit)
             .subscribe(
                 data => {
