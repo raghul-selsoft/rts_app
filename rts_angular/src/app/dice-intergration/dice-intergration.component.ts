@@ -19,7 +19,7 @@ import { RequirementsService } from '../Services/requirements.service';
 export class DiceIntergrationComponent implements OnInit {
 
     isShow: boolean;
-    topPosToStartShowing = 1350;
+    topPosToStartShowing = 1650;
 
     static isDiceTokenGenerator: boolean;
     public myForm: FormGroup;
@@ -282,7 +282,11 @@ export class DiceIntergrationComponent implements OnInit {
                             this.candidates = data.diceCandidate.data;
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                             this.candidatesLength = this.candidates.length;
-                            window.scrollTo(0, 0);
+                            window.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
                         } else {
                             this.toastr.error(data.message, '', {
                                 positionClass: 'toast-top-center',
@@ -301,7 +305,11 @@ export class DiceIntergrationComponent implements OnInit {
                             this.candidates = data.diceCandidate.data;
                             this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
                             this.candidatesLength = this.candidates.length;
-                            window.scrollTo(0, 0);
+                            window.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
                         } else {
                             this.toastr.error(data.message, '', {
                                 positionClass: 'toast-top-center',

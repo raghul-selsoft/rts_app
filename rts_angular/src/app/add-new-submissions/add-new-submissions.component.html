@@ -86,7 +86,7 @@
       </div>
 
       <h2 class="form-title">Candidate Deatils:</h2>
-      
+
       <div class="row">
         <div class="col-sm-4">
           <label for="candidateEmail" class="form-label">Candidate Email:</label>
@@ -99,6 +99,16 @@
         <div class="col-sm-1 pt-5 mt-1" *ngIf="isCandidate && selectedCandidate">
           <button type="button" class="btn btn-forms"
             [routerLink]="['/edit-candidate',selectedCandidate.candidateId]">Edit Candidate</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="diceCandidateId" class="form-label">Dice Candidate Id:</label>
+          <input type="text" class="form-input" name="diceCandidateId" formControlName="diceCandidateId"
+            [(ngModel)]="diceCandidateId" required>
+        </div>
+        <div class="col-sm-1 pt-5 mt-1">
+          <button type="button" class="btn btn-forms" (click)="getDiceCandidateDetails()">Search</button>
         </div>
       </div>
 

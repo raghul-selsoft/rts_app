@@ -1,5 +1,9 @@
 <h2 class="dice-title">
-  <a [routerLink]="['/dice-view']">Dice</a> / Dice Candidate</h2>
+  <a [routerLink]="['/dice-view']">Dice</a> / Dice Candidate
+  <a style="text-decoration: none; float: right;">
+    <button style="margin-right: 3em;" mat-button type="button" (click)="openRequirements();"><b
+        class="submission-btn">Add To Submission</b></button></a>
+</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
@@ -19,6 +23,7 @@
         </div>
         <!-- <div class="row">
         <div class="col-9"> -->
+
         <mat-card-header class="candidate-header">
           <div mat-card-avatar class="candidate-image">
             <span *ngIf="selectedCandidate.imageUrl; else noImage">
@@ -121,8 +126,18 @@
                 </div>
               </div>
             </div>
+            <!-- <mat-card-footer>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-footer> -->
+            <!-- <mat-card-actions>
+                <a style="text-decoration: none; float: right;">
+                  <button mat-button type="button"><b class="submission-btn">Add Submission</b></button></a>
+              </mat-card-actions> -->
           </mat-card-subtitle>
         </mat-card-header>
+
+
       </mat-card>
 
     </div>

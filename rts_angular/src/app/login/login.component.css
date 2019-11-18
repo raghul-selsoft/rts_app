@@ -30,14 +30,14 @@
   -webkit-border-radius: 35px;
 }
 
-.bg{
+/* .bg{
   background-image: url('https://thebossmagazine.com/wp-content/uploads/2018/11/iStock-612396272.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover;
   background-size: 100% 100%;
-  height: 50em;
-}
+  height: 50.5em;
+} */
 
 .login-wrapper .login-full-width {
   width: 100%;
@@ -56,26 +56,29 @@ mat-card{
   margin-top: 10em;
   width: 30em;
 }
-login-wrapper .mat-card {
+.login-wrapper .mat-card {
   padding: 20px 40px 0px;
 }
 
-.login-wrapper .mat-card-header .mat-card-title {
+/* .login-wrapper .mat-card-header .mat-card-title {
   font-size: 25px;
-}
-mat-card-header .mat-card-title {
-  margin-bottom: 12px;
-}
+  text-transform: uppercase ;
+} */
 
-mat-card-header-text {
+/* mat-card-header {
+  margin-bottom: 12px;
+  justify-content: center;
+} */
+
+/* .mat-card-header-text {
   margin: 0;
   width: 100%;
   text-align: center !important;
-  text-transform: uppercase;
-}
-mat-card-title{
-  font-weight: 500;
-  display: block;
+  text-transform: uppercase !important;
+} */
+.mat-card-title{
+  text-transform: uppercase ;
+  text-align: center;
 }
 mat-form-field {
   width: fit-content;

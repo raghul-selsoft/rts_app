@@ -54,6 +54,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   skills: any;
   addCustomSkills = (skill) => ({ skillId: 0, name: skill });
   selectedSkills: any;
+  diceCandidateId: any;
   // selectedSkillsText: any;
 
   constructor(
@@ -92,6 +93,11 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
+      });
+
+      this.activatedRoute.params
+      .subscribe((params: Params) => {
+        this.diceCandidateId = params['diceId'];
       });
 
     this.baseUrl = ApiUrl.BaseUrl;
@@ -157,7 +163,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       totalUsExperience: [''],
       skills: [''],
       note: [''],
-      summary: ['']
+      summary: [''],
+      diceCandidateId: ['']
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -202,6 +209,10 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.skills = data.skills;
           }
         });
+  }
+
+  getDiceCandidateDetails(){
+
   }
 
   getRequirementById() {
