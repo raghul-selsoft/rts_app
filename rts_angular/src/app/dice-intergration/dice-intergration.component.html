@@ -16,7 +16,15 @@
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="dice-title">Dice Search</h2>
+<h2 class="dice-title">Dice Search
+  <span *ngIf="diceId" style="float: right; margin: 20px 30px 10px 10px;">
+      <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
+        <button mat-button type="button" placeholder="Dice Id"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
+  </span>
+  <span class="col-4" style="float: right;">
+    <input type="text" class="form-input" [(ngModel)]="diceId">
+  </span>
+</h2>
 <div class="utility-container" style="border-radius: 1em;">
   <form [formGroup]="candidateForm" (ngSubmit)="findCandidates(candidateForm)">
     <div class="row ml-4 mr-4">
@@ -233,11 +241,11 @@
                   <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',candidate.id]">
                     <button mat-button type="button"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
                 </mat-card-actions>
-              </mat-card>             
+              </mat-card>
             </div>
             <mat-paginator [length]="diceMetaDataCount" [pageSize]="20" [pageSizeOptions]="[10, 20, 30]"
-            (page)="getPaginatorData($event)">
-          </mat-paginator>
+              (page)="getPaginatorData($event)">
+            </mat-paginator>
           </div>
         </div>
         <ng-template #noCandidates>

@@ -10,7 +10,7 @@
 <div class="center">
   <div class="row">
     <div class="col-9">
-      <mat-card class="card-container mb-2" *ngIf="selectedCandidate">
+      <mat-card class="card-container  mb-2" *ngIf="selectedCandidate">
         <div class="candidate-title">
           <h4>{{selectedCandidate.fullName}} <span
               class="candidate-subtitle">{{selectedCandidate.currentJobTitle}}</span>
@@ -95,12 +95,7 @@
                 </div>
                 <div class="row pt-4">
                   <span *ngIf="selectedCandidate.workPreferences.length > 0">
-                    <i class="fa fa-map-o pr-2" style="font-size:17px"></i>
-                    <!-- <span *ngIf="selectedCandidate.workPreferences[0].willingToRelocate; else notRelocate">Willing to
-                    relocate</span>
-                  <ng-template #notRelocate>
-                    Not willing to relocate
-                  </ng-template><br /> -->
+                    <i class="fa fa-map-o pr-2" style="font-size:17px"></i>                  
                     <span *ngFor="let work of selectedCandidate.workPreferences | filterUnique">
                       <span *ngIf="work.willingToRelocate; else notRelocate">Willing to
                         relocate</span>
@@ -125,22 +120,12 @@
                   </span>
                 </div>
               </div>
-            </div>
-            <!-- <mat-card-footer>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-            </mat-card-footer> -->
-            <!-- <mat-card-actions>
-                <a style="text-decoration: none; float: right;">
-                  <button mat-button type="button"><b class="submission-btn">Add Submission</b></button></a>
-              </mat-card-actions> -->
+            </div>          
           </mat-card-subtitle>
         </mat-card-header>
-
-
       </mat-card>
-
     </div>
+
     <div class="col-3">
       <mat-card class="card-sub-container mb-2" *ngIf="selectedCandidate">
         <span *ngIf="selectedCandidate.likelyToMoveScore >= 0">
@@ -175,7 +160,9 @@
       </mat-card>
     </div>
   </div>
-  <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4">
+
+  <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 pt-4"
+    style="height: calc(100% - 64px); min-height: calc(100% - 64px); min-width: 100%; width: 100%; margin: 0px;">
 
     <mat-tab *ngIf="selectedCandidate" label="Resume">
       <iframe [src]="candidateResume | safe" height="100%" width="100%"> </iframe>

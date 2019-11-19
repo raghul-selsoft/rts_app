@@ -58,6 +58,7 @@ export class DiceIntergrationComponent implements OnInit {
     rtsDiceId: any;
     isFilterAction: boolean;
     isShowFilterBtn: boolean;
+    diceId:string;
 
     constructor(
         private loggedUser: LoggedUserService,

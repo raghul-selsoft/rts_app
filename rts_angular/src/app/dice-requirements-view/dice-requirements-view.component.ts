@@ -66,11 +66,13 @@ export class DiceRequirementsViewComponent implements OnInit {
   }
 
   addSubmission(requirementId) {
-    this.router.navigate(['add-new-submission', requirementId,this.data.diceCandidateId])
+    this.router.navigate(['add-new-submission', requirementId, this.data.diceCandidateId])
+    // this.router.navigate(['add-new-submission', requirementId, this.data.diceCandidateId]).then(result => { window.open('_blank'); });
     this.dialogRef.close();
+
   }
 
- 
+
   getAllRequirements() {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
