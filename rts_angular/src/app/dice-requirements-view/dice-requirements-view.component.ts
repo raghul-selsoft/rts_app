@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { DialogData } from '../dice-detail-view/dice-detail-view.component';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-dice-requirements-view',
@@ -24,6 +25,7 @@ export class DiceRequirementsViewComponent implements OnInit {
   submittedRequirements: any[];
   requirementsLength: any;
   requirements: any;
+  baseUrl: string;
 
   constructor(
     public dialogRef: MatDialogRef<DiceRequirementsViewComponent>,
@@ -44,8 +46,8 @@ export class DiceRequirementsViewComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    console.log(this.data)
+  ngOnInit() { 
+     this.baseUrl = ApiUrl.BaseUrl;
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
@@ -65,11 +67,9 @@ export class DiceRequirementsViewComponent implements OnInit {
     }
   }
 
-  addSubmission(requirementId) {
-    this.router.navigate(['add-new-submission', requirementId, this.data.diceCandidateId])
-    // this.router.navigate(['add-new-submission', requirementId, this.data.diceCandidateId]).then(result => { window.open('_blank'); });
+  addSubmission(requirementId) {  
+    this.router.navigate(['add-new-submission', requirementId, this.data.diceCandidateId]);
     this.dialogRef.close();
-
   }
 
 
