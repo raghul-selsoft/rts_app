@@ -41,7 +41,6 @@
 .candidate-header {
     height: 10em; 
     padding-left: 0.5em;
-    /* display: inline-flex; */
 }
 
 .candidate-name{
@@ -50,6 +49,7 @@
     font-weight: 600;
     font-size: 1.1em; 
     padding-right: 3px;   
+    color: #476b6b;
 }
 
 .candidate-contact{
@@ -85,7 +85,7 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 33em;
+    height: 31em;
     padding-left: 2.5em;
     padding-right: 2.5em;
     border-radius: 1.2em;
@@ -95,11 +95,16 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 33em;
+    height: 31em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 1.2em;
     /* background-color:aquamarine; */
+}
+
+.card-content{
+    display: inline-flex;
+    width: -webkit-fill-available;
 }
 
 .mat-card-lg-image {
@@ -222,6 +227,7 @@
     color: cornflowerblue;
     font-size: 1.3em;
 }
+
 
 
  
