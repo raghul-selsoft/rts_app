@@ -9,8 +9,8 @@
 </ng-progress>
 <div class="center">
   <div class="row">
-    <div class="col-9">
-      <mat-card class="card-container  mb-2" *ngIf="selectedCandidate">
+    <div class="col-9">  
+      <mat-card class="card-container mb-2" *ngIf="selectedCandidate">
         <div class="candidate-title">
           <h4>{{selectedCandidate.fullName}} <span
               class="candidate-subtitle">{{selectedCandidate.currentJobTitle}}</span>
@@ -21,9 +21,6 @@
               [cbContent]="selectedCandidate.id">{{selectedCandidate.id}}</button>
           </h4>
         </div>
-        <!-- <div class="row">
-        <div class="col-9"> -->
-
         <mat-card-header class="candidate-header">
           <div mat-card-avatar class="candidate-image">
             <span *ngIf="selectedCandidate.imageUrl; else noImage">
@@ -45,8 +42,10 @@
                       </i> <strong style="padding-top: 4px; font-weight: 100;">Previous:</strong>
                     </div>
                     <div class="col-8" style="padding-top: 5px;">
-                      <span
-                        *ngFor="let previousWork of selectedCandidate.experience.history">{{previousWork.title}}<br /></span>
+                      <span *ngFor="let previousWork of selectedCandidate.experience.history; last as isLast">
+                        {{previousWork.title}}
+                        <span *ngIf="!isLast">,</span><br />
+                      </span>
                     </div>
                   </div>
                 </span>
@@ -95,7 +94,7 @@
                 </div>
                 <div class="row pt-4">
                   <span *ngIf="selectedCandidate.workPreferences.length > 0">
-                    <i class="fa fa-map-o pr-2" style="font-size:17px"></i>                  
+                    <i class="fa fa-map-o pr-2" style="font-size:17px"></i>
                     <span *ngFor="let work of selectedCandidate.workPreferences | filterUnique">
                       <span *ngIf="work.willingToRelocate; else notRelocate">Willing to
                         relocate</span>
@@ -120,7 +119,7 @@
                   </span>
                 </div>
               </div>
-            </div>          
+            </div>
           </mat-card-subtitle>
         </mat-card-header>
       </mat-card>

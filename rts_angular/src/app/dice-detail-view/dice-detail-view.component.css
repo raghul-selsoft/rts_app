@@ -41,11 +41,12 @@
 .candidate-header {
     height: 10em; 
     padding-left: 0.5em;
+    /* display: inline-flex; */
 }
 
 .candidate-name{
-    padding-left: 4.2em;
-    letter-spacing: 1.2px;
+    padding-left: 2.1em;
+    /* letter-spacing: 1.1px; */
     font-weight: 600;
     font-size: 1.1em; 
     padding-right: 3px;   
@@ -84,7 +85,7 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 35em;
+    height: 33em;
     padding-left: 2.5em;
     padding-right: 2.5em;
     border-radius: 1.2em;
@@ -94,7 +95,7 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 35em;
+    height: 33em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 1.2em;
@@ -103,8 +104,8 @@
 
 .mat-card-lg-image {
     border-radius: 50%;
-    height: 200px;
-    width: 200px;
+    height: 160px;
+    width: 160px;
 }
 
 .mat-card-sm-image {
@@ -222,14 +223,8 @@
     font-size: 1.3em;
 }
 
-.card-height{
-    height: calc(100% - 8px);
-     min-height: calc(100% - 8px); 
-     min-width: 100%;
-     width: 100%; 
-     margin: 0px;
-}
 
+ 
 
 
 
