@@ -118,6 +118,7 @@ import { SafePipe } from './dice-detail-view/safe.pipe';
 import { FilterPipe } from './dice-detail-view/unique.pipe';
 import { EditDiceComponent } from './edit-dice/edit-dice.component';
 import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
+import { HighlightPipe } from './dice-intergration/ highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -189,6 +190,7 @@ import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-req
     DiceDetailViewComponent,
     SafePipe,
     FilterPipe,
+    HighlightPipe,
     EditDiceComponent,
     DiceRequirementsViewComponent,
   ],

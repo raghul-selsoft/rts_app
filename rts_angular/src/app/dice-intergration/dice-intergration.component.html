@@ -18,8 +18,8 @@
 
 <h2 class="dice-title">Dice Search
   <span *ngIf="diceId" style="float: right; margin: 20px 30px 10px 10px;">
-      <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
-        <button mat-button type="button" ><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
+    <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
+      <button mat-button type="button"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
   </span>
   <span class="col-4" style="float: right;">
     <input type="text" class="form-input" placeholder="Enter Dice id" [(ngModel)]="diceId">
@@ -66,7 +66,7 @@
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="90">
         <mat-hint class="mb-2" style="display: block;">in days</mat-hint>
 
-        <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="false">Exclude ThirdParty</mat-slide-toggle>
+        <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="true">Exclude ThirdParty</mat-slide-toggle>
 
         <label class="filterLabel">Contact Method :</label>
         <mat-checkbox [ngModel]="false" ngInit="hasEmail=true" color="primary" formControlName="hasEmail">Email
@@ -233,7 +233,9 @@
                 </mat-card-header>
                 <mat-card-content>
                   <mat-grid-list class="grid-list" cols="5" rowHeight="6:1">
-                    <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">{{tech.skill}}
+                    <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">
+                      <span [innerHTML]="tech.skill  | highlight:selectedQuery">{{tech.skill}}</span>
+                      <span *ngIf="tech.yearsUsed" class="pl-2" style="color: cadetblue;">{{tech.yearsUsed}}yrs</span>
                       <span class="grid-sub-tile">{{tech.lastUsed}}</span></mat-grid-tile>
                   </mat-grid-list>
                 </mat-card-content>
