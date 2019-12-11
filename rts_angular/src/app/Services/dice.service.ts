@@ -61,7 +61,7 @@ export class DiceService {
     }
 
     getDiceProfile(submit) {
-        AutoRefreshComponent.reset.next(void 0);
+        // AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const diceToken = localStorage.getItem('dice_token');
         const headers = new Headers();
