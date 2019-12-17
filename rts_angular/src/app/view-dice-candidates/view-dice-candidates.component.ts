@@ -23,11 +23,9 @@ export class ViewDiceCandidatesComponent implements OnInit {
   candidates: any;
   candidatesLength: any;
   currentDate: Date;
-  // pageNumber: number = 1;
-  // pageSize: number;
   lowValue: number = 0;
   highValue: number = 10;
-  selectedCandidates: unknown[];
+  selectedCandidates: any[];
   userDetails: any;
   selectedUser: any;
 
