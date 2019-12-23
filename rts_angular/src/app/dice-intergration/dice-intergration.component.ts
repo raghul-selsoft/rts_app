@@ -178,7 +178,6 @@ export class DiceIntergrationComponent implements OnInit {
     }
 
     gotoTop(event) {
-        console.log(event)
         event.preventDefault();
         window.scroll({
             top: 0,
