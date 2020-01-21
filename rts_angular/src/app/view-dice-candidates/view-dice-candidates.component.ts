@@ -42,7 +42,7 @@ export class ViewDiceCandidatesComponent implements OnInit {
     this.startDate = new Date(Date.now())
     this.endDate = new Date(Date.now())
     this.currentDate = new Date(Date.now())
-    this.selectedUser = this.rtsUserId;
+    this.selectedUser = 0;
   }
 
   ngOnInit() {
@@ -72,7 +72,7 @@ export class ViewDiceCandidatesComponent implements OnInit {
 
   dateFilter() {
     this.ngProgress.start();
-    this.selectedUser = this.rtsUserId;
+    this.selectedUser = 0;
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.endDate).format('YYYY-MM-DD');
     const submit = {
@@ -99,6 +99,10 @@ export class ViewDiceCandidatesComponent implements OnInit {
   filterByUser() {
     if (this.selectedUser !== undefined) {
       this.selectedCandidates = _.where(this.candidates, { userId: this.selectedUser });
+      this.candidatesLength = this.selectedCandidates.length;
+    }
+    if (this.selectedUser === 0){
+      this.selectedCandidates = this.candidates;
       this.candidatesLength = this.selectedCandidates.length;
     }
   }
