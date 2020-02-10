@@ -531,7 +531,7 @@ export class SubmissionsComponent implements OnInit {
         }
         for (const report of getReport) {
             const submissionDate = moment(report.submissionDate).format('MMM DD, Y');
-            const submissionMonth = moment(report.submissionDate).format('MMMM');
+            const submissionMonth = moment(report.submissionDate).format('MMMM, Y');
             this.selectedReport.push({
                 "Position Name": report.positionName,
                 "Recruiter Name": report.submittedBy,
