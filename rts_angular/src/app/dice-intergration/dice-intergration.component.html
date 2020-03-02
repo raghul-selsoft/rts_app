@@ -184,6 +184,7 @@
                   </div>
                   <mat-card-title class="candidate-name">{{candidate.fullName}}
                     <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
+                    <span *ngIf="candidate.currentCompany"> @ {{candidate.currentCompany}}</span>
                   </mat-card-title>
 
                   <mat-card-subtitle class="candidate-name slider">
