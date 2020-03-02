@@ -113,7 +113,6 @@ export class ViewDiceCandidatesComponent implements OnInit {
   }
 
   search(value){
-    console.log(this.searchString)
     if (this.searchString === "") {
       this.isSearch = false;
     } else {
