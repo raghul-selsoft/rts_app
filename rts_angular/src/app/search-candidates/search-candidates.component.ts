@@ -32,6 +32,7 @@ export class SearchCandidatesComponent implements OnInit {
   static skills: any;
   skills: any;
   boldedText: any;
+  userRole: any;
 
   constructor(
     private requirementService: RequirementsService,
@@ -45,6 +46,7 @@ export class SearchCandidatesComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
     this.selectedSkills = [];
     this.boldedText = [];
   }

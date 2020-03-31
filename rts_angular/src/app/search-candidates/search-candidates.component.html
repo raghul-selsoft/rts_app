@@ -22,7 +22,7 @@
     </div>
     <div class="col-4">
       <button class="btn btn-sm btn-primary" (click)="getTech();">Search</button>
-      <button *ngIf="candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Email</button>
+      <button *ngIf="userRole !== 'RECRUITER' && candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Group Email</button>
     </div>
   </div>
 
