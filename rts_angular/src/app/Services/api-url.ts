@@ -91,6 +91,7 @@ export class ApiUrl {
 
     // vendor api
     static GetAllVendors = 'rtsVendor/vendor/getAllVendors';
+    static MassMail = 'rtsVendor/vendor/massMail';
 
     // timesheet api 
     // static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';

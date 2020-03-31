@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DialogData } from '../search-candidates/search-candidates.component';
 import { TimeSheetService } from '../Services/timeSheet.service';
 import { DialogMailData } from '../time-sheet/time-sheet.component';
+import { VendorService } from '../Services/vendor.service';
 
 @Component({
   selector: 'app-send-mail',
@@ -44,7 +45,7 @@ export class SendMailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngProgress: NgProgress,
     private toastr: ToastrService,
-    private timeSheetService: TimeSheetService
+    private vendorService: VendorService
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -76,12 +77,12 @@ export class SendMailComponent implements OnInit {
         this.mailToAddress.push(mail.email)
       }
     }
-    if (this.mailData.daySheets === undefined) {
-      this.isMail = true;
-    } else {
-      this.selectedMailId.push({ email: 'ts@selsoftinc.com' }, { email: 'vardhini@selsoftinc.com' });
-      this.isMail = false;
-    }
+    // if (this.mailData.daySheets === undefined) {
+    //   this.isMail = true;
+    // } else {
+    //   this.selectedMailId.push({ email: 'ts@selsoftinc.com' }, { email: 'vardhini@selsoftinc.com' });
+    //   this.isMail = false;
+    // }
   }
 
   getAllUser() {
@@ -131,18 +132,18 @@ export class SendMailComponent implements OnInit {
 
     const submit = {
       userId: this.rtsUserId,
-      daySheets: this.mailData.daySheets,
-      to: form.value.mailTo,
+      to: [this.rtsUserEmail],
+      bcc: form.value.mailTo,
       cc: form.value.mailCC,
       subject: form.value.mailSubject,
       body: form.value.mailBody
     };
 
-    this.timeSheetService.sendTimeSheet(submit)
+    this.vendorService.sendMassMail(submit)
       .subscribe(
         data => {
           if (data.success) {
-            this.toastr.success(data.message, '', {
+            this.toastr.success('Mail send successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
