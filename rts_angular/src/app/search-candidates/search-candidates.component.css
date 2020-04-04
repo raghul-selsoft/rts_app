@@ -1,1 +1,57 @@
 
+.candidate-name{
+  /* padding-left: 5px; */
+  /* letter-spacing: 1.2px; */
+  font-weight: 500;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.candidate-header {
+  height: 6em;
+  padding-left: 0.5em;
+}
+
+.card-container {
+  max-width: 100%;
+  border-radius: 1em;
+  padding: 10px;
+}
+
+.candidate-image {
+  padding: 5px;
+  width: 150px;
+  }
+
+.mat-grid-tile {
+  background: whitesmoke;
+  padding: 1em;
+  padding-top: 24px !important;
+}
+
+.grid-tile >::ng-deep .mat-figure{
+  justify-content: left;
+  padding-left: 8px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  border-left: 1px solid rgb(163, 150, 150);
+  color: darkslategray;
+  /* display: inline; */
+}
+
+.grid-sub-tile {
+  margin-left: auto;
+  padding: 8px;
+  color: cadetblue;
+}
+
+.icon-exp {
+  position: relative;
+  top: 5px;
+  font-size: 19px;
+  padding-right: 5px;
+}
+
+:host ::ng-deep .highlight{
+  background:yellow;
+}

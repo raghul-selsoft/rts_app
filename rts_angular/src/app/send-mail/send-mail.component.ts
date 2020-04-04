@@ -77,12 +77,14 @@ export class SendMailComponent implements OnInit {
         this.mailToAddress.push(mail.email)
       }
     }
-    // if (this.mailData.daySheets === undefined) {
-    //   this.isMail = true;
-    // } else {
-    //   this.selectedMailId.push({ email: 'ts@selsoftinc.com' }, { email: 'vardhini@selsoftinc.com' });
-    //   this.isMail = false;
-    // }
+    if (this.data.diceMail !== undefined) {
+      for (const mail of this.data.diceMail) {
+        for (const id of mail.emails) {
+          this.selectedMailId.push({ email: id });
+          this.mailToAddress.push(id);
+        }
+      }
+    }
   }
 
   getAllUser() {

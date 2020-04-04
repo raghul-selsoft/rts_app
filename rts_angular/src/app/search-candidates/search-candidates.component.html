@@ -13,20 +13,63 @@
 
 <h2 class="main-title">Search Candidates By Skills</h2>
 <div class="utility-container">
-
   <div class="row mb-4">
-    <div class="col-8">
-      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="Search Skills"
-        [(ngModel)]="selectedSkills">
+    <div class="col-4">
+      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="AND Search" [addTag]="addCustom"
+        [(ngModel)]="ANDSkills">
+      </ng-select>
+    </div>
+    <div class="col-4">
+      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="OR Search" [addTag]="addCustom"
+        [(ngModel)]="ORSkills">
       </ng-select>
     </div>
     <div class="col-4">
       <button class="btn btn-sm btn-primary" (click)="getTech();">Search</button>
-      <button *ngIf="candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Group Email</button>
+      <button *ngIf="localCandidateLength > 0  || diceCandidateLength > 0" class="btn btn-sm btn-primary ml-2"
+        (click)="sendMail();">Send Group
+        Email</button>
     </div>
   </div>
 
+  <div class="mat-paginator-container" style="justify-content: space-between">
+    <h5 class="candidate-list"><span
+        style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{diceCandidateLength}}</span> Dice Candidates Found
+    </h5>
+    <mat-paginator [length]="diceCandidateLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]"
+      (page)="getDicePaginatorData($event)">
+    </mat-paginator>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let candidate of (diceCandidates | slice: lowValue : highValue)">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="candidate-name">
+          {{candidate.fullName}}
+        </mat-panel-title>
+        <mat-panel-description>
+          <span *ngIf="candidate.city">
+            <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
+      <mat-grid-list class="grid-list" cols="5" rowHeight="7:1">
+        <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">
+          <span [innerHTML]="tech  | highlight:selectedQuery">{{tech}}</span>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+  <div class="mat-paginator-container mt-4" style="justify-content: space-between;">
+    <h5 class="candidate-list"><span
+        style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{localCandidateLength}}</span> Local Candidates Found
+    </h5>
+    <mat-paginator [length]="localCandidateLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]"
+      (page)="getLocalPaginatorData($event)">
+    </mat-paginator>
+  </div>
   <table class="table table-hover">
     <thead class="table-header">
       <tr>
@@ -35,30 +78,24 @@
         <th>Location</th>
       </tr>
     </thead>
-    <tbody *ngIf="candidateLength > 0 ; else noCandidates">
-      <tr *ngFor="let candidate of selectedCandidates" [routerLink]="['/edit-candidate',candidate.candidateId]">
+    <tbody>
+      <tr *ngFor="let candidate of (localCandidates | slice: lowValue : highValue)"
+        [routerLink]="['/edit-candidate',candidate.candidateId]">
         <td>{{candidate.name}}</td>
         <td><span *ngFor="let skill of candidate.skills">
             <span>{{skill.name}}</span>
-            <!-- <span *ngFor="let select of selectedSkills">
-              <span *ngIf="select.skillId === skill.skillId ; else noBoldtext"><b>{{skill.name}}</b>
-              </span>
-              <ng-template #noBoldtext>
-                {{skill.name}}
-              </ng-template>
-            </span> -->
             <span *ngIf="candidate.skills.length > 1">,</span>
           </span></td>
         <td>{{candidate.location}}</td>
       </tr>
     </tbody>
-    <ng-template #noCandidates>
+    <!-- <ng-template #noCandidates>
       <tbody>
         <tr>
           <td>No Candidates yet.</td>
         </tr>
       </tbody>
-    </ng-template>
+    </ng-template> -->
   </table>
 
 </div>
