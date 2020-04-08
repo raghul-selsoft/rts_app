@@ -121,6 +121,7 @@ import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-req
 import { HighlightPipe } from './dice-intergration/ highlight.pipe';
 import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
 import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
+import { RemoveBulkEmailComponent } from './remove-bulk-email/remove-bulk-email.component';
 
 @NgModule({
   declarations: [
@@ -197,6 +198,7 @@ import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-
     DiceRequirementsViewComponent,
     ViewDiceCandidatesComponent,
     DownloadTimeSheetComponent,
+    RemoveBulkEmailComponent,
   ],
   imports: [
     BrowserModule,

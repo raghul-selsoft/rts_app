@@ -67,6 +67,7 @@ import { EditDiceComponent } from './edit-dice/edit-dice.component';
 import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
 import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
 import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
+import { RemoveBulkEmailComponent } from './remove-bulk-email/remove-bulk-email.component';
 
 
 export const appRoutes: Routes = [
@@ -135,12 +136,13 @@ export const appRoutes: Routes = [
   { path: 'leave-manage', component: LeaveManageComponent },
   { path: 'dice-login', component: DiceLoginComponent },
   { path: 'dice-view', component: DiceIntergrationComponent },
-  { path: 'add-dice', component: AddDiceComponent }, 
-  { path: 'edit-dice', component: EditDiceComponent }, 
-  { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
-  { path: 'dice-requirements', component: DiceRequirementsViewComponent }, 
-  { path: 'view-dice-candidates', component: ViewDiceCandidatesComponent }, 
-  { path: 'download-time-sheet', component: DownloadTimeSheetComponent }, 
+  { path: 'add-dice', component: AddDiceComponent },
+  { path: 'edit-dice', component: EditDiceComponent },
+  { path: 'dice-detail-view/:id', component: DiceDetailViewComponent },
+  { path: 'dice-requirements', component: DiceRequirementsViewComponent },
+  { path: 'view-dice-candidates', component: ViewDiceCandidatesComponent },
+  { path: 'download-time-sheet', component: DownloadTimeSheetComponent },
+  { path: 'remove-bulk-email', component: RemoveBulkEmailComponent },
 ];
 
 

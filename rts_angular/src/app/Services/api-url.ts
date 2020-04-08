@@ -69,6 +69,8 @@ export class ApiUrl {
     static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
     static GetCandidateById = 'rtsCandidate/candidate/candidateById';
     static GetCandidateBySkills = 'rtsCandidate/candidate/searchBySkills';
+    static RemoveEmail = 'rtsCandidate/candidate/removeEmail';
+
 
     // team api
     static AddTeam = 'rtsTeam/team/createTeam';
@@ -93,7 +95,7 @@ export class ApiUrl {
     static GetAllVendors = 'rtsVendor/vendor/getAllVendors';
     static MassMail = 'rtsVendor/vendor/massMail';
 
-    // timesheet api 
+    // timesheet api
     // static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';
     static GetWeekSheet = 'rtsTimeSheet/timeSheet/getWeekSheet';
     static GetAllWeekSheet = 'rtsTimeSheet/timeSheet/allWeekSheet';

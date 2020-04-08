@@ -9,6 +9,7 @@ import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, PageEvent } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { RemoveBulkEmailComponent } from '../remove-bulk-email/remove-bulk-email.component';
 
 export interface DialogData {
   mailTo: any;
@@ -47,6 +48,12 @@ export class SearchCandidatesComponent implements OnInit {
   highValue: number = 20;
   diceCandidateLength: any;
   selectedQuery: string;
+  selectedLocation: any[];
+  location: any[];
+  immigration: any[];;
+  selectedVisaStatus: any[];
+  workPermit: any[];
+  selectedWorkPermit: any[];
 
   constructor(
     private requirementService: RequirementsService,
@@ -66,16 +73,42 @@ export class SearchCandidatesComponent implements OnInit {
     this.ANDSkills = [];
     this.ORSkills = [];
     this.boldedText = [];
+    this.selectedLocation = [];
+    this.location = [];
   }
 
   ngOnInit() {
     this.ngProgress.start();
     this.getAllSkills();
+    this.getCommonDetails();
+    this.workPermit = [
+      { "name": " US Citizenship", "value": "us citizenship" },
+      { "name": "Green Card", "value": "green card" },
+      { "name": "Employment Auth Document", "value": "employment auth document" },
+      { "name": "Have H1", "value": "have h1" },
+      { "name": "Need H1", "value": "need h1" },
+      { "name": "Have J1", "value": "have j1" },
+      { "name": "TN Permit Holder", "value": "tn permit holder" },
+    ]
     // if (SearchCandidatesComponent.skills !== undefined) {
     //   this.selectedSkills = SearchCandidatesComponent.skills;
     //   this.getTech();
     // }
 
+  }
+
+  getCommonDetails() {
+    const companyId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.commonDetails(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.immigration = data.visaStatus;
+          }
+        });
   }
 
 
@@ -107,13 +140,15 @@ export class SearchCandidatesComponent implements OnInit {
   }
 
   getTech() {
-    this.ngProgress.start();
     // SearchCandidatesComponent.skills = this.selectedSkills;
 
     if (this.ANDSkills.length > 0 || this.ORSkills.length > 0) {
+    this.ngProgress.start();
+
       var selectedAND = [];
       var selectedOR = [];
       var skills = [];
+      var location=[];
       for (const skill of this.ANDSkills) {
         selectedAND.push(skill.name);
         skills.push(skill.name);
@@ -122,13 +157,19 @@ export class SearchCandidatesComponent implements OnInit {
         selectedOR.push(skill.name);
         skills.push(skill.name);
       }
+      for (const local of this.selectedLocation) {
+        location.push(local.name);
+      }
       this.selectedQuery = skills.toString();
       const submit = {
         userId: this.rtsUserId,
         skill: {
           and: selectedAND,
-          or: selectedOR
-        }
+          or: selectedOR,
+          location: location,
+          workPermit: this.selectedWorkPermit
+        },
+        visaStatus: this.selectedVisaStatus
       }
 
       this.candidateService.getCandidateByTechnology(submit)
@@ -151,6 +192,13 @@ export class SearchCandidatesComponent implements OnInit {
     }
   }
 
+  removeEmail() {
+    const dialogRef = this.dialog.open(RemoveBulkEmailComponent, {
+      height: '200px',
+      width: '600px',
+      data: {}
+    });
+  }
 
   sendMail() {
     const dialogRef = this.dialog.open(SendMailComponent, {

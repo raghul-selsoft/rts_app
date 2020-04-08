@@ -55,3 +55,7 @@
 :host ::ng-deep .highlight{
   background:yellow;
 }
+
+.col-3{
+  padding-top: 15px;
+}
