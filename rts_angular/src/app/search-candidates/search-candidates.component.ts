@@ -87,7 +87,8 @@ export class SearchCandidatesComponent implements OnInit {
       { "name": "Employment Auth Document", "value": "employment auth document" },
       { "name": "Have H1", "value": "have h1" },
       { "name": "Need H1", "value": "need h1" },
-      { "name": "Have J1", "value": "have j1" },
+      // { "name": "Have J1", "value": "have j1" },
+      { "name": "Canadian Citizen", "value": "canadian citizen" },
       { "name": "TN Permit Holder", "value": "tn permit holder" },
     ]
     // if (SearchCandidatesComponent.skills !== undefined) {
@@ -158,7 +159,7 @@ export class SearchCandidatesComponent implements OnInit {
         skills.push(skill.name);
       }
       for (const local of this.selectedLocation) {
-        location.push(local.name);
+        location.push(local.name.toLowerCase());
       }
       this.selectedQuery = skills.toString();
       const submit = {
@@ -194,8 +195,8 @@ export class SearchCandidatesComponent implements OnInit {
 
   removeEmail() {
     const dialogRef = this.dialog.open(RemoveBulkEmailComponent, {
-      height: '200px',
-      width: '600px',
+      height: '400px',
+      width: '800px',
       data: {}
     });
   }
