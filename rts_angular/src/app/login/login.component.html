@@ -54,18 +54,18 @@
 
           <mat-form-field class="login-full-width" appearance="outline">
             <mat-label>Email</mat-label>
-            <input class="dice-userName" type="email" matInput placeholder="Email" formControlName="userEmail">            
+            <input class="dice-userName" type="email" matInput placeholder="Email" formControlName="userEmail">
           </mat-form-field><br />
 
           <mat-form-field class="login-full-width" appearance="outline">
             <mat-label>Password</mat-label>
             <input class="dice-userName" [type]="hide ? 'password' : 'text'" matInput placeholder="Password"
               formControlName="userPassword">
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>          
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           </mat-form-field><br />
 
         </mat-card-content>
-        <button class="btn-block mat-stroked-button mat-accent" mat-stroked-button><span class="mat-button-wrapper">Log
+        <button class="btn-block mat-stroked-button mat-accent" [disabled]="isLoginButton" mat-stroked-button><span class="mat-button-wrapper">Log
             in</span>
         </button>
         <mat-card-actions>
