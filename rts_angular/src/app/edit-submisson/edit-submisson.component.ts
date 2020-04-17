@@ -519,7 +519,9 @@ export class EditSubmissonComponent implements OnInit {
             this.mailFormat = 3;
         } else if (event.value === '4') {
             this.mailFormat = 4;
-        }
+        } else if (event.value === '5') {
+          this.mailFormat = 5;
+      }
     }
 
     getMailBodyMessage(event) {
