@@ -68,6 +68,7 @@ import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-req
 import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
 import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
 import { RemoveBulkEmailComponent } from './remove-bulk-email/remove-bulk-email.component';
+import { ViewDiceLinkComponent } from './view-dice-link/view-dice-link.component';
 
 
 export const appRoutes: Routes = [
@@ -143,6 +144,7 @@ export const appRoutes: Routes = [
   { path: 'view-dice-candidates', component: ViewDiceCandidatesComponent },
   { path: 'download-time-sheet', component: DownloadTimeSheetComponent },
   { path: 'remove-bulk-email', component: RemoveBulkEmailComponent },
+  { path: 'view-dice-link', component: ViewDiceLinkComponent },
 ];
 
 

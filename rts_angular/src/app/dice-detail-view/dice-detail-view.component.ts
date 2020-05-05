@@ -58,12 +58,27 @@ export class DiceDetailViewComponent implements OnInit {
         this.candidateId = params['id'];
       });
     this.getDiceCandidate();
+    // this.diceTokenGen();
     // this.selectedUsage = {
     //   "viewsConsumed": 48,
     //   "quota": 200,
     //   "customerId": 1923599,
     //   "viewsRemaining": 152
     // }
+  }
+
+  diceTokenGen() {
+    const submit = {
+      userId: this.rtsUserId,
+      q: "Java Developer",
+    }
+    this.diceService.diceSearchWithTokenGeneration(submit)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+          }
+        });
   }
 
   getDiceCandidate() {
@@ -92,7 +107,7 @@ export class DiceDetailViewComponent implements OnInit {
         });
   }
 
-  openRequirements(){
+  openRequirements() {
     const dialogRef = this.dialog.open(DiceRequirementsViewComponent, {
       width: '1000px',
       data: { diceCandidateId: this.candidateId }
