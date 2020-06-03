@@ -1,0 +1,10 @@
+.candidate-name{
+  /* padding-left: 5px; */
+  /* letter-spacing: 1.2px; */
+  font-weight: 600;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+}
+::ng-deep .mat-list-item-content{
+  justify-content: space-between;
+}

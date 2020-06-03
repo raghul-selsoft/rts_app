@@ -69,6 +69,9 @@ import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-ca
 import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
 import { RemoveBulkEmailComponent } from './remove-bulk-email/remove-bulk-email.component';
 import { ViewDiceLinkComponent } from './view-dice-link/view-dice-link.component';
+import { DetailedLeaveRequestComponent } from './detailed-leave-request/detailed-leave-request.component';
+import { HolidayListPopupComponent } from './holiday-list-popup/holiday-list-popup.component';
+import { LeaveBalanceDetailComponent } from './leave-balance-detail/leave-balance-detail.component';
 
 
 export const appRoutes: Routes = [
@@ -145,6 +148,9 @@ export const appRoutes: Routes = [
   { path: 'download-time-sheet', component: DownloadTimeSheetComponent },
   { path: 'remove-bulk-email', component: RemoveBulkEmailComponent },
   { path: 'view-dice-link', component: ViewDiceLinkComponent },
+  { path: 'detailed-leave-request', component: DetailedLeaveRequestComponent },
+  { path: 'holiday-list-popup', component: HolidayListPopupComponent },
+  { path: 'leave-balance', component: LeaveBalanceDetailComponent },
 ];
 
 

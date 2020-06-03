@@ -1,0 +1,21 @@
+<table class="table table-hover">
+  <thead class="table-header">
+    <tr>
+      <th>Date</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="holidayLength > 0 ; else noHoliday">
+    <tr *ngFor="let holiday of holidayList">
+      <td>{{holiday.dateId}}</td>
+      <td>{{holiday.comment}}</td>
+    </tr>
+  </tbody>
+  <ng-template #noHoliday>
+    <tbody>
+      <tr>
+        <td>No Holidays yet.</td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>

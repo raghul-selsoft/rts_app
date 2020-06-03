@@ -10,6 +10,9 @@ import { TimeSheetService } from '../Services/timeSheet.service';
 import { UserService } from '../Services/user.service';
 import { MatDialog } from '@angular/material';
 import { CancelLeaveRequestComponent } from '../cancel-leave-request/cancel-leave-request.component';
+import { DetailedLeaveRequestComponent } from '../detailed-leave-request/detailed-leave-request.component';
+import { HolidayListPopupComponent } from '../holiday-list-popup/holiday-list-popup.component';
+import { LeaveBalanceDetailComponent } from '../leave-balance-detail/leave-balance-detail.component';
 
 export interface DialogData {
   userId: any;
@@ -119,18 +122,40 @@ export class LeaveManageComponent implements OnInit {
         });
   }
 
-  cancelLeaveRequest(dateId) {
-
-    const dialogRef = this.dialog.open(CancelLeaveRequestComponent, {
-      width: '500px',
-      data: { userId: parseInt(this.rtsUserId), dateId: dateId }
+  getLeaveDetails() {
+    const dialogRef = this.dialog.open(DetailedLeaveRequestComponent, {
+      height: '400px',
+      width: '1200px',
+      data: {}
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.getLeaveRequests();
-    });
-
-
   }
+
+  getHolidays() {
+    const dialogRef = this.dialog.open(HolidayListPopupComponent, {
+      height: '400px',
+      width: '1200px',
+      data: {}
+    });
+  }
+
+  getleaveBalance() {
+    const dialogRef = this.dialog.open(LeaveBalanceDetailComponent, {
+      height: '500px',
+      width: '1200px',
+      data: {}
+    });
+  }
+  // cancelLeaveRequest(dateId) {
+
+  //   const dialogRef = this.dialog.open(CancelLeaveRequestComponent, {
+  //     width: '500px',
+  //     data: { userId: parseInt(this.rtsUserId), dateId: dateId }
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.getLeaveRequests();
+  //   });
+
+  // }
 
 }

@@ -123,6 +123,9 @@ import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-ca
 import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
 import { RemoveBulkEmailComponent } from './remove-bulk-email/remove-bulk-email.component';
 import { ViewDiceLinkComponent } from './view-dice-link/view-dice-link.component';
+import { DetailedLeaveRequestComponent } from './detailed-leave-request/detailed-leave-request.component';
+import { HolidayListPopupComponent } from './holiday-list-popup/holiday-list-popup.component';
+import { LeaveBalanceDetailComponent } from './leave-balance-detail/leave-balance-detail.component';
 
 @NgModule({
   declarations: [
@@ -201,6 +204,9 @@ import { ViewDiceLinkComponent } from './view-dice-link/view-dice-link.component
     DownloadTimeSheetComponent,
     RemoveBulkEmailComponent,
     ViewDiceLinkComponent,
+    DetailedLeaveRequestComponent,
+    HolidayListPopupComponent,
+    LeaveBalanceDetailComponent,
   ],
   imports: [
     BrowserModule,

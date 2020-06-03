@@ -1,0 +1,58 @@
+<div *ngIf="leaveDetails">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="candidate-name">
+          Casual Leave
+        </mat-panel-title>
+        <mat-panel-description>
+          <span>
+            {{casualLeave}}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let leave of leaveDetails.casualLeave">{{leave.dateId}}
+          <span>{{leave.leaveType}}</span> </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="candidate-name">
+          Sick Leave
+        </mat-panel-title>
+        <mat-panel-description>
+          <span>
+            {{sickLeave}}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let leave of leaveDetails.sickLeave">{{leave.dateId}}
+          <span>{{leave.leaveType}}</span></mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="candidate-name">
+          Combo Off
+        </mat-panel-title>
+        <mat-panel-description>
+          <span>
+            {{comboLeave}}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let leave of leaveDetails.comboOff">{{leave.dateId}}
+          <span>{{leave.leaveType}}</span> </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
