@@ -1,0 +1,23 @@
+.candidate-list{
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 22px;
+  padding: 0.5em;
+  border-bottom: 1px solid #3484c8;
+}
+
+ ::ng-deep .mat-list-item-content{
+  justify-content: space-between;
+}
+.btn-bottom{
+position: absolute;
+right:    0;
+bottom:   0;
+margin-right: 5px;
+/* position: absolute;
+  left: 50%;
+  width: 100px;
+  margin-left: -50px;
+  bottom:0px; */
+}

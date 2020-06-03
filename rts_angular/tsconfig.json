@@ -1,9 +1,10 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "watch" : true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

@@ -29,6 +29,11 @@ export class LeaveManageComponent implements OnInit {
   startDate: Date;
   rtsCompanyId: any;
   leaveRequests: any;
+  leaveDetails: any;
+  sickLeave: number;
+  comboLeave: any;
+  casualLeave: any;
+  upcomingHoliday: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -48,9 +53,12 @@ export class LeaveManageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLeaveRequests();
+    this.upcomingHolidays();
+    this.getRecentTranscations();
   }
 
-  getLeaveRequests() {
+  getRecentTranscations() {
 
     const dateId = moment(this.startDate).format('YYYY-MM');
 
@@ -66,6 +74,47 @@ export class LeaveManageComponent implements OnInit {
           this.ngProgress.done();
           if (data.success) {
             this.leaveRequests = data.leaveRequest;
+          }
+        });
+  }
+  getLeaveRequests() {
+
+    const dateId = moment(this.startDate).format('YYYY');
+
+    const userId = {
+      userId: this.rtsUserId,
+      dateId: dateId,
+    };
+
+    this.timeSheetService.leaveHistory(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.leaveDetails = data.daySheets;
+            this.sickLeave = this.leaveDetails.sickLeave.length;
+            this.casualLeave = this.leaveDetails.casualLeave.length;
+            this.comboLeave = this.leaveDetails.comboOff.length;
+
+          }
+        });
+  }
+
+  upcomingHolidays() {
+
+    const dateId = moment(this.startDate).format('YYYY-MM-DD');
+
+    const userId = {
+      userId: this.rtsUserId,
+      dateId: dateId,
+    };
+
+    this.timeSheetService.upComingHolidays(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.upcomingHoliday = data.upcomingHoliday;
           }
         });
   }

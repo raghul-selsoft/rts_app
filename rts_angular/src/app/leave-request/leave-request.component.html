@@ -8,14 +8,15 @@
       <div class="row">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [satDatepicker]="picker" placeholder="Leave date" [value]="date" [(ngModel)]="startDate"
+            <input matInput [satDatepicker]="picker" [min]="date" placeholder="Leave date" [value]="date" [(ngModel)]="startDate"
               formControlName="mailFrom">
             <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
             <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
           </mat-form-field>
         </div>
         <div class="leaveType col-4">
-          <select name="clientName" class="form-input" formControlName="leaveType" required>
+          <select name="clientName" class="form-input" (change)="changeLeaveType($event.target.value);"
+            formControlName="leaveType" required>
             <option value="">Select</option>
             <option value="Casual-Leave">Casual-Leave</option>
             <option value="Sick-Leave">Sick-Leave</option>
@@ -23,6 +24,14 @@
             <option value="Combo-Off">Combo-Off</option>
           </select>
         </div>
+        <!-- <div class="col-3" *ngIf="isComboLeave">
+          <mat-form-field>
+            <input matInput [satDatepicker]="picker" placeholder="Combo-Off date" [value]="date" [(ngModel)]="comboDate"
+              formControlName="comboDate">
+            <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+            <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+          </mat-form-field>
+        </div> -->
       </div>
       <!-- <div *ngIf="userRole === 'ACC_MGR' || userRole === 'RECRUITER' || userRole === 'TL'"> -->
       <div class="row">

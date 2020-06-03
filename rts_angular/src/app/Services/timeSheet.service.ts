@@ -140,6 +140,27 @@ export class TimeSheetService {
             });
     }
 
+    leaveHistory(submit) {
+      // AutoRefreshComponent.reset.next(void 0);
+      const token = localStorage.getItem('id_token');
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', token);
+
+      return this.http.post(ApiUrl.BaseUrl + ApiUrl.LeaveHistory, submit,
+          { headers: headers })
+          .map(res => {
+              const responseToken = res.headers.get('refresh-token');
+              localStorage.setItem('id_token', responseToken);
+              return res.json();
+          }).catch(err => {
+              if (err.status === 401) {
+                  this.loginService.logout();
+              }
+              return '{}';
+          });
+  }
+
     getHolidays(submit) {
         // AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
@@ -160,6 +181,27 @@ export class TimeSheetService {
                 return '{}';
             });
     }
+
+    upComingHolidays(submit) {
+      // AutoRefreshComponent.reset.next(void 0);
+      const token = localStorage.getItem('id_token');
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', token);
+
+      return this.http.post(ApiUrl.BaseUrl + ApiUrl.UpcomingHolidays, submit,
+          { headers: headers })
+          .map(res => {
+              const responseToken = res.headers.get('refresh-token');
+              localStorage.setItem('id_token', responseToken);
+              return res.json();
+          }).catch(err => {
+              if (err.status === 401) {
+                  this.loginService.logout();
+              }
+              return '{}';
+          });
+  }
 
     sendTimeSheet(submit) {
         // AutoRefreshComponent.reset.next(void 0);

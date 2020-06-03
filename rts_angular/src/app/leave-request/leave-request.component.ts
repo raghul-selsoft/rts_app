@@ -21,6 +21,7 @@ export class LeaveRequestComponent implements OnInit {
   private rtsUserId: any;
   private userRole: any;
   private startDate: any;
+  private comboDate: any;
   private leaveDays: any[];
   private mailToAddress: any;
   addCustom = (item) => ({ email: item });
@@ -29,6 +30,8 @@ export class LeaveRequestComponent implements OnInit {
   currentDate: Date;
   // isLeave: boolean;
   userDetails: any;
+  isComboLeave: boolean;
+  date: Date;
   // selectedUser: any;
 
 
@@ -47,12 +50,17 @@ export class LeaveRequestComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.leaveDays = [];
     this.mailToAddress = [];
-    this.currentDate = new Date(Date.now())
+    this.currentDate = new Date(Date.now());
+    this.date = new Date();
+    this.isComboLeave = false;
+    this.date.setMonth(this.currentDate.getMonth());
+    this.date.setDate(1);
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       mailFrom: [''],
+      comboDate: [''],
       mailTo: [''],
       mailBody: [''],
       isLeave: [''],
@@ -80,6 +88,14 @@ export class LeaveRequestComponent implements OnInit {
             }
           }
         });
+  }
+
+  changeLeaveType(event) {
+    if (event === 'Combo-Off') {
+      this.isComboLeave = true;
+    } else {
+      this.isComboLeave = false;
+    }
   }
 
   sendMail(form: FormGroup) {
@@ -115,7 +131,7 @@ export class LeaveRequestComponent implements OnInit {
     for (var i = 1; i < diffDays; i++) {
       var day = moment(date).format('YYYY-MM-DD');
       date = moment(day).add(1, 'days');
-      days.push(moment(date).format('YYYY-MM-DD'));    
+      days.push(moment(date).format('YYYY-MM-DD'));
     }
     for (const d of days) {
       var leaveDay = moment(d).format('d');
