@@ -81,11 +81,14 @@
       </div>
       <div class="col-4" style="height: 16em;">
         <h4 class="candidate-list">Recent Transcations</h4>
-        <mat-list role="list">
-          <mat-list-item role="listitem" *ngFor="let request of leaveRequests">{{request.daySheet.dateId}}
-            <span>{{request.daySheet.leaveType}} </span><span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">{{request.user.firstName}}</span>
+        <mat-list role="list" *ngFor="let request of leaveRequests; let i = index">
+          <mat-list-item role="listitem" *ngIf="i < 3">
+            {{request.daySheet.dateId}}
+            <span>{{request.daySheet.leaveType}} </span><span
+              *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">{{request.user.firstName}}</span>
           </mat-list-item>
         </mat-list>
+
         <button class="btn btn-sm btn-primary btn-bottom" (click)="getLeaveDetails();">View More</button>
       </div>
     </div>
