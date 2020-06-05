@@ -37,6 +37,7 @@ export class LeaveManageComponent implements OnInit {
   comboLeave: any;
   casualLeave: any;
   upcomingHoliday: any;
+  userDetails: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -59,6 +60,29 @@ export class LeaveManageComponent implements OnInit {
     this.getLeaveRequests();
     this.upcomingHolidays();
     this.getRecentTranscations();
+    if (this.userRole !== 'RECRUITER') {
+      this.getActiveUser();
+    }
+  }
+
+  getActiveUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.userService.getActiveUsers(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.userDetails = data.users;
+          }
+        });
+  }
+
+  setUser() {
+    this.getRecentTranscations();
+    this.getLeaveRequests();
   }
 
   getRecentTranscations() {

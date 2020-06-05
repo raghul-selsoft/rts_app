@@ -7,6 +7,13 @@ import { UserService } from '../Services/user.service';
 import * as moment from 'moment';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { LeaveAlertComponent } from '../leave-alert/leave-alert.component';
+
+
+export interface DialogData {
+  leaveRequest: any;
+}
 
 @Component({
   selector: 'app-leave-request',
@@ -32,6 +39,11 @@ export class LeaveRequestComponent implements OnInit {
   userDetails: any;
   isComboLeave: boolean;
   date: Date;
+  sickLeaveCount: number;
+  casualLeaveCount: number;
+  leaveDetails: any;
+  isLeaveRequest: boolean;
+  isLeaveAlertApprove: boolean;
   // selectedUser: any;
 
 
@@ -43,6 +55,7 @@ export class LeaveRequestComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private dialog: MatDialog
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -55,6 +68,9 @@ export class LeaveRequestComponent implements OnInit {
     this.isComboLeave = false;
     this.date.setMonth(this.currentDate.getMonth());
     this.date.setDate(1);
+    this.isLeaveRequest = false;
+    // this.casualLeaveCount= 12;
+    // this.sickLeaveCount=6;
   }
 
   ngOnInit() {
@@ -68,7 +84,30 @@ export class LeaveRequestComponent implements OnInit {
       selectUser: ['']
     })
     this.getAllUser();
+    this.getLeaveRequests();
   }
+
+  getLeaveRequests() {
+
+    const dateId = moment(this.currentDate).format('YYYY');
+
+    const userId = {
+      userId: this.rtsUserId,
+      dateId: dateId,
+    };
+
+    this.timeSheetService.leaveHistory(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.leaveDetails = data.daySheets;
+            this.sickLeaveCount = this.leaveDetails.sickLeave.length;
+            this.casualLeaveCount = this.leaveDetails.casualLeave.length;
+          }
+        });
+  }
+
 
 
   getAllUser() {
@@ -154,23 +193,38 @@ export class LeaveRequestComponent implements OnInit {
       comment: mailBody
     };
 
-    this.timeSheetService.leaveRequest(submit)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.toastr.success(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-            this.router.navigate(['time-sheet']);
-          }
-          else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
+    this.getLeaveRequests();
+
+    if (this.casualLeaveCount > 12) {
+      this.isLeaveAlertApprove = true;
+      const dialogRef = this.dialog.open(LeaveAlertComponent, {
+        width: '500px',
+        data: { leaveRequest: submit }
+      });
+    } else {
+      this.isLeaveAlertApprove = false;
+    }
+
+
+    if (!this.isLeaveAlertApprove) {
+      this.timeSheetService.leaveRequest(submit)
+        .subscribe(
+          data => {
+            if (data.success) {
+              this.toastr.success(data.message, '', {
+                positionClass: 'toast-top-center',
+                timeOut: 3000,
+              });
+              this.router.navigate(['time-sheet']);
+            }
+            else {
+              this.toastr.error(data.message, '', {
+                positionClass: 'toast-top-center',
+                timeOut: 3000,
+              });
+            }
+          });
+    }
   }
 
 }

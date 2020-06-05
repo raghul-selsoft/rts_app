@@ -1,7 +1,11 @@
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
-<h2 class="main-title"><a [routerLink]="['/time-sheet']">Time Sheet</a> / Leave Request</h2>
+<h2 class="main-title"><a [routerLink]="['/time-sheet']">Time Sheet</a> / Leave Request
+  <span class="leave-count">
+    Earn-Leave : {{casualLeaveCount}} | Sick-Leave : {{sickLeaveCount}}
+  </span>
+</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
     <div class="container">
@@ -18,7 +22,7 @@
           <select name="clientName" class="form-input" (change)="changeLeaveType($event.target.value);"
             formControlName="leaveType" required>
             <option value="">Select</option>
-            <option value="Casual-Leave">Casual-Leave</option>
+            <option value="Casual-Leave">Earn-Leave</option>
             <option value="Sick-Leave">Sick-Leave</option>
             <option value="Privilege-Leave">Privilege-Leave</option>
             <option value="Combo-Off">Combo-Off</option>

@@ -72,6 +72,7 @@ import { ViewDiceLinkComponent } from './view-dice-link/view-dice-link.component
 import { DetailedLeaveRequestComponent } from './detailed-leave-request/detailed-leave-request.component';
 import { HolidayListPopupComponent } from './holiday-list-popup/holiday-list-popup.component';
 import { LeaveBalanceDetailComponent } from './leave-balance-detail/leave-balance-detail.component';
+import { LeaveAlertComponent } from './leave-alert/leave-alert.component';
 
 
 export const appRoutes: Routes = [
@@ -151,6 +152,7 @@ export const appRoutes: Routes = [
   { path: 'detailed-leave-request', component: DetailedLeaveRequestComponent },
   { path: 'holiday-list-popup', component: HolidayListPopupComponent },
   { path: 'leave-balance', component: LeaveBalanceDetailComponent },
+  { path: 'leave-alert', component: LeaveAlertComponent },
 ];
 
 
