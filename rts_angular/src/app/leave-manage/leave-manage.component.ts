@@ -166,7 +166,7 @@ export class LeaveManageComponent implements OnInit {
     const dialogRef = this.dialog.open(LeaveBalanceDetailComponent, {
       height: '500px',
       width: '1200px',
-      data: {}
+      data: { userId: parseInt(this.rtsUserId) }
     });
   }
   // cancelLeaveRequest(dateId) {

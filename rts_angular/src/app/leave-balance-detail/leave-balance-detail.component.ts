@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TimeSheetService } from '../Services/timeSheet.service';
 import * as moment from 'moment';
+import { DialogData } from '../leave-manage/leave-manage.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-leave-balance-detail',
@@ -26,6 +28,8 @@ export class LeaveBalanceDetailComponent implements OnInit {
   comboLeave: any;
 
   constructor(
+    public dialogRef: MatDialogRef<LeaveBalanceDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private loggedUser: LoggedUserService,
     private toastr: ToastrService,
     private router: Router,
@@ -34,7 +38,7 @@ export class LeaveBalanceDetailComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
-    this.rtsUserId = this.rtsUser.userId;
+    // this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.currentDate = new Date(Date.now());
     this.startDate = new Date(Date.now())
@@ -49,7 +53,7 @@ export class LeaveBalanceDetailComponent implements OnInit {
     const dateId = moment(this.startDate).format('YYYY');
 
     const userId = {
-      userId: this.rtsUserId,
+      userId: this.data.userId,
       dateId: dateId,
     };
 
