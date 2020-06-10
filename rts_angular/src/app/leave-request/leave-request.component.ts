@@ -85,6 +85,7 @@ export class LeaveRequestComponent implements OnInit {
     })
     this.getAllUser();
     this.getLeaveRequests();
+    this.mailToAddress.push('pushban@selsoftinc.com','murali@selsoftinc.com','ramesh.iyengar@selsoftinc.com');
   }
 
   getLeaveRequests() {
@@ -125,6 +126,7 @@ export class LeaveRequestComponent implements OnInit {
                 this.selectedMailId.push({ email: user.email, name: user.firstName + ' ' + user.lastName });
               }
             }
+
           }
         });
   }
