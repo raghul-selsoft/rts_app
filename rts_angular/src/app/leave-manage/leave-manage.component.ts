@@ -87,7 +87,7 @@ export class LeaveManageComponent implements OnInit {
 
   getRecentTranscations() {
 
-    const dateId = moment(this.startDate).format('YYYY-MM');
+    const dateId = moment(this.startDate).format('YYYY');
 
     const userId = {
       userId: this.rtsUserId,

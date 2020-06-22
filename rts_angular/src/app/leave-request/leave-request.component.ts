@@ -197,7 +197,7 @@ export class LeaveRequestComponent implements OnInit {
 
     this.getLeaveRequests();
 
-    if (this.casualLeaveCount > 12) {
+    if (this.casualLeaveCount >= 12) {
       this.isLeaveAlertApprove = true;
       const dialogRef = this.dialog.open(LeaveAlertComponent, {
         width: '500px',

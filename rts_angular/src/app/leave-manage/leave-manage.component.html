@@ -3,12 +3,14 @@
 </ng-progress>
 
 <h2 class="main-title" style="margin-bottom: 2em;"> <a [routerLink]="['/time-sheet']">Time Sheet</a> / Leave Management
-  <span  *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'"><mat-form-field class="sub-nav-link col-3" style="float: right;">
-    <mat-label>Select User</mat-label>
-    <mat-select [(ngModel)]="rtsUserId" (ngModelChange)="setUser()">
-      <mat-option *ngFor="let user of userDetails" [value]="user.userId">{{user.firstName}}</mat-option>
-    </mat-select>
-  </mat-form-field></span>
+  <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'">
+    <mat-form-field class="sub-nav-link col-3" style="float: right;">
+      <mat-label>Select User</mat-label>
+      <mat-select [(ngModel)]="rtsUserId" (ngModelChange)="setUser()">
+        <mat-option *ngFor="let user of userDetails" [value]="user.userId">{{user.firstName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </span>
 </h2>
 <div class="utility-container mt-3">
   <div>
@@ -24,8 +26,8 @@
       </div>
       <div class="col-4" style="border-right:1px solid #3484c8;height: 16em;">
         <h4 class="candidate-list">Upcoming Holidays </h4>
-        <mat-list role="list">
-          <mat-list-item role="listitem" *ngFor="let holiday of upcomingHoliday">{{holiday.dateId}}
+        <mat-list role="list" *ngFor="let holiday of upcomingHoliday; let i = index">
+          <mat-list-item role="listitem" *ngIf="i < 3">{{holiday.dateId}}
             <span style="text-transform: capitalize;">{{holiday.comment}}</span></mat-list-item>
         </mat-list>
         <button class="btn btn-sm btn-primary btn-bottom" (click)="getHolidays();">View More</button>
