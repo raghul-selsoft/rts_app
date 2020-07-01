@@ -150,6 +150,7 @@ export class TimesheetReportComponent implements OnInit {
         'LeaveCount': sheet.leaveCount
       });
     }
+
     const day0 = this.selectedTimeSheet[0].day0.dateId;
     const day1 = this.selectedTimeSheet[0].day1.dateId;
     const day2 = this.selectedTimeSheet[0].day2.dateId;

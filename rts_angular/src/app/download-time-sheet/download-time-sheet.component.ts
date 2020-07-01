@@ -26,6 +26,7 @@ export class DownloadTimeSheetComponent implements OnInit {
   daySheets: any;
   selectedDate: any;
   isTableData: boolean;
+  userLeaveCount: any;
 
   constructor(
     public dialogRef: MatDialogRef<DownloadTimeSheetComponent>,
@@ -84,7 +85,25 @@ export class DownloadTimeSheetComponent implements OnInit {
   }
 
   downloadReport() {
-    TableUtil.exportToExcel("ExampleTable",this.selectedDate);
+    this.userLeaveCount = [];
+    for (const sheet of this.daySheets) {
+      var absentCount = _.where(sheet.date, { workingHours: "Absent" });
+      var casualLeaveCount = _.where(sheet.date, { workingHours: "Casual-Leave - Leave" });
+      var sickLeaveCount = _.where(sheet.date, { workingHours: "Sick-Leave - Leave" });
+      var comboOffCount = _.where(sheet.date, { workingHours: "Combo-Off - Leave" });
+      this.userLeaveCount.push({
+        'Employee Name': sheet.firstName + ' ' + sheet.lastName,
+        'Casual Leave': casualLeaveCount.length,
+        'Sick Leave': sickLeaveCount.length,
+        'Combo off': comboOffCount.length,
+        'Absent': absentCount.length,
+      });
+    }
+    const data = this.userLeaveCount;
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    XLSX.writeFile(workbook, 'Leave Count' + this.selectedDate + '.xlsx', { bookType: 'xlsx', type: 'buffer' });
+    TableUtil.exportToExcel("ExampleTable", this.selectedDate);
     this.dialogRef.close();
   }
 
