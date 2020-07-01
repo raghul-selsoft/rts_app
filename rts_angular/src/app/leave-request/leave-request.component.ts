@@ -85,7 +85,7 @@ export class LeaveRequestComponent implements OnInit {
     })
     this.getAllUser();
     this.getLeaveRequests();
-    this.mailToAddress.push('pushban@selsoftinc.com','murali@selsoftinc.com','ramesh.iyengar@selsoftinc.com');
+    this.mailToAddress.push('pushban@selsoftinc.com', 'murali@selsoftinc.com', 'ramesh.iyengar@selsoftinc.com');
   }
 
   getLeaveRequests() {
@@ -197,7 +197,7 @@ export class LeaveRequestComponent implements OnInit {
 
     this.getLeaveRequests();
 
-    if (this.casualLeaveCount >= 12) {
+    if (this.casualLeaveCount >= 12 || this.sickLeaveCount >= 6) {
       this.isLeaveAlertApprove = true;
       const dialogRef = this.dialog.open(LeaveAlertComponent, {
         width: '500px',
