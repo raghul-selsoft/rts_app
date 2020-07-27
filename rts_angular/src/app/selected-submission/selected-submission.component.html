@@ -1,6 +1,14 @@
-<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
-</ng-progress>
+<!-- <div class="sub-nav-wrapper"> -->
+
+  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+    [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+  </ng-progress>
+  <!-- <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
+    <i class="material-icons icon-subnav">assessment</i>
+    <a class="sub-nav-link" style="color: #007bff;" (click)="deliveredSubmissions();"> Delivered Report </a>
+  </span> -->
+
+<!-- </div> -->
 <h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title"><a [routerLink]="['/submissions']">Submissions</a> /
   Achievements</h2>
 <h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title">Achievements</h2>

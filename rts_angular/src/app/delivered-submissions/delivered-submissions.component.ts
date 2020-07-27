@@ -1,33 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
-import { HideComponentService } from '../Services/hide-component.service';
-import { SubmissionService } from '../Services/submission.service';
-import { Sort, MatDialog } from '@angular/material';
-import { NgProgress } from 'ngx-progressbar';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, Sort } from '@angular/material';
+import { TeamService } from '../Services/team.service';
+import { Router } from '@angular/router';
+import { RequirementsService } from '../Services/requirements.service';
+import * as _ from 'underscore';
 import * as moment from 'moment';
-import { DeliveredSubmissionsComponent } from '../delivered-submissions/delivered-submissions.component';
+import { TimeSheetService } from '../Services/timeSheet.service';
+import { SubmissionService } from '../Services/submission.service';
+import { HideComponentService } from '../Services/hide-component.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
-  selector: 'app-selected-submission',
-  templateUrl: './selected-submission.component.html',
-  styleUrls: ['./selected-submission.component.css'],
+  selector: 'app-delivered-submissions',
+  templateUrl: './delivered-submissions.component.html',
+  styleUrls: ['./delivered-submissions.component.css'],
   providers: [LoggedUserService]
 })
-export class SelectedSubmissionComponent implements OnInit {
-
-  private rtsUser: any;
-  private rtsUserId: any;
-  sortedData: any[];
-  onBoardCandidates: any;
-  interviewsLength: any;
-  selectedSubmissions: any;
-  startDate: Date;
+export class DeliveredSubmissionsComponent implements OnInit {
+  rtsUser: any;
+  rtsUserId: any;
   userRole: any;
-  chartData: any[];
-
-  colorScheme = {
-    domain: ['#7aa3e5', '#da6969']
-  };
+  startDate: Date;
+  selectedSubmissions: any;
+  interviewsLength: any;
+  sortedData: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -64,7 +62,6 @@ export class SelectedSubmissionComponent implements OnInit {
             this.interviewsLength = this.selectedSubmissions.length;
             this.sortedData = this.selectedSubmissions.slice();
             let DELIVERED = 0, BACKOUT = 0;
-            this.chartData=[];
             for (const sub of this.selectedSubmissions) {
               if (sub.interviewDetailStatus === 'DELIVERED') {
                 DELIVERED++;
@@ -72,17 +69,16 @@ export class SelectedSubmissionComponent implements OnInit {
                 BACKOUT++;
               }
             }
-             let DeliveredObj = {
-                name: 'DELIVERED',
-                value: DELIVERED
+            let DeliveredObj = {
+              name: 'DELIVERED',
+              value: DELIVERED
             };
 
             let BackoutObj = {
-                name: 'BACKOUT',
-                value: BACKOUT
+              name: 'BACKOUT',
+              value: BACKOUT
             };
-            this.chartData.push(DeliveredObj);
-            this.chartData.push(BackoutObj);
+
           }
         });
   }
@@ -97,12 +93,10 @@ export class SelectedSubmissionComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'positionName': return this.compare(a.position.positionName, b.position.positionName, isAsc);
         case 'candidateName': return this.compare(a.name, b.name, isAsc);
         case 'clientName': return this.compare(a.client.name, b.client.name, isAsc);
         case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
         case 'recruiterName': return this.compare(a.recruiter.firstName, b.recruiter.firstName, isAsc);
-        case 'status': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
         default: return 0;
       }
     });
@@ -111,13 +105,4 @@ export class SelectedSubmissionComponent implements OnInit {
   compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
-
-  deliveredSubmissions(teamId) {
-    const dialogRef = this.dialog.open(DeliveredSubmissionsComponent, {
-      height: '500px',
-      width: '1000px',
-      data: {  }
-    });
-  }
-
 }

@@ -44,6 +44,8 @@ export class LeaveRequestComponent implements OnInit {
   leaveDetails: any;
   isLeaveRequest: boolean;
   isLeaveAlertApprove: boolean;
+  isSickLeave: boolean;
+  isCasualLeave: boolean;
   // selectedUser: any;
 
 
@@ -132,6 +134,14 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   changeLeaveType(event) {
+    if (event === 'Casual-Leave') {
+      this.isCasualLeave = true;
+      this.isSickLeave = false;
+    }
+    if (event === 'Sick-Leave') {
+      this.isSickLeave = true;
+      this.isCasualLeave = false;
+    }
     if (event === 'Combo-Off') {
       this.isComboLeave = true;
     } else {
@@ -196,15 +206,31 @@ export class LeaveRequestComponent implements OnInit {
     };
 
     this.getLeaveRequests();
-
-    if (this.casualLeaveCount >= 12 || this.sickLeaveCount >= 6) {
-      this.isLeaveAlertApprove = true;
-      const dialogRef = this.dialog.open(LeaveAlertComponent, {
-        width: '500px',
-        data: { leaveRequest: submit }
-      });
-    } else {
-      this.isLeaveAlertApprove = false;
+    var sickCount;
+    var casualCount
+    sickCount = this.leaveDays.length + this.sickLeaveCount;
+    casualCount = this.leaveDays.length + this.casualLeaveCount;
+    if (this.isSickLeave && !this.isCasualLeave) {
+      if (sickCount > 6) {
+        this.isLeaveAlertApprove = true;
+        const dialogRef = this.dialog.open(LeaveAlertComponent, {
+          width: '500px',
+          data: { leaveRequest: submit }
+        });
+      } else {
+        this.isLeaveAlertApprove = false;
+      }
+    }
+    if (this.isCasualLeave && !this.isSickLeave) {
+      if (casualCount > 12) {
+        this.isLeaveAlertApprove = true;
+        const dialogRef = this.dialog.open(LeaveAlertComponent, {
+          width: '500px',
+          data: { leaveRequest: submit }
+        });
+      } else {
+        this.isLeaveAlertApprove = false;
+      }
     }
 
 

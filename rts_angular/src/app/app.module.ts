@@ -127,6 +127,7 @@ import { DetailedLeaveRequestComponent } from './detailed-leave-request/detailed
 import { HolidayListPopupComponent } from './holiday-list-popup/holiday-list-popup.component';
 import { LeaveBalanceDetailComponent } from './leave-balance-detail/leave-balance-detail.component';
 import { LeaveAlertComponent } from './leave-alert/leave-alert.component';
+import { DeliveredSubmissionsComponent } from './delivered-submissions/delivered-submissions.component';
 
 @NgModule({
   declarations: [
@@ -209,6 +210,7 @@ import { LeaveAlertComponent } from './leave-alert/leave-alert.component';
     HolidayListPopupComponent,
     LeaveBalanceDetailComponent,
     LeaveAlertComponent,
+    DeliveredSubmissionsComponent,
   ],
   imports: [
     BrowserModule,

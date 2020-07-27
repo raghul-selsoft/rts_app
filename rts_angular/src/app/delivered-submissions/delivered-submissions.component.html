@@ -1,0 +1,23 @@
+<div *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'HR_MANAGER'">
+  <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+    <thead class="table-header">
+      <tr>
+        <th mat-sort-header="joiningDate">Date of Joining</th>
+        <th mat-sort-header="recruiterName">Recruiter Name</th>
+        <th mat-sort-header="candidateName">Candidate Name</th>
+        <th mat-sort-header="clientName">Client Name</th>
+        <th mat-sort-header="clientRate">Client Rate </th>
+        <th mat-sort-header="sellingRate">Selling Rate </th>
+        <th mat-sort-header="clientRate">Buying Rate </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
+        <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
+        <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+        <td>{{submission.candidate.name}}</td>
+        <td>{{submission.client.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

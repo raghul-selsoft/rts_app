@@ -73,6 +73,7 @@ import { DetailedLeaveRequestComponent } from './detailed-leave-request/detailed
 import { HolidayListPopupComponent } from './holiday-list-popup/holiday-list-popup.component';
 import { LeaveBalanceDetailComponent } from './leave-balance-detail/leave-balance-detail.component';
 import { LeaveAlertComponent } from './leave-alert/leave-alert.component';
+import { DeliveredSubmissionsComponent } from './delivered-submissions/delivered-submissions.component';
 
 
 export const appRoutes: Routes = [
@@ -153,6 +154,7 @@ export const appRoutes: Routes = [
   { path: 'holiday-list-popup', component: HolidayListPopupComponent },
   { path: 'leave-balance', component: LeaveBalanceDetailComponent },
   { path: 'leave-alert', component: LeaveAlertComponent },
+  { path: 'delivered-report', component: DeliveredSubmissionsComponent },
 ];
 
 
