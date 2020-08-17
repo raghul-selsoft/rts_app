@@ -4,7 +4,7 @@
 </ng-progress>
 <div class="dash-filter-container">
   <div class="row">
-    <div class="col-8">
+    <div class="col-12">
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-8">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Client Open Requirements</h2>
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <!-- <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Client wise submission status</h2>
@@ -84,6 +84,22 @@
           </ngx-charts-bar-vertical-stacked>
         </div>
       </div>
+    </div> -->
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+    <div class="col-block pt-5">
+      <div class="chart-title-wrapper">
+        <h2 class="chart-title">Client wise submission status</h2>
+      </div>
+      <div class="chart-align-100-400">
+        <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar2"
+          [results]="clientWiseSubmissionStatus" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+          [showDataLabel]="showDataLabel" (select)="onClientSubmissionStatus($event)">
+        </ngx-charts-bar-vertical-stacked>
+      </div>
+    </div>
     </div>
   </div>
 

@@ -9,6 +9,63 @@
   background-color: #3484c8;
   color: #fff;
 }
+.main-nav-container {
+  margin: 3em 0 5em 0;
+}
+.main-nav-item {
+  background-color: #3a3a3a;
+  margin-bottom: 1px;
+}
+.main-nav-item a {
+  color: #f1f1f1;
+  font-family: Ubuntu, sans-serif;
+  font-weight: 300;
+  text-decoration: none;
+  font-size: .900em;
+  display: block;
+  padding: .8em;
+}
+
+
+.sidenav {
+  height: 100%;
+  width: 245px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  /* left: 0; */
+  background-color: white;
+  overflow-x: hidden;
+  padding-right: 1px;
+  /* padding-top: 20px; */
+  margin-top: 5em;
+}
+.main-content{
+  margin-top: 5em;
+  margin-left: 14.5em;
+ }
+.mat-card{
+  padding: 1px 0px 4em 0px;
+  background: #ebf4f9 !important;
+}
+
+.mat-list-item  {
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 18px;
+  color: #523a3a;
+  display: block;
+  text-transform: capitalize;
+  font-family: 'Raleway', sans-serif !important;
+  font-weight: 500;
+}
+.mat-list-item:hover{
+  color: #51b2eb;
+  font-weight: 600;
+}
+.mat-drawer{
+  overflow: hidden;
+}
 
 .nav-link {
   color: rgb(229, 238, 247);
@@ -49,13 +106,22 @@
   color: #FFFFFF;
 }
 
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .profile-wrapper {
-  margin-top: 19px;
-  padding-right: 1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px;
 }
 
 .logo-container {
-  width: 150px;
+  width: 220px;
   float: left;
   margin-top: 12px;
   padding-right: 10px;
@@ -66,16 +132,17 @@
 
 .app-name-container {
   float: left;
-  padding-top: 26px;
+  padding-top: 18px;
   font-weight: 500;
   text-transform: uppercase;
   color: #FFFFFF;
+  font-size: 20px;
 }
 
 .logo-container img {
   max-width: 100%;
   height: auto;
-  margin-top: 12px;
+  margin-top: 5px;
 }
 
 .user-name {

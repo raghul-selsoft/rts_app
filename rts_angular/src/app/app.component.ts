@@ -31,6 +31,7 @@ export class AppComponent implements DoCheck, OnDestroy {
   rtsUser: any;
   userRole: any;
   rtsUserId: any;
+  isSideNav: boolean;
 
 
   constructor(
@@ -57,10 +58,10 @@ export class AppComponent implements DoCheck, OnDestroy {
 
   }
 
-  diceLogin(){
+  diceLogin() {
     const dialogRef = this.dialog.open(DiceLoginComponent, {
       width: '500px',
-      data: {  }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -88,6 +89,7 @@ export class AppComponent implements DoCheck, OnDestroy {
           }
         });
   }
+
 
   onLogout() {
     SubmissionsComponent.filterBy = undefined;

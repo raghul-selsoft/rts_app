@@ -1,4 +1,4 @@
-<div class="header-wrapper">
+<!-- <div class="header-wrapper">
   <div>
     <div class="logo-container">
       <img src="../assets/selsoft-logo-white-blue-underline.png" alt="Selsoft Logo">
@@ -11,12 +11,230 @@
     <div class="profile-name" *ngIf="rtsUser">
       <p class="user-name">{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
       <p class="user-role">Logged in as {{userRole}}</p>
-    </div>    
+    </div>
   </div>
-  
-</div>
-<div *ngIf="displayComponent">
-  <div *ngIf="userRole ==='ADMIN'">
+
+</div> -->
+
+<mat-toolbar class="header-wrapper">
+  <mat-toolbar-row>
+    <button *ngIf="displayComponent" mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <div class="logo-container">
+      <img src="../assets/selsoft-logo-white-blue-underline.png" alt="Selsoft Logo">
+    </div>
+    <div class="app-name-container">
+      Recruitment Tracking System
+    </div>
+    <div class="profile-wrapper">
+      <div class="profile-name" *ngIf="rtsUser">
+        <p class="user-name">{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
+        <p class="user-role">Logged in as {{userRole}}</p>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav >
+    <mat-nav-list >
+      <a mat-list-item [routerLink]="['/admin-dashboard']"  (click)="sidenav.close()"[routerLinkActive]="['active-link']">Dashboard</a>
+      <a mat-list-item [routerLink]="['/requirements']"(click)="sidenav.close()" [routerLinkActive]="['active-link']">Requirements</a>
+      <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Submissions</a>
+      <a mat-list-item [routerLink]="['/manage-users']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Users</a>
+      <a mat-list-item [routerLink]="['/manage-client']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Client</a>
+      <a mat-list-item [routerLink]="['/manage-team']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Team</a>
+      <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Search
+        Candidate</a>
+      <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Time Sheet</a>
+      <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Dice</a>
+      <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+      <app-auto-refresh (TimerExpired)="refresh()">
+      </app-auto-refresh>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <div class="row">
+  <div *ngIf="displayComponent" class="col-3 sidenav">
+    <mat-card >
+    <div *ngIf="userRole ==='ADMIN'">
+
+      <div class="navigation-content">
+
+        <div class="main-nav-container">
+          <a class="nav-link" [routerLink]="['/admin-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+          <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+          <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+          <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage Users</a>
+          <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
+          <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
+          <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+            Candidate</a>
+          <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time Sheet</a>
+          <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+          <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+          <app-auto-refresh (TimerExpired)="refresh()">
+          </app-auto-refresh>
+        </div>
+      </div>
+    </div>
+    </mat-card>
+    <div *ngIf="userRole ==='ACC_MGR'">
+      <div class="navigation-content">
+        <div class="main-nav-container">
+          <ul class="main-nav-items">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/mgr-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage
+                Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage
+                Client</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+                Candidate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+                Sheet</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+            </li>
+            <li class="nav-item-logout">
+              <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+            </li>
+          </ul>
+          <app-auto-refresh (TimerExpired)="refresh()">
+          </app-auto-refresh>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userRole ==='TL'">
+      <div class="navigation-content">
+        <div class="main-nav-container">
+          <ul class="main-nav-items">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/tl-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+                Candidate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+                Sheet</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+            </li>
+            <li class="nav-item-logout">
+              <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+            </li>
+          </ul>
+          <app-auto-refresh (TimerExpired)="refresh()">
+          </app-auto-refresh>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
+      <div class="navigation-content">
+        <div class="main-nav-container">
+          <ul class="main-nav-items">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/recruiter-dashboard']"
+                [routerLinkActive]="['active-link']">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+                Candidate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+                Sheet</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+            </li>
+            <li class="nav-item-logout">
+              <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+            </li>
+          </ul>
+          <app-auto-refresh (TimerExpired)="refresh()">
+          </app-auto-refresh>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userRole ==='HR_MANAGER'">
+      <div class="navigation-content">
+        <div class="main-nav-container">
+          <ul class="main-nav-items">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/joining-date']" [routerLinkActive]="['active-link']">OnBoard
+                Reminder</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/selected-submissions']"
+                [routerLinkActive]="['active-link']">Achievements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+                Sheet</a>
+            </li>
+            <li class="nav-item-logout">
+              <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+            </li>
+          </ul>
+          <app-auto-refresh (TimerExpired)="refresh()">
+          </app-auto-refresh>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-9 main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+<!-- <div *ngIf="userRole ==='ADMIN'">
     <ul class="nav nav-taps">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/admin-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
@@ -33,9 +251,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
-      </li> -->
+
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
       </li>
@@ -43,10 +259,7 @@
         <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
           Candidate</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/search-vendors']" [routerLinkActive]="['active-link']">Search
-          Vendors</a>
-      </li> -->
+
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
           Sheet</a>
@@ -60,152 +273,134 @@
     </ul>
     <app-auto-refresh (TimerExpired)="refresh()">
     </app-auto-refresh>
+</div> -->
 
-  </div>
+<!-- <div *ngIf="userRole ==='ACC_MGR'">
+  <ul class="nav nav-taps">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/mgr-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
+    </li>
 
-  <div *ngIf="userRole ==='ACC_MGR'">
-    <ul class="nav nav-taps">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/mgr-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage Users</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
-          Candidate</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/search-vendors']" [routerLinkActive]="['active-link']">Search
-          Vendors</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
-          Sheet</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLinkActive]="['active-link']" (click)="diceLogin();">Dice</a>
-      </li> -->
-      <li class="nav-item-logout">
-        <a class="nav-link" href="" (click)="onLogout();">Logout</a>
-      </li>
-    </ul>
-    <app-auto-refresh (TimerExpired)="refresh()">
-    </app-auto-refresh>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+        Candidate</a>
+    </li>
 
-  </div>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+        Sheet</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+    </li>
 
-  <div *ngIf="userRole ==='TL'">
-    <ul class="nav nav-taps">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/tl-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
-          Candidate</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
-          Sheet</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
-      </li>
-      <li class="nav-item-logout">
-        <a class="nav-link" href="" (click)="onLogout();">Logout</a>
-      </li>
-    </ul>
-    <app-auto-refresh (TimerExpired)="refresh()">
-    </app-auto-refresh>
+    <li class="nav-item-logout">
+      <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+    </li>
+  </ul>
+  <app-auto-refresh (TimerExpired)="refresh()">
+  </app-auto-refresh>
 
-  </div>
+</div> -->
 
-  <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
-    <ul class="nav nav-taps">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/recruiter-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
-          Candidate</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
-          Sheet</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
-      </li>
-      <li class="nav-item-logout">
-        <a class="nav-link" href="" (click)="onLogout();">Logout</a>
-      </li>
-    </ul>
-    <app-auto-refresh (TimerExpired)="refresh()">
-    </app-auto-refresh>
+<!-- <div *ngIf="userRole ==='TL'">
+  <ul class="nav nav-taps">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/tl-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+        Candidate</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+        Sheet</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+    </li>
+    <li class="nav-item-logout">
+      <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+    </li>
+  </ul>
+  <app-auto-refresh (TimerExpired)="refresh()">
+  </app-auto-refresh>
 
-  </div>
+</div> -->
 
-  <div *ngIf="userRole ==='HR_MANAGER'">
-    <ul class="nav nav-taps">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/joining-date']" [routerLinkActive]="['active-link']">OnBoard Reminder</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/selected-submissions']"
-          [routerLinkActive]="['active-link']">Achievements</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
-          Sheet</a>
-      </li>
-      <li class="nav-item-logout">
-        <a class="nav-link" href="" (click)="onLogout();">Logout</a>
-      </li>
-    </ul>
-    <app-auto-refresh (TimerExpired)="refresh()">
-    </app-auto-refresh>
+<!-- <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
+  <ul class="nav nav-taps">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/recruiter-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
+    </li>
 
-  </div>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
+        Candidate</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+        Sheet</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/dice-view']" [routerLinkActive]="['active-link']">Dice</a>
+    </li>
+    <li class="nav-item-logout">
+      <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+    </li>
+  </ul>
+  <app-auto-refresh (TimerExpired)="refresh()">
+  </app-auto-refresh>
 
-</div>
+</div> -->
 
-<router-outlet></router-outlet>
+<!-- <div *ngIf="userRole ==='HR_MANAGER'">
+  <ul class="nav nav-taps">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/joining-date']" [routerLinkActive]="['active-link']">OnBoard Reminder</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/selected-submissions']" [routerLinkActive]="['active-link']">Achievements</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
+        Sheet</a>
+    </li>
+    <li class="nav-item-logout">
+      <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+    </li>
+  </ul>
+  <app-auto-refresh (TimerExpired)="refresh()">
+  </app-auto-refresh>
+
+</div> -->
