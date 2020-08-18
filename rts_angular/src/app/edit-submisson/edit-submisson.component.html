@@ -778,7 +778,27 @@
           <mat-radio-button value="3">TCS Mail</mat-radio-button>
           <mat-radio-button value="4">Experis</mat-radio-button>
           <mat-radio-button value="5">Intergrated Delivery</mat-radio-button>
+          <mat-radio-button value="6">Cognizant</mat-radio-button>
         </mat-radio-group>
+        <div *ngIf="mailFormat === 6">
+          <div class="row">
+            <div class="col-4"><label class="form-label" for="skillName">Skill:</label></div>
+            <div class="col-2"><label class="form-label" for="skillExp">Experience:</label></div>
+          </div>
+
+          <div class="unit-container" formArrayName="skillsExperience">
+            <div class="units" *ngFor="let field of myForm.controls.skillsExperience.controls; let i = index">
+              <div class="form-row" [formGroupName]='i'>
+                <div class="form-group col-4">
+                  <input type="text" class="form-input" name="skill" formControlName="name" disabled>
+                </div>
+                <div class="form-group col-2">
+                  <input type="text" class="form-input" formControlName="skillExp">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <h2 class="form-title">Mail Body</h2>
         <mat-radio-group class="mail-button" (change)="getMailBodyMessage($event)">
           <mat-radio-button value="Yes">Default Email Body Message </mat-radio-button>
