@@ -45,3 +45,43 @@
 .ng-invalid:not(form) {
   border-left: 5px solid #c84e02;
 }
+
+
+.unit-container {
+  padding-left: .2em;
+}
+
+.units {
+  position: relative;
+}
+
+.units .add-btn {
+  display: none;
+}
+
+.units:nth-child(n+2) .label {
+  display: none;
+}
+.skill-label:first-child{
+  margin-bottom: 2em;
+}
+.exp{
+  margin-top: 0 !important;
+}
+
+.units:last-child .add-btn {
+  display: inline-block;
+}
+
+.units:first-child .delete-btn {
+  display: none;
+}
+
+.delete-btn {
+  color: #dc3545 !important;
+}
+
+/* .skill-container{
+  height: 20em;
+  overflow: auto;
+} */

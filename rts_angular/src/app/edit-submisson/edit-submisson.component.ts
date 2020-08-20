@@ -85,7 +85,7 @@ export class EditSubmissonComponent implements OnInit {
   selectedCandidateName: any;
   selectedPositionName: any;
   selectedLocation: any;
-
+  selectedSkillItems: any;
   // submissionComment: any;
 
   constructor(
@@ -122,6 +122,7 @@ export class EditSubmissonComponent implements OnInit {
     this.submissionStatus = [];
     this.clients = [];
     this.isC2c = false;
+    // this.selectedSkillItems = [{ name: '', skillId: '', companyId: '', expYear: '' }];
 
   }
   ngOnInit() {
@@ -204,8 +205,8 @@ export class EditSubmissonComponent implements OnInit {
       skills: [''],
       note: [''],
       summary: [''],
-      skillExp: [''],
-      skillName: [''],
+      // skillExp: [''],
+      // skillName: [''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),
@@ -231,7 +232,8 @@ export class EditSubmissonComponent implements OnInit {
   initSkills() {
     return this.formBuilder.group({
       name: [''],
-      skillExp:['']
+      expYear: [''],
+      skillId: ['']
     });
   }
 
@@ -243,6 +245,11 @@ export class EditSubmissonComponent implements OnInit {
   removeUnits(i: number) {
     const control = <FormArray>this.myForm.controls['units'];
     control.removeAt(i);
+  }
+
+  addSkill() {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.push(this.initSkills());
   }
   removeSkill(i: number) {
     const control = <FormArray>this.myForm.controls['skillsExperience'];
@@ -383,6 +390,16 @@ export class EditSubmissonComponent implements OnInit {
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (this.selectedSkills.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
+            for (const skill of this.selectedSkills) {
+              controlSkill.push(this.formBuilder.group(skill));
+            }
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
             for (const immigration of this.immigration) {
               if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
@@ -392,6 +409,13 @@ export class EditSubmissonComponent implements OnInit {
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (controlSkill.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
             this.isWorkedWithClient = false;
             this.selectedSkills = [];
             this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -445,7 +469,7 @@ export class EditSubmissonComponent implements OnInit {
               skillText.push(skill.name + ' ');
             }
             for (const skill of skillExperience) {
-              skill.skillExp = '';
+              skill.expYear = '';
             }
             this.selectedSkillsText = skillText.join();
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
@@ -469,7 +493,7 @@ export class EditSubmissonComponent implements OnInit {
             for (const skill of skillExperience) {
               controlSkill.push(this.formBuilder.group(skill));
             }
-            console.log(control, controlSkill)
+            // console.log(control, controlSkill, skillExperience)
             // tslint:disable-next-line:max-line-length
             if (this.status === 5 || this.status === 4 || this.status === 7 || this.status === 11 || this.status === 14) {
               this.isRejected = true;
@@ -512,16 +536,16 @@ export class EditSubmissonComponent implements OnInit {
   submissionToClient(skill) {
     this.ngProgress.start();
     this.selectedAdmins = [];
-    var experience = [];
+    // var experience = [];
     for (const user of this.adminUsersArray) {
       this.selectedAdmins.push(user.email);
     }
     for (const client of this.clientCcArray) {
       this.selectedAdmins.push(client.email);
     }
-    for (const exp of skill) {
-      experience.push(exp.skillExp);
-    }
+    // for (const exp of skill) {
+    //   experience.push(exp.skillExp);
+    // }
     const submit = {
       submissionId: parseInt(this.submissionId),
       submittedUserId: this.rtsUserId,
@@ -529,7 +553,6 @@ export class EditSubmissonComponent implements OnInit {
       isCustomBody: this.isCustomBody,
       bodyText: this.customMailBody,
       adminCC: this.selectedAdmins,
-      skills:experience
     };
     this.submissionService.submitToClient(submit)
       .subscribe(
@@ -779,6 +802,23 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   createNewCandidate(form: FormGroup) {
+    var skillsWithExp = [];
+    for (const skill of form.value.skillsExperience) {
+      if (skill.skillId.companyId) {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          companyId: skill.skillId.companyId,
+          name: skill.skillId.name,
+        });
+      } else {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          name: skill.skillId.name,
+        });
+      }
+    }
 
     const candidate: any = {
       companyId: this.rtsCompanyId,
@@ -807,8 +847,10 @@ export class EditSubmissonComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
+      skills: skillsWithExp,
       enteredBy: parseInt(this.rtsUserId)
     };
+    console.log(candidate)
 
     if (this.isWorkedWithClient) {
       candidate.workedWithClient = true;

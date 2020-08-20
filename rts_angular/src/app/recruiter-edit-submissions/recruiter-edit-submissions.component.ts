@@ -167,6 +167,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       units: this.formBuilder.array([
         this.initUnits()
       ]),
+      skillsExperience: this.formBuilder.array([
+        this.initSkills()
+      ]),
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -181,6 +184,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       interviewPhoneNumber: ['']
     });
   }
+  initSkills() {
+    return this.formBuilder.group({
+      name: [''],
+      expYear: [''],
+      skillId: ['']
+    });
+  }
 
   addUnits() {
     const control = <FormArray>this.myForm.controls['units'];
@@ -189,6 +199,15 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   removeUnits(i: number) {
     const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
+  }
+
+  addSkill() {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.push(this.initSkills());
+  }
+  removeSkill(i: number) {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
     control.removeAt(i);
   }
 
@@ -264,6 +283,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
+            var skillExperience = [];
             // console.log(this.selectedSubmission)
             this.status = this.selectedSubmission.submissionStatus.statusId;
             this.statusObj = this.selectedSubmission.submissionStatus;
@@ -271,9 +291,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.isRelocate = this.selectedSubmission.candidate.relocate;
             this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
             this.selectedSkills = this.selectedSubmission.candidate.skills;
+            skillExperience = this.selectedSubmission.candidate.skills;
             var skillText = [];
             for (const skill of this.selectedSkills) {
                 skillText.push(skill.name + ' ');
+            }
+            for (const skill of skillExperience) {
+              skill.expYear = '';
             }
             this.selectedSkillsText = skillText.join();
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
@@ -283,9 +307,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             if (this.selectedSubmission.interviewDetails.length > 0) {
               this.removeUnits(0);
             }
+            if (this.selectedSkills.length > 0) {
+              this.removeSkill(0);
+            }
             const control = <FormArray>this.myForm.controls['units'];
             for (const interviews of this.selectedSubmission.interviewDetails) {
               control.push(this.formBuilder.group(interviews));
+            }
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            for (const skill of skillExperience) {
+              controlSkill.push(this.formBuilder.group(skill));
             }
             if (this.selectedSubmission.submittedUser.userId === parseInt(this.rtsUserId)) {
               this.isUpdate = true;
@@ -350,6 +381,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (this.selectedSkills.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
+            for (const skill of this.selectedSkills) {
+              controlSkill.push(this.formBuilder.group(skill));
+            }
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
             for (const immigration of this.immigration) {
               if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
@@ -359,6 +400,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (controlSkill.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
             this.selectedSkills = [];
             this.isWorkedWithClient = false;
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
@@ -531,6 +579,24 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
+    var skillsWithExp = [];
+    for (const skill of form.value.skillsExperience) {
+      if (skill.skillId.companyId) {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          companyId: skill.skillId.companyId,
+          name: skill.skillId.name,
+        });
+      } else {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          name: skill.skillId.name,
+        });
+      }
+    }
+
     const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
@@ -558,9 +624,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      enteredBy: {
-        userId: this.rtsUserId
-      }
+      skills: skillsWithExp,
+      enteredBy: parseInt(this.rtsUserId)
     };
 
     if (this.isWorkedWithClient) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { SubmissionService } from '../Services/submission.service';
@@ -184,7 +184,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       skills: [''],
       note: [''],
       summary: [''],
-      diceCandidateId: ['']
+      diceCandidateId: [''],
+      skillsExperience: this.formBuilder.array([
+        this.initSkills()
+      ]),
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -198,6 +201,22 @@ export class AddNewSubmissionsComponent implements OnInit {
     // }
     // this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
     // this.immigirationStatus = 'GC';
+  }
+  initSkills() {
+    return this.formBuilder.group({
+      name: [''],
+      expYear: [''],
+      skillId: ['']
+    });
+  }
+
+  addSkill() {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.push(this.initSkills());
+  }
+  removeSkill(i: number) {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.removeAt(i);
   }
 
   getAllCommonData() {
@@ -267,7 +286,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             if (this.diceProfile.workPreferences.length > 0) {
               // this.diceCandidateReloate = this.diceProfile.workPreferences[0].willingToRelocate;
               for (const relocate of this.diceProfile.workPreferences) {
-                if (relocate.willingToRelocate) {                  
+                if (relocate.willingToRelocate) {
                   this.diceCandidateReloate = relocate.willingToRelocate;
                 }else{
                   this.diceCandidateReloate = relocate.willingToRelocate;
@@ -446,8 +465,16 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.isCandidate = true;
             this.isNewCandidate = false;
             this.selectedSkills = this.selectedCandidate.skills;
-            // this.selectedSkillsText = this.selectedCandidate.skills.name.join()
-            // console.log(this.selectedSkillsText)
+                      const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (this.selectedSkills.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
+            for (const skill of this.selectedSkills) {
+              controlSkill.push(this.formBuilder.group(skill));
+            }
             const immigirationStatus = this.selectedCandidate.visaStatus;
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
@@ -458,6 +485,13 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
           } else {
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (controlSkill.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
             this.isCandidate = false;
             this.isNewCandidate = true;
             this.selectedSkills = [];
@@ -572,6 +606,24 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
+    var skillsWithExp = [];
+    for (const skill of form.value.skillsExperience) {
+      if (skill.skillId.companyId) {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          companyId: skill.skillId.companyId,
+          name: skill.skillId.name,
+        });
+      } else {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          name: skill.skillId.name,
+        });
+      }
+    }
+
     const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
@@ -599,7 +651,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      skills: this.selectedSkills,
+      skills: skillsWithExp,
       enteredBy: parseInt(this.rtsUserId)
     };
 

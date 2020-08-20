@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import { CandidateService } from '../Services/candidate.service';
@@ -106,12 +106,33 @@ export class EditCandidateComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
-      skills: ['']
+      skills: [''],
+      skillsExperience: this.formBuilder.array([
+        this.initSkills()
+      ]),
     });
     this.getCommonDetails();
     this.getAllSkills();
     // this.getCandidateById();
   }
+
+  initSkills() {
+    return this.formBuilder.group({
+      name: [''],
+      expYear: [''],
+      skillId: ['']
+    });
+  }
+
+  addSkill() {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.push(this.initSkills());
+  }
+  removeSkill(i: number) {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.removeAt(i);
+  }
+
 
   getCommonDetails() {
     const companyId = {
@@ -166,6 +187,16 @@ export class EditCandidateComponent implements OnInit {
               if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
                 immigration.isChecked = true;
               }
+            }
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            while (controlSkill.length !== 0) {
+              this.removeSkill(0);
+            }
+            if (this.selectedSkills.length === 0) {
+              controlSkill.push(this.initSkills());
+            }
+            for (const skill of this.selectedSkills) {
+              controlSkill.push(this.formBuilder.group(skill));
             }
             this.immigirationStatus = { visaStatusId: immigirationStatus.visaStatusId };
           }
@@ -259,7 +290,6 @@ export class EditCandidateComponent implements OnInit {
       authorizedWorkInUS: form.value.authorizedWorkInUs,
       anyOffer: form.value.anotherInterviewOffer,
       vacationPlan: form.value.vacationPlans,
-      enteredBy: this.rtsUserId,
       candidateId: parseInt(this.candidateId),
       locationPreferences: form.value.locationPreferences,
       workedAsFullTime: form.value.workedAsFullTime,
@@ -268,8 +298,10 @@ export class EditCandidateComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      skills: this.selectedSkills
+      skills: form.value.skillsExperience,
+      enteredBy: parseInt(this.rtsUserId)
     };
+
 
     if (this.isWorkedWithClient) {
       candidate.workedWithClient = true;

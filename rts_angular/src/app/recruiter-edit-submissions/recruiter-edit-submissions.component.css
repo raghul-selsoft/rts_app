@@ -60,6 +60,12 @@
 .units:nth-child(n+2) .label {
   display: none;
 }
+.skill-label:first-child{
+  margin-bottom: 2em;
+}
+.exp{
+  margin-top: 0 !important;
+}
 
 .units:last-child .add-btn {
   display: inline-block;
@@ -73,9 +79,9 @@
   color: #dc3545 !important;
 }
 
-.unit-btn-container {
+/* .unit-btn-container {
   padding-top: 1em;
-}
+} */
 
 .mat-icon {
   line-height: 34px;
@@ -87,4 +93,8 @@
 }
 .form-text{
   color: #383838;
+}
+.skill-container{
+  height: 20em;
+  overflow: auto;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
@@ -87,12 +87,32 @@ export class AddCandidateComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
-      skills: ['']
+      skills: [''],
+      skillsExperience: this.formBuilder.array([
+        this.initSkills()
+      ]),
     });
     this.getCommonDetails();
     this.getAllSkills();
     // this.myForm.controls.immigirationStatus.setValue('GC');
     // this.immigirationStatus = 'GC';
+  }
+
+  initSkills() {
+    return this.formBuilder.group({
+      name: [''],
+      expYear: [''],
+      skillId: ['']
+    });
+  }
+
+  addSkill() {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.push(this.initSkills());
+  }
+  removeSkill(i: number) {
+    const control = <FormArray>this.myForm.controls['skillsExperience'];
+    control.removeAt(i);
   }
 
   getCommonDetails() {
@@ -185,6 +205,23 @@ export class AddCandidateComponent implements OnInit {
 
   addNewCandidate(form: FormGroup) {
     this.ngProgress.start();
+    var skillsWithExp = [];
+    for (const skill of form.value.skillsExperience) {
+      if (skill.skillId.companyId) {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          companyId: skill.skillId.companyId,
+          name: skill.skillId.name,
+        });
+      } else {
+        skillsWithExp.push({
+          skillId: skill.skillId.skillId,
+          expYear: skill.expYear,
+          name: skill.skillId.name,
+        });
+      }
+    }
 
     const newCandidate: any = {
       name: form.value.name,
@@ -213,7 +250,7 @@ export class AddCandidateComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      skills: this.selectedSkills,
+      skills: skillsWithExp,
       enteredBy: this.rtsUserId
     };
 
