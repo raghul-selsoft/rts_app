@@ -50,7 +50,7 @@
         </div>
       </div>
       <div>
-        <h2 class="form-title">Skills</h2>
+        <h2 class="form-title">Skills (Year of experience)</h2>
         <div class="skill-container">
              <div class="row">
           <div class="col-4"><label class="form-label skill-label" for="name">Skill:</label></div>
@@ -65,7 +65,7 @@
                 </ng-select>
               </div>
               <div class="form-group col-2">
-                <input type="text" class="form-input exp" formControlName="expYear">
+                <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input exp" formControlName="expYear">
               </div>
               <div class="form-group col-3 unit-btn-container">
                 <a class="btn btn-light delete-btn" (click)="removeSkill(i)">

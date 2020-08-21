@@ -176,7 +176,7 @@
         </div>
 
         <div>
-          <h2 class="form-title">Skills</h2>
+          <h2 class="form-title">Skills (Year of experience)</h2>
           <div class="row">
             <div class="col-4"><label class="form-label" for="name">Skill:</label></div>
             <div class="col-2"><label class="form-label" for="expYear">Experience:</label></div>
@@ -189,7 +189,7 @@
                   <input type="text" class="form-input" name="skill" formControlName="name" disabled>
                 </div>
                 <div class="form-group col-2">
-                  <input type="text" class="form-input" formControlName="expYear" disabled>
+                  <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input" formControlName="expYear" disabled>
                 </div>
               </div>
             </div>
@@ -465,7 +465,7 @@
           </div>
         </div>
         <div>
-          <h2 class="form-title">Skills</h2>
+          <h2 class="form-title">Skills (Year of experience)</h2>
           <div class="row">
             <div class="col-4"><label class="form-label skill-label" for="name">Skill:</label></div>
             <div class="col-2"><label class="form-label" for="expYear">Experience:</label></div>
@@ -479,7 +479,7 @@
                   </ng-select>
                 </div>
                 <div class="form-group col-2">
-                  <input type="text" class="form-input exp" formControlName="expYear">
+                  <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" formControlName="expYear">
                 </div>
                 <div class="form-group col-3 unit-btn-container">
                   <a class="btn btn-light delete-btn" (click)="removeSkill(i)">
