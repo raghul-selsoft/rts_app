@@ -469,6 +469,11 @@ export class AddNewSubmissionsComponent implements OnInit {
             while (controlSkill.length !== 0) {
               this.removeSkill(0);
             }
+            for (const skill of this.selectedSkills) {
+              if (!skill.expYear) {
+                skill.expYear = '';
+              }
+            } 
             if (this.selectedSkills.length === 0) {
               controlSkill.push(this.initSkills());
             }

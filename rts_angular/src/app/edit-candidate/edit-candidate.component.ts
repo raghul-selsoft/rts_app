@@ -188,6 +188,11 @@ export class EditCandidateComponent implements OnInit {
                 immigration.isChecked = true;
               }
             }
+            for (const skill of this.selectedSkills) {
+              if (!skill.expYear) {
+                skill.expYear = '';
+              }
+            } 
             const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
             while (controlSkill.length !== 0) {
               this.removeSkill(0);

@@ -295,7 +295,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             var skillText = [];
             for (const skill of this.selectedSkills) {
                 skillText.push(skill.name + ' ');
-            }            
+            }         
+            for (const skill of skillExperience) {
+              if (!skill.expYear) {
+                skill.expYear = '';
+              }
+            }   
             this.selectedSkillsText = skillText.join();
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
             if (isStatusExiting === -1) {
