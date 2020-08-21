@@ -288,7 +288,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               for (const relocate of this.diceProfile.workPreferences) {
                 if (relocate.willingToRelocate) {
                   this.diceCandidateReloate = relocate.willingToRelocate;
-                }else{
+                } else {
                   this.diceCandidateReloate = relocate.willingToRelocate;
                 }
               }
@@ -465,7 +465,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.isCandidate = true;
             this.isNewCandidate = false;
             this.selectedSkills = this.selectedCandidate.skills;
-                      const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
+            const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
             while (controlSkill.length !== 0) {
               this.removeSkill(0);
             }

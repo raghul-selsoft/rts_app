@@ -467,10 +467,7 @@ export class EditSubmissonComponent implements OnInit {
             var skillText = [];
             for (const skill of this.selectedSkills) {
               skillText.push(skill.name + ' ');
-            }
-            for (const skill of skillExperience) {
-              skill.expYear = '';
-            }
+            }            
             this.selectedSkillsText = skillText.join();
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
             if (isStatusExiting === -1) {
@@ -493,7 +490,7 @@ export class EditSubmissonComponent implements OnInit {
             for (const skill of skillExperience) {
               controlSkill.push(this.formBuilder.group(skill));
             }
-            // console.log(control, controlSkill, skillExperience)
+            // console.log(controlSkill, skillExperience)
             // tslint:disable-next-line:max-line-length
             if (this.status === 5 || this.status === 4 || this.status === 7 || this.status === 11 || this.status === 14) {
               this.isRejected = true;
