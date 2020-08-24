@@ -293,7 +293,6 @@ export class EditCandidateComponent implements OnInit {
         exp.skillId = 0;
       }
     }
-    console.log(form.value.skillsExperience)
 
     const candidate: any = {
       name: form.value.name,
