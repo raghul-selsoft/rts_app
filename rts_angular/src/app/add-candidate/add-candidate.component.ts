@@ -205,29 +205,29 @@ export class AddCandidateComponent implements OnInit {
 
   addNewCandidate(form: FormGroup) {
     this.ngProgress.start();
-    for (const exp of form.value.skillsExperience) {
-      if (exp.expYear === "" || exp.expYear === null) {
-        this.toastr.error('Please Enter the Experience', '', {
-          positionClass: 'toast-top-center',
-          timeOut: 3000,
-        });
-        this.ngProgress.done();
-        return false;
-      }
-    }
+    // for (const exp of form.value.skillsExperience) {
+    //   if (exp.expYear === "" || exp.expYear === null) {
+    //     this.toastr.error('Please Enter the Experience', '', {
+    //       positionClass: 'toast-top-center',
+    //       timeOut: 3000,
+    //     });
+    //     this.ngProgress.done();
+    //     return false;
+    //   }
+    // }
     var skillsWithExp = [];
     for (const skill of form.value.skillsExperience) {
       if (skill.skillId.companyId) {
         skillsWithExp.push({
           skillId: skill.skillId.skillId,
-          expYear: skill.expYear,
+          expYear: +skill.expYear,
           companyId: skill.skillId.companyId,
           name: skill.skillId.name,
         });
       } else {
         skillsWithExp.push({
           skillId: skill.skillId.skillId,
-          expYear: skill.expYear,
+          expYear: +skill.expYear,
           name: skill.skillId.name,
         });
       }

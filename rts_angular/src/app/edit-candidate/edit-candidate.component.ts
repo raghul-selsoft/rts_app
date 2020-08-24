@@ -274,16 +274,26 @@ export class EditCandidateComponent implements OnInit {
 
   updateCandidate(form: FormGroup) {
     this.ngProgress.start();
+    // for (const exp of form.value.skillsExperience) {
+    //   if (exp.expYear === "" || exp.expYear === null) {
+    //     this.toastr.error('Please Enter the Experience', '', {
+    //       positionClass: 'toast-top-center',
+    //       timeOut: 3000,
+    //     });
+    //     this.ngProgress.done();
+    //     return false;
+    //   }
+    // }
     for (const exp of form.value.skillsExperience) {
-      if (exp.expYear === "" || exp.expYear === null) {
-        this.toastr.error('Please Enter the Experience', '', {
-          positionClass: 'toast-top-center',
-          timeOut: 3000,
-        });
-        this.ngProgress.done();
-        return false;
+      if (exp.expYear === "") {
+        exp.expYear = +exp.expYear;
+      }
+      if (typeof exp.skillId === 'string') {
+        exp.name = exp.skillId;
+        exp.skillId = 0;
       }
     }
+    console.log(form.value.skillsExperience)
 
     const candidate: any = {
       name: form.value.name,
