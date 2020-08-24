@@ -189,10 +189,10 @@ export class EditCandidateComponent implements OnInit {
               }
             }
             for (const skill of this.selectedSkills) {
-              if (!skill.expYear) {
-                skill.expYear = '';
+              if (!skill.expYear || skill.expYear === "") {
+                skill.expYear = null;
               }
-            } 
+            }
             const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
             while (controlSkill.length !== 0) {
               this.removeSkill(0);
@@ -274,6 +274,16 @@ export class EditCandidateComponent implements OnInit {
 
   updateCandidate(form: FormGroup) {
     this.ngProgress.start();
+    for (const exp of form.value.skillsExperience) {
+      if (exp.expYear === "" || exp.expYear === null) {
+        this.toastr.error('Please Enter the Experience', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        this.ngProgress.done();
+        return false;
+      }
+    }
 
     const candidate: any = {
       name: form.value.name,

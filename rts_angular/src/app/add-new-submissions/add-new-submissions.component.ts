@@ -470,8 +470,8 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.removeSkill(0);
             }
             for (const skill of this.selectedSkills) {
-              if (!skill.expYear) {
-                skill.expYear = '';
+              if (!skill.expYear || skill.expYear === "") {
+                skill.expYear = null;
               }
             } 
             if (this.selectedSkills.length === 0) {
@@ -610,6 +610,17 @@ export class AddNewSubmissionsComponent implements OnInit {
   }
 
   createNewCandidate(form: FormGroup) {
+
+    for (const exp of form.value.skillsExperience) {
+      if (exp.expYear === "" || exp.expYear === null) {
+        this.toastr.error('Please Enter the Experience', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        this.ngProgress.done();
+        return false;
+      }
+    }
 
     var skillsWithExp = [];
     for (const skill of form.value.skillsExperience) {
