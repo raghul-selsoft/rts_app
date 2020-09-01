@@ -24,6 +24,7 @@
     <tr *ngIf="daySheets">
       <th>Employee Name</th>
       <th>Leave Count</th>
+      <th>Absent Count</th>
       <th *ngFor="let date of daySheets[0].date">{{date.dateId}}</th>
     </tr>
   </thead>
@@ -31,6 +32,7 @@
     <tr *ngFor="let sheet of daySheets">
       <td>{{sheet.firstName}} {{sheet.lastName}}</td>
       <td>{{sheet.leaveCount}}</td>
+      <td>{{sheet.absentCount}}</td>
       <td *ngFor="let time of sheet.date">{{time.workingHours}}</td>
     </tr>
   </tbody>

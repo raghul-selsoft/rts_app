@@ -76,6 +76,10 @@ export class DownloadTimeSheetComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            for (const sheet of data.daySheets) {
+              var absent = _.where(sheet.date, { workingHours: "Absent" });
+              sheet.absentCount = absent.length;
+            }
             this.daySheets = data.daySheets;
             setTimeout(() => {
               this.isTableData = true;
