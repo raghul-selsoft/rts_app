@@ -9,28 +9,13 @@
       <div class="row mt-2">
         <div class="col-4">
           <mat-form-field>
-            <input matInput [max]="currentDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <input matInput [max]="currentDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
         </div>
-        <!-- <div class="col-3">
-          <mat-form-field>
-            <input matInput [matDatepicker]="toDate" [(ngModel)]="currentDate" placeholder="To Date">
-            <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-            <mat-datepicker #toDate></mat-datepicker>
-          </mat-form-field>
-        </div> -->
-        <!-- <div class="col-2">
-          <mat-form-field>
-            <mat-label>Select User</mat-label>
-            <mat-select [(ngModel)]="selectedUser" (selectionChange)="selectUser($event.value);">
-              <mat-option *ngFor="let user of userDetails" [value]="user.userId">
-                {{user.firstName}} {{user.lastName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
+
         <div class="col-4 mt-3">
           <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
           <button *ngIf="selectedTimeSheetLength > 0" class=" btn btn-sm btn-primary ml-2"

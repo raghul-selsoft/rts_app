@@ -106,7 +106,7 @@ export class DownloadTimeSheetComponent implements OnInit {
     const data = this.userLeaveCount;
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    XLSX.writeFile(workbook, 'Leave Count' + this.selectedDate + '.xlsx', { bookType: 'xlsx', type: 'buffer' });
+    XLSX.writeFile(workbook, 'Leave Count ' + this.selectedDate + '.xlsx', { bookType: 'xlsx', type: 'buffer' });
     TableUtil.exportToExcel("ExampleTable", this.selectedDate);
     this.dialogRef.close();
   }

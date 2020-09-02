@@ -1,5 +1,5 @@
 <div class="sub-nav-wrapper">
-  <span *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
+  <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'HR_MANAGER'">
     <a class="sub-nav-link" [routerLink]="['/time-sheet-report']">Time sheet Report</a>
   </span>
   <span class="divider">
