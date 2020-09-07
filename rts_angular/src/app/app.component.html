@@ -37,27 +37,117 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav >
-    <mat-nav-list >
-      <a mat-list-item [routerLink]="['/admin-dashboard']"  (click)="sidenav.close()"[routerLinkActive]="['active-link']">Dashboard</a>
-      <a mat-list-item [routerLink]="['/requirements']"(click)="sidenav.close()" [routerLinkActive]="['active-link']">Requirements</a>
-      <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Submissions</a>
-      <a mat-list-item [routerLink]="['/manage-users']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Users</a>
-      <a mat-list-item [routerLink]="['/manage-client']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Client</a>
-      <a mat-list-item [routerLink]="['/manage-team']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Manage Team</a>
-      <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Search
-        Candidate</a>
-      <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Time Sheet</a>
-      <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()" [routerLinkActive]="['active-link']">Dice</a>
-      <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
-      <app-auto-refresh (TimerExpired)="refresh()">
-      </app-auto-refresh>
-
-    </mat-nav-list>
+  <mat-sidenav #sidenav>
+    <div *ngIf="userRole ==='ADMIN'">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/admin-dashboard']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dashboard</a>
+        <a mat-list-item [routerLink]="['/requirements']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Requirements</a>
+        <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Submissions</a>
+        <a mat-list-item [routerLink]="['/manage-users']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Users</a>
+        <a mat-list-item [routerLink]="['/manage-client']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Client</a>
+        <a mat-list-item [routerLink]="['/manage-team']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Team</a>
+        <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Search
+          Candidate</a>
+        <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Time Sheet</a>
+        <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dice</a>
+        <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+        <app-auto-refresh (TimerExpired)="refresh()">
+        </app-auto-refresh>
+      </mat-nav-list>
+    </div>
+    <div *ngIf="userRole ==='ACC_MGR'">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/mgr-dashboard']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dashboard</a>
+        <a mat-list-item [routerLink]="['/requirements']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Requirements</a>
+        <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Submissions</a>
+        <a mat-list-item [routerLink]="['/manage-users']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Users</a>
+        <a mat-list-item [routerLink]="['/manage-client']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Client</a>
+        <a mat-list-item [routerLink]="['/manage-team']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Team</a>
+        <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Search
+          Candidate</a>
+        <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Time Sheet</a>
+        <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dice</a>
+        <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+        <app-auto-refresh (TimerExpired)="refresh()">
+        </app-auto-refresh>
+      </mat-nav-list>
+    </div>
+    <div *ngIf="userRole ==='TL'">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/tl-dashboard']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dashboard</a>
+        <a mat-list-item [routerLink]="['/requirements']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Requirements</a>
+        <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Submissions</a>
+        <a mat-list-item [routerLink]="['/manage-team']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Manage Team</a>
+        <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Search
+          Candidate</a>
+        <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Time Sheet</a>
+        <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dice</a>
+        <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+        <app-auto-refresh (TimerExpired)="refresh()">
+        </app-auto-refresh>
+      </mat-nav-list>
+    </div>
+    <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/recruiter-dashboard']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dashboard</a>
+        <a mat-list-item [routerLink]="['/requirements']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Requirements</a>
+        <a mat-list-item [routerLink]="['/submissions']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Submissions</a>
+        <a mat-list-item [routerLink]="['/search-candidates']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Search
+          Candidate</a>
+        <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Time Sheet</a>
+        <a mat-list-item [routerLink]="['/dice-view']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Dice</a>
+        <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+        <app-auto-refresh (TimerExpired)="refresh()">
+        </app-auto-refresh>
+      </mat-nav-list>
+    </div>
+    <div *ngIf="userRole ==='HR_MANAGER'">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/joining-date']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">OnBoard Reminder</a>
+        <a mat-list-item [routerLink]="['/selected-submissions']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Achievements</a>
+        <a mat-list-item [routerLink]="['/time-sheet']" (click)="sidenav.close()"
+          [routerLinkActive]="['active-link']">Time Sheet</a>
+        <a mat-list-item href="" (click)="sidenav.close() && onLogout();">Logout</a>
+        <app-auto-refresh (TimerExpired)="refresh()">
+        </app-auto-refresh>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <div>
-
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
