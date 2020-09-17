@@ -190,7 +190,8 @@
                         <input type="text" class="form-input" name="skill" formControlName="name" disabled>
                       </div>
                       <div class="form-group col-2">
-                        <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input" formControlName="expYear" disabled>
+                        <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input"
+                          formControlName="expYear" disabled>
                       </div>
                     </div>
                   </div>
@@ -480,7 +481,8 @@
                         </ng-select>
                       </div>
                       <div class="form-group col-2">
-                        <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"class="form-input exp" formControlName="expYear">
+                        <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input exp"
+                          formControlName="expYear">
                       </div>
                       <div class="form-group col-3 unit-btn-container">
                         <a class="btn btn-light delete-btn" (click)="removeSkill(i)">
@@ -714,9 +716,10 @@
 
               <div class="row">
                 <div class="col-2"><label class="form-label" for="dateStr">Date:</label></div>
+                <div class="col-3"><label class="form-label" for="timeZone">Time Zone:</label></div>
                 <div class="col-2"><label class="form-label" for="level">Level Name:</label></div>
-                <div class="col-3"><label class="form-label" for="status">Status:</label></div>
-                <div class="col-3"><label class="form-label" for="interviewPhoneNumber">Conference Number:</label></div>
+                <div class="col-2"><label class="form-label" for="status">Status:</label></div>
+                <div class="col-2"><label class="form-label" for="interviewPhoneNumber">Conference Number:</label></div>
                 <div class="col-2"></div>
               </div>
 
@@ -728,16 +731,24 @@
                         class="form-input" formControlName="dateStr">
                       <owl-date-time #dateOfLevel [hour12Timer]="true"></owl-date-time>
                     </div>
+                    <div class="form-group col-3">
+                      <select name="timeZone" class="form-input" formControlName="timeZone">
+                        <option value="EST">Eastern Standard Time</option>
+                        <option value="CST">Central Standard Time</option>
+                        <option value="MST">Mountain Standard Time</option>
+                        <option value="PST">Pacific Standard Time</option>
+                      </select>
+                    </div>
 
                     <div class="form-group col-2">
                       <input type="text" class="form-input" name="level" formControlName="level">
                     </div>
 
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                       <input type="text" class="form-input" name="status" formControlName="status">
                     </div>
 
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                       <input type="text" class="form-input" name="interviewPhoneNumber"
                         formControlName="interviewPhoneNumber">
                     </div>
