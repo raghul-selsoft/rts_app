@@ -224,7 +224,8 @@ export class EditSubmissonComponent implements OnInit {
   initUnits() {
     return this.formBuilder.group({
       dateStr: [''],
-      timeZone:[''],
+      timeZone: [''],
+      time: [''],
       level: [''],
       status: [''],
       interviewPhoneNumber: ['']
@@ -489,10 +490,14 @@ export class EditSubmissonComponent implements OnInit {
               this.removeUnits(0);
             }
             const control = <FormArray>this.myForm.controls['units'];
-            for (const interviews of this.selectedSubmission.interviewDetails) {   
+            for (const interviews of this.selectedSubmission.interviewDetails) {
               if (!interviews.timeZone) {
                 interviews.timeZone = 'EST';
-              }           
+              }
+              if (!interviews.time) {
+                let newDate = new Date(interviews.dateStr);
+                interviews.time = moment(newDate).format('h:mm a');
+              }
               control.push(this.formBuilder.group(interviews));
             }
             const controlSkill = <FormArray>this.myForm.controls['skillsExperience'];
@@ -809,7 +814,7 @@ export class EditSubmissonComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
-   
+
     var skillsWithExp = [];
     for (const skill of form.value.skillsExperience) {
       if (skill.skillId.companyId) {

@@ -210,7 +210,8 @@
                       <input type="text" class="form-input" name="skill" formControlName="name" disabled>
                     </div>
                     <div class="form-group col-2">
-                      <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input" formControlName="expYear" disabled>
+                      <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input"
+                        formControlName="expYear" disabled>
                     </div>
                   </div>
                 </div>
@@ -498,12 +499,13 @@
               <div class="unit-container" formArrayName="skillsExperience">
                 <div class="units" *ngFor="let field of myForm.controls.skillsExperience.controls; let i = index">
                   <div class="form-row" [formGroupName]='i'>
-                    <div class="form-group col-4 mb-4" >
+                    <div class="form-group col-4 mb-4">
                       <ng-select [items]="skills" bindLabel="name" [addTag]="addCustomSkills" formControlName="skillId">
                       </ng-select>
                     </div>
                     <div class="form-group col-2">
-                      <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input exp" formControlName="expYear" >
+                      <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-input exp"
+                        formControlName="expYear">
                     </div>
                     <div class="form-group col-3 unit-btn-container">
                       <a class="btn btn-light delete-btn" (click)="removeSkill(i)">
@@ -741,23 +743,32 @@
 
               <div class="row">
                 <div class="col-2"><label class="form-label" for="dateStr">Date:</label></div>
-                <div class="col-3"><label class="form-label" for="timeZone">Time Zone:</label></div>
+                <div class="col-1"><label class="form-label" for="level">Time:</label></div>
+                <div class="col-2"><label class="form-label" for="timeZone">Time Zone:</label></div>
                 <div class="col-2"><label class="form-label" for="level">Level Name:</label></div>
                 <div class="col-2"><label class="form-label" for="status">Status:</label></div>
                 <div class="col-2"><label class="form-label" for="interviewPhoneNumber">Conference Number:</label></div>
-                <div class="col-2"></div>
+                <div class="col-1"></div>
               </div>
 
               <div class="unit-container" formArrayName="units">
                 <div class="units" *ngFor="let field of myForm.controls.units.controls; let i = index">
                   <div class="form-row" [formGroupName]='i'>
-                    <div class="form-group col-2">
-                      <input [owlDateTime]="dateOfLevel" [owlDateTimeTrigger]="dateOfLevel" placeholder="Date Time"
+                    <div class="form-group col-2" >
+                      <mat-form-field style="width: 10em;">
+                        <input matInput [matDatepicker]="fromDatePicker" formControlName="dateStr">
+                        <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDatePicker></mat-datepicker>
+                      </mat-form-field>
+                      <!-- <input [owlDateTime]="dateOfLevel" [owlDateTimeTrigger]="dateOfLevel" placeholder="Date Time"
                         class="form-input" formControlName="dateStr">
-                      <owl-date-time #dateOfLevel [hour12Timer]="true"></owl-date-time>
+                      <owl-date-time #dateOfLevel [hour12Timer]="true"></owl-date-time> -->
+                    </div>
+                    <div class="form-group col-1">
+                      <input type="text" class="form-input" name="time" formControlName="time">
                     </div>
 
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                       <select name="timeZone" class="form-input" formControlName="timeZone">
                         <option value="EST">Eastern Standard Time</option>
                         <option value="CST">Central Standard Time</option>
@@ -779,7 +790,7 @@
                         formControlName="interviewPhoneNumber">
                     </div>
 
-                    <div class="form-group col-2 unit-btn-container">
+                    <div class="form-group col-1 unit-btn-container" style="padding-top: 1em;">
                       <a class="btn btn-light delete-btn" (click)="removeUnits(i)">
                         <mat-icon>close</mat-icon>
                       </a>

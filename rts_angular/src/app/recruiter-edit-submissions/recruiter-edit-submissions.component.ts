@@ -180,6 +180,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     return this.formBuilder.group({
       dateStr: [''],
       timeZone: [''],
+      time:[''],
       level: [''],
       status: [''],
       interviewPhoneNumber: [''],
@@ -317,6 +318,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             for (const interviews of this.selectedSubmission.interviewDetails) {
               if (!interviews.timeZone) {
                 interviews.timeZone = 'EST';
+              }
+              if (!interviews.time) {
+                let newDate = new Date(interviews.dateStr);
+                interviews.time = moment(newDate).format('h:mm a');
               }
               control.push(this.formBuilder.group(interviews));
             }
