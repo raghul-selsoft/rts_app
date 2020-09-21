@@ -495,8 +495,12 @@ export class EditSubmissonComponent implements OnInit {
                 interviews.timeZone = 'EST';
               }
               if (!interviews.time) {
-                let newDate = new Date(interviews.dateStr);
-                interviews.time = moment(newDate).format('h:mm a');
+                if (interviews.dateStr !== "") {
+                  let newDate = new Date(interviews.dateStr);
+                  interviews.time = moment(newDate).format('h:mm a');
+                }else {
+                  interviews.time = "";
+                }
               }
               control.push(this.formBuilder.group(interviews));
             }
