@@ -101,6 +101,7 @@ export class SelectedSubmissionComponent implements OnInit {
         case 'candidateName': return this.compare(a.name, b.name, isAsc);
         case 'clientName': return this.compare(a.client.name, b.client.name, isAsc);
         case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
+        case 'submissionOn': return this.compare(a.submissionOn, b.submissionOn, isAsc);
         case 'recruiterName': return this.compare(a.recruiter.firstName, b.recruiter.firstName, isAsc);
         case 'status': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
         default: return 0;

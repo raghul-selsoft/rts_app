@@ -62,7 +62,9 @@
           <td>{{submission.position.positionName}}</td>
           <td>{{submission.candidate.name}}</td>
           <td>{{submission.client.name}}</td>
-          <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
+          <td><span *ngIf="!submission.time">{{submission.interviewDate | date: 'MMM d, y, hh:mm a'}}</span><span
+            *ngIf="submission.time">{{submission.interviewDate | date: 'MMM d, y'}},{{submission.time}}</span><span
+            *ngIf="submission.timeZone">,{{submission.timeZone}}</span></td>
           <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
           <td>{{submission.candidate.skype}}</td>
           <td>{{submission.candidate.phoneNumber}}</td>

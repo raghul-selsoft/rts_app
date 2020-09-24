@@ -30,6 +30,7 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="joiningDate">Joining Date</th>
+          <th mat-sort-header="submissionOn">Submission On</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="status">Status</th>
         </tr>
@@ -40,6 +41,7 @@
           <td>{{submission.candidate.name}}</td>
           <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
+          <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
           <td *ngIf="submission.interviewDetailStatus === 'DELIVERED'; else backout">
             {{submission.interviewDetailStatus}}</td>
@@ -59,6 +61,7 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="joiningDate">Joining Date</th>
+          <th mat-sort-header="submissionOn">Submission On</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="status">Status</th>
         </tr>
@@ -70,6 +73,7 @@
           <td>{{submission.candidate.name}}</td>
           <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
+          <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiter.firstName}} {{submission.recruiter.firstName}}</td>
           <td *ngIf="submission.interviewDetailStatus === 'DELIVERED'; else backout">
             {{submission.interviewDetailStatus}}</td>

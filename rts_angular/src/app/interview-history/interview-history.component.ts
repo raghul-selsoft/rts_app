@@ -250,7 +250,7 @@ export class InterviewHistoryComponent implements OnInit {
                 case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
                 case 'candidateName': return this.compare(a.name, b.name, isAsc);
                 case 'clientName': return this.compare(a.name, b.name, isAsc);
-                case 'InterviewDateTime': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
+                case 'InterviewDateTime': return this.compare(a.interviewDate, b.interviewDate, isAsc);
                 // case 'InterviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
                 case 'InterviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
                 case 'recruiterName': return this.compare(a.firstName, b.firstName, isAsc);

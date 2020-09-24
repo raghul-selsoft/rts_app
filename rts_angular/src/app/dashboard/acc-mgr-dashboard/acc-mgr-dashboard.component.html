@@ -47,7 +47,7 @@
                 <th mat-sort-header="positionName">Position Name</th>
                 <th mat-sort-header="candidateName">Candidate Name</th>
                 <th mat-sort-header="clientName">Client Name</th>
-                <th mat-sort-header="InterviewDateTime">Interview Date</th>
+                <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
                 <th mat-sort-header="InterviewLevel">Interview level</th>
                 <th mat-sort-header="recruiterName">Recruiter Name</th>
                 <th mat-sort-header="skype">Skype</th>
@@ -59,7 +59,9 @@
                 <td>{{submission.position.positionName}}</td>
                 <td>{{submission.candidate.name}}</td>
                 <td>{{submission.client.name}}</td>
-                <td>{{submission.interviewDateStr | date: 'MMM d, y'}}</td>
+                <td><span *ngIf="!submission.time">{{submission.interviewDate | date: 'MMM d, y, hh:mm a'}}</span><span
+                    *ngIf="submission.time">{{submission.interviewDate | date: 'MMM d, y'}},{{submission.time}}</span><span
+                    *ngIf="submission.timeZone">,{{submission.timeZone}}</span></td>
                 <td>{{submission.interviewLevel}}</td>
                 <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
                 <td>{{submission.candidate.skype}}</td>
