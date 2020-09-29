@@ -180,7 +180,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     return this.formBuilder.group({
       dateStr: [''],
       timeZone: [''],
-      time: [''],
+      time: ['', Validators.pattern('^([0-1][0-9]):([0-5][0-9])+ ((AM)|(PM)|(am)|(pm))$')],
       level: [''],
       status: [''],
       interviewPhoneNumber: [''],
