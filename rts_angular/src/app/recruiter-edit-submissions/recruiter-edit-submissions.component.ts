@@ -224,6 +224,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           this.technology = data.technologies;
           this.immigration = data.visaStatus;
           this.submissionStatus = data.userSubmissionStatus;
+          
           for (const immigration of this.immigration) {
             immigration.isChecked = false;
           }
@@ -323,7 +324,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
                 if (interviews.dateStr !== "") {
                   let newDate = new Date(interviews.dateStr);
                   interviews.time = moment(newDate).format('h:mm a');
-                }else {
+                } else {
                   interviews.time = "";
                 }
               }
