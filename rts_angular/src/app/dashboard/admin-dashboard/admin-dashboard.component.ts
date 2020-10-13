@@ -8,6 +8,8 @@ import { NgProgress } from 'ngx-progressbar';
 import { Sort } from '@angular/material';
 import { GraphExpansationComponent } from '../../graph-expansation/graph-expansation.component';
 import { subtract } from 'ngx-bootstrap/chronos';
+import { TableUtil } from '../../download-time-sheet/tableUtil';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -87,6 +89,7 @@ export class AdminDashboardComponent implements OnInit {
   sortTeamData: any;
   sortTeamComparisonData: any;
   minDate: Date;
+  selectedDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -98,6 +101,7 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.startDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
+    this.selectedDate = moment(this.startDate).format('MMMM DD, YYYY');
     this.minDate = new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000);
   }
 
@@ -173,6 +177,11 @@ export class AdminDashboardComponent implements OnInit {
           }
         });
   }
+
+  exportExcel() {   
+    TableUtil.exportToExcel("ExcelTable", this.selectedDate);   
+  }
+
 
   getTeamComparisonChart() {
     this.teamComparison = [];

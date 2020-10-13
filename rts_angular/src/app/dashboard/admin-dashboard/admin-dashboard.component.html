@@ -8,8 +8,7 @@
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
-              placeholder="From Date">
+            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
@@ -29,6 +28,102 @@
   </div>
 </div>
 <div class="dashboard-container mt-3">
+
+  <div class="row mt-4">
+
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison Table
+          <span style="float: right;"> <button class="btn btn-sm btn-primary"
+              (click)="exportExcel();">Export</button></span>
+            </h2>
+        </div>
+
+        <div class="chart-scroll-wrapper mt-2">
+          <table class="table table-hover table-bordered table-sm" matSort id="ExcelTable"
+            (matSortChange)="sortRecruiterComparation($event)">
+            <thead class="table-header">
+              <tr>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="submitted">Submitted</th>
+                <th>Interviewed</th>
+                <th>Rejections</th>
+                <th>Selected</th>
+                <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let recruiter of sortedRecruiterComparationData">
+                <td>{{recruiter.name}}</td>
+                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
+                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison</h2>
+        </div>
+        <div class="chart-align-100-400">
+          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+            (select)="onRecruiterComparison($event)">
+          </ngx-charts-bar-vertical-stacked>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="col-block pt-5 mb-4">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Scheduled Interviews</h2>
+          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View
+                all</b></a>
+            IN-Progress Interviews</p>
+        </div>
+        <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+            <thead class="table-header">
+              <tr>
+                <th mat-sort-header="positionName">Position Name</th>
+                <th mat-sort-header="candidateName">Candidate Name</th>
+                <th mat-sort-header="clientName">Client Name</th>
+                <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
+                <th mat-sort-header="InterviewLevel">Interview level</th>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="skype">Skype</th>
+                <th mat-sort-header="phoneNumber">Phone Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
+                <td>{{submission.position.positionName}}</td>
+                <td>{{submission.candidate.name}}</td>
+                <td>{{submission.client.name}}</td>
+                <td><span *ngIf="!submission.time">{{submission.interviewDate | date: 'MMM d, y, hh:mm a'}}</span><span
+                    *ngIf="submission.time">{{submission.interviewDate | date: 'MMM d, y'}},{{submission.time}}</span><span
+                    *ngIf="submission.timeZone">,{{submission.timeZone}}</span></td>
+                <td>{{submission.interviewLevel}}</td>
+                <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+                <td>{{submission.candidate.skype}}</td>
+                <td>{{submission.candidate.phoneNumber}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row mt-4">
     <div class="col-4">
@@ -218,97 +313,6 @@
             [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
             [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-6">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiter Comparison</h2>
-        </div>
-        <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
-            (select)="onRecruiterComparison($event)">
-          </ngx-charts-bar-vertical-stacked>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiter Comparison Table</h2>
-        </div>
-        <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm" matSort
-            (matSortChange)="sortRecruiterComparation($event)">
-            <thead class="table-header">
-              <tr>
-                <th mat-sort-header="recruiterName">Recruiter Name</th>
-                <th mat-sort-header="submitted">Submitted</th>
-                <th>Interviewed</th>
-                <th>Rejections</th>
-                <th>Selected</th>
-                <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let recruiter of sortedRecruiterComparationData">
-                <td>{{recruiter.name}}</td>
-                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
-                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="col-block pt-5 mb-4">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Scheduled Interviews</h2>
-          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View
-                all</b></a>
-            IN-Progress Interviews</p>
-        </div>
-        <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
-        <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
-            <thead class="table-header">
-              <tr>
-                <th mat-sort-header="positionName">Position Name</th>
-                <th mat-sort-header="candidateName">Candidate Name</th>
-                <th mat-sort-header="clientName">Client Name</th>
-                <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-                <th mat-sort-header="InterviewLevel">Interview level</th>
-                <th mat-sort-header="recruiterName">Recruiter Name</th>
-                <th mat-sort-header="skype">Skype</th>
-                <th mat-sort-header="phoneNumber">Phone Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-                <td>{{submission.position.positionName}}</td>
-                <td>{{submission.candidate.name}}</td>
-                <td>{{submission.client.name}}</td>
-                <td><span *ngIf="!submission.time">{{submission.interviewDate | date: 'MMM d, y, hh:mm a'}}</span><span
-                  *ngIf="submission.time">{{submission.interviewDate | date: 'MMM d, y'}},{{submission.time}}</span><span
-                  *ngIf="submission.timeZone">,{{submission.timeZone}}</span></td>
-                <td>{{submission.interviewLevel}}</td>
-                <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
-                <td>{{submission.candidate.skype}}</td>
-                <td>{{submission.candidate.phoneNumber}}</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
