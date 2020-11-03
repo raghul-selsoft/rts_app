@@ -53,12 +53,7 @@
               <input type="text" class="form-input" name="workLocation" formControlName="workLocation"
                 ngModel="{{selectedRequirement.location}}" readonly>
             </div>
-
-            <div class="col-sm-4" *ngIf="selectedSubmission">
-              <label for="currentStatus" class="form-label">Current Status:</label>
-              <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus"
-                ngModel="{{selectedSubmission.currentStatus}}">
-            </div>
+            
 
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="status" class="form-label">Status:</label>
@@ -72,6 +67,12 @@
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
               <input type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
                 ngModel="{{selectedSubmission.reasonForRejection}}">
+            </div>
+
+            <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="currentStatus" class="form-label">Current Status:</label>
+              <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus"
+                ngModel="{{selectedSubmission.currentStatus}}">
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">

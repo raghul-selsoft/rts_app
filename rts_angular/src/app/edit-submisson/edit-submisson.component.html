@@ -42,11 +42,6 @@
                 ngModel="{{selectedSubmission.buyingRate}}">
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
-              <label for="currentStatus" class="form-label">Current Status:</label>
-              <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus"
-                ngModel="{{selectedSubmission.currentStatus}}">
-            </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="clientContactname" class="form-label">Client Contact name:</label>
@@ -86,6 +81,12 @@
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
               <input *ngIf="selectedSubmission" type="text" class="form-input" name="reasonForRejection"
                 formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
+            </div>
+
+            <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="currentStatus" class="form-label">Current Status:</label>
+              <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus"
+                ngModel="{{selectedSubmission.currentStatus}}">
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
@@ -718,7 +719,7 @@
                 <option value="IN-PROGRESS">In-Progress</option>
                 <option value="HOLD">Hold</option>
                 <option value="DELIVERED">Delivered</option>
-                <option value="CLOSED">Closed</option>
+                <option value="CLOSED">Awaiting for offer</option>
                 <option value="DUE_START_ON_DATE">Due Start On Date</option>
                 <option value="BACKOUT">Backout</option>
               </select>
@@ -754,7 +755,7 @@
               <div class="unit-container" formArrayName="units">
                 <div class="units" *ngFor="let field of myForm.controls.units.controls; let i = index">
                   <div class="form-row" [formGroupName]='i'>
-                    <div class="form-group col-2" >
+                    <div class="form-group col-2">
                       <mat-form-field style="width: 9em;">
                         <input matInput [matDatepicker]="fromDatePicker" formControlName="dateStr">
                         <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
@@ -765,7 +766,8 @@
                       <owl-date-time #dateOfLevel [hour12Timer]="true"></owl-date-time> -->
                     </div>
                     <div class="form-group col-2">
-                      <input type="text" class="form-input" ng-pattern="/^([0-9]|2[0-3]):(\.[0-5][0-9])?$/" placeholder="HH:MM AM/PM" name="time" formControlName="time">
+                      <input type="text" class="form-input" ng-pattern="/^([0-9]|2[0-3]):(\.[0-5][0-9])?$/"
+                        placeholder="HH:MM AM/PM" name="time" formControlName="time">
                     </div>
 
                     <div class="form-group col-2">
@@ -790,7 +792,7 @@
                         formControlName="interviewPhoneNumber">
                     </div>
 
-                    <div class="form-group col-2 unit-btn-container" >
+                    <div class="form-group col-2 unit-btn-container">
                       <a class="btn btn-light delete-btn" (click)="removeUnits(i)">
                         <mat-icon>close</mat-icon>
                       </a>

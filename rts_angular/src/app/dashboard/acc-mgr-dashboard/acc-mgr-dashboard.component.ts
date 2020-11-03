@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Sort } from '@angular/material';
 import { GraphExpansationComponent } from '../../graph-expansation/graph-expansation.component';
+import { SubmissionService } from 'src/app/Services/submission.service';
 
 @Component({
   selector: 'app-acc-mgr-dashboard',
@@ -58,10 +59,14 @@ export class AccMgrDashboardComponent implements OnInit {
   interviewReportLength: any;
   sortedData: any;
   minDate: Date;
+  onBoardCandidates: any;
+  interviewsLength: any;
+  sortedOnBoardData: any;
 
   constructor(
     private loggedUser: LoggedUserService,
     private graphService: GraphService,
+    private submissonService: SubmissionService,
     private router: Router,
     private ngProgress: NgProgress
   ) {
@@ -78,6 +83,7 @@ export class AccMgrDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
     this.getInterviewReport();
+    this.getOnboardReminder();
   }
 
   dateFilter() {
@@ -86,6 +92,26 @@ export class AccMgrDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
     this.getInterviewReport();
+    this.getOnboardReminder();
+  }
+
+  getOnboardReminder() {
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const userId = {
+      userId: this.rtsUserId,
+      fromDate: fromDate
+    };
+
+    this.submissonService.GetAllOnBoardReminder(userId)
+      .subscribe(
+        data => {
+            this.ngProgress.done();
+            if (data.success) {
+            this.onBoardCandidates = data.submissionReport;
+            this.interviewsLength = this.onBoardCandidates.length;
+            this.sortedOnBoardData = this.onBoardCandidates.slice();
+          }
+        });
   }
 
   getTeamGraphDetails() {
@@ -240,4 +266,27 @@ export class AccMgrDashboardComponent implements OnInit {
   compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
+
+  sortOnBoardData(sort: Sort) {
+    const data = this.onBoardCandidates.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
+        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
+        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
+        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'interviewStatus': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+ 
 }
