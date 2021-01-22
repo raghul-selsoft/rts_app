@@ -37,6 +37,7 @@ export class EditUserComponent implements OnInit {
   private rtsCompanyId: any;
   private phoneNumber: any;
   userStatus: any;
+  isRoleDisabled: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -58,7 +59,7 @@ export class EditUserComponent implements OnInit {
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
       { 'name': 'HR Manager', 'value': 'HR_MANAGER' },
       // { 'name': 'Trainee', 'value': 'TRAINEE' },
-    ];
+    ];  
   }
 
   ngOnInit() {
@@ -70,9 +71,20 @@ export class EditUserComponent implements OnInit {
 
     this.myForm = this.formBuilder.group({
       firstName: [''],
+      middleName: [''],
       lastName: [''],
       email: [''],
+      personalEmail: [''],
       role: [''],
+      bloodGroup: [''],
+      dateOfJoining: [''],
+      dateOfBirth: [''],
+      landlineNumber: [''],
+      isPermantAddress: [''],
+      mobileNumber: [''],
+      permanentAddress: [''],
+      currentAddress: [''],
+      contactDetails: [''],
       // tslint:disable-next-line:max-line-length
       phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
     });
@@ -95,7 +107,7 @@ export class EditUserComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.userDetails = data.users;
-            this.selectedUser = _.findWhere(this.userDetails, { userId: parseInt(this.userId) });     
+            this.selectedUser = _.findWhere(this.userDetails, { userId: parseInt(this.userId) });
             this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;

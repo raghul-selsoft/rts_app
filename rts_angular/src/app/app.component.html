@@ -9,7 +9,7 @@
   </div>
   <div class="profile-wrapper">
     <div class="profile-name" *ngIf="rtsUser">
-      <p class="user-name">{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
+      <a class="user-name" style="color: white;" [routerLink]="['/edit-user', rtsUser.userId]">{{rtsUser.firstName}} {{rtsUser.lastName}}</a>
       <p class="user-role">Logged in as {{userRole}}</p>
     </div>    
   </div>

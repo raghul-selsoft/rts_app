@@ -1,7 +1,9 @@
 <h2 class="main-title">
-  <a [routerLink]="['/manage-users']">Manage User</a> / Edit User</h2>
+  <a *ngIf="userRole === 'ADMIN' || userRole == 'ACC_MGR'" [routerLink]="['/manage-users']">Manage User /</a> Edit User
+</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 <div class="utility-container">
   <div class="container">
     <form [formGroup]="myForm" (ngSubmit)="updateUser(myForm)">
@@ -10,12 +12,19 @@
 
         <div class="col-sm-4">
           <label for="firstName" class="form-label">First Name:</label>
-          <input type="text" class="form-input" name="firstName" formControlName="firstName" required ngModel="{{firstName}}">
+          <input type="text" class="form-input" name="firstName" formControlName="firstName" required
+            ngModel="{{firstName}}">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="firstName" class="form-label">Middle Name:</label>
+          <input type="text" class="form-input" name="middleName" formControlName="middleName" ngModel="{{middleName}}">
         </div>
 
         <div class="col-sm-4">
           <label for="lastName" class="form-label">Last Name:</label>
-          <input type="text" class="form-input" name="lastName" formControlName="lastName" required ngModel="{{lastName}}">
+          <input type="text" class="form-input" name="lastName" formControlName="lastName" required
+            ngModel="{{lastName}}">
         </div>
 
         <div class="col-sm-4">
@@ -24,11 +33,27 @@
         </div>
 
         <div class="col-sm-4">
-          <label for="phoneNumber" class="form-label">Phone Number:</label>
-          <input type="text" class="form-input" name="phoneNumber" formControlName="phoneNumber" required ngModel="{{phoneNumber}}">
+          <label for="email" class="form-label">Personal Email:</label>
+          <input type="text" class="form-input" name="personalEmail" formControlName="personalEmail" required
+            ngModel="{{personalEmail}}">
         </div>
 
         <div class="col-sm-4">
+          <label for="phoneNumber" class="form-label">Desk Phone Number:</label>
+          <input type="text" class="form-input" name="phoneNumber" formControlName="phoneNumber" required
+            ngModel="{{phoneNumber}}">
+        </div>
+
+        <div class="col-sm-4" *ngIf="userRole === 'RECRUITER' || userRole === 'TL' || userRole === 'HR_MANAGER'">
+          <label for="role" class="form-label">Role:</label>
+          <select name="role" class="form-input" formControlName="role" required ngModel="{{role}}" disabled>
+            <option value="">Select</option>
+            <option *ngFor="let role of userType" value="{{role.value}}">{{role.name}}</option>
+            <option *ngIf="role === 'ADMIN'" value="ADMIN">Admin</option>
+          </select>
+        </div>
+
+        <div class="col-sm-4" *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR'">
           <label for="role" class="form-label">Role:</label>
           <select name="role" class="form-input" formControlName="role" required ngModel="{{role}}">
             <option value="">Select</option>
@@ -37,11 +62,69 @@
           </select>
         </div>
 
+        <div class="col-sm-4">
+          <label for="lastName" class="form-label">Blood Group:</label>
+          <input type="text" class="form-input" name="bloodGroup" formControlName="bloodGroup" required
+            ngModel="{{bloodGroup}}">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="phoneNumber" class="form-label">Mobile Number:</label>
+          <input type="text" class="form-input" name="mobileNumber" formControlName="mobileNumber" required
+            ngModel="{{mobileNumber}}">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="phoneNumber" class="form-label">Landline Number:</label>
+          <input type="text" class="form-input" name="landlineNumber" formControlName="landlineNumber"
+            ngModel="{{landlineNumber}}">
+        </div>
+
+        <div class="col-sm-4" style="margin-top: 2em;">
+          <mat-form-field style="width:320px !important">
+            <input matInput [matDatepicker]="birthDate" [(ngModel)]="dateOfBirth" placeholder="Date of Birth"
+              formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+            <mat-datepicker #birthDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-4" style="margin-top: 2em;">
+          <mat-form-field style="width:320px !important">
+            <input matInput [matDatepicker]="joiningDate" [(ngModel)]="dateOfJoining" placeholder="Date of Joining"
+              formControlName="dateOfJoining">
+            <mat-datepicker-toggle matSuffix [for]="joiningDate"></mat-datepicker-toggle>
+            <mat-datepicker #joiningDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="note" class="form-label" style="display: block;">Current Address:</label>
+          <mat-slide-toggle style="margin-top: 13px;" formControlName="isPermantAddress" [ngModel]="false">Is same as
+            Permant Address
+          </mat-slide-toggle>
+          <textarea rows="3" name="currentAddress" class="form-textarea" formControlName="currentAddress"
+            [(ngModel)]="currentAddress"></textarea>
+        </div>
+        <div class="col-sm-4">
+          <label for="note" class="form-label">Permanent Address:</label>
+          <textarea rows="3" name="permanentAddress" class="form-textarea" formControlName="permanentAddress"
+            [(ngModel)]="permanentAddress"></textarea>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="phoneNumber" class="form-label">Contact details in case of Emergency:</label>
+          <textarea rows="3" name="contactDetails" class="form-textarea" formControlName="contactDetails"
+            [(ngModel)]="contactDetails"></textarea>
+        </div>
+
       </div>
 
       <div class="form-btn-container mt-5">
-        <button class="btn btn-forms btn-space" *ngIf="userStatus === 'Active'" type="submit" [disabled]="!myForm.valid">Update User</button>
-        <button class="btn btn-forms btn-space" *ngIf="userRole === 'ADMIN' && userStatus === 'Active'" type="button" (click)="deleteUser();">Delete User</button>
+        <button class="btn btn-forms btn-space" *ngIf="userStatus === 'Active'" type="submit"
+          [disabled]="!myForm.valid">Update User</button>
+        <button class="btn btn-forms btn-space" *ngIf="userRole === 'ADMIN' && userStatus === 'Active'" type="button"
+          (click)="deleteUser();">Delete User</button>
         <button [routerLink]="[ '/manage-users']" class="btn btn-forms">Cancel</button>
       </div>
     </form>
